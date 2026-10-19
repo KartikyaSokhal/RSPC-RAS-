@@ -1,189 +1,222 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../App.css";
+import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import useResource from '../hooks/useResource.js'
+import SyllabusTree from '../components/study/SyllabusTree.jsx'
+import Skeleton from '../components/ui/Skeleton.jsx'
+import StatusPanel from '../components/ui/StatusPanel.jsx'
+import RajasthanMap from '../components/ui/RajasthanMap.jsx'
 
-const API_BASE = "http://127.0.0.1:8000/api";
+function filterTopics(items, query, filterStatus) {
+  if (!query && filterStatus === 'all') return items
 
-function TopicItem({ item, level = 0, searchQuery = "" }) {
-  const [open, setOpen] = useState(level === 0);
-  const [children, setChildren] = useState(item.children ?? null);
-  const [loadingChildren, setLoadingChildren] = useState(false);
-  const navigate = useNavigate();
+  return items.flatMap(item => {
+    const children = filterTopics(item.children || [], query, filterStatus)
+    const matchesQuery = !query || item.title.toLowerCase().includes(query.toLowerCase())
+    const matchesStatus =
+      filterStatus === 'all' ||
+      (filterStatus === 'ready' && (item.has_notes || children.some(c => c.has_notes))) ||
+      (filterStatus === 'prep' && (!item.has_notes || children.some(c => !c.has_notes)))
 
-  const hasChildren = Array.isArray(children) && children.length > 0;
-
-  // Filter children based on search query
-  const filteredChildren = hasChildren
-    ? children.filter((child) =>
-        child.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
-
-  // Determine if this topic matches search query
-  const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
-  
-  // If search query is active, only render if this item or any of its children match
-  const shouldRender =
-    searchQuery === "" || matchesSearch || filteredChildren.length > 0;
-
-  const handleToggle = async (e) => {
-    e.stopPropagation();
-
-    // Lazy-load children on first expand
-    if (children === null) {
-      try {
-        setLoadingChildren(true);
-        const res = await axios.get(`${API_BASE}/topic/${item.slug}/`);
-        setChildren(res.data.children || []);
-      } catch (err) {
-        console.error("Failed to load children:", err);
-        setChildren([]);
-      } finally {
-        setLoadingChildren(false);
-      }
+    if (matchesQuery && matchesStatus) {
+      return [{ ...item, children }]
     }
-
-    setOpen((prev) => !prev);
-  };
-
-  const handleNavigate = () => {
-    navigate(`/topic/${item.slug}`);
-  };
-
-  useEffect(() => {
-    if (level === 0 && children === null) {
-      handleToggle({ stopPropagation: () => {} });
+    if (children.length > 0) {
+      return [{ ...item, children }]
     }
-  }, []);
+    return []
+  })
+}
 
-  // Force open state if search is active and child elements are matched
-  useEffect(() => {
-    if (searchQuery !== "" && filteredChildren.length > 0) {
-      setOpen(true);
+function countTotalTopics(nodes) {
+  let count = 0
+  for (const n of nodes) {
+    count += 1
+    if (n.children?.length) {
+      count += countTotalTopics(n.children)
     }
-  }, [searchQuery, filteredChildren.length]);
+  }
+  return count
+}
 
-  if (!shouldRender) return null;
-
-  return (
-    <div style={{ marginLeft: level > 0 ? 16 : 0 }} className="topic-node">
-      <div className="topic-header" onClick={handleNavigate}>
-        <div className="topic-title-wrapper">
-          <span className="topic-index">{level + 1}.</span>
-          <span className="topic-title">
-            {item.is_completed && <span style={{ color: "var(--accent-success)", marginRight: "6px" }}>✔</span>}
-            {item.title}
-            {item.is_bookmarked && <span style={{ color: "var(--accent-warning)", marginLeft: "8px" }}>⭐</span>}
-          </span>
-        </div>
-
-        {item.has_children && (
-          <div
-            className={`arrow-icon ${open ? "open" : ""}`}
-            onClick={handleToggle}
-          >
-            ▶
-          </div>
-        )}
-      </div>
-
-      {open && (
-        <div className="subtopics-list">
-          {loadingChildren && <div className="loading block-text">Loading subtopics…</div>}
-
-          {!loadingChildren &&
-            (searchQuery !== "" ? filteredChildren : children || []).map((child) => (
-              <TopicItem
-                key={child.slug}
-                item={child}
-                level={level + 1}
-                searchQuery={searchQuery}
-              />
-            ))}
-        </div>
-      )}
-    </div>
-  );
+function countReadyTopics(nodes) {
+  let count = 0
+  for (const n of nodes) {
+    if (n.has_notes) count += 1
+    if (n.children?.length) {
+      count += countReadyTopics(n.children)
+    }
+  }
+  return count
 }
 
 export default function Home() {
-  const [topics, setTopics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { data, loading, error, retry } = useResource('/topics/?tree=1')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeStream, setActiveStream] = useState('all')
+  const [filterStatus, setFilterStatus] = useState('all')
 
-  useEffect(() => {
-    axios
-      .get(`${API_BASE}/topics/`)
-      .then((res) => {
-        setTopics(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load topics:", err);
-        setLoading(false);
-      });
-  }, []);
+  const allTopics = useMemo(() => data || [], [data])
+  const totalCount = useMemo(() => countTotalTopics(allTopics), [allTopics])
+  const readyCount = useMemo(() => countReadyTopics(allTopics), [allTopics])
+
+  const streamFilteredTopics = useMemo(() => {
+    if (activeStream === 'all') return allTopics
+    return allTopics.filter(t => String(t.id) === String(activeStream) || t.slug === activeStream)
+  }, [allTopics, activeStream])
+
+  const visibleTopics = useMemo(() => {
+    return filterTopics(streamFilteredTopics, searchQuery, filterStatus)
+  }, [streamFilteredTopics, searchQuery, filterStatus])
 
   return (
-    <div className="app">
-      <header className="navbar">
-        <div className="logo-container" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="logo-badge">RPSC</div>
-          <div className="logo-text">Prepal AI</div>
-        </div>
-        <div className="nav-actions">
-          <button className="btn btn-outline" onClick={() => window.open('https://rpsc.rajasthan.gov.in/', '_blank')}>
-            Official Site
-          </button>
-        </div>
-      </header>
-
-      <section className="hero">
-        <div className="hero-content">
-          <span className="hero-tag">AI-Powered Prep</span>
-          <h1 className="hero-title">Master the RPSC RAS Syllabus</h1>
-          <p className="hero-desc">
-            Explore the official syllabus with granular notes, test yourself with timed quizzes, and resolve doubts instantly with your personal AI Study Companion.
+    <div className="page home-page">
+      {/* HERO SECTION: LEFT COPY & CTAS | RIGHT RAJASTHAN MAP */}
+      <section className="home-hero-grid" aria-labelledby="hero-title">
+        <div className="hero-content-col">
+          <span className="eyebrow">RPSC / RAS Examination Platform</span>
+          <h1 id="hero-title" className="hero-title">
+            Master the Rajasthan<br />
+            <em>Administrative Services</em> Syllabus.
+          </h1>
+          <p className="hero-description">
+            Study with clarity and perspective. Explore all 152 curriculum topics across Rajasthan history, Indian geography, and state administration with verified source notes and reviewed practice.
           </p>
-          <button className="btn btn-primary" onClick={() => document.getElementById("syllabus").scrollIntoView({ behavior: 'smooth' })}>
-            Start Exploring 📚
-          </button>
+          <div className="hero-cta-group">
+            <a href="#syllabus-explorer" className="button primary hero-primary-btn">
+              Explore Syllabus ↓
+            </a>
+            <Link to="/search" className="button hero-secondary-btn">
+              Search Topics ⌕
+            </Link>
+          </div>
+        </div>
+
+        <div className="hero-visual-col" aria-hidden="true">
+          <RajasthanMap className="home-rajasthan-graphic" />
         </div>
       </section>
 
-      <main className="syllabus-container" id="syllabus">
-        <div className="syllabus-card">
-          <div className="search-container">
-            <span className="search-icon">🔍</span>
+      {/* COMPACT SUMMARY METRICS SECTION ABOVE SYLLABUS LIST */}
+      <section className="syllabus-stats-summary" aria-label="Curriculum Overview Statistics">
+        <div className="summary-stat-pill">
+          <span className="pill-dot blue" />
+          <span className="pill-label">Total Curriculum Topics:</span>
+          <strong>{totalCount || 152}</strong>
+        </div>
+        <div className="summary-stat-pill">
+          <span className="pill-dot amber" />
+          <span className="pill-label">Core Streams:</span>
+          <strong>{allTopics.length || 5} Subjects</strong>
+        </div>
+        <div className="summary-stat-pill">
+          <span className="pill-dot green" />
+          <span className="pill-label">Verified Notes Ready:</span>
+          <strong>{readyCount || 10} Topics</strong>
+        </div>
+      </section>
+
+      {/* SYLLABUS DIRECTORY EXPLORER */}
+      <section className="syllabus-explorer-section" id="syllabus-explorer" aria-label="Syllabus Directory Explorer">
+        <div className="explorer-filters-card">
+          <div className="search-field full-width">
+            <span aria-hidden="true">⌕</span>
             <input
-              type="text"
-              placeholder="Search syllabus segments and subtopics..."
-              className="search-input"
+              type="search"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Filter topics (e.g., 'Guhila', 'Kalibangan', 'Palaeolithic', 'Monsoon')..."
+              aria-label="Filter syllabus topics"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                className="clear-search-btn"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear filter"
+              >
+                ✕
+              </button>
+            )}
           </div>
 
-          {loading ? (
-            <div style={{ padding: "40px 0" }}>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "100%" }}></div>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "95%" }}></div>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "90%" }}></div>
+          <div className="filter-controls-row">
+            {allTopics.length > 1 && (
+              <div className="stream-tabs" role="tablist" aria-label="Syllabus curriculum streams">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeStream === 'all'}
+                  className={`stream-tab ${activeStream === 'all' ? 'active' : ''}`}
+                  onClick={() => setActiveStream('all')}
+                >
+                  All Streams ({totalCount || 152})
+                </button>
+                {allTopics.map(root => (
+                  <button
+                    type="button"
+                    key={root.id}
+                    role="tab"
+                    aria-selected={activeStream === String(root.id)}
+                    className={`stream-tab ${activeStream === String(root.id) ? 'active' : ''}`}
+                    onClick={() => setActiveStream(String(root.id))}
+                    title={root.title}
+                  >
+                    {root.title.length > 32 ? root.title.slice(0, 30) + '…' : root.title}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className="status-toggle-group" role="group" aria-label="Filter by lesson preparation status">
+              <button
+                type="button"
+                className={`status-toggle-btn ${filterStatus === 'all' ? 'active' : ''}`}
+                onClick={() => setFilterStatus('all')}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                className={`status-toggle-btn ${filterStatus === 'ready' ? 'active' : ''}`}
+                onClick={() => setFilterStatus('ready')}
+              >
+                <span className="dot green" /> Notes ready
+              </button>
+              <button
+                type="button"
+                className={`status-toggle-btn ${filterStatus === 'prep' ? 'active' : ''}`}
+                onClick={() => setFilterStatus('prep')}
+              >
+                <span className="dot gray" /> In preparation
+              </button>
             </div>
+          </div>
+        </div>
+
+        {/* TOPICS TREE LIST */}
+        <div className="syllabus-tree-container">
+          {loading ? (
+            <Skeleton label="Loading verified syllabus topics…" />
+          ) : error ? (
+            <StatusPanel title="Syllabus directory is temporarily unreachable" retry={retry}>
+              Unable to load the RPSC examination hierarchy. Please refresh or try again in a moment.
+            </StatusPanel>
+          ) : visibleTopics.length > 0 ? (
+            <SyllabusTree topics={visibleTopics} activeTopicId={null} defaultExpandedDepth={1} />
           ) : (
-            <div className="syllabus-tree">
-              {topics.map((topic) => (
-                <TopicItem
-                  key={topic.slug}
-                  item={topic}
-                  searchQuery={searchQuery}
-                />
-              ))}
+            <div className="no-filter-results card">
+              <p>No syllabus topics matched “{searchQuery}”.</p>
+              <button
+                type="button"
+                className="button small"
+                onClick={() => { setSearchQuery(''); setActiveStream('all'); setFilterStatus('all') }}
+              >
+                Reset Filters
+              </button>
             </div>
           )}
         </div>
-      </main>
+      </section>
     </div>
-  );
+  )
 }
