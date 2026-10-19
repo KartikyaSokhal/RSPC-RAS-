@@ -1,0 +1,17 @@
+[Unit]
+Description=Prepal Django API and Admin
+After=network.target
+[Service]
+User=prepal
+Group=prepal
+WorkingDirectory=/srv/prepal/current/backend
+EnvironmentFile=/etc/prepal/environment
+ExecStart=/srv/prepal/current/backend/.venv/bin/gunicorn --config gunicorn.conf.py core.wsgi:application
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/srv/prepal/data /srv/prepal/private-media /srv/prepal/static
+[Install]
+WantedBy=multi-user.target

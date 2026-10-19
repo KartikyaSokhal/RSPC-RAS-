@@ -1,77 +1,39 @@
-# Prepal AI - Architecture Reference
+# Implemented Architecture — PREPAL 1.0
 
-This document explains the architecture, data flow, and RAG integration for the Prepal AI platform.
+## 1. System Topology & Technology Stack
+- **Frontend**: React 19 (SPA) with Vite. Modular architecture with lazy-loaded routes and PDF worker chunks. Vanilla CSS design system with CSS custom properties (`tokens.css`, `App.css`). No heavy component or animation frameworks.
+- **Backend**: Django 5.x on Python 3.12 with Django REST Framework. SQLite database with WAL mode and 5-second lock timeout.
+- **Development & Production Proxies**: In development, Vite proxies `/api` to Django loopback (`127.0.0.1:8000`). In production, Nginx or Cloudflare serves static assets from `dist/` and forwards `/api`, `/admin`, and `/static` to Gunicorn/Uvicorn.
+- **State & Session Persistence**: Authentication uses Django's secure, HTTP-only session cookies (`sessionid` and `csrftoken`). No auth tokens are stored in browser `localStorage`. Theme preference (`light`/`dark`) is the only state persisted client-side.
 
----
+## 2. Authentication & Student Ownership Architecture
+- **Session Auth**: Endpoints `/api/auth/register/`, `/api/auth/login/`, `/api/auth/logout/`, and `/api/auth/status/` manage student identities using Django's built-in `django.contrib.auth`.
+- **Model Ownership**:
+  - `Bookmark`, `UserProgress`, and `QuizAttempt` models include a nullable `user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)`.
+  - Conditional constraints (`UniqueConstraint(fields=['user', 'topic'], condition=Q(user__isnull=False))`) ensure single-user uniqueness while preserving legacy records (`user=None`).
+  - All learner endpoints strictly filter by `user=request.user` when authenticated, preventing any cross-user data leakage.
+- **Unauthenticated Guests**: Public syllabus browsing, note reading, and search remain 100% accessible to unauthenticated guests without leaking or writing to shared records.
 
-## 1. System Overview
+## 3. Search Engine Architecture
+- **In-Memory SQLite Search (`content/services/search.py`)**:
+  - Searches all 152 discoverable syllabus topics, verified notes, and approved PDFs.
+  - Normalizes whitespace and executes case-insensitive partial word queries.
+  - Generates typo tolerance suggestions using Python's standard `difflib.get_close_matches(word, vocabulary, cutoff=0.72)`.
+  - Draft note bodies and unapproved PDFs are strictly excluded from search querysets.
 
-Prepal AI utilizes a decoupled client-server architecture. The frontend application fetches rendering data and interacts with services using REST endpoints.
+## 4. Student Dashboard & Deterministic Progress
+- Endpoint `/api/dashboard/` evaluates user-scoped progress:
+  - Progress percentage: `(completed_topics / total_topics) * 100`.
+  - Saved bookmarks count and list.
+  - Quiz attempts history with scores and timestamps.
+  - Deterministic suggested next topics: analyzes uncompleted topics within current streams without inventing synthetic "AI mastery scores".
 
-```mermaid
-graph TD
-  A[React Frontend] -->|HTTP Requests| B[Django REST Framework]
-  B -->|Queries| C[(SQLite DB)]
-  B -->|AI Context + User Query| D[Google Gemini API]
-```
+## 5. RAG & AI Tutor Safety Controls
+- **Scoped Retrieval**: `DatabaseRetrievalProvider` retrieves only the current lesson text, approved PDF pages, and up to two explicitly linked prerequisite/connected topics with opt-in.
+- **Budget & Quota Reservations**: Pre-allocated spend caps and per-session rate limits prevent runaway API billing.
+- **Answer Integrity**: Real source citations are validated against a server manifest; invalid or out-of-scope citations fail closed.
 
----
-
-## 2. Frontend Architecture
-* **State Management:** Simple reactive React hooks (`useState`, `useEffect`).
-* **Routing:** `react-router-dom` handles page paths (`/` for home, `/topic/:slug` for reading room, `/quiz/:slug` for testing).
-* **Styling:** Modular CSS styled with modern custom properties (colors, typography, grid/flex layouts).
-
----
-
-## 3. Backend Architecture
-* **Routing & Controllers:** Django REST framework handles requests, executes custom RAG or quiz logic, and returns formatted JSON data.
-* **Content Service:** Django Admin manages syllabus uploads. DB queries are highly optimized to fetch syllabus hierarchies efficiently.
-* **AI Service (RAG):** The AI module is completely isolated in `ai_engine.py`. This ensures we can migrate to vector databases (like Vertex AI Vector Search) without changing view endpoints or API schemas.
-
----
-
-## 4. RAG Chatbot Data Flow
-
-When a user submits a question on a topic page, the RAG engine performs the following tasks:
-
-```mermaid
-sequenceDiagram
-  autonumber
-  User->>Frontend: Type question & click Send
-  Frontend->>Backend: POST /api/topic/{slug}/chat/ (message)
-  Backend->>Database: Query Topic & ContentBlocks
-  Database-->>Backend: Return text content (notes)
-  Backend->>Backend: Build context template & isolate prompt
-  Backend->>Gemini API: generate_content(context + query)
-  Gemini API-->>Backend: Return text response
-  Backend-->>Frontend: Return JSON { response: ... }
-  Frontend-->>User: Render bot bubble on screen
-```
-
----
-
-## 5. Timed Quiz Flow
-
-```mermaid
-sequenceDiagram
-  autonumber
-  User->>Frontend: Click "Start Timed Quiz"
-  Frontend->>Backend: GET /api/topic/{slug}/quiz/
-  Backend->>Database: Get Questions & Choices
-  Database-->>Backend: Return Quiz Data
-  Backend-->>Frontend: Return JSON Quiz details
-  Frontend->>Frontend: Start Timer
-  User->>Frontend: Answer MCQs
-  Frontend->>Backend: POST /api/topic/{slug}/quiz/submit/ (answers)
-  Backend->>Backend: Calculate score and performance metrics
-  Backend-->>Frontend: Return JSON { score: X, total: Y, correct_answers: [...] }
-  Frontend-->>User: Display scorecard
-```
-
----
-
-## 6. Future Scalability
-* **Vector DB Integration:** If notes expand to thousands of pages, the query engine can easily switch to pgvector or Vertex AI, using embeddings to retrieve the top 3-5 most relevant chunks.
-* **Model Upgrades:** The isolated `ai_engine.py` allows upgrading models (e.g. from `gemini-2.5-flash` to advanced reasoning models) with a single string replacement.
-* **Caching Layer:** Introduce Redis to cache RAG contexts and repeat questions, reducing latency and api costs.
+## 6. Schema Migrations & Isolation
+- Schema migration `0006_learner_ownership.py` is purely additive.
+- Tested and verified on copy `.local/demo/demo.sqlite3` and in-memory test runner.
+- Production database `backend/db.sqlite3` remains on its verified baseline until owner approval.

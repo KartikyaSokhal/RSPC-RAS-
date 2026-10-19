@@ -1,135 +1,38 @@
-# Prepal AI - API Reference Manual
+# Current API Contracts — PREPAL 1.0
 
-This file lists the specifications for all REST endpoints exposed by the Django Backend.
+All routes are under `/api/`; public responses use `Cache-Control: no-store`. Standard error responses use `{ "error": { "code": "...", "message": "..." } }`. Unauthenticated requests retain full public reading access.
 
----
+## 1. Authentication Endpoints
 
-## 1. Syllabus Catalog
+| Method / Path | Auth Required | Request Payload | Response | Behavior |
+|---|---|---|---|---|
+| POST `auth/register/` | No | `{ "username": "...", "password": "...", "email": "...", "name": "..." }` | `{ "authenticated": true, "user": { "id": 1, "username": "...", "name": "..." } }` | Creates student account, starts session, sets session cookies. Password must be ≥ 8 chars. |
+| POST `auth/login/` | No | `{ "username": "...", "password": "..." }` | `{ "authenticated": true, "user": { ... } }` | Authenticates credentials, rotates CSRF, establishes session. |
+| POST `auth/logout/` | Yes | `{}` | `{ "authenticated": false, "message": "Logged out." }` | Flushes session cookies. |
+| GET `auth/status/` | No | None | `{ "authenticated": bool, "user": {...} \| null }` | Returns current session authentication state and user profile. |
 
-### List Root Topics
-* **Endpoint:** `/api/topics/`
-* **Method:** `GET`
-* **Authentication:** None
-* **Response (200 OK):**
-  ```json
-  [
-    {
-      "title": "History, Art & Culture of Rajasthan",
-      "slug": "history-art-culture-heritage",
-      "has_children": true
-    }
-  ]
-  ```
+## 2. Student Dashboard & Learner Endpoints
 
-### Topic Detail & Reading Content
-* **Endpoint:** `/api/topic/<slug:slug>/`
-* **Method:** `GET`
-* **Authentication:** None
-* **Response (200 OK):**
-  ```json
-  {
-    "title": "Ancient & Medieval Period",
-    "slug": "ancient-medieval-period",
-    "children": [
-      {
-        "title": "Pre-historical Sites",
-        "slug": "pre-historical-sites",
-        "has_children": false
-      }
-    ],
-    "blocks": [
-      {
-        "block_type": "heading",
-        "content": "Pre-historic Archaeological Sites",
-        "file": null,
-        "order": 1
-      },
-      {
-        "block_type": "text",
-        "content": "Detailed text notes about sites like Bagore, Tilwara...",
-        "file": null,
-        "order": 2
-      }
-    ]
-  }
-  ```
+| Method / Path | Auth Required | Request / Query | Response | Behavior |
+|---|---|---|---|---|
+| GET `dashboard/` | Yes | None | `{ "stats": { "total_topics": 152, "total_completed": n, "progress_percentage": n, "total_bookmarks": n, "total_quizzes_taken": n }, "bookmarks": [...], "completed_topics": [...], "quiz_attempts": [...], "suggested_next": [...] }` | User-scoped progress metrics, bookmarks, completion list, quiz history, and deterministic suggestions. |
+| GET `bookmarks/` | Yes | None | `[ { "id": 1, "topic": { "slug": "...", "title": "..." }, "created_at": "..." } ]` | Lists all bookmarks owned by the authenticated student. |
+| POST `topic/<slug>/bookmark/` | Yes | `{}` | `{ "is_bookmarked": bool, "message": "..." }` | Toggles bookmark for current student. 401 if unauthenticated. |
+| GET `progress/` | Yes | None | `[ { "id": 1, "topic": { "slug": "...", "title": "..." }, "completed": bool } ]` | Lists all topic completion records for current student. |
+| POST `topic/<slug>/progress/` | Yes | `{ "completed": bool }` (optional) | `{ "is_completed": bool, "message": "..." }` | Toggles topic completion for current student. 401 if unauthenticated. |
+| POST `topic/<slug>/quiz/submit/` | Yes | `{ "quiz_id": 1, "revision_token": "...", "answers": { "1": 2 } }` | `{ "score": 100, "total": 1, "attempt_id": 1, "results": [...] }` | Evaluates answers, records owned `QuizAttempt`, returns question-level explanations. |
 
----
+## 3. Public Discovery & Reading Endpoints
 
-## 2. AI Chatbot
-
-### Ask AI Doubts (RAG)
-* **Endpoint:** `/api/topic/<slug:slug>/chat/`
-* **Method:** `POST`
-* **Authentication:** None (Optional session token)
-* **Request Payload:**
-  ```json
-  {
-    "message": "Where is the site of Bagore located?"
-  }
-  ```
-* **Response (200 OK):**
-  ```json
-  {
-    "response": "Bagore is located on the Kothari river in Bhilwara district..."
-  }
-  ```
-* **Error Responses:**
-  * **400 Bad Request:** `{ "error": "Message field is required." }`
-  * **503 Service Unavailable:** `{ "error": "Gemini API key is not configured or service is down." }`
-
----
-
-## 3. MCQ Quiz Engine
-
-### Fetch Topic Quiz
-* **Endpoint:** `/api/topic/<slug:slug>/quiz/`
-* **Method:** `GET`
-* **Authentication:** None
-* **Response (200 OK):**
-  ```json
-  {
-    "quiz_title": "Ancient Period MCQ Challenge",
-    "time_limit_seconds": 600,
-    "questions": [
-      {
-        "id": 15,
-        "question_text": "Which river flows near the archaeological site of Bagore?",
-        "choices": [
-          {"id": 41, "text": "Banaili"},
-          {"id": 42, "text": "Kothari"},
-          {"id": 43, "text": "Luni"}
-        ]
-      }
-    ]
-  }
-  ```
-
-### Submit Quiz Responses
-* **Endpoint:** `/api/topic/<slug:slug>/quiz/submit/`
-* **Method:** `POST`
-* **Authentication:** None
-* **Request Payload:**
-  ```json
-  {
-    "answers": {
-      "15": 42
-    }
-  }
-  ```
-* **Response (200 OK):**
-  ```json
-  {
-    "score": 1,
-    "total": 1,
-    "percentage": 100.0,
-    "results": [
-      {
-        "question_id": 15,
-        "user_answer": 42,
-        "correct_answer": 42,
-        "is_correct": true
-      }
-    ]
-  }
-  ```
+| Method / Path | Auth Required | Behavior |
+|---|---|---|
+| GET `health/` | No | `{ "status": "ok" }` when publication schema/database is readable. |
+| GET `config/` | No | Feature flags (`demo`, `ai_enabled`), CSRF token. |
+| GET `topics/?tree=1` | No | Returns full 152-topic syllabus hierarchy. If authenticated, annotates each node with `is_bookmarked` and `is_completed`. |
+| GET `topic/<slug>/` | No | Approved blocks, revision, breadcrumbs, children, related links, resources. Annotates with student's `is_bookmarked` and `is_completed` if authenticated. |
+| GET `search/?q=...&page=1` | No | Searches all 152 discoverable topics, published notes, and approved PDFs. Returns `{ "total": n, "results": [...], "suggestion": "..." }` with typo tolerance. |
+| GET `resources/<id>/?page=1` | No | Approved published resource metadata, extracted page text, authorized file URL. |
+| GET `resources/<id>/file/` | No | Hash-checked PDF stream only while approved and referenced by published topic. |
+| GET `topic/<slug>/quiz/?quiz_id=<id>` | No | Reviewed quiz structure, ordered questions/choices, expiring revision token. No answers leaked. |
+| POST `topic/<slug>/quiz/check/` | No | CSRF + revision token; stateless read-only grading and explanations for guests. |
+| POST `topic/<slug>/chat/` | No | CSRF + visitor cookie; scoped RAG answering grounded in lesson sources and approved PDFs. |

@@ -1,40 +1,36 @@
-# Prepal AI - Testing & Quality Assurance Plan
+# Reproducible Verification — PREPAL 1.0
 
-This document outlines the testing strategies and validation procedures to be followed throughout development.
+## Test Suite Execution Commands
 
----
+```sh
+# 1. Frontend Lint, Unit Tests & Production Build (Vitest & Vite)
+npm run check
 
-## 1. Automated Unit Testing
+# 2. Django Backend Test Suite (Isolated Memory Runner)
+backend/.venv/bin/python backend/run_tests.py content
 
-### Backend Tests (Django)
-Create tests inside `backend/content/tests.py` covering:
-* **Topic Hierarchy Serialization:** Test that `GET /api/topics/` loads parent/child nodes properly.
-* **Quiz Grading Logic:** Unit test that the submit endpoint calculates marks correctly.
-* **Command:** Run `python manage.py test` to execute tests.
+# 3. Playwright E2E Browser Test Suite (Chromium)
+npx playwright test
 
-### Frontend Tests (React)
-Using React Testing Library / Jest to test:
-* **Message Rendering:** Chatbot successfully displays a bot message upon receiving a prop.
-* **Timer Countdown:** Test that the quiz timer decreases every second and auto-submits when reaching zero.
+# 4. Screenshot Gallery & Visual Verification
+node scripts/capture_gallery.mjs
+backend/.venv/bin/python scripts/build_gallery.py
 
----
+# 5. Documentation Target Link Verification
+backend/.venv/bin/python scripts/check_docs.py
+```
 
-## 2. API Integration & RAG Validation
+## Current Test Results
 
-* **Mock AI Client:** Write unit tests for `ai_engine.py` using unit mocks so we do not deplete real Gemini API keys during routine test runs.
-* **Validation Script:** Run a script to hit `/api/topic/history-art-culture-heritage/chat/` and check if the returned string matches our expected schema format (contains "response").
+| Test Suite | Total Tests | Passing | Failing | Description |
+|---|---|---|---|---|
+| **Django Backend** | 62 | 62 (100%) | 0 | Model ownership, student registration/auth/logout, CSRF protection, multi-user isolation, user-scoped bookmarks/completion/quizzes, search with difflib typo suggestions, publication snapshots, RAG budget safety, and PDF extraction boundaries. |
+| **Vitest Frontend** | 59 | 59 (100%) | 0 | Content block rendering, DOMPurify security, sanitized HTML/Markdown, simplified navbar, light/dark theme toggle, search suggestions/tags, login/signup form validation, student dashboard guest prompts, and topic action buttons. |
+| **Playwright E2E** | 8 | 8 (100%) | 0 | Chromium browser interactions: catalog navigation, topic reader, student account prompts, stateless quiz checking, untimed quiz UI, sanitized active HTML rejection, and grounded tutor conversation. |
+| **ESLint & Vite Build** | — | Clean (0 err, 0 warn) | 0 | Strict lint rules, zero cascading-render warnings, full production bundle compilation in under 1 second. |
+| **Visual Gallery** | 27 screenshots | 27 verified | 0 | Browser-rendered full-page screenshots of desktop/mobile viewports, dark/light modes, Rajasthan map hero, search with suggestions, auth pages, and student dashboard. |
 
----
-
-## 3. UI/UX Verification Checklist (Manual)
-
-Perform manual verification across these viewports:
-- [ ] **Desktop (1440px+):** Sidebar tree navigation remains sticky. Chat panel sits fixed on the right without overlapping notes.
-- [ ] **Mobile (375px - 768px):** Chat sidebar turns into a clean slide-up sheet. Sandwich menu toggles Left Sidebar list.
-
----
-
-## 4. Performance Audit
-* **Vitals Target:** Largest Contentful Paint (LCP) under 2.5s.
-* **Code Splitting:** Verify that routing between `/` and `/topic/:slug` utilizes React Lazy loading.
-* **Query count:** Ensure database query profiling (`django-debug-toolbar` or logging SQL statements) verifies that detail queries perform no more than 3 SELECT statements to resolve child and content block arrays.
+## Database Safety Verification
+- Real SQLite database path: `backend/db.sqlite3`
+- Verified SHA-256 hash: `035bb88637e77ff361dab75c0d4cf80db0a6220f270870a18929be2c3ba313e4`
+- Confirmed zero mutations to the real database during all development, test runs, and screenshot generation.

@@ -22,6 +22,9 @@ jspm_packages/
 # Frontend build output
 dist/
 dist-ssr/
+coverage/
+test-results/
+playwright-report/
 .next/
 out/
 
@@ -33,6 +36,7 @@ out/
 .pytest_cache/
 .tox/
 .venv/
+.venv-test/
 venv/
 ENV/
 env/
@@ -61,3 +65,47 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Private runtime state and environment variants
+.env.*
+!.env.example
+*.sqlite3-*
+*.db-*
+backend/private-media/
+backend/media/
+backend/staticfiles/
+.local/
+backups/
+
+# Local-only development planning, historical audit files, and verification evidence
+docs/evidence/
+docs/history/
+docs/proposals/
+docs/design/
+docs/ADMIN_WORKFLOW.md
+docs/AGENT_HANDOFF.md
+docs/APPROVAL_SUMMARY.md
+docs/DECISIONS.md
+docs/DESIGN_SYSTEM.md
+docs/MVP_SCOPE.md
+docs/PRODUCT_VISION.md
+docs/PROJECT_STATUS.md
+docs/README.md
+docs/REPOSITORY_PLAN.md
+docs/REVIEW_PASSES.md
+docs/SYSTEM_DESIGN.md
+docs/USER_FLOWS.md
+docs/FEATURES.md
+docs/PROJECT_ANALYSIS.md
+docs/SKILLS.md
+docs/TASKS.md
+docs/IMPLEMENTATION_PLAN.md
+docs/AI_SYSTEM.md
+docs/CHANGELOG.md
+docs/UI_UX_PLAN.md
+
+# Legacy retired Express backend (local copies preserved)
+backend/package.json
+backend/package-lock.json
+backend/src/
+
