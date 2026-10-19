@@ -1,0 +1,996 @@
+[
+  {
+    "id": 5,
+    "title": "History, Art, Culture, Literature, Tradition & Heritage of Rajasthan",
+    "slug": "history-art-culture-literature-tradition-heritage",
+    "parent_id": null,
+    "order": 1
+  },
+  {
+    "id": 6,
+    "title": "1. Pre-historical sites of Rajasthan",
+    "slug": "1-pre-historical-sites-of-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 7,
+    "title": "a. from Palaeolithic to Chalcolithic and",
+    "slug": "a-from-palaeolithic-to-chalcolithic-and",
+    "parent_id": 6,
+    "order": 0
+  },
+  {
+    "id": 8,
+    "title": "b. Bronze Age",
+    "slug": "b-bronze-age",
+    "parent_id": 6,
+    "order": 0
+  },
+  {
+    "id": 9,
+    "title": "2. Historical Rajasthan",
+    "slug": "2-historical-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 10,
+    "title": "a. Important historical centres of Early Christian Era.",
+    "slug": "a-important-historical-centres-of-early-christian",
+    "parent_id": 9,
+    "order": 0
+  },
+  {
+    "id": 11,
+    "title": "b. Society, Religion and Culture in Ancient Rajasthan.",
+    "slug": "b-society-religion-and-culture-in-ancient-rajastha",
+    "parent_id": 9,
+    "order": 0
+  },
+  {
+    "id": 12,
+    "title": "3. Political and Cultural achievements of prominent rulers of major dynasties",
+    "slug": "3-political-and-cultural-achievements-of-prominent",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 13,
+    "title": "a. Guhila",
+    "slug": "a-guhila",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 14,
+    "title": "b. Pratihar",
+    "slug": "b-pratihar",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 15,
+    "title": "c. Chauhan",
+    "slug": "c-chauhan",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 16,
+    "title": "d. Parmar",
+    "slug": "d-parmar",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 17,
+    "title": "e. Rathore",
+    "slug": "e-rathore",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 18,
+    "title": "f. Sisodiya",
+    "slug": "f-sisodiya",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 19,
+    "title": "g. Kachchawa",
+    "slug": "g-kachchawa",
+    "parent_id": 12,
+    "order": 0
+  },
+  {
+    "id": 20,
+    "title": "4. Administrative and Revenue System in Medieval Rajasthan.",
+    "slug": "4-administrative-and-revenue-system-in-medieval-ra",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 21,
+    "title": "5. Emergence of Modern Rajasthan",
+    "slug": "5-emergence-of-modern-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 22,
+    "title": "a. Agents of Social Awakening in Rajasthan during 19th - 20th Centuries",
+    "slug": "a-agents-of-social-awakening-in-rajasthan-during-1",
+    "parent_id": 21,
+    "order": 0
+  },
+  {
+    "id": 23,
+    "title": "b. Political Awakening",
+    "slug": "b-political-awakening",
+    "parent_id": 21,
+    "order": 0
+  },
+  {
+    "id": 24,
+    "title": "i. role of newspapers",
+    "slug": "i-role-of-newspapers",
+    "parent_id": 23,
+    "order": 0
+  },
+  {
+    "id": 25,
+    "title": "ii. political institutions",
+    "slug": "ii-political-institutions",
+    "parent_id": 23,
+    "order": 0
+  },
+  {
+    "id": 26,
+    "title": "c. Tribal and Peasant movements in 20th century",
+    "slug": "c-tribal-and-peasant-movements-in-20th-century",
+    "parent_id": 21,
+    "order": 0
+  },
+  {
+    "id": 27,
+    "title": "d. Praja Mandal movements in various princely states during 20th century",
+    "slug": "d-praja-mandal-movements-in-various-princely-state",
+    "parent_id": 21,
+    "order": 0
+  },
+  {
+    "id": 28,
+    "title": "e. Integration of Rajasthan",
+    "slug": "e-integration-of-rajasthan",
+    "parent_id": 21,
+    "order": 0
+  },
+  {
+    "id": 29,
+    "title": "6. Architectural Tradition of Rajasthan",
+    "slug": "6-architectural-tradition-of-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 30,
+    "title": "a. Temples",
+    "slug": "a-temples",
+    "parent_id": 29,
+    "order": 0
+  },
+  {
+    "id": 31,
+    "title": "b. Forts",
+    "slug": "b-forts",
+    "parent_id": 29,
+    "order": 0
+  },
+  {
+    "id": 32,
+    "title": "c. Palaces",
+    "slug": "c-palaces",
+    "parent_id": 29,
+    "order": 0
+  },
+  {
+    "id": 33,
+    "title": "d. Man-made water bodies",
+    "slug": "d-man-made-water-bodies",
+    "parent_id": 29,
+    "order": 0
+  },
+  {
+    "id": 34,
+    "title": "7. Various schools of paintings and handicrafts",
+    "slug": "7-various-schools-of-paintings-and-handicrafts",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 35,
+    "title": "8. Performing Art",
+    "slug": "8-performing-art",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 36,
+    "title": "a. Classical Music",
+    "slug": "a-classical-music",
+    "parent_id": 35,
+    "order": 0
+  },
+  {
+    "id": 37,
+    "title": "b. Classical Dance",
+    "slug": "b-classical-dance",
+    "parent_id": 35,
+    "order": 0
+  },
+  {
+    "id": 38,
+    "title": "c. Folk Music & Instruments",
+    "slug": "c-folk-music-instruments",
+    "parent_id": 35,
+    "order": 0
+  },
+  {
+    "id": 39,
+    "title": "d. Folk Dances & Drama",
+    "slug": "d-folk-dances-drama",
+    "parent_id": 35,
+    "order": 0
+  },
+  {
+    "id": 40,
+    "title": "9. Language & Literature",
+    "slug": "9-language-literature",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 41,
+    "title": "a. Dialects of Rajasthani Language",
+    "slug": "a-dialects-of-rajasthani-language",
+    "parent_id": 40,
+    "order": 0
+  },
+  {
+    "id": 42,
+    "title": "b. Literature of Rajasthani language",
+    "slug": "b-literature-of-rajasthani-language",
+    "parent_id": 40,
+    "order": 0
+  },
+  {
+    "id": 43,
+    "title": "c. Folk literature",
+    "slug": "c-folk-literature",
+    "parent_id": 40,
+    "order": 0
+  },
+  {
+    "id": 44,
+    "title": "10. Religious Life",
+    "slug": "10-religious-life",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 45,
+    "title": "a. Religious Communities",
+    "slug": "a-religious-communities",
+    "parent_id": 44,
+    "order": 0
+  },
+  {
+    "id": 46,
+    "title": "b. Saints and Sects in Rajasthan",
+    "slug": "b-saints-and-sects-in-rajasthan",
+    "parent_id": 44,
+    "order": 0
+  },
+  {
+    "id": 47,
+    "title": "c. Folk Deities of Rajasthan",
+    "slug": "c-folk-deities-of-rajasthan",
+    "parent_id": 44,
+    "order": 0
+  },
+  {
+    "id": 48,
+    "title": "11. Social Life in Rajasthan",
+    "slug": "11-social-life-in-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 49,
+    "title": "a. Fairs and Festivals",
+    "slug": "a-fairs-and-festivals",
+    "parent_id": 48,
+    "order": 0
+  },
+  {
+    "id": 50,
+    "title": "b. Social customs and traditions",
+    "slug": "b-social-customs-and-traditions",
+    "parent_id": 48,
+    "order": 0
+  },
+  {
+    "id": 51,
+    "title": "c. Attires and Ornaments",
+    "slug": "c-attires-and-ornaments",
+    "parent_id": 48,
+    "order": 0
+  },
+  {
+    "id": 52,
+    "title": "12. Leading Personalities of Rajasthan",
+    "slug": "12-leading-personalities-of-rajasthan",
+    "parent_id": 5,
+    "order": 0
+  },
+  {
+    "id": 54,
+    "title": "Ancient & Medieval Period",
+    "slug": "ancient-medieval-period",
+    "parent_id": null,
+    "order": 2
+  },
+  {
+    "id": 55,
+    "title": "1. Cultural Foundations of India",
+    "slug": "1-cultural-foundations-of-india",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 56,
+    "title": "a. Indus and Vedic Age",
+    "slug": "a-indus-and-vedic-age",
+    "parent_id": 55,
+    "order": 0
+  },
+  {
+    "id": 57,
+    "title": "b. Renunciatory tradition",
+    "slug": "b-renunciatory-tradition",
+    "parent_id": 55,
+    "order": 0
+  },
+  {
+    "id": 58,
+    "title": "c. New religious ideas of 6th Century BC",
+    "slug": "c-new-religious-ideas-of-6th-century-bc",
+    "parent_id": 55,
+    "order": 0
+  },
+  {
+    "id": 59,
+    "title": "i. Ajivakas",
+    "slug": "i-ajivakas",
+    "parent_id": 58,
+    "order": 0
+  },
+  {
+    "id": 60,
+    "title": "ii. Buddhism",
+    "slug": "ii-buddhism",
+    "parent_id": 58,
+    "order": 0
+  },
+  {
+    "id": 61,
+    "title": "iii. Jainism",
+    "slug": "iii-jainism",
+    "parent_id": 58,
+    "order": 0
+  },
+  {
+    "id": 62,
+    "title": "2. Achievements of prominent rulers of major dynasties",
+    "slug": "2-achievements-of-prominent-rulers-of-major-dynast",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 63,
+    "title": "a. Maurya",
+    "slug": "a-maurya",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 64,
+    "title": "b. Kushan",
+    "slug": "b-kushan",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 65,
+    "title": "c. Satavahan",
+    "slug": "c-satavahan",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 66,
+    "title": "d. Gupta",
+    "slug": "d-gupta",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 67,
+    "title": "e. Chalukya",
+    "slug": "e-chalukya",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 68,
+    "title": "f. Pallava",
+    "slug": "f-pallava",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 69,
+    "title": "g. Chola",
+    "slug": "g-chola",
+    "parent_id": 62,
+    "order": 0
+  },
+  {
+    "id": 70,
+    "title": "3. Art and Architecture in Ancient India",
+    "slug": "3-art-and-architecture-in-ancient-india",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 71,
+    "title": "4. Development of Language and Literature in Ancient India",
+    "slug": "4-development-of-language-and-literature-in-ancien",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 72,
+    "title": "a. Sanskrit",
+    "slug": "a-sanskrit",
+    "parent_id": 71,
+    "order": 0
+  },
+  {
+    "id": 73,
+    "title": "b. Prakrit",
+    "slug": "b-prakrit",
+    "parent_id": 71,
+    "order": 0
+  },
+  {
+    "id": 74,
+    "title": "c. Tamil",
+    "slug": "c-tamil",
+    "parent_id": 71,
+    "order": 0
+  },
+  {
+    "id": 75,
+    "title": "5. Sultanate Period",
+    "slug": "5-sultanate-period",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 76,
+    "title": "a. Achievements of prominent Sultanate Rulers",
+    "slug": "a-achievements-of-prominent-sultanate-rulers",
+    "parent_id": 75,
+    "order": 0
+  },
+  {
+    "id": 77,
+    "title": "b. Cultural achievements of Vijaynagar",
+    "slug": "b-cultural-achievements-of-vijaynagar",
+    "parent_id": 75,
+    "order": 0
+  },
+  {
+    "id": 78,
+    "title": "6. Mughal Period: Political challenges and reconciliation",
+    "slug": "6-mughal-period-political-challenges-and-reconcili",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 79,
+    "title": "a. Afghan",
+    "slug": "a-afghan",
+    "parent_id": 78,
+    "order": 0
+  },
+  {
+    "id": 80,
+    "title": "b. Rajput",
+    "slug": "b-rajput",
+    "parent_id": 78,
+    "order": 0
+  },
+  {
+    "id": 81,
+    "title": "c. Deccan States",
+    "slug": "c-deccan-states",
+    "parent_id": 78,
+    "order": 0
+  },
+  {
+    "id": 82,
+    "title": "d. Maratha",
+    "slug": "d-maratha",
+    "parent_id": 78,
+    "order": 0
+  },
+  {
+    "id": 83,
+    "title": "7. Development during medieval period",
+    "slug": "7-development-during-medieval-period",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 84,
+    "title": "8. Religious & Literary contribution of",
+    "slug": "8-religious-literary-contribution-of",
+    "parent_id": 54,
+    "order": 0
+  },
+  {
+    "id": 85,
+    "title": "a. Art & Architecture",
+    "slug": "a-art-architecture",
+    "parent_id": 83,
+    "order": 0
+  },
+  {
+    "id": 86,
+    "title": "b. Paintings",
+    "slug": "b-paintings",
+    "parent_id": 83,
+    "order": 0
+  },
+  {
+    "id": 87,
+    "title": "c. Music",
+    "slug": "c-music",
+    "parent_id": 83,
+    "order": 0
+  },
+  {
+    "id": 88,
+    "title": "a. Bhakti",
+    "slug": "a-bhakti",
+    "parent_id": 84,
+    "order": 0
+  },
+  {
+    "id": 89,
+    "title": "b. Sufi Movement",
+    "slug": "b-sufi-movement",
+    "parent_id": 84,
+    "order": 0
+  },
+  {
+    "id": 90,
+    "title": "Modern Period (from early 19th century to 1964)",
+    "slug": "modern-period-from-early-19th-century-to-1964",
+    "parent_id": null,
+    "order": 3
+  },
+  {
+    "id": 91,
+    "title": "9. Evolution of Modern India & Emergence of Nationalism",
+    "slug": "9-evolution-of-modern-india-emergence-of-nationali",
+    "parent_id": 90,
+    "order": 0
+  },
+  {
+    "id": 92,
+    "title": "a. Intellectual awakening",
+    "slug": "a-intellectual-awakening",
+    "parent_id": 91,
+    "order": 0
+  },
+  {
+    "id": 93,
+    "title": "b. Press",
+    "slug": "b-press",
+    "parent_id": 91,
+    "order": 0
+  },
+  {
+    "id": 94,
+    "title": "c. Western education",
+    "slug": "c-western-education",
+    "parent_id": 91,
+    "order": 0
+  },
+  {
+    "id": 95,
+    "title": "10. Socio-religious reforms during 19th century",
+    "slug": "10-socio-religious-reforms-during-19th-century",
+    "parent_id": 90,
+    "order": 0
+  },
+  {
+    "id": 96,
+    "title": "11. The Freedom Struggle & Indian National Movement",
+    "slug": "11-the-freedom-struggle-indian-national-movement",
+    "parent_id": 90,
+    "order": 0
+  },
+  {
+    "id": 97,
+    "title": "12. Post-independence Nation Building",
+    "slug": "12-post-independence-nation-building",
+    "parent_id": 90,
+    "order": 0
+  },
+  {
+    "id": 98,
+    "title": "a. Various leaders",
+    "slug": "a-various-leaders",
+    "parent_id": 95,
+    "order": 0
+  },
+  {
+    "id": 99,
+    "title": "b. Instituitions",
+    "slug": "b-instituitions",
+    "parent_id": 95,
+    "order": 0
+  },
+  {
+    "id": 100,
+    "title": "a. Its various stages",
+    "slug": "a-its-various-stages",
+    "parent_id": 96,
+    "order": 0
+  },
+  {
+    "id": 101,
+    "title": "b. Streams",
+    "slug": "b-streams",
+    "parent_id": 96,
+    "order": 0
+  },
+  {
+    "id": 102,
+    "title": "c. Important Contributors",
+    "slug": "c-important-contributors",
+    "parent_id": 96,
+    "order": 0
+  },
+  {
+    "id": 103,
+    "title": "d. Contributions from different parts of the country",
+    "slug": "d-contributions-from-different-parts-of-the-countr",
+    "parent_id": 96,
+    "order": 0
+  },
+  {
+    "id": 104,
+    "title": "a. The linguistic reorganisation of the states",
+    "slug": "a-the-linguistic-reorganisation-of-the-states",
+    "parent_id": 97,
+    "order": 0
+  },
+  {
+    "id": 105,
+    "title": "b. Institutional building during Nehruvian age",
+    "slug": "b-institutional-building-during-nehruvian-age",
+    "parent_id": 97,
+    "order": 0
+  },
+  {
+    "id": 106,
+    "title": "c. Development of science and technology",
+    "slug": "c-development-of-science-and-technology",
+    "parent_id": 97,
+    "order": 0
+  },
+  {
+    "id": 107,
+    "title": "World Geography",
+    "slug": "world-geography",
+    "parent_id": null,
+    "order": 4
+  },
+  {
+    "id": 108,
+    "title": "1. Major Landforms",
+    "slug": "1-major-landforms",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 109,
+    "title": "a. Mountains",
+    "slug": "a-mountains",
+    "parent_id": 108,
+    "order": 0
+  },
+  {
+    "id": 110,
+    "title": "b. Plateaus",
+    "slug": "b-plateaus",
+    "parent_id": 108,
+    "order": 0
+  },
+  {
+    "id": 111,
+    "title": "c. Plains",
+    "slug": "c-plains",
+    "parent_id": 108,
+    "order": 0
+  },
+  {
+    "id": 112,
+    "title": "d. Deserts",
+    "slug": "d-deserts",
+    "parent_id": 108,
+    "order": 0
+  },
+  {
+    "id": 113,
+    "title": "2. Major Rivers",
+    "slug": "2-major-rivers",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 114,
+    "title": "3. Major Lakes",
+    "slug": "3-major-lakes",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 115,
+    "title": "4. Types of Agriculture",
+    "slug": "4-types-of-agriculture",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 116,
+    "title": "5. Major Industrial Regions",
+    "slug": "5-major-industrial-regions",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 117,
+    "title": "6. Environmental Issues",
+    "slug": "6-environmental-issues",
+    "parent_id": 107,
+    "order": 0
+  },
+  {
+    "id": 118,
+    "title": "a. Desertification",
+    "slug": "a-desertification",
+    "parent_id": 117,
+    "order": 0
+  },
+  {
+    "id": 119,
+    "title": "b. Deforestation",
+    "slug": "b-deforestation",
+    "parent_id": 117,
+    "order": 0
+  },
+  {
+    "id": 120,
+    "title": "c. Climate Changes",
+    "slug": "c-climate-changes",
+    "parent_id": 117,
+    "order": 0
+  },
+  {
+    "id": 121,
+    "title": "d. Global Warming",
+    "slug": "d-global-warming",
+    "parent_id": 117,
+    "order": 0
+  },
+  {
+    "id": 122,
+    "title": "e. Ozone Layer Depletion",
+    "slug": "e-ozone-layer-depletion",
+    "parent_id": 117,
+    "order": 0
+  },
+  {
+    "id": 123,
+    "title": "Geography of India",
+    "slug": "geography-of-india",
+    "parent_id": null,
+    "order": 5
+  },
+  {
+    "id": 124,
+    "title": "7. Major Landforms",
+    "slug": "7-major-landforms",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 125,
+    "title": "a. Plateaus",
+    "slug": "a-plateaus",
+    "parent_id": 124,
+    "order": 0
+  },
+  {
+    "id": 126,
+    "title": "b. Plains",
+    "slug": "b-plains",
+    "parent_id": 124,
+    "order": 0
+  },
+  {
+    "id": 127,
+    "title": "c. Mountains",
+    "slug": "c-mountains",
+    "parent_id": 124,
+    "order": 0
+  },
+  {
+    "id": 128,
+    "title": "8. Mechanism of Monsoon",
+    "slug": "8-mechanism-of-monsoon",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 129,
+    "title": "9. Rainfall Distribution",
+    "slug": "9-rainfall-distribution",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 130,
+    "title": "10. Major Rivers of india",
+    "slug": "10-major-rivers-of-india",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 131,
+    "title": "11. Major Lakes of India",
+    "slug": "11-major-lakes-of-india",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 132,
+    "title": "12. Major Crops",
+    "slug": "12-major-crops",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 133,
+    "title": "a. Wheat",
+    "slug": "a-wheat",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 134,
+    "title": "b. Rice",
+    "slug": "b-rice",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 135,
+    "title": "c. Cotton",
+    "slug": "c-cotton",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 136,
+    "title": "d. Sugarcane",
+    "slug": "d-sugarcane",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 137,
+    "title": "e. Tea",
+    "slug": "e-tea",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 138,
+    "title": "f. Coffee",
+    "slug": "f-coffee",
+    "parent_id": 132,
+    "order": 0
+  },
+  {
+    "id": 139,
+    "title": "13. Major Minerals",
+    "slug": "13-major-minerals",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 140,
+    "title": "14. Power Resources",
+    "slug": "14-power-resources",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 141,
+    "title": "15. Major Industrial Regions",
+    "slug": "15-major-industrial-regions",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 142,
+    "title": "16. National Highways",
+    "slug": "16-national-highways",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 143,
+    "title": "17. Major Transport Corridors",
+    "slug": "17-major-transport-corridors",
+    "parent_id": 123,
+    "order": 0
+  },
+  {
+    "id": 144,
+    "title": "a. Iron ore",
+    "slug": "a-iron-ore",
+    "parent_id": 139,
+    "order": 0
+  },
+  {
+    "id": 145,
+    "title": "b. Magnanese",
+    "slug": "b-magnanese",
+    "parent_id": 139,
+    "order": 0
+  },
+  {
+    "id": 146,
+    "title": "c. Bauxite",
+    "slug": "c-bauxite",
+    "parent_id": 139,
+    "order": 0
+  },
+  {
+    "id": 147,
+    "title": "d. Mica",
+    "slug": "d-mica",
+    "parent_id": 139,
+    "order": 0
+  }
+]

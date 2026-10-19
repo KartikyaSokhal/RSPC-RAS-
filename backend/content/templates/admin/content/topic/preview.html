@@ -1,0 +1,13 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+<p><strong>Draft preview — staff only.</strong> Saving edits does not publish them. Review facts, sources, rights and formatting before using the publish action.</p>
+<p><a href="{% url 'admin:content_topic_change' topic.pk %}">← Continue editing</a></p>
+{% if error %}<p class="errornote">{{ error }}</p>{% endif %}
+<article style="max-width:760px;padding:32px;border:1px solid var(--hairline-color);border-radius:12px;line-height:1.8">
+<h1>{{ topic.title }}</h1>
+{% for block in snapshot.blocks %}
+{% if block.block_type == 'heading' %}<h2>{{ block.content }}</h2>{% elif block.block_type == 'text' %}<div>{{ block.safe_html }}</div>{% elif block.block_type == 'image' %}<figure><img src="{{ block.preview_url }}" alt="{{ block.alt_text }}" style="max-width:100%"><figcaption>{{ block.caption }}</figcaption></figure>{% endif %}
+{% if block.source_reference %}<small>Source: {{ block.source_reference }}</small>{% endif %}
+{% endfor %}
+</article>
+{% endblock %}

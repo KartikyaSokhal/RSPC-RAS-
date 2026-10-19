@@ -20,18 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 dotenv.load_dotenv(BASE_DIR / ".env")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-vv7q6v$q4f==hp1354u_lez2_p)a$mld(e_uq0_82q6v%hw+yz")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
-
-ALLOWED_HOSTS = ["*"]
-
-
+# Production fails closed; local development has an explicitly nonproduction key.
+PRODUCTION = os.getenv("DJANGO_ENV", "development") == "production"
+DEBUG = os.getenv("DEBUG", "false" if PRODUCTION else "true").lower() == "true"
+SECRET_KEY = os.getenv("SECRET_KEY", "")
+ALLOWED_HOSTS = [s.strip() for s in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost" if not PRODUCTION else "").split(",") if s.strip()]
+if PRODUCTION and (DEBUG or len(SECRET_KEY) < 50 or not ALLOWED_HOSTS or "*" in ALLOWED_HOSTS or SECRET_KEY.startswith("django-insecure")):
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured("Production requires DEBUG=false, explicit hosts and a strong SECRET_KEY.")
+SECRET_KEY = SECRET_KEY or "development-only-prepal-change-before-deployment-0000000000"
 
 # Application definition
 
@@ -49,16 +46,35 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-     "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [s.strip() for s in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",") if s.strip()]
+CSRF_TRUSTED_ORIGINS = [s.strip() for s in os.getenv("CSRF_TRUSTED_ORIGINS", "http://127.0.0.1:5173,http://localhost:5173" if not PRODUCTION else "").split(",") if s.strip()]
+SESSION_COOKIE_SECURE = PRODUCTION
+CSRF_COOKIE_SECURE = PRODUCTION
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+SECURE_SSL_REDIRECT = PRODUCTION
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') if os.getenv('TRUST_PROXY_SSL', 'false').lower() == 'true' else None
+# Enable only with a private app listener and a proxy that overwrites these headers.
+TRUSTED_PROXY_IPS = tuple(s.strip() for s in os.getenv('TRUSTED_PROXY_IPS', '').split(',') if s.strip())
+SECURE_HSTS_SECONDS = 31536000 if PRODUCTION else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = PRODUCTION
+SECURE_HSTS_PRELOAD = PRODUCTION
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+DATA_UPLOAD_MAX_MEMORY_SIZE = 22 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
+REST_FRAMEWORK = {"DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+                  "EXCEPTION_HANDLER": "content.exceptions.exception_handler"}
 ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
@@ -85,7 +101,8 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": os.getenv("DATABASE_PATH", str(BASE_DIR / "db.sqlite3")),
+        "OPTIONS": {"timeout": 5},
     }
 }
 
@@ -130,3 +147,29 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# P003: administrator-reviewed existing quiz IDs, comma-separated; empty denies all.
+# Revoke an ID before editing its content; re-review before restoring it.
+APPROVED_QUIZ_IDS = os.getenv("APPROVED_QUIZ_IDS", "")
+
+STATIC_ROOT = Path(os.getenv("STATIC_ROOT", str(BASE_DIR / "staticfiles")))
+MEDIA_ROOT = Path(os.getenv("PRIVATE_MEDIA_ROOT", str(BASE_DIR / "private-media")))
+MEDIA_URL = "/private-media/"  # Deliberately no URL route or web-server alias.
+AI_ENABLED = os.getenv("AI_ENABLED", "false").lower() == "true"
+AI_GUEST_ENABLED = os.getenv("AI_GUEST_ENABLED", "false").lower() == "true"
+AI_MODEL = os.getenv("AI_MODEL", "")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+AI_DAILY_BUDGET_MICRO = int(os.getenv("AI_DAILY_BUDGET_MICRO", "0"))
+AI_INPUT_RATE_MICRO = int(os.getenv("AI_INPUT_RATE_MICRO", "0"))
+AI_OUTPUT_RATE_MICRO = int(os.getenv("AI_OUTPUT_RATE_MICRO", "0"))
+AI_INPUT_TOKEN_LIMIT = 16000
+AI_OUTPUT_TOKEN_LIMIT = 1000
+AI_TIMEOUT_SECONDS = 30
+AI_VISITOR_DAILY_LIMIT = 20
+AI_IP_DAILY_LIMIT = 100
+AI_MINUTE_LIMIT = 5
+PDF_MAX_BYTES = 20 * 1024 * 1024
+PDF_MAX_PAGES = 200
+PDF_TIMEOUT_SECONDS = 60
+DEMO_MODE = False
+SUPPORT_EMAIL = os.getenv("SUPPORT_EMAIL", "")
