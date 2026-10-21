@@ -86,7 +86,7 @@ docs/history/
 docs/proposals/
 docs/design/
 
-# Legacy retired Express backend (local copies preserved)
+# Legacy retired Express backend (privately archived outside checkout)
 backend/package.json
 backend/package-lock.json
 backend/src/
@@ -100,3 +100,17 @@ release-manifest.json
 *.tar.gz
 *.backup
 
+
+# Approved private-key, credential and dump exclusions.
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.dump
+*.token
+admin-credentials.txt
+.secrets/
+secrets/
+privkey*.pem
+*-private.pem
+*_private.pem

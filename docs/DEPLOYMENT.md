@@ -1,74 +1,48 @@
-# Phase A remediation — production remains undeployed
+# Deployment and recovery gates
 
-The owner approved the local baseline commit after verification. Local development key rotation is complete; no production secret/connection changed. The known key remains historical but is inactive locally and blocked by the current production insecure-prefix guard. Never reuse it or any demo/test secret for production; provision independent credentials through the future approved environment. External reuse is unverified.
+No staging or production environment, URL, domain/provider, production credential or real database cutover is established. Current work is an uncommitted documentation/ignore cleanup over 49407b2; no commit/push/merge/history rewrite/deployment is authorized. The last audit found old GitHub main still contains a retired development key. Do not deploy that tree or assume a future normal commit erases history. See [security](SECURITY.md).
 
-Read-only SSH confirmed remote codex/prepal-1-0 at ee272a6954868b303447545eb553200adb024a24 and main at e6e7989db8c24eee59f8c38600cd619939c96856 before the local commit; main contains the retired key. No push/history rewrite occurred. Phase B requires separate approval, then remote SHA and CI checks; gh CLI authentication is currently absent. No staging/production URL, hosting/domain or real PostgreSQL source/target is selected. Phases C–F remain pending, including PDF export/Tutor isolation, durable recovery, timeout alignment and staging acceptance. Procedures below are gated future operations.
+## Ordered approvals
 
----
+1. Owner reviews cleanup diff/security evidence, then separately authorizes any local commit.
+2. Separate push approval; verify exact approved local SHA, live remote refs, ordinary branch push and matching remote SHA/CI. Never force-push/amend/rewrite history. SSH reads worked at audit; gh CLI was unauthenticated.
+3. Complete master Phase C: published-snapshot topic-note PDF export and server-enforced current-topic Tutor, with security/mock/regression proof. Paid model credentials/budget remain a separate gate.
+4. Owner selects production source data, PostgreSQL target/roles/TLS, durable encrypted off-host backup destination/retention and approves fresh backup/restore/rehearsal/rollback before any real transfer/configuration switch.
+5. Owner approves hosting/provider/domain/access and any billing. Prepare staging before separate final production acceptance/approval. Do not assume demo data or old learner records belong in production.
 
-# Current release gate after controlled cleanup
+## Existing host examples and prerequisites
 
-Release preparation uses an explicit manifest of current worktree inputs, including untracked services, migrations and canonical docs. A hash-verified disposable export has no original databases, private environment, demo credentials, old environments or retired Node backend. Installation and local tests are distinct from publication: the working branch/HEAD remain unchanged and nothing is committed/pushed.
+Review deploy/nginx.conf.example, deploy/prepal-proxy.conf.example, deploy/prepal.service.example and backend/gunicorn.conf.py on the actual approved host. They are examples, not verified infrastructure. Django's listener is private loopback, behind a TLS reverse proxy. Set DJANGO_ENV=production, DEBUG=false, a fresh strong SECRET_KEY, explicit ALLOWED_HOSTS/CSRF_TRUSTED_ORIGINS, PostgreSQL credentials and POSTGRES_SSLMODE=verify-full with trusted CA. Runtime role must not be superuser/CREATEDB; separate approved migration role and bounded connection settings are required.
 
-Production blockers remain: approved destination/roles/TLS/CA, domain and CSRF hosts, trusted proxy configuration, durable database-plus-media backup/restore, human corpus/rights approval and real-host load/permission/security validation. Set STATIC_ROOT and PRIVATE_MEDIA_ROOT to match the proxy/systemd paths; the defaults are not those example directories. PDF preparation is synchronous with a 60-second parser limit while proxy/worker examples permit 40/45 seconds; resolve its execution/timeout policy separately before production Admin use. Keep AI disabled until model compatibility, pricing/caps and live evaluation are explicitly approved. Uploaded PDF viewing/download is implemented; topic-note PDF export is not.
+Vite builds the SPA for same-origin /api. Serve only dist/static assets with SPA fallback and suitable hashed-asset caching; never serve repository/private-media/.env/.git paths. Collect Django static files only in approved deployment scope. Align STATIC_ROOT and PRIVATE_MEDIA_ROOT with service/proxy locations; defaults differ from the examples. Private media requires persistent protected storage and reviewed application delivery, not a public directory alias.
 
-CI now includes release/document checks and a separately prepared academic sample/browser suite. Remote CI is unverified until an approved publication/run. Do not provision or cut over during cleanup. The procedures below describe future approved operations, not commands automatically executed by this batch.
+Configure HTTPS, trusted proxy overwrite rules, secure cookies/CSRF/CSP/HSTS, upload/rate limits, controlled Admin access and health/monitoring/restart procedures. Logs omit query strings/request bodies/credentials. Validate real filesystem ownership, persistence, process limits and recovery independently of the developer Mac. No key belongs in VITE_* or a source file.
 
----
+PDF processing may run 60 seconds while proxy/Gunicorn examples allow 40/45. Resolve and test execution/timeouts under approved production scope; runtime configuration is unchanged here. Uploaded-PDF reading is implemented; topic-note PDF export is not. Keep live AI off until approved model/non-thinking compatibility, pricing/caps/billing and factual/citation evaluation.
 
-Current schema target is content 0008 (34 tables); verified only on disposable loopback PostgreSQL/SQLite. Real cutover remains separately gated. Account for queued `regenerate_connections` batches in an approved future operational schedule; no scheduler/paid service is provisioned here. Do not run commands against the original SQLite archive. Back up proposal decisions/plans and public-tag metadata before any approved rollback.
+## Database and rehearsal
 
-Historical Phase 2 schema target was content migration 0007, verified on disposable local databases only. Real cutover remains pending explicit approval; do not apply this migration to the original SQLite archive. Update the reviewed deployment migration/backup inventory for the 32-table schema when a real target is approved. Local Docker/tmpfs verification is not durable hosting or backup provisioning.
+Source migrations 0001–0008 remain unchanged. Original SQLite is content 0004 and immutable; existing demos are preserved. Prior PostgreSQL schema/ID/foreign-key/sequence/publication transfer and migration reversal/restore proofs used disposable targets only. [DATABASE_SCHEMA](DATABASE_SCHEMA.md) holds rehearsal/configuration details. Never fake migrations or run cutover tools against a valuable original database. No migration application or new demo preparation is authorized during this documentation cleanup.
 
-# Phase 1 setup, cutover gate and recovery
+Future approved PostgreSQL tests must use explicitly named disposable loopback databases and the guarded --postgres runner; production credentials are forbidden. Local tmpfs/Docker success is not durable production backup.
 
-No production host/domain/credentials or real cutover is configured by Phase 1. Nginx/systemd/Gunicorn files remain reviewable examples. PostgreSQL is now the required default database; SQLite is an untouched source archive and explicit isolated demo/test option.
+## Backup, restore and rollback
 
-## Local PostgreSQL
+Before approved cutover, freeze editorial/file writes and pair a coherent source/database/media backup. pg_dump snapshots do not freeze external media. Use matching native PostgreSQL clients, private environment credentials and a NEW private dump destination; native clients read PG* variables while Django uses POSTGRES_*.
 
-Install PostgreSQL 17 locally or run the official PostgreSQL image on a loopback-only port. Phase 1 found no local server binaries and started the installed Docker Desktop for a disposable container. The verified server was PostgreSQL 17.11; exact image digest and artifacts are in evidence (retained privately as `docs/evidence/PHASE_1_VERIFICATION.md`). Do not reuse rehearsal credentials or a temporary database for production.
-
-Create private credentials outside Git and a new empty local development database. Supply `DATABASE_ENGINE=postgresql`, `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST=127.0.0.1`, `POSTGRES_PORT` and an appropriate local `POSTGRES_SSLMODE`. The [example](../backend/.env.example) contains no password. Do not display environment files or connection URLs in logs. Normal settings fail clearly if required PostgreSQL variables are missing; there is no automatic SQLite fallback.
-
-Install the hash-pinned backend dependencies. Only after confirming that the selected DB is a new disposable development database, run `backend/.venv/bin/python backend/manage.py migrate --noinput`. This command is not authorized for the real source/production DB by Phase 1. Then start the normal Django server and Vite as documented in [README](../README.md). Do not seed the original database or reuse the SQLite-only demo generator against PostgreSQL.
-
-## Verification commands
-
-Fast SQLite: `backend/.venv/bin/python backend/run_tests.py`. PostgreSQL: set `PREPAL_TEST_POSTGRES=1`, an existing empty `prepal_test_*` base DB and `POSTGRES_TEST_DB=test_prepal_phase1`, then run `backend/.venv/bin/python backend/run_tests.py --postgres`. PostgreSQL tests genuinely execute migrations, refuse any already-existing test database, and destroy only the fresh DB created by the test runner. See [testing](TESTING.md).
-
-`backend/.venv/bin/python scripts/verify_postgres_transfer.py` builds a new synthetic SQLite fixture and exercises migration/transfer with explicit local PostgreSQL settings. For the source-data rehearsal command, use [DATABASE_SCHEMA](DATABASE_SCHEMA.md). These tools refuse remote destinations and never implement cutover. Browser integration additionally requires an explicit absolute PREPAL_DEMO_ROOT and refuses the existing .local/demo path.
-
-## Native PostgreSQL backup and restore
-
-Use a matching PostgreSQL client version, a new private destination and a coherent media backup. Freeze editorial/file-processing writes while pairing database and media snapshots. `pg_dump` is a consistent DB snapshot but cannot independently freeze external media. Native clients use PG* environment variables, while Django configuration uses POSTGRES_*.
-
-Prepared commands, to be executed only for an approved source/destination:
+Prepared future commands, NOT executed in this cleanup:
 
 ```sh
 umask 077
 PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --host "$POSTGRES_HOST" --port "$POSTGRES_PORT" \
   --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" --format=custom \
   --no-owner --no-privileges --file "$PREPAL_NEW_DUMP_FILE"
-# Create a separately approved NEW EMPTY restore database; never overwrite an existing one.
+# Independently approved NEW EMPTY restore target; never overwrite an existing database.
 PGPASSWORD="$POSTGRES_PASSWORD" pg_restore --host "$POSTGRES_HOST" --port "$POSTGRES_PORT" \
   --username "$POSTGRES_USER" --dbname "$PREPAL_NEW_RESTORE_DB" --exit-on-error \
   --no-owner --no-privileges "$PREPAL_NEW_DUMP_FILE"
 ```
 
-Set native TLS/CA variables consistently with the approved environment; do not put passwords in CLI arguments/URLs. Phase 1 used Docker's matching native tools inside the isolated container. A fresh restored local target was checked with `scripts/verify_postgres_restore.py`, preserving all 26 tables and 24 sequence states. The SQLite-only `backup_prepal` helper now refuses PostgreSQL explicitly instead of treating a database name as a SQLite filename.
+Supply consistent native TLS/CA variables privately; do not print environment values or password URLs. Independently restore/compare tables, rows, constraints, PKs, migration metadata, sequence high-water marks, publication decisions and paired media before switching connections. Keep durable encrypted backups outside application storage with approved retention and monitoring; private temporary snapshots are not that service.
 
-For that verification helper set `POSTGRES_DB` to the restored local `prepal_rehearsal_*` DB, `PREPAL_REHEARSAL_COPY` to the private `migrated/migration-copy.sqlite3`, and `PRIVATE_MEDIA_ROOT` to the restored private media directory. The helper selects isolated rehearsal settings and performs read-only record/sequence checks.
-
-## Real cutover — owner review required
-
-Before approval, select the production host/database, TLS/CA, runtime/migration roles, secret environment, private media path and durable encrypted/off-host backup destination/retention. Production requires `DJANGO_ENV=production`, DEBUG=false, a strong SECRET_KEY, explicit hosts/CSRF origins, PostgreSQL password and `POSTGRES_SSLMODE=verify-full`. Runtime credentials should not have CREATEDB or superuser permissions. Rehearsal's local superuser role and disabled TLS are not production settings.
-
-Proposed cutover after separate approval:
-
-1. Freeze source/editorial writes and verify a fresh private source+media backup and restore. Reconfirm current Git/config/source inventory; do not reuse an old temporary snapshot as fresh evidence.
-2. Repeat the validated local copy migration/transfer from that frozen source. Review hashes, IDs, constraints, sequence counters and real content eligibility.
-3. Back up the verified PostgreSQL copy natively and restore it into a separately approved new empty production target; preserve source migration metadata and verify target schema/data/media. No fake migrations or data truncation.
-4. Review the production environment/roles/TLS and switch database configuration only after explicit approval. Check pending migration plan, administrative CSRF/login, publication/search, approved PDF/image serving, stateless practice and learner denial. Keep AI default-off.
-5. Verify the real reverse proxy, private media denial, CSP/PDF workers, process limits, load, monitoring and durable restore procedures on the actual host. Public exposure/deployment requires its own approval.
-
-Rollback: stop writes/exposure, preserve any post-cutover writes, and restore the last verified PostgreSQL+media backup to a new database before an approved configuration switch. If new writes occurred, reconcile them rather than discard them. Retain the original SQLite archive and protected code snapshot for re-rehearsal. Current code must not automatically fall back to the unmigrated original SQLite file. No source replacement, real migration, credential edit, deployment, commit or push was performed in Phase 1.
+Rollback stops writes/exposure, preserves any post-cutover changes and restores the approved DB/media backup to a NEW target before a separately approved configuration switch. Reconcile new writes rather than discarding them. Retain original SQLite, private archives and rollback assets for approved retention. No automatic fallback to the original archive. [TESTING](TESTING.md) separates local evidence from unverified staging/production requirements.
