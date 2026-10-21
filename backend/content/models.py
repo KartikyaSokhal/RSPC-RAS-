@@ -1,5 +1,45 @@
 from django.conf import settings
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.text import slugify
+import unicodedata
+
+
+def normalized_label(value):
+    return ' '.join(unicodedata.normalize('NFKC', value).split()).casefold()
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+    normalized_name = models.CharField(max_length=100, unique=True, editable=False)
+    slug = models.SlugField(max_length=120, unique=True, blank=True, allow_unicode=True)
+    is_public = models.BooleanField(default=False, db_index=True, verbose_name='approved for public discovery')
+
+    class Meta:
+        ordering = ['normalized_name']
+
+    def clean(self):
+        self.name = ' '.join(unicodedata.normalize('NFKC', self.name).split())
+        self.normalized_name = normalized_label(self.name)
+        self.slug = slugify(self.slug or self.normalized_name, allow_unicode=True)
+        if self.pk and Tag.objects.filter(pk=self.pk).exclude(slug=self.slug).exists():
+            raise ValidationError({'slug': 'Tag slugs are stable. Rename the label without changing its URL.'})
+        if not self.normalized_name or not self.slug:
+            raise ValidationError('Provide a meaningful tag name and slug.')
+        if len(self.normalized_name) > 100:
+            raise ValidationError({'name': 'The normalized tag name must fit within 100 characters.'})
+        if Tag.objects.exclude(pk=self.pk).filter(normalized_name=self.normalized_name).exists():
+            raise ValidationError({'name': 'A tag with this normalized name already exists.'})
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        self.full_clean()
+        if kwargs.get('update_fields'):
+            kwargs['update_fields'] = set(kwargs['update_fields']) | {'name', 'normalized_name', 'slug'}
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 # class Topic(models.Model):
 #     title = models.CharField(max_length=255)
@@ -28,6 +68,8 @@ class Topic(models.Model):
     )
 
     order = models.PositiveIntegerField(default=0)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='draft_topics')
+    editorial_status = models.CharField(max_length=20, default='draft', choices=[('draft', 'Draft'), ('in_review', 'Awaiting review')])
 
     class Meta:
         ordering = ["title"]
@@ -91,6 +133,16 @@ class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
     question_text = models.TextField()
     explanation = models.TextField(blank=True, null=True)
+    primary_topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='primary_questions', verbose_name='primary subtopic')
+    related_topics = models.ManyToManyField(Topic, blank=True, related_name='related_questions', verbose_name='related subtopics')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='questions')
+
+    def save(self, *args, **kwargs):
+        # Preserve callers of the existing quiz authoring API. The Admin requires
+        # an explicit primary location; legacy records are backfilled in 0007.
+        if not self.primary_topic_id and self.quiz_id:
+            self.primary_topic_id = self.quiz.topic_id
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.question_text[:50]
@@ -156,6 +208,7 @@ class TopicPublication(models.Model):
     previous_snapshot = models.JSONField(null=True, blank=True)
     published_at = models.DateTimeField(null=True, blank=True)
     published_by = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.SET_NULL)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='publications')
 
 
 class TopicRelation(models.Model):
@@ -163,6 +216,7 @@ class TopicRelation(models.Model):
     target = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='incoming_relations')
     kind = models.CharField(max_length=20, choices=[('related', 'Related'), ('prerequisite', 'Prerequisite')])
     reason = models.CharField(max_length=300)
+    status = models.CharField(max_length=20, default='draft', choices=[('draft', 'Draft'), ('approved', 'Approved'), ('withdrawn', 'Withdrawn')])
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['source', 'target', 'kind'], name='unique_topic_relation')]
@@ -171,6 +225,71 @@ class TopicRelation(models.Model):
         from django.core.exceptions import ValidationError
         if self.source_id == self.target_id:
             raise ValidationError('A topic cannot relate to itself.')
+
+
+class TopicAlias(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='keyword_aliases')
+    name = models.CharField(max_length=150, verbose_name='keyword alias')
+    normalized_name = models.CharField(max_length=150, unique=True, editable=False)
+    status = models.CharField(max_length=20, default='draft', choices=[('draft', 'Draft'), ('approved', 'Approved'), ('withdrawn', 'Withdrawn')])
+
+    class Meta:
+        verbose_name = 'topic keyword alias'
+        verbose_name_plural = 'topic keyword aliases'
+        indexes = [models.Index(fields=['status', 'topic'], name='alias_status_topic_idx')]
+
+    def clean(self):
+        self.name = ' '.join(unicodedata.normalize('NFKC', self.name).split())
+        self.normalized_name = normalized_label(self.name)
+        if not self.normalized_name:
+            raise ValidationError({'name': 'Provide a meaningful keyword alias.'})
+        if len(self.normalized_name) > 150:
+            raise ValidationError({'name': 'The normalized alias must fit within 150 characters.'})
+        if TopicAlias.objects.exclude(pk=self.pk).filter(normalized_name=self.normalized_name).exists():
+            raise ValidationError({'name': 'This alias already identifies a topic. Edit that record instead.'})
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        self.full_clean()
+        if kwargs.get('update_fields'):
+            kwargs['update_fields'] = set(kwargs['update_fields']) | {'name', 'normalized_name'}
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class ConnectionScan(models.Model):
+    class Meta:
+        indexes = [models.Index(fields=["pending", "analyzed_at"], name="scan_pending_age_idx")]
+
+    publication = models.OneToOneField(TopicPublication, on_delete=models.CASCADE, related_name='connection_scan')
+    pending = models.BooleanField(default=True, db_index=True)
+    source_revision = models.PositiveIntegerField(default=0)
+    analyzed_at = models.DateTimeField(null=True, blank=True)
+    active_links = models.JSONField(default=list)
+    source_hash = models.CharField(max_length=64, blank=True)
+
+
+class KeywordLinkProposal(models.Model):
+    source = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='keyword_link_proposals')
+    target = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='keyword_link_targets')
+    phrase = models.CharField(max_length=255)
+    phrase_key = models.CharField(max_length=255)
+    context = models.CharField(max_length=500)
+    source_hash = models.CharField(max_length=64)
+    source_revision = models.PositiveIntegerField()
+    occurrences = models.JSONField(default=list)
+    status = models.CharField(max_length=12, default='pending', choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])
+    reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['source', 'target', 'phrase_key', 'source_hash'], name='unique_keyword_link_evidence')]
+        indexes = [models.Index(fields=['source', 'status', 'source_revision'], name='link_source_status_rev_idx')]
+
+    def __str__(self):
+        return self.phrase
 
 
 class LearningResource(models.Model):

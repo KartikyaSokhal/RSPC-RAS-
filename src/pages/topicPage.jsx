@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import useResource from '../hooks/useResource.js'
+import useSyllabus from '../hooks/useSyllabus.js'
 import SyllabusTree from '../components/study/SyllabusTree.jsx'
 import TopicBreadcrumbs from '../components/study/TopicBreadcrumbs.jsx'
 import ContentRenderer from '../components/study/ContentRenderer.jsx'
 import TutorPanel from '../components/ai/TutorPanel.jsx'
 import Skeleton from '../components/ui/Skeleton.jsx'
 import StatusPanel from '../components/ui/StatusPanel.jsx'
-import useAuth from '../hooks/useAuth.js'
+import { LEARNER_FEATURES_UNAVAILABLE_MESSAGE } from '../learnerFeatures.js'
 
 function filterSidebarTree(items, query) {
   if (!query) return items
@@ -21,66 +22,15 @@ function filterSidebarTree(items, query) {
   })
 }
 
-function getCookie(name) {
-  const match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'))
-  return match ? decodeURIComponent(match[2]) : null
-}
-
 function StudyWorkspace({ topic, roots }) {
-  const { authenticated } = useAuth()
   const [panel, setPanel] = useState('notes')
   const [selected, setSelected] = useState(null)
   const [sidebarFilter, setSidebarFilter] = useState('')
-  const [isBookmarked, setIsBookmarked] = useState(Boolean(topic.is_bookmarked))
-  const [isCompleted, setIsCompleted] = useState(Boolean(topic.is_completed))
-  const [actionNotice, setActionNotice] = useState('')
   const [chatOpen, setChatOpen] = useState(false)
+  const launcher = useRef(null)
+  const tutorPopup = useRef(null)
   const location = useLocation()
 
-  async function handleToggleBookmark() {
-    if (!authenticated) {
-      setActionNotice('Sign in to save bookmarks to your personal dashboard.')
-      return
-    }
-    const token = getCookie('csrftoken') || ''
-    try {
-      const res = await fetch(`/api/topic/${encodeURIComponent(topic.slug)}/bookmark/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': token },
-        credentials: 'same-origin',
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setIsBookmarked(Boolean(data.is_bookmarked))
-        setActionNotice(data.is_bookmarked ? 'Bookmark added to your dashboard!' : 'Bookmark removed.')
-      }
-    } catch {
-      setActionNotice('Unable to update bookmark right now.')
-    }
-  }
-
-  async function handleToggleProgress() {
-    if (!authenticated) {
-      setActionNotice('Sign in to track topic completion on your dashboard.')
-      return
-    }
-    const token = getCookie('csrftoken') || ''
-    try {
-      const res = await fetch(`/api/topic/${encodeURIComponent(topic.slug)}/progress/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': token },
-        credentials: 'same-origin',
-        body: JSON.stringify({ is_completed: !isCompleted }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setIsCompleted(Boolean(data.is_completed))
-        setActionNotice(data.is_completed ? 'Marked as completed! Progress updated.' : 'Marked as incomplete.')
-      }
-    } catch {
-      setActionNotice('Unable to update progress right now.')
-    }
-  }
 
   useEffect(() => {
     if (!location.hash) return undefined
@@ -91,6 +41,15 @@ function StudyWorkspace({ topic, roots }) {
     })
     return () => cancelAnimationFrame(frame)
   }, [location.hash, topic.slug])
+
+  useEffect(() => {
+    if (chatOpen) tutorPopup.current?.querySelector('button')?.focus({ preventScroll: true })
+  }, [chatOpen])
+
+  function closeTutor() {
+    setChatOpen(false)
+    launcher.current?.focus({ preventScroll: true })
+  }
 
   function select(value) {
     setSelected(value)
@@ -113,14 +72,6 @@ function StudyWorkspace({ topic, roots }) {
           RPSC RAS STUDY WORKSPACE · {hasNotes ? 'ACTIVE LESSON' : 'SYLLABUS OUTLINE'}
         </span>
         <div className="toolbar-right-actions">
-          <button
-            type="button"
-            className="toolbar-tutor-btn"
-            onClick={() => setChatOpen(prev => !prev)}
-            aria-expanded={chatOpen}
-          >
-            ✨ AI Tutor {chatOpen ? '▾' : ''}
-          </button>
           {topic.has_quiz ? (
             <Link to={`/quiz/${topic.slug}`} className="text-link">
               Practice questions <span aria-hidden="true">↗</span>
@@ -135,7 +86,6 @@ function StudyWorkspace({ topic, roots }) {
         {[
           ['syllabus', 'Syllabus'],
           ['notes', hasNotes ? 'Reading' : 'Overview'],
-          ['tutor', 'AI tutor'],
         ].map(([key, label]) => (
           <button
             key={key}
@@ -144,7 +94,6 @@ function StudyWorkspace({ topic, roots }) {
             onClick={() => setPanel(key)}
           >
             {label}
-            {key === 'tutor' && selected ? ' · passage' : ''}
           </button>
         ))}
       </div>
@@ -168,7 +117,7 @@ function StudyWorkspace({ topic, roots }) {
 
           <div className="sidebar-tree-scroll">
             {filteredRoots?.length ? (
-              <SyllabusTree topics={filteredRoots} current={topic.slug} />
+              <SyllabusTree topics={filteredRoots} originalTopics={roots} current={topic.slug} showControls />
             ) : (
               <p className="small">No matching syllabus sections.</p>
             )}
@@ -199,32 +148,24 @@ function StudyWorkspace({ topic, roots }) {
             <div className="topic-action-controls">
               <button
                 type="button"
-                className={`topic-action-btn ${isBookmarked ? 'bookmarked' : ''}`}
-                onClick={handleToggleBookmark}
-                aria-pressed={isBookmarked}
-                title={isBookmarked ? 'Remove bookmark' : 'Save bookmark to dashboard'}
+                className="topic-action-btn"
+                disabled
+                title="Bookmarks are unavailable in this release"
               >
-                <span aria-hidden="true">{isBookmarked ? '★' : '☆'}</span>{' '}
-                {isBookmarked ? 'Bookmarked' : 'Bookmark Topic'}
+                <span aria-hidden="true">☆</span> Bookmark Topic
               </button>
 
               <button
                 type="button"
-                className={`topic-action-btn ${isCompleted ? 'completed' : ''}`}
-                onClick={handleToggleProgress}
-                aria-pressed={isCompleted}
-                title={isCompleted ? 'Mark as incomplete' : 'Mark topic as completed'}
+                className="topic-action-btn"
+                disabled
+                title="Completion tracking is unavailable in this release"
               >
-                <span aria-hidden="true">{isCompleted ? '✓' : '○'}</span>{' '}
-                {isCompleted ? 'Completed' : 'Mark as Completed'}
+                <span aria-hidden="true">○</span> Mark as Completed
               </button>
             </div>
 
-            {actionNotice && (
-              <div className="topic-action-feedback" role="status">
-                {actionNotice}
-              </div>
-            )}
+            <p className="topic-action-feedback" role="status">{LEARNER_FEATURES_UNAVAILABLE_MESSAGE}</p>
           </header>
 
 
@@ -234,6 +175,7 @@ function StudyWorkspace({ topic, roots }) {
               <ContentRenderer
                 blocks={topic.blocks}
                 revision={topic.revision}
+                keywordLinks={topic.keyword_links || []}
                 onSelection={select}
               />
 
@@ -256,7 +198,7 @@ function StudyWorkspace({ topic, roots }) {
 
               {topic.related?.length > 0 && (
                 <section className="related-lessons">
-                  <span className="eyebrow">Connected Syllabus Units</span>
+                  <h2>Related Topics</h2>
                   {topic.related.map(item => (
                     <Link to={`/topic/${item.slug}`} key={item.slug}>
                       <span className="label">
@@ -328,12 +270,10 @@ function StudyWorkspace({ topic, roots }) {
             </div>
           )}
 
+          {topic.tags?.length > 0 && <nav className="article-tags" aria-label="Article tags">{topic.tags.map(tag => <Link className="button" key={tag.id} to={`/tags/${encodeURIComponent(tag.slug)}`}>{tag.name}</Link>)}</nav>}
+          {topic.is_published && <p><Link className="text-link" to={`/practice/${topic.slug}`}>Practice this syllabus unit →</Link></p>}
           <p className="privacy-note">
-            {authenticated ? (
-              <span>✓ Your bookmarks, study completion, and quiz attempts are saved privately to your personal student dashboard.</span>
-            ) : (
-              <span>Sign in to save this topic to your bookmarks and track your syllabus completion on your personal dashboard.</span>
-            )}
+            Reading and practice are available without a student account. Quiz results stay in this page.
           </p>
 
         </article>
@@ -342,10 +282,14 @@ function StudyWorkspace({ topic, roots }) {
 
       {/* FLOATING AI TUTOR LAUNCHER BUTTON */}
       <button
+        ref={launcher}
         type="button"
         className={`floating-tutor-launcher ${chatOpen ? 'active' : ''}`}
-        onClick={() => setChatOpen(prev => !prev)}
-        aria-label={chatOpen ? 'Close AI Assistant' : 'Ask AI Tutor'}
+        onClick={() => chatOpen ? closeTutor() : setChatOpen(true)}
+        onKeyDown={event => { if (event.key === 'Escape' && chatOpen) closeTutor() }}
+        aria-controls={chatOpen ? 'study-tutor-popup' : undefined}
+        aria-haspopup="dialog"
+        aria-label={chatOpen ? 'Hide AI Tutor' : 'Ask AI Tutor'}
         aria-expanded={chatOpen}
       >
         <span className="spark-icon" aria-hidden="true">✨</span>
@@ -355,13 +299,13 @@ function StudyWorkspace({ topic, roots }) {
 
       {/* FLOATING AI TUTOR POPUP DIALOG */}
       {chatOpen && (
-        <aside className="floating-tutor-popup" aria-label="AI Study Assistant dialog">
+        <aside ref={tutorPopup} id="study-tutor-popup" className="floating-tutor-popup" role="dialog" aria-labelledby="tutor-heading" onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); closeTutor() } }}>
           <TutorPanel
             topic={topic}
             selected={selected}
             clearSelection={() => setSelected(null)}
             onCitation={() => {}}
-            onClose={() => setChatOpen(false)}
+            onClose={closeTutor}
           />
         </aside>
       )}
@@ -372,7 +316,7 @@ function StudyWorkspace({ topic, roots }) {
 export default function TopicPage() {
   const { slug } = useParams()
   const { data, loading, error, retry } = useResource(`/topic/${encodeURIComponent(slug)}/`)
-  const { data: roots } = useResource('/topics/?tree=1')
+  const { data: roots } = useSyllabus()
 
   if (loading) return <div className="page"><Skeleton label="Opening syllabus topic…" /></div>
   if (error || !data) {

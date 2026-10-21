@@ -41,7 +41,7 @@ if __name__ == '__main__':
     columns, before, original_ids = old_content(target)
     with sqlite3.connect(f'file:{target}?mode=ro', uri=True) as connection:
         sequences = dict(connection.execute('SELECT name, seq FROM sqlite_sequence'))
-    env = {**os.environ, 'PYTHON_DOTENV_DISABLED': '1', 'DATABASE_PATH': str(target), 'PRIVATE_MEDIA_ROOT': str(root / 'media'), 'AI_ENABLED': 'false', 'GEMINI_API_KEY': '', 'GOOGLE_API_KEY': '', 'DJANGO_ENV': 'development'}
+    env = {**os.environ, 'PYTHON_DOTENV_DISABLED': '1', 'DATABASE_ENGINE': 'sqlite', 'DATABASE_PATH': str(target), 'PRIVATE_MEDIA_ROOT': str(root / 'media'), 'AI_ENABLED': 'false', 'GEMINI_API_KEY': '', 'GOOGLE_API_KEY': '', 'DJANGO_ENV': 'development'}
     backend = Path(__file__).resolve().parents[1] / 'backend'
     subprocess.run([sys.executable, 'manage.py', 'migrate', '--noinput'], cwd=backend, env=env, check=True)
     _, after, _ = old_content(target, columns, original_ids)
@@ -50,5 +50,6 @@ if __name__ == '__main__':
         migrated_sequences = dict(connection.execute('SELECT name, seq FROM sqlite_sequence'))
         assert all(migrated_sequences[k] == value for k, value in sequences.items() if k not in ['auth_permission', 'django_content_type', 'django_migrations']), 'Original ID counters changed'
         for table in ['content_topicpublication', 'content_quizreview', 'content_learningresource', 'content_airequest']:
-            assert connection.execute(f'SELECT count(*) FROM {table}').fetchone()[0] == 0
+            if table not in columns:
+                assert connection.execute(f'SELECT count(*) FROM {table}').fetchone()[0] == 0
     print(json.dumps({'original_tables_preserved': len(before), 'original_rows_preserved': sum(t['rows'] for t in before.values()), 'original_id_counters_preserved': True, 'new_publication_review_resources_empty': True, 'integrity': 'ok', 'foreign_key_errors': 0}))

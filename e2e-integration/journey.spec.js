@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-test('complete desktop student journey through Django, mock tutor, PDF and stateless quiz', async ({ page }) => {
+test('content-first desktop journey through Django, mock tutor, PDF and stateless quiz', async ({ page }) => {
   const errors=[];page.on('pageerror',e=>errors.push(e.message))
-  await page.goto('/');await page.getByRole('link',{name:'Explore the library'}).first().click()
+  await page.goto('/');await page.getByRole('link',{name:/Explore Syllabus/}).first().click()
   await page.locator('summary').filter({hasText:'historical thinking'}).click();await page.getByRole('link',{name:/Reading the past, one source at a time/}).click()
   await expect(page.getByRole('heading',{name:'Observation and inference'})).toBeVisible()
   await page.locator('.block-text').nth(1).evaluate(node => {
@@ -21,7 +21,7 @@ test('complete desktop student journey through Django, mock tutor, PDF and state
   await page.getByRole('button',{name:'Send question'}).click()
   await expect(page.locator('.chat-msg-bot')).toHaveCount(2)
   await expect(page.locator('.chat-msg-bot').last().locator('.citation-link')).toHaveAttribute('href', /building-chronology/);
-  await page.locator('.related-lessons a').click();await expect(page).toHaveURL(/building-chronology$/)
+  await page.locator('.related-lessons a[href="/topic/building-chronology"]').click();await expect(page).toHaveURL(/building-chronology$/)
   await page.locator('.resource-card').click();await expect(page.locator('canvas')).toBeVisible()
   await expect(page.getByText('Opening page 1…')).toHaveCount(0)
   await page.getByRole('button',{name:'Next PDF page'}).click();await expect(page.getByRole('combobox',{name:'PDF page'})).toHaveValue('2')
@@ -31,19 +31,19 @@ test('complete desktop student journey through Django, mock tutor, PDF and state
   await page.getByRole('button',{name:'Check my answers →'}).click();await expect(page.getByRole('heading',{name:'Understand your answers.'})).toBeVisible()
   await expect(page.locator('.answer-review')).toHaveCount(5)
   await page.getByRole('button',{name:'Try again ↻'}).click();await expect(page.getByRole('radio').first()).not.toBeChecked()
-  await page.goto('/topic/reading-evidence');await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain the thoughtful reading field guide');await page.getByRole('button',{name:'Send question'}).click();await expect(page.locator('.citation-link')).toHaveAttribute('href', /resources\/1\?page=/);await page.locator('.citation-link').click();await expect(page.locator('canvas')).toBeVisible();
+  await page.goto('/topic/reading-evidence');await page.getByRole('button',{name:'Ask AI Tutor'}).click();await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain the thoughtful reading field guide');await page.getByRole('button',{name:'Send question'}).click();await expect(page.locator('.citation-link')).toHaveAttribute('href', /resources\/1\?page=/);await page.locator('.citation-link').click();await expect(page.locator('canvas')).toBeVisible();
   expect(errors).toEqual([])
 })
 
 test('mobile navigation, themes, selected text and responsive pages', async ({ page }) => {
   await page.setViewportSize({width:390,height:844})
-  await page.goto('/');await page.getByRole('combobox',{name:'Appearance'}).selectOption('dark')
+  await page.goto('/');await page.getByRole('button',{name:'Switch to dark theme'}).click()
   await expect(page.locator('html')).toHaveAttribute('data-theme','dark')
-  await page.getByRole('link',{name:'Explore the library'}).first().click()
+  await page.getByRole('link',{name:/Explore Syllabus/}).first().click()
   await page.locator('summary').filter({hasText:'historical thinking'}).click();await page.getByRole('link',{name:/Reading the past, one source at a time/}).click()
-  await expect(page.locator('.study-reader')).toBeVisible();await expect(page.locator('.study-tutor')).toBeHidden()
+  await expect(page.locator('.study-reader')).toBeVisible();await expect(page.locator('.floating-tutor-popup')).toHaveCount(0)
   await page.getByRole('button',{name:'Explain this passage'}).nth(1).click()
-  await expect(page.locator('.study-tutor')).toBeVisible();await expect(page.locator('.study-reader')).toBeHidden()
+  await expect(page.locator('.floating-tutor-popup')).toBeVisible()
   await page.getByRole('button',{name:'Explain simply'}).click();await expect(page.locator('.citation-link')).toBeVisible()
   await page.locator('.citation-link').click();await expect(page.locator('.study-reader')).toBeVisible()
   for(const route of ['/','/syllabus','/search?q=observation','/resources/1?page=2','/quiz/reading-evidence','/about','/help','/missing']) {
@@ -58,7 +58,9 @@ test('keyboard and automated accessibility checks on principal pages', async ({ 
     await page.goto(route);await page.locator('h1').first().waitFor()
     if(route.includes('/resources/')) await expect(page.getByText('Opening page 1…')).toHaveCount(0)
     for (const theme of ['light','dark']) {
-      await page.getByRole('combobox',{name:'Appearance'}).selectOption(theme)
+      if (await page.locator('html').getAttribute('data-theme') !== theme) {
+        await page.getByRole('button',{name:`Switch to ${theme} theme`}).click()
+      }
       const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()
       expect(result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})), `${route} / ${theme}`).toEqual([])
     }
@@ -78,7 +80,7 @@ test('production CSP permits the study flow and defers PDF assets until requeste
       await route.fulfill({response,headers:{...response.headers(),'content-security-policy':policy}})
     } else await route.continue()
   })
-  await page.goto('/');await page.getByRole('link',{name:'Explore the library'}).waitFor()
+  await page.goto('/');await page.getByRole('link',{name:/Explore Syllabus/}).waitFor()
   expect(requests.some(url=>/pdf\.worker|\/assets\/pdf-/.test(url))).toBe(false)
   await page.goto('/resources/1?page=2');await page.locator('canvas').waitFor();await page.locator('.pdf-loading').waitFor({state:'hidden'})
   expect(requests.some(url=>/pdf\.worker/.test(url))).toBe(true)

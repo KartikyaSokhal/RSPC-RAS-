@@ -98,13 +98,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.getenv("DATABASE_PATH", str(BASE_DIR / "db.sqlite3")),
-        "OPTIONS": {"timeout": 5},
-    }
-}
+from .database import database_config
+
+DATABASES = {"default": database_config(os.environ, production=PRODUCTION)}
 
 
 # Password validation

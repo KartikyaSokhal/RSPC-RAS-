@@ -53,13 +53,52 @@ purifier.addHook?.('afterSanitizeAttributes', (node) => {
 })
 
 /** Authored educational HTML only. AI output must use SafeMarkdown. */
-export default function SafeHtml({ html, className }) {
-  const sanitized = useMemo(
-    () => purifier.isSupported ? purifier.sanitize(typeof html === 'string' ? html : '', config) : null,
-    [html],
-  )
+const emptyConnections = []
+
+export default function SafeHtml({ html, className, connections = emptyConnections, onConnection }) {
+  const sanitized = useMemo(() => {
+    if (!purifier.isSupported) return null
+    const fragment = purifier.sanitize(typeof html === 'string' ? html : '', { ...config, RETURN_DOM_FRAGMENT: true })
+    const walker = document.createTreeWalker(fragment, window.NodeFilter.SHOW_TEXT)
+    const nodes = []; let node
+    while ((node = walker.nextNode())) nodes.push(node)
+    // Only metadata generated outside authored HTML can create popup controls.
+    // Exact text/offset checks fail closed if the browser repaired the markup.
+    for (const [index, textNode] of nodes.entries()) {
+      const rows = connections.map((row, key) => ({ ...row, key })).filter(row => row.node_index === index)
+        .sort((a, b) => a.start - b.start)
+      const replacement = document.createDocumentFragment(); let offset = 0
+      for (const row of rows) {
+        if (!Number.isSafeInteger(row.start) || !Number.isSafeInteger(row.end) || row.start < offset || row.end <= row.start ||
+            textNode.textContent.slice(row.start, row.end) !== row.text || typeof row.target?.slug !== 'string' ||
+            !row.target.slug || row.target.slug.length > 255 || textNode.parentElement?.closest('a,pre,code,kbd,samp,h1,h2,h3,h4,h5,h6')) continue
+        replacement.append(document.createTextNode(textNode.textContent.slice(offset, row.start)))
+        const link = document.createElement('a')
+        link.textContent = row.text
+        link.href = `/topic/${encodeURIComponent(row.target.slug)}`
+        link.target = '_blank'; link.rel = CONTENT_LINK_REL
+        link.className = 'keyword-connection'
+        link.dataset.prepalConnection = String(row.key)
+        link.setAttribute('aria-haspopup', 'dialog')
+        replacement.append(link); offset = row.end
+      }
+      if (offset) {
+        replacement.append(document.createTextNode(textNode.textContent.slice(offset)))
+        textNode.replaceWith(replacement)
+      }
+    }
+    const wrapper = document.createElement('div'); wrapper.append(fragment)
+    return wrapper.innerHTML
+  }, [html, connections])
+  const markup = useMemo(() => ({ __html: sanitized }), [sanitized])
+  function activate(event) {
+    const link = event.target.closest?.('a[data-prepal-connection]')
+    if (!link || !event.currentTarget.contains(link) || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return
+    const row = connections[Number(link.dataset.prepalConnection)]
+    if (row && onConnection) { event.preventDefault(); onConnection(row.target, link) }
+  }
   // DOMPurify can return unfiltered input on unsupported DOM implementations.
   // Fall back to React text escaping rather than weakening the trust boundary.
   if (sanitized === null) return <div className={className}>{typeof html === 'string' ? html : ''}</div>
-  return <div className={className} dangerouslySetInnerHTML={{ __html: sanitized }} />
+  return <div className={className} onClick={activate} dangerouslySetInnerHTML={markup} />
 }

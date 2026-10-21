@@ -2,7 +2,11 @@
 import os
 from unittest.mock import patch
 
-with patch("dotenv.load_dotenv"):
+with patch("dotenv.load_dotenv"), patch.dict(os.environ, {
+    'DATABASE_ENGINE': 'sqlite', 'DATABASE_PATH': ':memory:',
+    'DJANGO_ENV': 'development', 'AI_ENABLED': 'false', 'AI_GUEST_ENABLED': 'false',
+    'GEMINI_API_KEY': '', 'GOOGLE_API_KEY': '',
+}):
     from .settings import *  # noqa: F403
 
 SECRET_KEY = "test-only-not-a-production-secret-000000000000000000000000"

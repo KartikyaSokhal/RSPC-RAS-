@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.env
 
 # Runtime data
 pids
@@ -57,7 +58,8 @@ Thumbs.db
 .env.production.local
 
 # IDEs
-.vscode/
+.vscode/*
+!.vscode/settings.json
 !.vscode/extensions.json
 .idea/
 *.suo
@@ -77,35 +79,24 @@ backend/staticfiles/
 .local/
 backups/
 
-# Local-only development planning, historical audit files, and verification evidence
+# Private historical material and generated verification evidence.
+# Canonical docs/*.md are release inputs and must remain trackable.
 docs/evidence/
 docs/history/
 docs/proposals/
 docs/design/
-docs/ADMIN_WORKFLOW.md
-docs/AGENT_HANDOFF.md
-docs/APPROVAL_SUMMARY.md
-docs/DECISIONS.md
-docs/DESIGN_SYSTEM.md
-docs/MVP_SCOPE.md
-docs/PRODUCT_VISION.md
-docs/PROJECT_STATUS.md
-docs/README.md
-docs/REPOSITORY_PLAN.md
-docs/REVIEW_PASSES.md
-docs/SYSTEM_DESIGN.md
-docs/USER_FLOWS.md
-docs/FEATURES.md
-docs/PROJECT_ANALYSIS.md
-docs/SKILLS.md
-docs/TASKS.md
-docs/IMPLEMENTATION_PLAN.md
-docs/AI_SYSTEM.md
-docs/CHANGELOG.md
-docs/UI_UX_PLAN.md
 
 # Legacy retired Express backend (local copies preserved)
 backend/package.json
 backend/package-lock.json
 backend/src/
+
+# Local release exports, archives and tooling caches.
+.release/
+release-manifest.json
+.ruff_cache/
+.mypy_cache/
+.cache/
+*.tar.gz
+*.backup
 

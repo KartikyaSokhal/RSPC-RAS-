@@ -21,7 +21,7 @@ def reserve(visitor, ip_key, input_upper_bound):
                (f'ip:{ip_key}:{day}', settings.AI_IP_DAILY_LIMIT), (f'minute:{visitor}:{minute}', settings.AI_MINUTE_LIMIT)]
     try:
         with transaction.atomic():
-            # The first conditional write serializes reservations on SQLite. Never rely on SELECT FOR UPDATE.
+            # Conditional global-row UPDATE serializes contenders on PostgreSQL and SQLite.
             for key, limit in buckets:
                 AiBudgetBucket.objects.get_or_create(key=key)
                 qs = AiBudgetBucket.objects.filter(key=key)
@@ -41,7 +41,8 @@ def finish(reservation, actual_micro=None):
     # Only known, bounded actual usage can release the unused monetary reservation.
     try:
         with transaction.atomic():
-            row = AiRequest.objects.get(pk=reservation.pk)
+            # PostgreSQL permits concurrent readers; lock before checking completion.
+            row = AiRequest.objects.select_for_update().get(pk=reservation.pk)
             if row.state != 'reserved': return
             known = type(actual_micro) is int and 0 <= actual_micro <= row.reserved_micro
             if known:

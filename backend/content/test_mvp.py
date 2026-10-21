@@ -64,7 +64,7 @@ class ProductTests(TestCase):
         self.assertIn('Observation describes', self.client.get('/api/topic/observation/').content.decode())
 
     def test_related_scope_requires_explicit_published_edge_and_request(self):
-        TopicRelation.objects.create(source=self.topic, target=self.related, kind='related', reason='Fixture connection')
+        TopicRelation.objects.create(source=self.topic, target=self.related, kind='related', status='approved', reason='Fixture connection')
         _, before = DatabaseRetrievalProvider().retrieve('observation', {'message': 'sequence', 'allow_related': True})
         self.assertEqual(before, [])
         publish(self.topic, self.editor)
@@ -104,7 +104,7 @@ class ProductTests(TestCase):
         client = APIClient(enforce_csrf_checks=True)
         self.assertEqual(client.post('/api/topic/observation/quiz/check/', {}, format='json').status_code, 403)
         self.assertEqual(client.post('/api/topic/observation/chat/', {'message': 'Explain'}, format='json').status_code, 403)
-        self.assertEqual(client.post('/api/topic/observation/quiz/submit/', {}, format='json').status_code, 403)
+        self.assertEqual(client.post('/api/topic/observation/quiz/submit/', {}, format='json').status_code, 503)
 
         config = client.get('/api/config/').json(); preview = client.get('/api/topic/observation/quiz/').json()
         response = client.post('/api/topic/observation/quiz/check/', {'quiz_id': self.quiz.pk, 'revision_token': preview['revision_token'], 'answers': {}}, format='json', HTTP_X_CSRFTOKEN=config['csrf_token'])
@@ -192,13 +192,13 @@ class ProductTests(TestCase):
             url = f'/admin/content/topic/{self.topic.pk}/draft-image/{block.pk}/'
             self.assertEqual(self.client.get(url).status_code, 302)
             self.client.force_login(self.editor); response = self.client.get(url)
-            self.assertEqual(response.status_code, 200); response.close()
+            self.assertEqual(response.status_code, 200); self.assertTrue(b''.join(response.streaming_content))
             self.assertEqual(self.client.get(f'/api/topic/{self.topic.slug}/images/{block.pk}/').status_code, 404)
             publish(self.topic, self.editor)
             body = self.client.get(f'/api/topic/{self.topic.slug}/').json()
             self.assertNotIn('file_name', str(body)); self.assertNotIn('file_hash', str(body))
             response = self.client.get(f'/api/topic/{self.topic.slug}/images/{block.pk}/')
-            self.assertEqual(response.status_code, 200); response.close()
+            self.assertEqual(response.status_code, 200); self.assertTrue(b''.join(response.streaming_content))
 
     @override_settings(AI_ENABLED=True, AI_GUEST_ENABLED=True, TRUSTED_PROXY_IPS=('127.0.0.1',))
     def test_proxy_identity_is_explicit_and_health_is_read_only(self):

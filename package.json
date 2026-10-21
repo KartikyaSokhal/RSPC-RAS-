@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint src *.config.js e2e e2e-integration scripts/*.mjs",
+    "lint": "eslint src *.config.js e2e e2e-integration e2e-sample scripts/*.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:integration": "playwright test --config=playwright.integration.config.js",
+    "test:sample": "playwright test --config=playwright.sample.config.js",
     "test:backend": "cd backend && python run_tests.py",
     "check": "npm run lint && npm run test && npm run build"
   },

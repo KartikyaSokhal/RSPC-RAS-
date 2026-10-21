@@ -15,14 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.views.static import serve
+from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("content.urls")),
-    re_path(r"^private-media/(?P<path>.*)$", xframe_options_exempt(serve), {"document_root": settings.MEDIA_ROOT}),
 ]

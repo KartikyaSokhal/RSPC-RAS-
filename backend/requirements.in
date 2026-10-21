@@ -12,3 +12,6 @@ Pillow==13.0.0
 
 # WSGI runtime for the reviewed single-host deployment configuration.
 gunicorn==26.2.0
+
+# Primary database driver, including a self-contained libpq binary wheel.
+psycopg[binary]==3.3.6

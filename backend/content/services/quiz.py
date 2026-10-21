@@ -61,6 +61,8 @@ def is_reviewable(quiz):
     if not 1 <= len(questions) <= 100:
         return False
     for question in questions:
+        if question.primary_topic_id in {topic.pk for topic in question.related_topics.all()}:
+            return False
         text = " ".join(question.question_text.split()).casefold()
         if not text or re.fullmatch(r"which core aspect of .+ is key to rpsc preparation\?", text):
             return False  # Known auto-generated generic fallback, even if allowlisted.
@@ -79,7 +81,7 @@ def select_reviewed_quiz(slug, quiz_id=None, *, require_unambiguous=False):
         quizzes = quizzes.filter(pk=quiz_id)
     quizzes = quizzes.prefetch_related(Prefetch(
         "questions", queryset=Question.objects.order_by("pk").prefetch_related(
-            Prefetch("choices", queryset=Choice.objects.order_by("pk"))
+            Prefetch("choices", queryset=Choice.objects.order_by("pk")), 'related_topics', 'tags'
         ),
     ))
     candidates = [quiz for quiz in quizzes if is_reviewable(quiz) and QuizReview.objects.filter(quiz=quiz, is_approved=True, fingerprint=quiz_fingerprint(quiz)).exists()]
@@ -108,7 +110,10 @@ def grade_submission(slug, payload):
 
 
 def grade_quiz(quiz, answers):
-    questions = list(quiz.questions.all())
+    return {'quiz_id': quiz.pk, **grade_questions(list(quiz.questions.all()), answers)}
+
+
+def grade_questions(questions, answers):
     by_id = {question.pk: question for question in questions}
     if len(answers) > len(questions) or set(answers) - by_id.keys():
         raise QuizServiceError(400, "invalid_answers", "Answers must belong to this quiz.")
@@ -130,19 +135,26 @@ def grade_quiz(quiz, answers):
             "explanation": question.explanation or "",
         })
     score = sum(result["is_correct"] for result in results)
-    return {"quiz_id": quiz.pk, "score": score, "total": len(questions),
+    return {"score": score, "total": len(questions),
             "percentage": score * 100 / len(questions), "results": results}
 
 
 def quiz_fingerprint(quiz):
+    questions = sorted(quiz.questions.all(), key=lambda q: q.pk)
     data = [quiz.pk, quiz.title, quiz.topic_id, [[q.pk, q.question_text, q.explanation,
-        [[c.pk, c.choice_text, c.is_correct] for c in q.choices.all()]] for q in quiz.questions.all()]]
+        [[c.pk, c.choice_text, c.is_correct] for c in sorted(q.choices.all(), key=lambda c: c.pk)]] for q in questions]]
+    # Preserve existing approvals after a lossless legacy-primary backfill.
+    # New academic associations are bound to subsequent reviews and tokens.
+    metadata = [[q.pk, q.primary_topic_id, sorted(t.pk for t in q.related_topics.all()),
+                 sorted(t.pk for t in q.tags.all())] for q in questions]
+    if any(primary != quiz.topic_id or related or tags for _, primary, related, tags in metadata):
+        data.append(metadata)
     return hashlib.sha256(json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
 
 
 def review_quiz(quiz, reviewer, source):
     # Fresh explicitly ordered instance; all callers use the same canonical order.
-    quiz = Quiz.objects.prefetch_related(Prefetch("questions", queryset=Question.objects.order_by("pk").prefetch_related(Prefetch("choices", queryset=Choice.objects.order_by("pk"))))).get(pk=quiz.pk)
+    quiz = Quiz.objects.prefetch_related(Prefetch("questions", queryset=Question.objects.order_by("pk").prefetch_related(Prefetch("choices", queryset=Choice.objects.order_by("pk")), 'related_topics', 'tags'))).get(pk=quiz.pk)
     if not source.strip() or not is_reviewable(quiz) or any(not q.explanation for q in quiz.questions.all()):
         raise QuizServiceError(400, "quiz_not_reviewable", "Review sources, explanations and one correct answer per question.")
     return QuizReview.objects.update_or_create(quiz=quiz, defaults={"is_approved": True, "fingerprint": quiz_fingerprint(quiz), "source_reference": source, "reviewed_by": reviewer})[0]

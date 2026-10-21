@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import useResource from '../hooks/useResource.js'
 import { post, errorMessage } from '../api/client.js'
 import Skeleton from '../components/ui/Skeleton.jsx'
 import StatusPanel from '../components/ui/StatusPanel.jsx'
 
-function Practice({ quiz, slug, reload }) {
+function Practice({ quiz, slug, reload, collection }) {
   const [answers, setAnswers] = useState({})
   const [result, setResult] = useState(null)
   const [busy, setBusy] = useState(false)
@@ -20,7 +20,8 @@ function Practice({ quiz, slug, reload }) {
     const request = new AbortController(); controller.current = request
     setBusy(true); setError('')
     try {
-      const response = await post(`/topic/${slug}/quiz/check/`, { quiz_id: quiz.id, revision_token: quiz.revision_token, answers }, request.signal)
+      const payload = collection ? { collection_id: quiz.collection_id, page: quiz.page, revision_token: quiz.revision_token, answers } : { quiz_id: quiz.id, revision_token: quiz.revision_token, answers }
+      const response = await post(`/topic/${slug}/${collection ? 'practice' : 'quiz'}/check/`, payload, request.signal)
       if (!request.signal.aborted) setResult(response)
     } catch (err) {
       if (!request.signal.aborted) setError(errorMessage(err, 'Your answers could not be checked. They are still here; please try again.'))
@@ -37,9 +38,11 @@ function Practice({ quiz, slug, reload }) {
     {error && <div role="alert" className="inline-error">{error}<button type="button" className="text-link" onClick={reload}>Reload practice set</button></div>}<div className="quiz-submit"><p>Unanswered questions score zero.<br />Take your time. The explanation matters.</p><button className="button primary" disabled={busy || !quiz.revision_token}>{busy ? 'Checking answers…' : 'Check my answers →'}</button></div>
   </form><p className="privacy-note">+1 for a correct answer; 0 for an incorrect or unanswered question. Practice scoring is not an official examination marking scheme.</p></>
 }
-export default function QuizPage() {
+export default function QuizPage({ collection = false }) {
   const { slug } = useParams()
-  const { data, loading, error, retry } = useResource(`/topic/${encodeURIComponent(slug)}/quiz/`)
+  const [params, setParams] = useSearchParams()
+  const page = params.get('page') || '1'
+  const { data, loading, error, retry } = useResource(`/topic/${encodeURIComponent(slug)}/${collection ? `practice/?page=${encodeURIComponent(page)}` : 'quiz/'}`)
   const [run, setRun] = useState(0)
-  return <div className="page quiz-page"><Link className="back-link" to={`/topic/${slug}`}>← Back to the lesson</Link>{loading ? <Skeleton label="Opening the practice set…" /> : error || !data ? <StatusPanel title={error?.response?.status === 404 ? 'No reviewed quiz is available yet.' : 'Practice could not load.'} to={`/topic/${slug}`} linkLabel="Back to the lesson" retry={error?.response?.status !== 404 ? retry : undefined}>Continue with the lesson while this practice set is unavailable.</StatusPanel> : <Practice key={`${slug}:${data.id}:${run}`} quiz={data} slug={slug} reload={() => { setRun(n => n + 1); retry() }} />}</div>
+  return <div className="page quiz-page"><Link className="back-link" to={`/topic/${slug}`}>← Back to the lesson</Link>{loading ? <Skeleton label="Opening the practice set…" /> : error || !data ? <StatusPanel title={error?.response?.status === 404 ? 'No reviewed quiz is available yet.' : 'Practice could not load.'} to={`/topic/${slug}`} linkLabel="Back to the lesson" retry={error?.response?.status !== 404 ? retry : undefined}>Continue with the lesson while this practice set is unavailable.</StatusPanel> : <Practice key={`${slug}:${page}:${data.id}:${run}`} quiz={data} slug={slug} collection={collection} reload={() => { setRun(n => n + 1); retry() }} />}{collection && data && !loading && !error && <nav className="pagination" aria-label="Practice collection pages"><button className="button" disabled={data.page <= 1} onClick={() => setParams({page: String(data.page - 1)})}>Previous</button><span>Page {data.page} · {data.count} reviewed questions</span><button className="button" disabled={data.page * data.page_size >= data.count} onClick={() => setParams({page: String(data.page + 1)})}>Next</button></nav>}</div>
 }

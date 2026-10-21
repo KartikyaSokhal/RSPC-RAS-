@@ -2,4 +2,4 @@
 // Remove only with verified owned endpoints in P010/P012; not a runtime toggle.
 export const LEARNER_FEATURES_AVAILABLE = false
 export const LEARNER_FEATURES_UNAVAILABLE_MESSAGE =
-  'Personalized features are temporarily unavailable while learner accounts are being secured. Bookmarks, completion tracking, saved quiz history and weakness reports are paused. Reading remains available.'
+  'Student accounts, bookmarks, completion tracking and saved quiz history are unavailable in this content-first release. Browse the syllabus, read published notes and practice without saving a personal record.'

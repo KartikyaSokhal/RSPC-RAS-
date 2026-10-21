@@ -1,18 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useEffect, useMemo, useRef } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import useTheme from '../../hooks/useTheme.js'
 import useResource from '../../hooks/useResource.js'
-import useAuth from '../../hooks/useAuth.js'
 import { PlatformContext } from './platformContext.js'
+import { SyllabusContext } from '../study/syllabusContext.js'
+import { indexSyllabus } from '../study/syllabusUtils.js'
 
 export default function AppShell() {
   const { theme, toggleTheme } = useTheme()
   const { data: config } = useResource('/config/')
-  const { user, authenticated, logout } = useAuth()
+  const syllabus = useResource('/topics/?tree=1')
+  const totalTopics = useMemo(() => syllabus.data ? indexSyllabus(syllabus.data).size : null, [syllabus.data])
   const location = useLocation()
   const main = useRef(null)
   const previousRoute = useRef(location.pathname)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Scroll to top or anchor on navigation
   useEffect(() => {
@@ -32,12 +33,13 @@ export default function AppShell() {
 
   return (
     <PlatformContext.Provider value={config || {}}>
+      <SyllabusContext.Provider value={syllabus}>
       <a className="skip-link" href="#main-content">Skip to content</a>
 
       {config?.demo && (
         <div className="demo-banner">
           <span className="live-dot" />
-          <span>RPSC / RAS Academic Edition · Verified Syllabus Hierarchy (152 Topics) · AI Tutor Grounded in Sources</span>
+          <span>RPSC / RAS Academic Edition · Synthetic demonstration content · Source-grounded AI assistant</span>
         </div>
       )}
 
@@ -54,21 +56,8 @@ export default function AppShell() {
             </span>
           </Link>
 
-          {/* DESKTOP NAVIGATION */}
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <NavLink to="/syllabus" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              Syllabus
-            </NavLink>
-            <NavLink to="/search" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              Search
-            </NavLink>
-            <NavLink to="/about" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              About
-            </NavLink>
-          </nav>
-
-          {/* HEADER CONTROLS & AUTH */}
           <div className="header-controls">
+            <Link className="button primary header-search-button" to="/search">Search <span aria-hidden="true">⌕</span></Link>
             {/* COMPACT SUN/MOON THEME TOGGLE */}
             <button
               type="button"
@@ -98,85 +87,8 @@ export default function AppShell() {
               )}
             </button>
 
-            {/* AUTH ACTIONS */}
-            {authenticated ? (
-              <div className="user-menu-group">
-                <NavLink to="/dashboard" className="nav-profile-pill" title="My Learning Dashboard">
-                  <span className="user-avatar-initial" aria-hidden="true">
-                    {(user?.name || user?.username || 'S')[0].toUpperCase()}
-                  </span>
-                  <span className="user-name-text">Dashboard</span>
-                </NavLink>
-                <button
-                  type="button"
-                  onClick={logout}
-                  className="nav-logout-btn"
-                  title="Sign out of student account"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="auth-nav-group">
-                <Link to="/login" className="nav-login-link">
-                  Sign in
-                </Link>
-                <Link to="/signup" className="button primary small nav-signup-btn">
-                  Sign up
-                </Link>
-              </div>
-            )}
-
-            {/* MOBILE HAMBURGER BUTTON */}
-            <button
-              type="button"
-              className="mobile-menu-toggle"
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen(prev => !prev)}
-            >
-              <span className={`hamburger-bar ${mobileMenuOpen ? 'open' : ''}`} />
-            </button>
           </div>
         </div>
-
-        {/* MOBILE MENU DRAWER */}
-        {mobileMenuOpen && (
-          <nav className="mobile-nav-drawer" aria-label="Mobile navigation">
-            <NavLink to="/syllabus" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              Syllabus
-            </NavLink>
-            <NavLink to="/search" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              Search
-            </NavLink>
-            <NavLink to="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-              About & Scope
-            </NavLink>
-            {authenticated ? (
-              <>
-                <NavLink to="/dashboard" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                  My Dashboard
-                </NavLink>
-                <button
-                  type="button"
-                  onClick={() => { logout(); setMobileMenuOpen(false) }}
-                  className="mobile-nav-link logout"
-                >
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <div className="mobile-auth-actions">
-                <Link to="/login" className="button full-width" onClick={() => setMobileMenuOpen(false)}>
-                  Sign In
-                </Link>
-                <Link to="/signup" className="button primary full-width" onClick={() => setMobileMenuOpen(false)}>
-                  Sign Up
-                </Link>
-              </div>
-            )}
-          </nav>
-        )}
       </header>
 
       <main id="main-content" ref={main} tabIndex={-1} className="main-content">
@@ -188,17 +100,20 @@ export default function AppShell() {
           <Link className="brand footer-brand" to="/">
             prepal<span className="brand-dot">.</span>
           </Link>
-          <p className="footer-tagline">Academic syllabus study library for Rajasthan Administrative Services (RAS).</p>
+          <p className="footer-tagline">Prepal Academic Syllabus · Rajasthan Administrative Services (RAS).</p>
         </div>
-        <p className="footer-center">152 Curriculum Topics · Source-Grounded Notes · AI Study Companion</p>
+        <div className="footer-center" aria-label="Syllabus statistics" aria-busy={syllabus.loading}>
+          {syllabus.loading ? <p>Loading syllabus statistics…</p> : syllabus.error ? <p>Syllabus statistics are temporarily unavailable.</p> : <p>{syllabus.data?.length} Subjects · {totalTopics} Curriculum Topics</p>}
+          <div className="footer-social-space" aria-hidden="true" />
+        </div>
         <nav aria-label="Footer">
           <Link to="/syllabus">Syllabus</Link>
           <Link to="/search">Search</Link>
-          <Link to="/about">About & Methodology</Link>
           <Link to="/help">Help & Privacy</Link>
         </nav>
         <small>Designed for RPSC RAS candidates. Independent academic study resource; not affiliated with the government examination authority.</small>
       </footer>
+      </SyllabusContext.Provider>
     </PlatformContext.Provider>
   )
 }

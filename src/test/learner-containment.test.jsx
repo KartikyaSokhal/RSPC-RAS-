@@ -6,11 +6,13 @@ import App from '../App.jsx'
 import { mockAPI, quiz } from './fixtures.js'
 
 beforeEach(() => { window.history.replaceState({}, '', '/topic/fixture-history'); mockAPI() })
-it('safely handles guest bookmark and completion actions without requesting shared records', async () => {
+it('disables learner controls and ignores stale owned status without requesting shared records', async () => {
   render(<App />); await screen.findByText('Curated fixture notes.')
-  expect(screen.getByText(/Sign in to save this topic to your bookmarks/)).toBeVisible()
+  expect(screen.getByText(/Student accounts, bookmarks, completion tracking/)).toBeVisible()
   const bookmarkBtn = screen.getByRole('button', { name: /Bookmark/i })
-  expect(bookmarkBtn).toBeVisible()
+  expect(bookmarkBtn).toBeDisabled()
+  expect(screen.getByRole('button', { name: /Mark as Completed/i })).toBeDisabled()
+  expect(screen.queryByRole('button', { name: /^Bookmarked$/i })).toBeNull()
   // As a guest, clicking bookmark does not mutate shared records on the backend
   expect(axios.post).not.toHaveBeenCalled()
   expect(axios.get.mock.calls.every(([url]) => !/weakness/.test(url))).toBe(true)

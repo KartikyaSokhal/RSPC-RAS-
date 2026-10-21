@@ -1,4 +1,4 @@
-"""Create disposable tables directly from models, without running migrations."""
+"""Isolated SQLite model tables or opt-in disposable PostgreSQL migration tests."""
 from contextlib import ExitStack
 from unittest.mock import patch
 
@@ -47,3 +47,24 @@ class NoMigrationRunner(DiscoverRunner):
             if client.call_count or network.call_count or network_ex.call_count:
                 raise RuntimeError("Unexpected real provider/network attempt during tests")
             return failures
+
+
+class PostgresRunner(NoMigrationRunner):
+    """Use real migrations, creating/destroying only an explicitly named local test DB."""
+    def setup_databases(self, **kwargs):
+        connection = connections['default']
+        config = connection.settings_dict
+        if (self.keepdb or self.parallel > 1 or set(connections) != {'default'}
+                or connection.vendor != 'postgresql'
+                or config['HOST'] not in ('127.0.0.1', 'localhost', '::1')
+                or not config['NAME'].startswith('prepal_test_')
+                or not config['TEST']['NAME'].startswith('test_prepal_')):
+            raise RuntimeError('Refusing PostgreSQL tests outside disposable local test databases.')
+        with connection._nodb_cursor() as cursor:
+            cursor.execute('SELECT 1 FROM pg_database WHERE datname=%s', [config['TEST']['NAME']])
+            if cursor.fetchone():
+                raise RuntimeError('Refusing to reuse or overwrite an existing PostgreSQL test database.')
+        return DiscoverRunner.setup_databases(self, **kwargs)
+
+    def teardown_databases(self, old_config, **kwargs):
+        return DiscoverRunner.teardown_databases(self, old_config, **kwargs)

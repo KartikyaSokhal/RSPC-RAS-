@@ -6,7 +6,7 @@ from html import unescape
 import nh3
 from django.db import transaction
 from django.utils import timezone
-from ..models import Topic, TopicPublication, LearningResource
+from ..models import Topic, TopicPublication, LearningResource, TopicRelation
 from ..exceptions import ServiceError
 
 TAGS = set('h1 h2 h3 h4 h5 h6 p br hr div span strong em b i u s del ins mark small sub sup blockquote q cite abbr pre code kbd samp var ul ol li dl dt dd a figure figcaption table caption colgroup col thead tbody tfoot tr th td'.split())
@@ -41,6 +41,11 @@ def visible_publications():
             current = by_id.get(parent_id)
             if current is None: return False
         return False
+    approved_edges = set(TopicRelation.objects.filter(status='approved').values_list('source_id', 'target_id', 'kind'))
+    for pub in rows:
+        pub.snapshot = copy.deepcopy(pub.snapshot)
+        pub.snapshot['relations'] = [r for r in pub.snapshot.get('relations', [])
+                                     if (pub.topic_id, r['target_id'], r['kind']) in approved_edges]
     return {p.topic_id: p for p in rows if visible(p)}
 
 
@@ -63,20 +68,21 @@ def summary(pub, publications, quiz_topics=None):
 
 def detail(pub, publications, user=None):
     data = summary(pub, publications)
-    if user and user.is_authenticated:
-        from ..models import Bookmark, UserProgress
-        data['is_bookmarked'] = Bookmark.objects.filter(user=user, topic_id=pub.topic_id).exists()
-        data['is_completed'] = UserProgress.objects.filter(user=user, topic_id=pub.topic_id, is_completed=True).exists()
     data['blocks'] = copy.deepcopy(pub.snapshot.get('blocks', []))
     for block in data['blocks']:
         block.pop('file_name', None); block.pop('file_hash', None)
+        if block.get('block_type') != 'image':
+            # Historical raw attachments stay stored; PDFs require resource review.
+            block['file'] = None
     data['children'] = [summary(p, publications) for p in publications.values() if p.snapshot.get('parent_id') == pub.topic_id]
     path = []; node = pub
     while node:
         path.append(summary(node, publications)); node = publications.get(node.snapshot.get('parent_id'))
     data['breadcrumbs'] = list(reversed(path))
-    data['related'] = [{**summary(publications[r['target_id']], publications), 'kind': r['kind'], 'reason': r['reason']}
-                       for r in pub.snapshot.get('relations', []) if r['target_id'] in publications]
+    from .discovery import related_topics, article_links, article_tags
+    data['related'] = related_topics(pub, publications)
+    data['keyword_links'] = article_links(pub, publications)
+    data['tags'] = article_tags(pub)
     ids = pub.snapshot.get('resource_ids', [])
     resources = LearningResource.objects.filter(id__in=ids, topic_id=pub.topic_id, status='approved').order_by('pk')
     data['resources'] = [{'id': r.pk, 'title': r.title, 'page_count': r.page_count, 'url': f'/resources/{r.pk}?page=1'} for r in resources]
@@ -86,7 +92,7 @@ def detail(pub, publications, user=None):
 
 
 def get_syllabus_tree(published_only=False, include_tree=False, user=None):
-    from ..models import QuizReview, Bookmark, UserProgress
+    from ..models import QuizReview
     from django.db.utils import OperationalError, ProgrammingError
     pubs = visible_publications()
     try:
@@ -96,12 +102,6 @@ def get_syllabus_tree(published_only=False, include_tree=False, user=None):
 
     user_bookmarks = set()
     user_completed = set()
-    if user and getattr(user, 'is_authenticated', False):
-        try:
-            user_bookmarks = set(Bookmark.objects.filter(user=user).values_list('topic_id', flat=True))
-            user_completed = set(UserProgress.objects.filter(user=user, is_completed=True).values_list('topic_id', flat=True))
-        except (OperationalError, ProgrammingError):
-            pass
 
     if published_only:
         def pub_node(pub):
@@ -173,9 +173,10 @@ def draft_snapshot(topic):
         blocks.append(item)
     if len(blocks) > 100: raise ServiceError('content_too_large', 'A topic may contain at most 100 blocks.')
     if sum(len(b['content']) for b in blocks) > 500000: raise ServiceError('content_too_large', 'Topic content exceeds publication limit.')
-    relations = list(topic.relations.order_by('pk').values('target_id', 'kind', 'reason')[:20])
+    relations = list(topic.relations.filter(status='approved').order_by('pk').values('target_id', 'kind', 'reason')[:20])
     return {'version': 1, 'title': topic.title, 'slug': topic.slug, 'parent_id': topic.parent_id, 'blocks': blocks,
-            'relations': relations, 'resource_ids': list(topic.resources.filter(status='approved').values_list('pk', flat=True)[:20])}
+            'relations': relations, 'tags': list(topic.tags.order_by('pk').values('id', 'name', 'slug')),
+            'resource_ids': list(topic.resources.filter(status='approved').values_list('pk', flat=True)[:20])}
 
 
 @transaction.atomic
@@ -190,10 +191,15 @@ def publish(topic, reviewer):
         raise ServiceError('source_required', 'Text blocks require source references before review/publication.')
     previous = {'revision': current.revision, 'snapshot': current.snapshot} if current else None
     text = ' '.join(plain(b['content']) for b in snapshot['blocks'] if b['block_type'] in ('text', 'heading'))
-    return TopicPublication.objects.update_or_create(topic=topic, defaults={
+    publication = TopicPublication.objects.update_or_create(topic=topic, defaults={
         'snapshot': snapshot, 'previous_snapshot': previous, 'revision': current.revision + 1 if current else 1,
         'title': topic.title, 'search_text': text, 'is_published': True, 'published_at': timezone.now(), 'published_by': reviewer,
     })[0]
+    publication.tags.set(t['id'] for t in snapshot['tags'])
+    Topic.objects.filter(pk=topic.pk).update(editorial_status='draft')
+    from .connections import publication_changed
+    publication_changed(publication)
+    return publication
 
 
 @transaction.atomic
@@ -207,3 +213,7 @@ def republish_previous(publication, reviewer):
     publication.revision += 1; publication.is_published = True
     publication.published_at = timezone.now(); publication.published_by = reviewer
     publication.save()
+    publication.tags.set(t['id'] for t in prior.get('tags', []))
+
+    from .connections import publication_changed
+    publication_changed(publication)

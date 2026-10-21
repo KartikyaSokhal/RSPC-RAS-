@@ -82,7 +82,7 @@ test('chat stays safe and revision is paused without fetching learner history', 
   await expect(panel.getByText('Model source')).toHaveAttribute('href', 'https://example.org/source')
   await expect(panel.getByText('Model diagram')).toBeVisible()
   await expect(panel.locator('img, svg, script, iframe')).toHaveCount(0)
-  await expect(page.getByText(/Sign in to save this topic to your bookmarks/)).toBeVisible()
+  await expect(page.getByText(/Student accounts, bookmarks, completion tracking/)).toBeVisible()
   expect(await page.evaluate(() => globalThis.__p001Executed)).toBe(0)
   expect(modelRequests).toEqual([])
 })

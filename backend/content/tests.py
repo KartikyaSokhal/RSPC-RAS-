@@ -9,7 +9,7 @@ from django.test import TestCase, override_settings
 from .ai_engine import get_topic_context
 from .models import Choice, ContentBlock, Question, Quiz, QuizAttempt, Topic
 
-if settings.TEST_RUNNER != "core.test_runner.NoMigrationRunner":
+if settings.TEST_RUNNER not in ("core.test_runner.NoMigrationRunner", "core.test_runner.PostgresRunner"):
     raise RuntimeError("Use python run_tests.py: this baseline must not execute migrations")
 
 
@@ -34,8 +34,12 @@ class BaselineAPITests(TestCase):
         self.addCleanup(approval.disable)
 
     def test_database_is_in_memory_without_migration_history(self):
-        self.assertEqual(connection.settings_dict["NAME"], ":memory:")
-        self.assertNotIn("django_migrations", connection.introspection.table_names())
+        if connection.vendor == "sqlite":
+            self.assertEqual(connection.settings_dict["NAME"], ":memory:")
+            self.assertNotIn("django_migrations", connection.introspection.table_names())
+        else:
+            self.assertTrue(connection.settings_dict["NAME"].startswith("test_prepal_"))
+            self.assertIn("django_migrations", connection.introspection.table_names())
 
     def test_roots_are_ordered_and_exclude_children(self):
         response = self.client.get("/api/topics/")
@@ -85,13 +89,13 @@ class BaselineAPITests(TestCase):
         response = self.client.post(f"/api/topic/{self.root.slug}/quiz/submit/", {
             "answers": {str(self.question.id): self.correct.id},
         }, content_type="application/json")
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json()["error"]["code"], "auth_required")
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["error"]["code"], "learner_features_unavailable")
         self.assertEqual(QuizAttempt.objects.count(), 0)
 
     def test_unanswered_submission_cannot_create_an_ownerless_attempt(self):
         response = self.client.post(f"/api/topic/{self.root.slug}/quiz/submit/", {"answers": {}}, content_type="application/json")
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 503)
         self.assertEqual(QuizAttempt.objects.count(), 0)
 
 

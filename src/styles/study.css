@@ -783,7 +783,7 @@
 /* RESPONSIVE LAYOUTS */
 @media (max-width: 1199px) {
   .study-workspace {
-    grid-template-columns: 220px minmax(0, 1fr) 300px;
+    grid-template-columns: 220px minmax(0, 1fr);
   }
   .study-reader {
     padding: 24px 28px;
@@ -930,7 +930,7 @@
   width: 380px;
   max-width: calc(100vw - 32px);
   height: 560px;
-  max-height: calc(100vh - 100px);
+  max-height: calc(100dvh - 100px);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -974,3 +974,28 @@
   color: var(--text);
 }
 
+
+.keyword-connection { text-decoration: underline dotted; text-underline-offset: .2em; cursor: pointer; }
+.keyword-connection:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.topic-popup-backdrop { position: fixed; inset: 0; z-index: 1100; display: grid; place-items: center; padding: 20px; background: rgb(0 0 0 / .45); }
+.topic-popup { width: min(100%, 480px); max-height: 85dvh; overflow: auto; border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--surface); color: var(--text); box-shadow: 0 16px 60px rgb(0 0 0 / .25); }
+.topic-popup h2 { margin-block: 16px; }
+.topic-popup p { margin-block: 16px 24px; }
+.article-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-block: 24px; }
+
+/* The single Tutor is a nonmodal panel; the article remains available. */
+.study-reader { min-width: 0; }
+.study-toolbar { flex-wrap: wrap; gap: 8px 16px; }
+.study-sidebar .tree-number { font-size: 11px; }
+.study-sidebar .tree-group-summary, .study-sidebar .tree-leaf { min-height: 36px; }
+.floating-tutor-popup .tutor-panel { position: static; height: 100%; min-height: 0; max-height: 100%; overflow-y: auto; }
+.floating-tutor-popup .chat-messages { flex: 1 0 100px; min-height: 100px; }
+.floating-tutor-popup .tutor-heading, .floating-tutor-popup .chat-form { flex-shrink: 0; }
+.tutor-close-btn { min-width: 44px; min-height: 44px; }
+@media (max-width: 767px) {
+  .study-toolbar { padding-inline: 20px; }
+  .toolbar-indicator { display: none; }
+  .floating-tutor-launcher { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); }
+  .floating-tutor-popup { right: 16px; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 56px); max-height: calc(100dvh - 96px); }
+  .study-reader { padding-bottom: 96px; }
+}

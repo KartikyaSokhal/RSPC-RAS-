@@ -12,7 +12,7 @@ from rest_framework.test import APIClient
 from .models import Bookmark, Choice, ContentBlock, Question, Quiz, QuizAttempt, Topic, UserProgress
 from .services.quiz import QuizServiceError, approved_quiz_ids, grade_submission
 
-if settings.TEST_RUNNER != "core.test_runner.NoMigrationRunner":
+if settings.TEST_RUNNER not in ("core.test_runner.NoMigrationRunner", "core.test_runner.PostgresRunner"):
     raise RuntimeError("Use python run_tests.py: tests must not execute migrations")
 
 
@@ -229,30 +229,13 @@ class QuizSafetyTests(TestCase):
             self.assertEqual(self.client.get(self.url).status_code, 404)
             self.assert_error(self.payload(), 404, "quiz_unavailable")
 
-    def test_submissions_require_authentication_and_enforce_user_ownership(self):
-        User = get_user_model()
-        alice = User.objects.create_user(username="quiz-alice")
-        bob = User.objects.create_user(username="quiz-bob")
-
-        # Unauthenticated request returns 401
+    def test_saved_submission_is_closed_for_guests_and_authenticated_users(self):
         client = APIClient()
+        before = self.snapshot()
+        self.assertEqual(client.post(self.url + "submit/", self.payload(), format="json").status_code, 503)
+        alice = get_user_model().objects.create_user(username="quiz-alice")
+        client.force_login(alice)
         response = client.post(self.url + "submit/", self.payload(), format="json")
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json()["error"]["code"], "auth_required")
-
-        # Authenticated Alice can submit valid practice set
-        client_alice = APIClient()
-        client_alice.force_login(alice)
-        from content.services.quiz import revision_token
-        payload = {**self.payload(), "revision_token": revision_token(self.quiz)}
-        res_alice = client_alice.post(self.url + "submit/", payload, format="json")
-        self.assertEqual(res_alice.status_code, 200)
-        self.assertEqual(res_alice.json()["score"], 1)
-        self.assertIn("attempt_id", res_alice.json())
-
-
-        # Verify attempt has user=alice, NOT bob or ownerless
-        attempt = QuizAttempt.objects.get(pk=res_alice.json()["attempt_id"])
-        self.assertEqual(attempt.user, alice)
-        self.assertEqual(QuizAttempt.objects.filter(user=bob).count(), 0)
-
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["error"]["code"], "learner_features_unavailable")
+        self.assertEqual(before, self.snapshot())

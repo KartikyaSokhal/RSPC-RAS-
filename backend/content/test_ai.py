@@ -73,7 +73,7 @@ class AIContainmentTests(TestCase):
         ContentBlock.objects.create(topic=topic_b, block_type="text", content="<p>Topic B fact about climate.</p>", source_reference="Source B", order=1)
         ContentBlock.objects.create(topic=topic_c, block_type="text", content="<p>Topic C fact about politics.</p>", source_reference="Source C", order=1)
 
-        TopicRelation.objects.create(source=topic_a, target=topic_b)
+        TopicRelation.objects.create(source=topic_a, target=topic_b, kind="related", reason="Reviewed fixture connection", status="approved")
         publish(topic_a, self.editor); publish(topic_b, self.editor); publish(topic_c, self.editor)
 
         provider = DatabaseRetrievalProvider()

@@ -1,7 +1,6 @@
 """Standalone bounded parser: executed with -I in a child, no Django/credentials."""
 import hashlib
 import json
-import os
 import resource
 import socket
 import sys

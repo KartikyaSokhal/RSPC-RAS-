@@ -1,4 +1,4 @@
-"""Private, single-host SQLite deployment. Nginx terminates TLS; never use runserver publicly."""
+"""Private Django listener for PostgreSQL deployment behind a TLS reverse proxy."""
 bind = '127.0.0.1:8000'
 workers = 2
 worker_class = 'sync'

@@ -50,8 +50,9 @@ class Command(BaseCommand):
     help = 'Create clearly labeled synthetic fixtures in the isolated demo database only.'
 
     def handle(self, *args, **options):
-        expected = Path(__file__).resolve().parents[4] / '.local/demo/demo.sqlite3'
-        if not settings.DEMO_MODE or Path(settings.DATABASES['default']['NAME']).resolve() != expected.resolve():
+        expected = Path(settings.DEMO_ROOT) / 'demo.sqlite3'
+        if (not settings.DEMO_MODE or settings.DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3'
+                or Path(settings.DATABASES['default']['NAME']).resolve() != expected.resolve()):
             raise CommandError('Refusing demo data outside the isolated demo database.')
         if Topic.objects.exists(): raise CommandError('Demo already contains topics; refusing overwrite. Keep the existing demo or select a separately reviewed reset.')
         password = secrets.token_urlsafe(24)
@@ -123,7 +124,7 @@ class Command(BaseCommand):
             publish(topic, editor)
         for i, topic in enumerate(topics):
             target = topics[(i+1) % len(topics)]
-            TopicRelation.objects.create(source=topic, target=target, kind='related', reason='Continue the demonstration reading toolkit with this connected concept.')
+            TopicRelation.objects.create(source=topic, target=target, kind='related', status='approved', reason='Continue the demonstration reading toolkit with this connected concept.')
         for number, title in enumerate(['The thoughtful reading field guide', 'A pocket guide to source questions']):
             resource = LearningResource(topic=topics[number], title=title, source_reference='Prepal original synthetic demonstration PDF', rights_note='Original fixture text created for development; no third-party material')
             resource.file.save(f'demonstration-guide-{number+1}.pdf', ContentFile(demo_pdf(title)), save=True)
@@ -131,4 +132,17 @@ class Command(BaseCommand):
             if resource.status != 'ready': raise CommandError(f'Demo PDF failed: {resource.error_code}')
             approve_resource(resource, editor)
         for topic in topics: publish(topic, editor)
+        # Explicit synthetic editorial fixtures, never real-corpus approval.
+        from content.models import Tag, TopicAlias, KeywordLinkProposal
+        from content.services.connections import process_pending, decide
+        tag = Tag.objects.create(name='Synthetic reading toolkit', is_public=True)
+        TopicAlias.objects.create(topic=topics[0], name='Observation', status='approved')
+        TopicAlias.objects.create(topic=topics[1], name='Chronology', status='approved')
+        ContentBlock.objects.create(topic=topics[0], block_type='text', order=100, content='<p>Chronology places evidence in sequence.</p>', source_reference='Synthetic linking fixture; not real editorial content')
+        for topic in topics[:2]:
+            topic.tags.add(tag)
+            publish(topic, editor)
+        process_pending(200)
+        for proposal in KeywordLinkProposal.objects.filter(source=topics[1], target=topics[0], phrase_key='observation'):
+            decide(proposal, 'approved', editor)
         self.stdout.write('Created 8 synthetic lessons, 40 fixture MCQs and 2 original two-page PDFs. AI is mocked. Admin credentials are private in .local/demo/admin-credentials.txt.')

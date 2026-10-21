@@ -9,7 +9,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
 
 with tempfile.TemporaryDirectory(prefix='prepal-budget-') as directory:
-    os.environ.update(PYTHON_DOTENV_DISABLED='1', DJANGO_SETTINGS_MODULE='core.settings', DJANGO_ENV='development', DATABASE_PATH=str(Path(directory) / 'isolated.sqlite3'), AI_ENABLED='false', GEMINI_API_KEY='', GOOGLE_API_KEY='')
+    os.environ.update(PYTHON_DOTENV_DISABLED='1', DJANGO_SETTINGS_MODULE='core.settings', DJANGO_ENV='development', DATABASE_ENGINE='sqlite', DATABASE_PATH=str(Path(directory) / 'isolated.sqlite3'), AI_ENABLED='false', GEMINI_API_KEY='', GOOGLE_API_KEY='')
     import django
     django.setup()
     from django.core.management import call_command

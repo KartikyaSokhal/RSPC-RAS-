@@ -19,7 +19,7 @@ def unavailable_learner_view(methods):
         return Response({
             "error": {
                 "code": "learner_features_unavailable",
-                "message": "Personalized features are temporarily unavailable while learner accounts are being secured.",
+                "message": "Student accounts and personalized features are unavailable in this content-first release. Reading and stateless practice remain available.",
             }
         }, status=503, headers={"Cache-Control": "no-store"})
 

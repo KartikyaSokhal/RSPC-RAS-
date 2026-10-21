@@ -1,38 +1,56 @@
-# Current API Contracts — PREPAL 1.0
+# Phase 3 current public discovery API
 
-All routes are under `/api/`; public responses use `Cache-Control: no-store`. Standard error responses use `{ "error": { "code": "...", "message": "..." } }`. Unauthenticated requests retain full public reading access.
+All responses use current publication eligibility and Cache-Control: no-store. GET never invokes AI, inserts links into stored HTML or creates learner/quiz records.
 
-## 1. Authentication Endpoints
+| Route | Method / behavior |
+|---|---|
+| `/api/topic/<slug>/` | Existing reader payload plus `keyword_links` (up to 8 source-bound approved spans with target cards), public `tags`, and deduplicated `related` (up to 6) |
+| `/api/topic/<slug>/context/` | GET current published title/description/path; 404 when withdrawn/unavailable. Used on popup open, with no draft fallback |
+| `/api/tags/<slug>/?page=1` | GET explicitly public tag; released published article cards, syllabus paths/read_minutes, count/page/page_size 30. Empty known tags return 200/empty results; unknown/private tags 404 |
+| `/api/topic/<slug>/practice/?page=1` | GET reviewed canonical branch collection: collection_id, title, questions/choices (no answer key), page/page_size 50/count, signed revision_token. Empty/unavailable 404 |
+| `/api/topic/<slug>/practice/check/` | CSRF-protected POST with exactly collection_id, page, revision_token, answers. Returns shared deterministic score/explanations, without attempts or learner records |
 
-| Method / Path | Auth Required | Request Payload | Response | Behavior |
-|---|---|---|---|---|
-| POST `auth/register/` | No | `{ "username": "...", "password": "...", "email": "...", "name": "..." }` | `{ "authenticated": true, "user": { "id": 1, "username": "...", "name": "..." } }` | Creates student account, starts session, sets session cookies. Password must be ≥ 8 chars. |
-| POST `auth/login/` | No | `{ "username": "...", "password": "..." }` | `{ "authenticated": true, "user": { ... } }` | Authenticates credentials, rotates CSRF, establishes session. |
-| POST `auth/logout/` | Yes | `{}` | `{ "authenticated": false, "message": "Logged out." }` | Flushes session cookies. |
-| GET `auth/status/` | No | None | `{ "authenticated": bool, "user": {...} \| null }` | Returns current session authentication state and user profile. |
+Page parameters must be one decimal number 1–250. Check requests require integer IDs/page and strict answer formats; malformed/membership requests return 400, expired/changed/tampered manifests 409, unavailable collections 404. Tokens bind collection/page/question IDs, quiz review hashes and primary publication revisions and expire after one hour. Existing legacy quiz endpoints and all disabled learner endpoints remain unchanged.
 
-## 2. Student Dashboard & Learner Endpoints
+Keyword data uses stable block IDs, text-node indexes and UTF-16 offsets; the client verifies exact text after sanitization and fails closed on repaired/mismatched markup. Popup URLs are constructed local routes, never AI/authored HTML attributes. Earlier Phase 2 text below records the prior API boundary, superseded by this section.
 
-| Method / Path | Auth Required | Request / Query | Response | Behavior |
-|---|---|---|---|---|
-| GET `dashboard/` | Yes | None | `{ "stats": { "total_topics": 152, "total_completed": n, "progress_percentage": n, "total_bookmarks": n, "total_quizzes_taken": n }, "bookmarks": [...], "completed_topics": [...], "quiz_attempts": [...], "suggested_next": [...] }` | User-scoped progress metrics, bookmarks, completion list, quiz history, and deterministic suggestions. |
-| GET `bookmarks/` | Yes | None | `[ { "id": 1, "topic": { "slug": "...", "title": "..." }, "created_at": "..." } ]` | Lists all bookmarks owned by the authenticated student. |
-| POST `topic/<slug>/bookmark/` | Yes | `{}` | `{ "is_bookmarked": bool, "message": "..." }` | Toggles bookmark for current student. 401 if unauthenticated. |
-| GET `progress/` | Yes | None | `[ { "id": 1, "topic": { "slug": "...", "title": "..." }, "completed": bool } ]` | Lists all topic completion records for current student. |
-| POST `topic/<slug>/progress/` | Yes | `{ "completed": bool }` (optional) | `{ "is_completed": bool, "message": "..." }` | Toggles topic completion for current student. 401 if unauthenticated. |
-| POST `topic/<slug>/quiz/submit/` | Yes | `{ "quiz_id": 1, "revision_token": "...", "answers": { "1": 2 } }` | `{ "score": 100, "total": 1, "attempt_id": 1, "results": [...] }` | Evaluates answers, records owned `QuizAttempt`, returns question-level explanations. |
 
-## 3. Public Discovery & Reading Endpoints
+# Phase 2 API compatibility
 
-| Method / Path | Auth Required | Behavior |
-|---|---|---|
-| GET `health/` | No | `{ "status": "ok" }` when publication schema/database is readable. |
-| GET `config/` | No | Feature flags (`demo`, `ai_enabled`), CSRF token. |
-| GET `topics/?tree=1` | No | Returns full 152-topic syllabus hierarchy. If authenticated, annotates each node with `is_bookmarked` and `is_completed`. |
-| GET `topic/<slug>/` | No | Approved blocks, revision, breadcrumbs, children, related links, resources. Annotates with student's `is_bookmarked` and `is_completed` if authenticated. |
-| GET `search/?q=...&page=1` | No | Searches all 152 discoverable topics, published notes, and approved PDFs. Returns `{ "total": n, "results": [...], "suggestion": "..." }` with typo tolerance. |
-| GET `resources/<id>/?page=1` | No | Approved published resource metadata, extracted page text, authorized file URL. |
-| GET `resources/<id>/file/` | No | Hash-checked PDF stream only while approved and referenced by published topic. |
-| GET `topic/<slug>/quiz/?quiz_id=<id>` | No | Reviewed quiz structure, ordered questions/choices, expiring revision token. No answers leaked. |
-| POST `topic/<slug>/quiz/check/` | No | CSRF + revision token; stateless read-only grading and explanations for guests. |
-| POST `topic/<slug>/chat/` | No | CSRF + visitor cookie; scoped RAG answering grounded in lesson sources and approved PDFs. |
+No new public tag, alias, collection or dynamic-link endpoint is introduced. Existing reader/search/resource/practice payloads retain their shape; draft tag/alias metadata is not exposed through raw content. Internal `services.collections.question_collection(topic)` returns canonical distinct question records with reviewed/publication eligibility by default; only Admin uses its draft-inclusive mode. Approved relationship status is checked by the central publication resolver. Stateless grading and every disabled learner/auth route remain unchanged. See [schema](DATABASE_SCHEMA.md) and [Admin workflow](ADMIN_WORKFLOW.md).
+
+# Phase 1 API contracts
+
+API root `/api/`. Service errors use `{ "error": { "code": "...", "message": "..." } }`; relevant public and unavailable responses have `Cache-Control: no-store`.
+
+## Content-first learner boundary
+
+The following paths always return HTTP 503 with `learner_features_unavailable` for GET/HEAD/POST/PUT/PATCH/DELETE, independent of guest/student/staff/superuser identity, credentials, body validity or CSRF. Unsupported methods retain DRF's normal method handling. These handlers do not evaluate credentials or read/write learner records.
+
+- `auth/register/`, `auth/login/`, `auth/logout/`, `auth/status/`
+- `dashboard/`, `bookmarks/`, `progress/`, `profile/weaknesses/`
+- `topic/<slug>/bookmark/`, `topic/<slug>/progress/`, `topic/<slug>/quiz/submit/`
+
+Example: `{ "error": { "code": "learner_features_unavailable", "message": "Student accounts and personalized features are unavailable in this content-first release. Reading and stateless practice remain available." } }`.
+
+This constant read-only failure needs no CSRF. Functional guest POST operations below remain CSRF protected. `/admin/login/` and `/admin/logout/` use Django's normal administrative session/CSRF handling. An unavailable `/api/auth/logout/` does not end an administrative session.
+
+## Enabled public API
+
+| Method/path | Contract |
+|---|---|
+| GET `health/` | Database/publication schema readability; returns status ok, not a content-readiness claim |
+| GET `config/` | Demo flag, tutor availability, CSRF initialization and signed visitor cookie |
+| GET `topics/?tree=1` | Configured syllabus hierarchy; `published_only=1` limits to eligible snapshots |
+| GET `topic/<slug>/` | Published content/resources/relations or safe coming-soon outline; never raw draft blocks |
+| GET `search/?q=...&page=1` | Discoverable titles, eligible note/PDF snippets and typo suggestion; bounded input/page |
+| GET `resources/<id>/?page=1` | Eligible resource metadata and extracted page text |
+| GET `resources/<id>/file/` | Hash-checked approved PDF referenced by a current publication |
+| GET `topic/<slug>/images/<block_id>/` | Current snapshot's hash-checked image |
+| GET `topic/<slug>/quiz/?quiz_id=<id>` | Reviewed quiz/choices, stable ID and expiring revision token; no answer keys |
+| POST `topic/<slug>/quiz/check/` | CSRF + `{quiz_id, revision_token, answers}`; +1 correct / 0 wrong/unanswered; no persistence |
+| POST `topic/<slug>/chat/` | CSRF, bounded message/history/selection, source-scoped response; 503 when disabled |
+
+Every `is_bookmarked` and `is_completed` value is false for every identity; no learner query is made during serialization. `/private-media/` and `/media/` have no public Django route. Raw legacy attachment URLs are not returned as usable public files.
+
+Review fingerprints, not `APPROVED_QUIZ_IDS`, determine quiz eligibility in the current implementation. No quiz generation/provider call occurs during GET. Stateless checking remains available to guests and users already holding an administrative or historical session.

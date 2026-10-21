@@ -24,7 +24,7 @@ export default function SearchPage() {
       <div className="page-intro">
         <span className="eyebrow">Discoverable Knowledge Library</span>
         <h1>Find any concept<br /><em>in the RPSC syllabus.</em></h1>
-        <p>Search all 152 syllabus curriculum topics, verified study notes, and reviewed source PDFs.</p>
+        <p>Search syllabus topics, published study notes, and reviewed source PDFs.</p>
       </div>
 
       <form className="large-search" onSubmit={submit} role="search">
@@ -82,7 +82,7 @@ export default function SearchPage() {
           </div>
         </div>
       ) : loading ? (
-        <Skeleton label="Searching all 152 syllabus topics and published notes…" />
+        <Skeleton label="Searching syllabus topics and published notes…" />
       ) : error ? (
         <StatusPanel title="Search needs another moment." retry={retry}>
           Your query is still here. Please try again.

@@ -20,7 +20,7 @@ class OperationsTests(SimpleTestCase):
         for extra in [{}, {'DEBUG': 'true'}, {'SECRET_KEY': 'short', 'ALLOWED_HOSTS': '*'}]:
             result = subprocess.run(command, env={**base, **extra}, capture_output=True, cwd=Path(__file__).resolve().parents[1])
             self.assertNotEqual(result.returncode, 0)
-        safe = {**base, 'DEBUG': 'false', 'SECRET_KEY': 'synthetic-production-settings-test-8e5dbf3a750a4cf68ca70983574499c7', 'ALLOWED_HOSTS': 'example.invalid'}
+        safe = {**base, 'DEBUG': 'false', 'SECRET_KEY': 'synthetic-production-settings-test-8e5dbf3a750a4cf68ca70983574499c7', 'ALLOWED_HOSTS': 'example.invalid', 'POSTGRES_DB': 'synthetic', 'POSTGRES_USER': 'synthetic', 'POSTGRES_HOST': 'database.invalid', 'POSTGRES_PASSWORD': 'synthetic-not-used', 'POSTGRES_SSLMODE': 'verify-full'}
         self.assertEqual(subprocess.run(command, env=safe, capture_output=True, cwd=Path(__file__).resolve().parents[1]).returncode, 0)
 
     def test_pdf_rejects_active_encrypted_oversized_page_count_and_reports_scans(self):

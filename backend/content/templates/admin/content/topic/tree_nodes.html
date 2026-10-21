@@ -1,0 +1,56 @@
+<ul class="prepal-tree-list" style="list-style: none; padding-left: 0;">
+  {% for node in nodes %}
+  <li class="tree-item" style="margin: 4px 0;">
+    <div class="tree-node-row" data-topic-id="{{ node.id }}" data-topic-title="{{ node.title|lower }}" data-topic-slug="{{ node.slug|lower }}">
+      <div class="tree-title-group">
+        {% if node.children %}
+          <span class="tree-arrow">▼</span>
+        {% else %}
+          <span style="display:inline-block; width:16px; color:#cbd5e1; text-align:center;">•</span>
+        {% endif %}
+        <a href="{{ node.edit_url }}" style="color: #0f172a; text-decoration: none; font-weight: 600;">
+          {{ node.title }}
+        </a>
+        <span style="color: #94a3b8; font-size: 12px; font-weight: 400;">({{ node.slug }})</span>
+      </div>
+
+      <div class="tree-actions-group">
+        <!-- Publication badge -->
+        {% if node.is_published %}
+          <span class="prepal-badge badge-published">🟢 Published v{{ node.revision }}</span>
+        {% elif node.block_count > 0 %}
+          <span class="prepal-badge badge-draft">🟡 Draft</span>
+        {% else %}
+          <span class="prepal-badge badge-unreviewed">⚪ Empty</span>
+        {% endif %}
+
+        <!-- Meta pills -->
+        <span class="tree-meta-pill">{{ node.block_count }} notes</span>
+        {% if node.resource_count > 0 %}
+          <span class="tree-meta-pill" style="background:#e0f2fe; color:#0369a1;">📄 {{ node.resource_count }} PDF{{ node.resource_count|pluralize }}</span>
+        {% endif %}
+        {% if node.has_quiz %}
+          <span class="tree-meta-pill" style="background:#f0fdf4; color:#15803d;">✓ Quiz</span>
+        {% endif %}
+
+        <!-- Action buttons -->
+        <a href="{{ node.edit_url }}" class="btn-prepal btn-prepal-outline" style="padding: 3px 8px; font-size: 11px;">
+          ✏️ Edit Notes
+        </a>
+        <a href="{{ node.preview_url }}" class="btn-prepal btn-prepal-outline" style="padding: 3px 8px; font-size: 11px;">
+          👁️ Preview
+        </a>
+        <a href="{{ node.add_child_url }}" class="btn-prepal btn-prepal-outline" style="padding: 3px 8px; font-size: 11px;">
+          ➕ Sub-topic
+        </a>
+      </div>
+    </div>
+
+    {% if node.children %}
+      <ul class="tree-children">
+        {% include "admin/content/topic/tree_nodes.html" with nodes=node.children %}
+      </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>

@@ -1,26 +1,25 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { indexSyllabus } from './syllabusUtils.js'
 
-function TreeNode({ item, current, depth = 0, forceOpen = null }) {
+function TreeNode({ item, current, depth = 0, expanded, toggle, index, rootAnchorPrefix }) {
   const children = item.children || []
   const hasChildren = children.length > 0
   const containsCurrent = node => node.slug === current || Boolean(node.children?.some(containsCurrent))
   const isCurrent = current === item.slug
-  const defaultOpen = depth === 0 || containsCurrent(item)
-  const isOpen = forceOpen !== null ? forceOpen : undefined
+  const number = index.get(item.slug)?.number
+  const anchor = depth === 0 && rootAnchorPrefix ? `${rootAnchorPrefix}-${item.id}` : undefined
 
   if (hasChildren) {
     return (
       <details
         className={`tree-group depth-${depth} ${containsCurrent(item) ? 'has-current' : ''}`}
-        open={isOpen !== undefined ? isOpen : defaultOpen}
-        key={forceOpen !== null ? `${item.slug}-${forceOpen}` : undefined}
+        id={anchor}
+        open={expanded.has(item.slug)}
       >
-        <summary className="tree-group-summary">
+        <summary className="tree-group-summary" onClick={event => { event.preventDefault(); toggle(item.slug) }}>
           <div className="group-title-wrap">
-            <span className="group-indicator" aria-hidden="true">
-              {depth === 0 ? '§' : depth === 1 ? '▸' : '•'}
-            </span>
+            <span className="tree-number">{number}</span>
             <span className="group-title">{item.title}</span>
             {item.has_notes && (
               <span className="status-badge notes-ready" title="Notes ready">
@@ -39,6 +38,7 @@ function TreeNode({ item, current, depth = 0, forceOpen = null }) {
           <Link
             className={`tree-overview ${isCurrent ? 'active' : ''}`}
             to={`/topic/${item.slug}`}
+            aria-current={isCurrent ? 'page' : undefined}
           >
             <span>Overview →</span>
           </Link>
@@ -48,7 +48,9 @@ function TreeNode({ item, current, depth = 0, forceOpen = null }) {
               item={child}
               current={current}
               depth={depth + 1}
-              forceOpen={forceOpen}
+              expanded={expanded}
+              toggle={toggle}
+              index={index}
             />
           ))}
         </div>
@@ -57,15 +59,13 @@ function TreeNode({ item, current, depth = 0, forceOpen = null }) {
   }
 
   return (
-    <div className={`tree-leaf-wrap depth-${depth}`}>
+    <div id={anchor} className={`tree-leaf-wrap depth-${depth}`}>
       <Link
         className={`tree-leaf ${isCurrent ? 'active' : ''}`}
         aria-current={isCurrent ? 'page' : undefined}
         to={`/topic/${item.slug}`}
       >
-        <span className="leaf-marker" aria-hidden="true">
-          {item.has_notes ? '◆' : '◇'}
-        </span>
+        <span className="tree-number">{number}</span>
         <span className="leaf-title">{item.title}</span>
         <span className="leaf-badges">
           {item.has_notes && (
@@ -94,46 +94,33 @@ function TreeNode({ item, current, depth = 0, forceOpen = null }) {
   )
 }
 
-export default function SyllabusTree({ topics, current, showControls = false }) {
-  const [forceOpen, setForceOpen] = useState(null)
+export default function SyllabusTree({ topics, originalTopics = topics, current, showControls = false, rootAnchorPrefix }) {
+  const index = useMemo(() => indexSyllabus(originalTopics), [originalTopics])
+  const [expanded, setExpanded] = useState(() => new Set([...index].filter(([, node]) => {
+    const currentPath = index.get(current)?.path || []
+    return node.path.length === 1 || node.path.every((part, i) => currentPath[i] === part)
+  }).map(([slug]) => slug)))
+
+  function toggle(slug) {
+    setExpanded(previous => {
+      const next = new Set(previous)
+      if (next.has(slug)) next.delete(slug)
+      else next.add(slug)
+      return next
+    })
+  }
 
   return (
     <div className="syllabus-tree-container">
       {showControls && (
         <div className="tree-controls" role="group" aria-label="Syllabus tree controls">
-          <button
-            type="button"
-            className="tree-control-btn"
-            onClick={() => setForceOpen(true)}
-          >
-            Expand all
-          </button>
-          <span className="control-sep" aria-hidden="true">·</span>
-          <button
-            type="button"
-            className="tree-control-btn"
-            onClick={() => setForceOpen(false)}
-          >
-            Collapse all
-          </button>
-          <span className="control-sep" aria-hidden="true">·</span>
-          <button
-            type="button"
-            className="tree-control-btn"
-            onClick={() => setForceOpen(null)}
-          >
-            Default view
-          </button>
+          <button type="button" className="tree-control-btn" onClick={() => setExpanded(new Set(index.keys()))}>Expand All</button>
+          <button type="button" className="tree-control-btn" onClick={() => setExpanded(new Set())}>Collapse All</button>
         </div>
       )}
       <nav className="syllabus-tree" aria-label="Official RPSC RAS syllabus hierarchy">
         {topics.map(topic => (
-          <TreeNode
-            key={topic.slug}
-            item={topic}
-            current={current}
-            forceOpen={forceOpen}
-          />
+          <TreeNode key={topic.slug} item={topic} current={current} expanded={expanded} toggle={toggle} index={index} rootAnchorPrefix={rootAnchorPrefix} />
         ))}
       </nav>
     </div>

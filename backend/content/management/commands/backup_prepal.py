@@ -10,6 +10,8 @@ class Command(BaseCommand):
         parser.add_argument('destination')
 
     def handle(self, *args, **options):
+        if settings.DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
+            raise CommandError('This helper backs up isolated SQLite only. Use the documented PostgreSQL pg_dump and restore-verification procedure.')
         try:
             manifest = backup(settings.DATABASES['default']['NAME'], settings.MEDIA_ROOT, options['destination'])
         except (ValueError, OSError) as exc:

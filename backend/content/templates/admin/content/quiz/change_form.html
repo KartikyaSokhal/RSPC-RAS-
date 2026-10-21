@@ -1,0 +1,58 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/prepal_wysiwyg.css' %}">
+{% endblock %}
+
+{% block form_top %}
+{% if original and original.pk %}
+<div class="prepal-workflow-bar">
+  <div class="prepal-workflow-title-wrap">
+    <div>
+      <span style="font-size: 16px; font-weight: 700; color: #0f172a;">
+        {{ original.title }}
+      </span>
+      <span style="color: #64748b; font-size: 13px; margin-left: 6px;">
+        (Topic: {{ original.topic.title }})
+      </span>
+    </div>
+    {% if quiz_approved %}
+      <span class="prepal-badge badge-published">🟢 Approved & Live</span>
+    {% else %}
+      <span class="prepal-badge badge-unreviewed">🟡 Unreviewed Draft (Hidden from Students)</span>
+    {% endif %}
+  </div>
+
+  <div class="prepal-workflow-actions">
+    <button type="submit" name="_save" class="btn-prepal btn-prepal-outline">
+      💾 Save Changes
+    </button>
+    {% if quiz_approved %}
+      <button type="submit" name="_revoke_quiz" class="btn-prepal btn-prepal-danger" onclick="return confirm('Revoke approval? This quiz will be hidden from students.');">
+        Revoke Approval
+      </button>
+    {% else %}
+      <button type="submit" name="_approve_quiz" class="btn-prepal btn-prepal-primary">
+        ✓ Approve & Publish Quiz Now
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+{% if not quiz_approved %}
+<div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; font-size: 13px; color: #92400e;">
+  <strong>⚠️ Student Privacy & Integrity Protection:</strong>
+  This quiz and any newly added or AI-generated questions are <strong>strictly hidden from students</strong> until reviewed.
+  Each question must have at least 2 choices (ideally 4 choices for RPSC/RAS MCQs), exactly one correct answer, and an educational explanation.
+  Click <strong>"✓ Approve & Publish Quiz Now"</strong> above once verified.
+</div>
+{% else %}
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: #166534;">
+  <strong>✓ Quiz Verified:</strong> This quiz is currently approved and actively available to learners. Any later edits to questions or choices will automatically invalidate this approval and hide the quiz until re-approved.
+</div>
+{% endif %}
+{% endif %}
+{{ block.super }}
+{% endblock %}

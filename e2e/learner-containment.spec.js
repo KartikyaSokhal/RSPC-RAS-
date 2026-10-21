@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test'
 import { intercept } from './fixtures.js'
 test.beforeEach(async ({page})=>intercept(page,{quiz:{id:1,title:'Legacy preview',time_limit_seconds:1,questions:[{id:1,question_text:'Read this fixture?',choices:[{id:1,choice_text:'Local choice'}]}]}}))
-test('reader provides safe guest controls and explains student account benefits',async({page})=>{
- await page.goto('/topic/fixture-history');await expect(page.getByText(/Sign in to save this topic to your bookmarks/)).toBeVisible()
- await expect(page.getByRole('button',{name:/Bookmark/i})).toBeVisible()
+test('reader explains the content-first boundary and disables learner controls',async({page})=>{
+ await page.goto('/topic/fixture-history');await expect(page.getByText(/Student accounts, bookmarks, completion tracking/)).toBeVisible()
+ await expect(page.getByRole('button',{name:/Bookmark/i})).toBeDisabled()
  await page.getByRole('link',{name:'Practice this lesson →'}).click();await expect(page.getByText('Local choice')).toBeVisible()
 })
 test('legacy preview never submits manually or automatically',async({page})=>{
@@ -11,4 +11,16 @@ test('legacy preview never submits manually or automatically',async({page})=>{
  await page.goto('/quiz/fixture-history');await page.getByRole('radio',{name:/Local choice/}).check()
  await expect(page.getByRole('button',{name:'Check my answers →'})).toBeDisabled()
  await page.clock.fastForward(60000);await expect(page.locator('.timer-box')).toHaveCount(0);expect(posts).toEqual([])
+})
+
+test('direct learner pages never load forms, personal records or authentication services', async ({ page }) => {
+ const learnerRequests=[]
+ page.on('request', request => { if (/\/api\/(auth|dashboard|bookmarks|progress)/.test(request.url())) learnerRequests.push(request.url()) })
+ for (const route of ['/login', '/signup', '/dashboard']) {
+  await page.goto(route)
+  await expect(page.getByRole('heading', { name: 'Personalized features are unavailable.' })).toBeVisible()
+  await expect(page.locator('input[type="password"]')).toHaveCount(0)
+  await expect(page.getByRole('link', { name: /Sign in|Sign up|Dashboard/i })).toHaveCount(0)
+ }
+ expect(learnerRequests).toEqual([])
 })

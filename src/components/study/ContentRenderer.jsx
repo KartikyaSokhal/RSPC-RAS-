@@ -1,6 +1,23 @@
+import { useMemo, useState } from 'react'
+import TopicPopup from './TopicPopup.jsx'
 import SafeHtml from '../content/SafeHtml.jsx'
 
-export default function ContentRenderer({ blocks = [], onSelection, revision }) {
+export default function ContentRenderer({ blocks = [], onSelection, revision, keywordLinks = [] }) {
+  const [popup, setPopup] = useState(null)
+  const [unavailable, setUnavailable] = useState([])
+  const linksByBlock = useMemo(() => {
+    const groups = new Map()
+    for (const link of keywordLinks.slice(0, 8)) {
+      if (unavailable.includes(link.target_id || link.target?.id)) continue
+      if (!groups.has(link.block_id)) groups.set(link.block_id, [])
+      groups.get(link.block_id).push(link)
+    }
+    return groups
+  }, [keywordLinks, unavailable])
+  function closePopup() {
+    const trigger = popup?.trigger?.isConnected ? popup.trigger : popup?.fallback
+    setPopup(null); trigger?.focus({ preventScroll: true })
+  }
   function select(event, block) {
     if (block.block_type !== 'text') return
     const selection = window.getSelection()
@@ -8,9 +25,9 @@ export default function ContentRenderer({ blocks = [], onSelection, revision }) 
     const text = selection.toString().trim()
     if (text && text.length <= 1000) onSelection?.({ text, source_id: `b${block.id}`, revision })
   }
-  return <div className="lesson-content">{blocks.map((block, i) => <section key={block.id ?? i} id={block.anchor || `block-${block.id ?? i}`} tabIndex={-1} className="content-block" onMouseUp={e => select(e, block)} onKeyUp={e => select(e, block)}>
+  return <><div className="lesson-content">{blocks.map((block, i) => <section key={block.id ?? i} id={block.anchor || `block-${block.id ?? i}`} tabIndex={-1} className="content-block" onMouseUp={e => select(e, block)} onKeyUp={e => select(e, block)}>
     {block.block_type === 'heading' && <h2>{block.content}</h2>}
-    {block.block_type === 'text' && <><SafeHtml html={block.content} className="block-text" />{onSelection && block.id && <button className="passage-action" onClick={() => {
+    {block.block_type === 'text' && <><SafeHtml html={block.content} className="block-text" connections={linksByBlock.get(block.id)} onConnection={(target, trigger) => setPopup({target, trigger, fallback: trigger.closest('section')})} />{onSelection && block.id && <button className="passage-action" onClick={() => {
       const element = document.getElementById(block.anchor || `block-${block.id}`)
       onSelection({ text: (element.querySelector('.block-text p') || element.querySelector('.block-text')).textContent.trim().slice(0, 1000), source_id: `b${block.id}`, revision })
     }}>Explain this passage <span aria-hidden="true">↗</span></button>}</>}
@@ -46,5 +63,5 @@ export default function ContentRenderer({ blocks = [], onSelection, revision }) 
       </div>
     )}
     {block.source_reference && block.block_type === 'text' && <small className="source-note">Source: {block.source_reference}</small>}
-  </section>)}</div>
+  </section>)}</div>{popup && <TopicPopup topic={popup.target} onClose={closePopup} onUnavailable={() => setUnavailable(ids => ids.includes(popup.target.id) ? ids : [...ids, popup.target.id])} />}</>
 }

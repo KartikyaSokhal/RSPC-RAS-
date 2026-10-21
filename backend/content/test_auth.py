@@ -1,196 +1,132 @@
-from .test_helpers import publish_fixtures, review_fixtures
-"""Student Authentication, User Ownership, and Cross-User Isolation Tests."""
-from unittest.mock import patch
-from django.conf import settings
+"""Content-first release containment. All rows are synthetic isolated fixtures."""
 from django.contrib.auth import get_user_model
-from django.test import TestCase, override_settings
+from django.contrib.sessions.models import Session
+from django.db import connection
+from django.test import TestCase, Client
+from django.test.utils import CaptureQueriesContext
 from rest_framework.test import APIClient
 
 from .models import Bookmark, Choice, ContentBlock, Question, Quiz, QuizAttempt, Topic, UserProgress
+from .services.publication import publish
+from .services.quiz import review_quiz
 
-if settings.TEST_RUNNER != "core.test_runner.NoMigrationRunner":
-    raise RuntimeError("Use python run_tests.py: tests must not execute migrations")
 
-
-class LearnerOwnershipTests(TestCase):
+class LearnerContainmentTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         User = get_user_model()
-        cls.alice = User.objects.create_user(username="student-alice", password="alice-password-123", email="alice@test.local")
-        cls.bob = User.objects.create_user(username="student-bob", password="bob-password-123", email="bob@test.local")
-        cls.root = Topic.objects.create(title="Ancient Rajasthan", slug="ancient-rajasthan")
-        cls.child = Topic.objects.create(title="Palaeolithic Era", slug="palaeolithic-era", parent=cls.root)
-        ContentBlock.objects.create(topic=cls.root, block_type="text", content="<p>Historical evidence in Rajasthan.</p>", order=1)
+        cls.student = User.objects.create_user(username='student', password='fixture-password')
+        cls.staff = User.objects.create_user(username='editor', password='fixture-password', is_staff=True)
+        cls.admin = User.objects.create_superuser(username='administrator', password='fixture-password')
+        cls.topic = Topic.objects.create(title='Synthetic lesson', slug='synthetic-lesson')
+        cls.draft = Topic.objects.create(title='Draft outline', slug='draft-outline', parent=cls.topic)
+        ContentBlock.objects.create(topic=cls.topic, block_type='text', content='<p>Reviewed fixture.</p>', source_reference='Synthetic fixture', order=1)
+        publish(cls.topic, cls.admin)
+        cls.quiz = Quiz.objects.create(topic=cls.topic, title='Synthetic quiz')
+        cls.question = Question.objects.create(quiz=cls.quiz, question_text='Fixture?', explanation='Fixture explanation.')
+        cls.correct = Choice.objects.create(question=cls.question, choice_text='Yes', is_correct=True)
+        Choice.objects.create(question=cls.question, choice_text='No')
+        review_quiz(cls.quiz, cls.admin, 'Synthetic fixture only')
+        for owner in (None, cls.student, cls.staff, cls.admin):
+            Bookmark.objects.create(topic=cls.topic, user=owner)
+            UserProgress.objects.create(topic=cls.topic, user=owner, is_completed=True)
+            attempt = QuizAttempt.objects.create(quiz=cls.quiz, user=owner, score=0, total_questions=1)
+            attempt.incorrect_questions.add(cls.question)
 
-        # Legacy ownerless records (user=None) to test preservation and isolation
-        cls.legacy_bookmark = Bookmark.objects.create(topic=cls.root, user=None)
-        cls.legacy_progress = UserProgress.objects.create(topic=cls.root, user=None, is_completed=True)
-        cls.quiz = Quiz.objects.create(topic=cls.root, title="Rajasthan Prehistory Practice")
-        cls.question = Question.objects.create(quiz=cls.quiz, question_text="What site has palaeolithic tools?", explanation="Bagor and Tilwara have evidence.")
-        cls.choice = Choice.objects.create(question=cls.question, choice_text="Bagor", is_correct=True)
-        Choice.objects.create(question=cls.question, choice_text="Unknown", is_correct=False)
-        cls.legacy_attempt = QuizAttempt.objects.create(quiz=cls.quiz, score=1, total_questions=1, user=None)
+    @property
+    def blocked_urls(self):
+        return ['/api/auth/register/', '/api/auth/login/', '/api/auth/logout/', '/api/auth/status/',
+                '/api/dashboard/', '/api/bookmarks/', '/api/progress/', '/api/profile/weaknesses/',
+                '/api/topic/synthetic-lesson/bookmark/', '/api/topic/synthetic-lesson/progress/',
+                '/api/topic/synthetic-lesson/quiz/submit/']
 
-    def setUp(self):
-        publish_fixtures()
-        review_fixtures()
-        approval = override_settings(APPROVED_QUIZ_IDS=(self.quiz.pk,))
-        approval.enable()
-        self.addCleanup(approval.disable)
+    def snapshot(self):
+        models = [get_user_model(), Session, Bookmark, UserProgress, QuizAttempt, QuizAttempt.incorrect_questions.through]
+        return {model._meta.label: list(model.objects.order_by('pk').values_list()) for model in models}
 
-    def test_unauthenticated_requests_to_learner_endpoints_fail_cleanly(self):
-        client = APIClient()
-        # Learner actions require authentication
-        self.assertEqual(client.post(f"/api/topic/{self.root.slug}/bookmark/").status_code, 401)
-        self.assertEqual(client.post(f"/api/topic/{self.root.slug}/progress/").status_code, 401)
-        self.assertEqual(client.get("/api/dashboard/").status_code, 401)
-        self.assertEqual(client.get("/api/bookmarks/").status_code, 401)
-        self.assertEqual(client.get("/api/progress/").status_code, 401)
-        self.assertEqual(client.get("/api/profile/weaknesses/").status_code, 401)
+    def test_every_identity_and_method_is_denied_without_queries_or_mutations(self):
+        for actor in (None, self.student, self.staff, self.admin):
+            client = APIClient(enforce_csrf_checks=True)
+            if actor:
+                client.force_login(actor)
+            before = self.snapshot()
+            with CaptureQueriesContext(connection) as queries:
+                for url in self.blocked_urls + ['/api/topic/does-not-exist/bookmark/', '/api/topic/does-not-exist/quiz/submit/']:
+                    for method in ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD'):
+                        with self.subTest(actor=getattr(actor, 'username', 'guest'), url=url, method=method):
+                            response = client.generic(method, url, data='malformed JSON', content_type='application/json', HTTP_AUTHORIZATION='Basic invalid')
+                            self.assertEqual(response.status_code, 503)
+                            self.assertEqual(response['Cache-Control'], 'no-store')
+                            if method != 'HEAD':
+                                self.assertEqual(response.json()['error']['code'], 'learner_features_unavailable')
+            self.assertEqual(len(queries), 0)
+            self.assertEqual(before, self.snapshot())
 
-    def test_guest_reading_remains_fully_functional_and_shows_unmarked_state(self):
-        client = APIClient()
-        # Syllabus tree loads without auth
-        tree_res = client.get("/api/topics/?tree=1")
-        self.assertEqual(tree_res.status_code, 200)
-        nodes = tree_res.json()
-        self.assertTrue(len(nodes) >= 1)
-        # Topics show is_bookmarked=False and is_completed=False for guests
-        for node in nodes:
-            self.assertFalse(node["is_bookmarked"])
-            self.assertFalse(node["is_completed"])
+    def test_public_serializers_hide_even_owned_status_for_every_identity(self):
+        for actor in (None, self.student, self.staff, self.admin):
+            client = APIClient()
+            if actor:
+                client.force_login(actor)
+            with CaptureQueriesContext(connection) as queries:
+                for url in ('/api/topics/?tree=1', '/api/topics/?tree=1&published_only=1', '/api/topic/synthetic-lesson/', '/api/topic/draft-outline/'):
+                    response = client.get(url)
+                    self.assertEqual(response.status_code, 200)
+                    def check(value):
+                        if isinstance(value, dict):
+                            for key, item in value.items():
+                                if key in ('is_bookmarked', 'is_completed'):
+                                    self.assertFalse(item)
+                                else:
+                                    check(item)
+                        elif isinstance(value, list):
+                            for item in value:
+                                check(item)
+                    check(response.json())
+            self.assertFalse(any('content_bookmark' in q['sql'] or 'content_userprogress' in q['sql'] for q in queries))
 
-        # Topic detail loads without auth
-        detail_res = client.get(f"/api/topic/{self.root.slug}/")
-        self.assertEqual(detail_res.status_code, 200)
-        self.assertFalse(detail_res.json()["is_bookmarked"])
-        self.assertFalse(detail_res.json()["is_completed"])
+    def test_stateless_grading_remains_available_without_learner_writes(self):
+        for actor in (None, self.student, self.admin):
+            client = APIClient(enforce_csrf_checks=True)
+            if actor:
+                client.force_login(actor)
+            config = client.get('/api/config/').json()
+            quiz = client.get('/api/topic/synthetic-lesson/quiz/').json()
+            payload = {'quiz_id': quiz['id'], 'revision_token': quiz['revision_token'], 'answers': {str(self.question.pk): self.correct.pk}}
+            before = self.snapshot()
+            for _ in range(2):
+                response = client.post('/api/topic/synthetic-lesson/quiz/check/', payload, format='json', HTTP_X_CSRFTOKEN=config['csrf_token'])
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.json()['score'], 1)
+                self.assertNotIn('attempt_id', response.json())
+            self.assertEqual(before, self.snapshot())
 
-    def test_student_registration_login_logout_and_status(self):
-        client = APIClient()
+    def test_admin_learner_records_reports_and_history_are_closed(self):
+        for actor in (self.student, self.staff, self.admin):
+            client = APIClient()
+            client.force_login(actor)
+            before = self.snapshot()
+            urls = [f'/admin/auth/user/{self.student.pk}/report/', f'/admin/auth/user/{self.student.pk}/change/']
+            for model in (Bookmark, UserProgress, QuizAttempt):
+                base = f'/admin/content/{model._meta.model_name}/'
+                urls.extend([base, base + 'add/', base + '1/change/', base + '1/delete/', base + '1/history/'])
+            for url in urls:
+                self.assertIn(client.get(url).status_code, (302, 403, 404))
+                self.assertIn(client.post(url, {}).status_code, (302, 403, 404))
+            self.assertEqual(before, self.snapshot())
 
-        # Check initial unauthenticated status
-        status = client.get("/api/auth/status/").json()
-        self.assertFalse(status["authenticated"])
-        self.assertIsNone(status["user"])
-
-        # Registration with short password fails
-        bad_reg = client.post("/api/auth/register/", {"username": "newstudent", "password": "123"})
-        self.assertEqual(bad_reg.status_code, 400)
-
-        # Successful registration
-        reg = client.post("/api/auth/register/", {
-            "username": "newstudent",
-            "password": "valid-secure-password",
-            "email": "newstudent@test.local",
-            "name": "New Student",
-        })
-        self.assertEqual(reg.status_code, 200)
-        data = reg.json()
-        self.assertTrue(data["authenticated"])
-        self.assertEqual(data["user"]["username"], "newstudent")
-        self.assertEqual(data["user"]["name"], "New Student")
-
-        # Status is now authenticated
-        status = client.get("/api/auth/status/").json()
-        self.assertTrue(status["authenticated"])
-        self.assertEqual(status["user"]["username"], "newstudent")
-
-        # Logout
-        logout = client.post("/api/auth/logout/")
-        self.assertEqual(logout.status_code, 200)
-        self.assertFalse(logout.json()["authenticated"])
-
-        # Status is now unauthenticated
-        status = client.get("/api/auth/status/").json()
-        self.assertFalse(status["authenticated"])
-
-        # Login with bad credentials fails
-        bad_login = client.post("/api/auth/login/", {"username": "newstudent", "password": "wrong"})
-        self.assertEqual(bad_login.status_code, 401)
-
-        # Login with valid credentials succeeds
-        login = client.post("/api/auth/login/", {"username": "newstudent", "password": "valid-secure-password"})
-        self.assertEqual(login.status_code, 200)
-        self.assertTrue(login.json()["authenticated"])
-
-    def test_bookmarks_are_user_scoped_with_no_cross_user_leakage(self):
-        client_alice = APIClient()
-        client_alice.force_login(self.alice)
-        client_bob = APIClient()
-        client_bob.force_login(self.bob)
-
-        # Alice bookmarks root topic
-        bm_res = client_alice.post(f"/api/topic/{self.root.slug}/bookmark/")
-        self.assertEqual(bm_res.status_code, 200)
-        self.assertTrue(bm_res.json()["is_bookmarked"])
-
-        # Alice's topic detail shows is_bookmarked=True
-        alice_detail = client_alice.get(f"/api/topic/{self.root.slug}/").json()
-        self.assertTrue(alice_detail["is_bookmarked"])
-
-        # Bob's topic detail shows is_bookmarked=False (complete isolation!)
-        bob_detail = client_bob.get(f"/api/topic/{self.root.slug}/").json()
-        self.assertFalse(bob_detail["is_bookmarked"])
-
-        # Alice's dashboard has 1 bookmark
-        alice_dash = client_alice.get("/api/dashboard/").json()
-        self.assertEqual(len(alice_dash["bookmarks"]), 1)
-        self.assertEqual(alice_dash["bookmarks"][0]["slug"], self.root.slug)
-
-        # Bob's dashboard has 0 bookmarks
-        bob_dash = client_bob.get("/api/dashboard/").json()
-        self.assertEqual(len(bob_dash["bookmarks"]), 0)
-
-        # Alice bookmarks list endpoint
-        alice_bm = client_alice.get("/api/bookmarks/").json()
-        self.assertEqual(len(alice_bm), 1)
-
-        # Alice un-bookmarks topic
-        toggle_res = client_alice.post(f"/api/topic/{self.root.slug}/bookmark/")
-        self.assertEqual(toggle_res.status_code, 200)
-        self.assertFalse(toggle_res.json()["is_bookmarked"])
-
-        # Alice dashboard now has 0 bookmarks
-        self.assertEqual(len(client_alice.get("/api/bookmarks/").json()), 0)
-
-    def test_topic_completion_is_user_scoped(self):
-        client_alice = APIClient()
-        client_alice.force_login(self.alice)
-        client_bob = APIClient()
-        client_bob.force_login(self.bob)
-
-        # Alice marks child topic as completed
-        prog_res = client_alice.post(f"/api/topic/{self.child.slug}/progress/", {"is_completed": True}, format="json")
-        self.assertEqual(prog_res.status_code, 200)
-        self.assertTrue(prog_res.json()["is_completed"])
-
-        # Alice topic detail shows is_completed=True
-        self.assertTrue(client_alice.get(f"/api/topic/{self.child.slug}/").json()["is_completed"])
-
-        # Bob topic detail shows is_completed=False
-        self.assertFalse(client_bob.get(f"/api/topic/{self.child.slug}/").json()["is_completed"])
-
-        # Alice dashboard reflects 1 completed topic
-        alice_dash = client_alice.get("/api/dashboard/").json()
-        self.assertEqual(alice_dash["stats"]["total_completed"], 1)
-        self.assertEqual(len(alice_dash["completed_topics"]), 1)
-
-        # Bob dashboard reflects 0 completed topics
-        bob_dash = client_bob.get("/api/dashboard/").json()
-        self.assertEqual(bob_dash["stats"]["total_completed"], 0)
-        self.assertEqual(len(bob_dash["completed_topics"]), 0)
-
-    def test_legacy_ownerless_records_remain_isolated_and_unaltered(self):
-        # Verify that legacy records (user=None) exist and are never returned to Alice or Bob
-        self.assertIsNone(self.legacy_bookmark.user)
-        self.assertIsNone(self.legacy_progress.user)
-        self.assertIsNone(self.legacy_attempt.user)
-
-        client_alice = APIClient()
-        client_alice.force_login(self.alice)
-        dash = client_alice.get("/api/dashboard/").json()
-        # Alice should see 0 bookmarks and 0 completed topics initially
-        self.assertEqual(len(dash["bookmarks"]), 0)
-        self.assertEqual(len(dash["completed_topics"]), 0)
-        self.assertEqual(len(dash["quiz_attempts"]), 0)
+    def test_admin_authentication_and_staff_account_management_still_work(self):
+        client = Client(enforce_csrf_checks=True)
+        self.assertEqual(client.get('/admin/login/').status_code, 200)
+        response = client.post('/admin/login/', {'username': self.admin.username, 'password': 'fixture-password', 'csrfmiddlewaretoken': client.cookies['csrftoken'].value, 'next': '/admin/'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(client.get('/admin/').status_code, 200)
+        users = client.get('/admin/auth/user/')
+        self.assertEqual(users.status_code, 200)
+        self.assertNotContains(users, '>student<')
+        self.assertNotContains(users, 'Progress Report')
+        self.assertEqual(client.get(f'/admin/auth/user/{self.staff.pk}/change/').status_code, 200)
+        before = client.session.get('_auth_user_id')
+        self.assertEqual(client.post('/api/auth/logout/').status_code, 503)
+        self.assertEqual(client.session.get('_auth_user_id'), before)
+        self.assertEqual(client.post('/admin/logout/', {'csrfmiddlewaretoken': client.cookies['csrftoken'].value}).status_code, 200)
+        self.assertNotIn('_auth_user_id', client.session)

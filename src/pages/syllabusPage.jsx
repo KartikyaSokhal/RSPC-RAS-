@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import useResource from '../hooks/useResource.js'
+import useSyllabus from '../hooks/useSyllabus.js'
 import SyllabusTree from '../components/study/SyllabusTree.jsx'
 import Skeleton from '../components/ui/Skeleton.jsx'
 import StatusPanel from '../components/ui/StatusPanel.jsx'
@@ -48,14 +48,21 @@ function countReadyTopics(nodes) {
   return count
 }
 
+function hierarchyDepth(nodes) {
+  return nodes.length ? 1 + Math.max(...nodes.map(node => hierarchyDepth(node.children || []))) : 0
+}
+
 export default function SyllabusPage() {
-  const { data, loading, error, retry } = useResource('/topics/?tree=1')
+  const { data, loading, error, retry } = useSyllabus()
   const [query, setQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
 
   const allTopics = useMemo(() => data || [], [data])
   const totalCount = useMemo(() => countTotalTopics(allTopics), [allTopics])
   const readyCount = useMemo(() => countReadyTopics(allTopics), [allTopics])
+  const depth = useMemo(() => hierarchyDepth(allTopics), [allTopics])
+  const countsAvailable = !loading && !error && Array.isArray(data)
+  const displayCount = value => countsAvailable ? value : loading ? 'Loading…' : 'Unavailable'
 
   const filteredTopics = useMemo(() => {
     return filterTree(allTopics, query.trim().toLowerCase(), filterStatus)
@@ -67,28 +74,30 @@ export default function SyllabusPage() {
         <span className="eyebrow">RPSC / RAS Examination Outline</span>
         <h1>The Complete Syllabus.<br /><em>A clear, structured path forward.</em></h1>
         <p>
-          Explore all {totalCount || 152} official curriculum topics organized into five distinct streams.
+          {countsAvailable
+            ? `Explore ${totalCount} curriculum ${totalCount === 1 ? 'topic' : 'topics'} organized into ${allTopics.length} ${allTopics.length === 1 ? 'stream' : 'streams'}. `
+            : 'Explore the curriculum hierarchy. Counts will appear when the outline is available. '}
           Topics with published learning material are marked accordingly; remaining syllabus entries display their
           exact position and subtopics while notes remain in editorial preparation.
         </p>
       </div>
 
       {/* PROMINENT TOPIC COUNTS COMPACT SUMMARY ABOVE SYLLABUS LIST */}
-      <section className="syllabus-stats-summary above-syllabus" aria-label="Verified Syllabus Topics Summary">
+      <section className="syllabus-stats-summary above-syllabus" aria-label="Syllabus topic summary">
         <div className="summary-stat-pill">
           <span className="pill-dot blue" />
           <span className="pill-label">Total Syllabus Topics:</span>
-          <strong>{totalCount || 152}</strong>
+          <strong>{displayCount(totalCount)}</strong>
         </div>
         <div className="summary-stat-pill">
           <span className="pill-dot amber" />
           <span className="pill-label">Main Curriculum Streams:</span>
-          <strong>{allTopics.length || 5} Streams</strong>
+          <strong>{displayCount(allTopics.length)}{countsAvailable && ' Streams'}</strong>
         </div>
         <div className="summary-stat-pill">
           <span className="pill-dot green" />
           <span className="pill-label">Topics with Published Notes:</span>
-          <strong>{readyCount || 10} Ready</strong>
+          <strong>{displayCount(readyCount)}{countsAvailable && ' Ready'}</strong>
         </div>
       </section>
 
@@ -103,15 +112,15 @@ export default function SyllabusPage() {
           <div className="syllabus-stats-box">
             <div className="stat-line">
               <span>Total topics:</span>
-              <strong>{totalCount || 152}</strong>
+              <strong>{displayCount(totalCount)}</strong>
             </div>
             <div className="stat-line">
               <span>Core streams:</span>
-              <strong>{allTopics.length || 5}</strong>
+              <strong>{displayCount(allTopics.length)}</strong>
             </div>
             <div className="stat-line">
               <span>Hierarchy levels:</span>
-              <strong>Up to 4</strong>
+              <strong>{displayCount(depth)}</strong>
             </div>
           </div>
 
@@ -151,22 +160,25 @@ export default function SyllabusPage() {
                 type="button"
                 className={`filter-pill ${filterStatus === 'all' ? 'active' : ''}`}
                 onClick={() => setFilterStatus('all')}
+                disabled={!countsAvailable}
               >
-                All ({totalCount || 152})
+                All ({displayCount(totalCount)})
               </button>
               <button
                 type="button"
                 className={`filter-pill ${filterStatus === 'ready' ? 'active' : ''}`}
                 onClick={() => setFilterStatus('ready')}
+                disabled={!countsAvailable}
               >
-                ● Notes ready ({readyCount || 10})
+                ● Notes ready ({displayCount(readyCount)})
               </button>
               <button
                 type="button"
                 className={`filter-pill ${filterStatus === 'prep' ? 'active' : ''}`}
                 onClick={() => setFilterStatus('prep')}
+                disabled={!countsAvailable}
               >
-                ○ In preparation ({Math.max(0, (totalCount || 152) - (readyCount || 10))})
+                ○ In preparation ({displayCount(Math.max(0, totalCount - readyCount))})
               </button>
             </div>
           </div>
@@ -178,7 +190,7 @@ export default function SyllabusPage() {
               We were unable to load the syllabus structure. Please try again.
             </StatusPanel>
           ) : filteredTopics.length ? (
-            <SyllabusTree topics={filteredTopics} defaultExpandedDepth={1} />
+            <SyllabusTree topics={filteredTopics} originalTopics={allTopics} showControls />
           ) : (
             <div className="syllabus-empty card">
               <p>No topics match “{query}”.</p>

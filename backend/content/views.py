@@ -15,7 +15,6 @@ from .services.quiz import QuizServiceError, parse_quiz_id, select_reviewed_quiz
 from .services.resources import authorized_resource, file_digest
 from .services.tutor import answer
 from .services.search import search
-from .permissions import unavailable_learner_view
 
 
 def public_json(data, status=200):
@@ -49,7 +48,7 @@ def topic_root_list(request):
 
 @api_view(['GET'])
 def topic_detail(request, slug):
-    from .models import Topic, Bookmark, UserProgress
+    from .models import Topic
     pubs = visible_publications()
     pub = next((p for p in pubs.values() if p.snapshot.get('slug') == slug), None)
     if pub is not None:
@@ -61,9 +60,6 @@ def topic_detail(request, slug):
 
     is_bookmarked = False
     is_completed = False
-    if request.user.is_authenticated:
-        is_bookmarked = Bookmark.objects.filter(user=request.user, topic=topic).exists()
-        is_completed = UserProgress.objects.filter(user=request.user, topic=topic, is_completed=True).exists()
 
     breadcrumbs = []
     curr = topic
@@ -82,9 +78,6 @@ def topic_detail(request, slug):
 
     user_bookmarks = set()
     user_completed = set()
-    if request.user.is_authenticated:
-        user_bookmarks = set(Bookmark.objects.filter(user=request.user).values_list('topic_id', flat=True))
-        user_completed = set(UserProgress.objects.filter(user=request.user, is_completed=True).values_list('topic_id', flat=True))
 
     children = []
     for c in topic.children.all().order_by('order', 'id'):
@@ -509,3 +502,40 @@ def profile_weaknesses(request):
             weakness_map[topic_id] = weakness_map.get(topic_id, 0) + 1
     return public_json({'weaknesses': weakness_map, 'total_attempts': attempts.count()})
 
+
+
+def discovery_page_number(request):
+    values = request.query_params.getlist('page')
+    value = values[0] if values else '1'
+    if len(values) > 1 or len(value) > 3 or not value.isascii() or not value.isdecimal() or not 1 <= int(value) <= 250:
+        raise ServiceError('invalid_page', 'Choose a page between 1 and 250.')
+    return int(value)
+
+
+@api_view(['GET'])
+def tag_discovery(request, slug):
+    from .services.discovery import tag_page
+    return public_json(tag_page(slug, visible_publications(), discovery_page_number(request)))
+
+
+@api_view(['GET'])
+def practice_collection(request, slug):
+    from .services.practice import preview
+    return public_json(preview(slug, discovery_page_number(request)))
+
+
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
+@csrf_protect
+def practice_collection_check(request, slug):
+    from .services.practice import check
+    try: return public_json(check(slug, request.data))
+    except QuizServiceError as error: return public_json(error.payload, error.status)
+
+
+@api_view(['GET'])
+def topic_context(request, slug):
+    from .services.discovery import article_card, description
+    pub, publications = resolve_publication(slug)
+    return public_json({**article_card(pub, publications), 'description': description(pub)})

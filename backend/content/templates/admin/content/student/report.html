@@ -1,0 +1,236 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/prepal_wysiwyg.css' %}">
+<style>
+  @media print {
+    #header, .breadcrumbs, .report-actions-bar {
+      display: none !important;
+    }
+    .learner-report-card {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .report-table th {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #475569;
+  }
+  .report-table td {
+    border: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    color: #1e293b;
+  }
+  .report-table tr:hover {
+    background: #f8fafc;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 920px; margin: 16px 0;">
+  <div class="report-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div>
+      <a href="{% url 'admin:auth_user_changelist' %}" class="btn-prepal btn-prepal-outline">
+        ← Back to Students List
+      </a>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <button type="button" onclick="window.print()" class="btn-prepal btn-prepal-primary">
+        🖨️ Print / Save Report
+      </button>
+    </div>
+  </div>
+
+  <div class="learner-report-card">
+    <div class="learner-header">
+      <div>
+        <h1 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
+          🎓 Learner Progress Report
+        </h1>
+        <div style="font-size: 15px; color: #334155; font-weight: 600;">
+          {{ student.username }} {% if student.get_full_name %}({{ student.get_full_name }}){% endif %}
+        </div>
+        <div style="font-size: 13px; color: #64748b; margin-top: 4px;">
+          Email: {{ student.email|default:"No email registered" }} · Registered: {{ student.date_joined|date:"M d, Y" }} · Last active: {{ student.last_login|date:"M d, Y H:i"|default:"Never logged in" }}
+        </div>
+      </div>
+      <div>
+        <span class="prepal-badge badge-published" style="font-size: 13px; padding: 6px 12px;">
+          ✓ Active Student
+        </span>
+      </div>
+    </div>
+
+    <!-- Summary Stat Grid -->
+    <div class="learner-stat-grid">
+      <div class="learner-stat-box">
+        <div class="learner-stat-label">Syllabus Completion</div>
+        <div class="learner-stat-value" style="color: #2563eb;">
+          {{ completion_percentage|floatformat:1 }}%
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+          {{ completed_count }} of {{ total_topics }} topics
+        </div>
+        <div class="learner-progress-bar-wrap">
+          <div class="learner-progress-bar-fill" style="width: {{ completion_percentage }}%;"></div>
+        </div>
+      </div>
+
+      <div class="learner-stat-box">
+        <div class="learner-stat-label">Revision Bookmarks</div>
+        <div class="learner-stat-value" style="color: #7c3aed;">
+          {{ bookmarks_count }}
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+          Saved for rapid review
+        </div>
+      </div>
+
+      <div class="learner-stat-box">
+        <div class="learner-stat-label">Quiz Attempts</div>
+        <div class="learner-stat-value" style="color: #059669;">
+          {{ attempts_count }}
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+          Practice sessions taken
+        </div>
+      </div>
+
+      <div class="learner-stat-box">
+        <div class="learner-stat-label">Quiz Accuracy</div>
+        <div class="learner-stat-value" style="color: #d97706;">
+          {{ avg_accuracy|floatformat:1 }}%
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+          Overall average score
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Completed Topics -->
+    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 28px; margin-bottom: 8px;">
+      📖 Completed Topics ({{ completed_count }})
+    </h3>
+    {% if completed_topics %}
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Topic Title</th>
+            <th>Parent Subject</th>
+            <th>Completion Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prog in completed_topics %}
+            <tr>
+              <td>
+                <strong>{{ prog.topic.title }}</strong>
+                <span style="color: #94a3b8; font-size: 12px;">({{ prog.topic.slug }})</span>
+              </td>
+              <td>{{ prog.topic.parent.title|default:"Root Subject" }}</td>
+              <td>{{ prog.last_read_at|date:"M d, Y H:i" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color: #94a3b8; font-size: 13px; font-style: italic; margin-bottom: 24px;">
+        Student has not marked any syllabus topics as completed yet.
+      </p>
+    {% endif %}
+
+    <!-- Section 2: Saved Bookmarks -->
+    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 24px; margin-bottom: 8px;">
+      🔖 Saved Revision Bookmarks ({{ bookmarks_count }})
+    </h3>
+    {% if bookmarks %}
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Bookmarked Topic</th>
+            <th>Subject</th>
+            <th>Bookmarked On</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bm in bookmarks %}
+            <tr>
+              <td>
+                <strong>{{ bm.topic.title }}</strong>
+              </td>
+              <td>{{ bm.topic.parent.title|default:"Root Subject" }}</td>
+              <td>{{ bm.created_at|date:"M d, Y H:i" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color: #94a3b8; font-size: 13px; font-style: italic; margin-bottom: 24px;">
+        No topics have been bookmarked yet.
+      </p>
+    {% endif %}
+
+    <!-- Section 3: Quiz History -->
+    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 24px; margin-bottom: 8px;">
+      🎯 Quiz Practice & Performance History ({{ attempts_count }})
+    </h3>
+    {% if quiz_attempts %}
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Quiz Practice Set</th>
+            <th>Topic</th>
+            <th>Score / Total</th>
+            <th>Accuracy</th>
+            <th>Date Attempted</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for attempt in quiz_attempts %}
+            <tr>
+              <td><strong>{{ attempt.quiz.title }}</strong></td>
+              <td>{{ attempt.quiz.topic.title }}</td>
+              <td>{{ attempt.score }} / {{ attempt.total_questions }}</td>
+              <td>
+                {% if attempt.total_questions %}
+                  <span class="prepal-badge {% if attempt.score == attempt.total_questions %}badge-published{% else %}badge-draft{% endif %}">
+                    {{ attempt.score|floatformat:0 }} / {{ attempt.total_questions }}
+                  </span>
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+              <td>{{ attempt.attempted_at|date:"M d, Y H:i" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color: #94a3b8; font-size: 13px; font-style: italic; margin-bottom: 24px;">
+        No practice quiz attempts recorded for this student yet.
+      </p>
+    {% endif %}
+
+    <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between;">
+      <span>Prepal Educational Platform · Confidential Learner Record</span>
+      <span>Generated {{ now|date:"Y-m-d H:i" }}</span>
+    </div>
+  </div>
+</div>
+{% endblock %}
