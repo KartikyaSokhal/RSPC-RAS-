@@ -73,7 +73,8 @@ def validate_corpus(corpus, hierarchy):
 
 
 def article_html(lesson, corpus):
-    html = ['<p><strong>Local development sample — not production material.</strong> '
+    notice = 'Content-review draft — human editorial review pending.' if corpus.get('publication_status') == 'draft-human-review-required' else 'Local development sample — not production material.'
+    html = [f'<p><strong>{notice}</strong> '
             'Source-checked demonstration notes; human editorial approval is still required before public release.</p>']
     for section in lesson['sections']:
         html.append(f"<h2>{escape(section['heading'])}</h2>")
@@ -83,7 +84,7 @@ def article_html(lesson, corpus):
         source = corpus['sources'][key]
         html.append(f'<li><a href="{escape(source["url"], quote=True)}">{escape(source["title"])}</a></li>')
     html.append('</ul><p>Original explanatory text and practice questions. '
-                'References checked 21 October 2026; examples explicitly described as hypothetical are not historical or measured data.</p>')
+                f'References checked {escape(corpus.get("checked_on", "21 October 2026"))}; examples explicitly described as hypothetical are not historical or measured data.</p>')
     return ''.join(html)
 
 

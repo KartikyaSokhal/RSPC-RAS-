@@ -131,6 +131,11 @@ class ChatInputSerializer(serializers.Serializer):
     selected = SelectedTextSerializer(required=False)
     allow_related = serializers.BooleanField(default=False)
 
+    def validate_allow_related(self, value):
+        if value:
+            raise serializers.ValidationError("Tutor scope is restricted to the current published lesson.")
+        return False
+
     def validate(self, data):
         if not data.get("message") and not data.get("preset"):
             raise serializers.ValidationError("Enter a question or choose an action.")

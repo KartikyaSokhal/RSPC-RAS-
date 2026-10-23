@@ -106,6 +106,7 @@ for (const width of [1280, 1024, 768, 390, 320]) {
     await settleMotion(page)
     await page.screenshot({ path: testInfo.outputPath('tutor.png') })
     if ([1280, 390].includes(width)) {
+      await expect(page.getByRole('log', { name: 'Tutor conversation' })).toHaveAttribute('tabindex', '0')
       const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
       expect(scan.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) }))).toEqual([])
     }

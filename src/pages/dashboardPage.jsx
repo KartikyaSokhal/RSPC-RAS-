@@ -65,7 +65,8 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="dashboard-header-actions">
-          <Link to="/syllabus" className="button primary">
+          <Link className="button" to="/planner">Create Study Plan</Link>
+          <Link to={dashboard?.continue_studying ? `/topic/${dashboard.continue_studying.slug}` : "/syllabus"} className="button primary">
             Continue Studying →
           </Link>
         </div>
@@ -75,7 +76,7 @@ export default function DashboardPage() {
       <section className="dashboard-stats-grid" aria-label="Learning Progress Overview">
         <div className="stat-card">
           <span className="stat-label">Syllabus Progress</span>
-          <div className="stat-value">{stats?.total_completed || 0} <span className="stat-total">/ {stats?.total_topics || 152}</span></div>
+          <div className="stat-value">{stats?.total_completed || 0} <span className="stat-total">/ {stats?.total_topics ?? 0}</span></div>
           <div className="stat-bar-track">
             <div
               className="stat-bar-fill"
@@ -113,6 +114,14 @@ export default function DashboardPage() {
       {/* TWO-COLUMN LAYOUT: MAIN & SIDEBAR */}
       <div className="dashboard-layout">
         <div className="dashboard-main-col">
+          <section className="dashboard-section" aria-label="Subject completion">
+            <h2>Subject completion</h2><p className="form-hint">{dashboard?.counting_rule}</p>
+            {dashboard?.subject_progress?.map(subject => <div key={subject.id} className="card subject-progress"><Link to={`/topic/${subject.slug}`}>{subject.title}</Link><p>{subject.completed} / {subject.total} learning units · {subject.percentage}%</p><progress aria-label={`${subject.title} completion`} value={subject.completed} max={subject.total || 1} /></div>)}
+            {!dashboard?.subject_progress?.length && <p>Published learning units will appear here when available.</p>}
+          </section>
+          <section className="dashboard-section" aria-label="Recently accessed topics"><h2>Recently accessed</h2>{dashboard?.recent_activity?.length ? dashboard.recent_activity.map(topic => <p key={topic.id}><Link to={`/topic/${topic.slug}`}>{topic.title}</Link></p>) : <p>Open a published lesson to start your reading history.</p>}</section>
+
+          <section className="dashboard-section" aria-label="Study targets"><h2>Study targets</h2>{dashboard?.study_plans?.length ? <><p><Link to="/planner">Edit your study plans</Link></p>{dashboard.weekly_targets?.slice(0, 4).map(target => <p key={target.week}>{target.week}: {target.completed_minutes} / {target.minutes} minutes</p>)}{dashboard.monthly_targets?.slice(0, 3).map(target => <p key={target.month}>{target.month}: {target.completed_minutes} / {target.minutes} minutes; {target.completed_units} / {target.learning_units} planned units finished</p>)}</> : <p>Create a study plan to set weekly and monthly targets.</p>}</section>
           {/* SUGGESTED NEXT TOPICS */}
           {suggested_next && suggested_next.length > 0 && (
             <section className="dashboard-section" aria-label="Suggested Next Topics">
@@ -193,6 +202,7 @@ export default function DashboardPage() {
 
         {/* SIDEBAR: RECENT QUIZ PERFORMANCE */}
         <aside className="dashboard-sidebar-col">
+          <section className="dashboard-section" aria-label="Subject practice accuracy"><h2>Subject practice accuracy</h2>{dashboard?.subject_performance?.length ? dashboard.subject_performance.map(subject => <p key={subject.subject_id}>{subject.title}: {subject.correct} / {subject.total} correct ({subject.accuracy}%)</p>) : <p>Complete reviewed practice to see subject performance.</p>}</section>
           <section className="dashboard-section" aria-label="Recent Quiz Performance">
             <div className="section-header">
               <h2>Recent Practice</h2>
@@ -202,7 +212,7 @@ export default function DashboardPage() {
                 {quiz_attempts.map(att => (
                   <div key={att.id} className="quiz-history-card">
                     <div className="quiz-history-top">
-                      <span className="quiz-title">{att.quiz_title}</span>
+                      <Link className="quiz-title" to={`/attempts/${att.id}`}>{att.quiz_title}</Link>
                       <span className={`quiz-score-pill ${att.percentage >= 70 ? 'good' : 'fair'}`}>
                         {att.score} / {att.total_questions} ({att.percentage}%)
                       </span>

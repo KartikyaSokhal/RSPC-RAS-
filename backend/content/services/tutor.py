@@ -9,10 +9,14 @@ from .ai_budget import reserve, finish
 from ..models import LearningResource
 
 
-def answer(slug, data, visitor, ip_key):
-    if not settings.AI_ENABLED or not settings.AI_GUEST_ENABLED or not settings.AI_MODEL or (not settings.DEMO_MODE and not settings.GEMINI_API_KEY):
+def answer(slug, data, visitor, ip_key, *, authenticated=False):
+    if not settings.AI_ENABLED or (not authenticated and not settings.AI_GUEST_ENABLED) or not settings.AI_MODEL or (not settings.DEMO_MODE and not settings.GEMINI_API_KEY):
         raise ServiceError('ai_unavailable', 'The tutor is temporarily unavailable. You can continue reading.', 503)
+    if re.search(r'ignore.{0,30}(previous|instructions|system)|reveal.{0,30}(secret|key|prompt)|system\s*prompt|browse\s+(the\s+)?web', data.get('message', ''), re.I):
+        return {'response': 'I can explain only the current published lesson. I cannot follow requests to override that scope or reveal private configuration.', 'citations': [], 'status': 'insufficient_context', 'mocked': settings.DEMO_MODE}
     current, evidence = DatabaseRetrievalProvider().retrieve(slug, data)
+    if current and any(e['topic_id'] != current.topic_id or e['kind'] != 'note' for e in evidence):
+        raise ServiceError('invalid_scope', 'Only the current lesson can be used by the tutor.', 400)
     if not current or not evidence:
         msg = 'Study notes for this syllabus topic are currently under editorial preparation. Grounded AI tutoring will be available as soon as verified notes and archival sources are published.' if not current else 'The published sources do not contain enough information to answer this. Try selecting a passage or asking about this lesson.'
         return {'response': msg, 'citations': [], 'status': 'insufficient_context', 'mocked': settings.DEMO_MODE}
@@ -49,6 +53,7 @@ def answer(slug, data, visitor, ip_key):
     pubs = visible_publications(); citations = []
     for source_id in dict.fromkeys(result['citations']):
         source = manifest[source_id]; pub = pubs.get(source['topic_id'])
+        if source['topic_id'] != current.topic_id: raise ServiceError('invalid_scope', 'The tutor scope could not be verified.', 502)
         if not pub or pub.revision != source['revision'] or (source['kind'] == 'pdf' and not LearningResource.objects.filter(pk=source['resource_id'], status='approved').exists()):
             raise ServiceError('source_changed', 'A source changed during this response. Reload the lesson.', 409)
         citations.append({k: source[k] for k in ['id', 'title', 'url', 'kind', 'revision']})

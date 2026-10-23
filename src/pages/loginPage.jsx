@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import GoogleSignIn from '../components/auth/GoogleSignIn.jsx'
 import useAuth from '../hooks/useAuth.js'
 
 export default function LoginPage() {
@@ -42,6 +43,8 @@ export default function LoginPage() {
           </div>
         )}
 
+        <GoogleSignIn />
+        {location.state?.passwordReset && <p role="status">Password changed. Sign in with your new password.</p>}
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label htmlFor="login-username">Username</label>
@@ -74,6 +77,7 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <Link to="/reset-password" className="text-link">Forgot password?</Link>
         <div className="auth-footer">
           <p>
             Don’t have an account yet?{' '}

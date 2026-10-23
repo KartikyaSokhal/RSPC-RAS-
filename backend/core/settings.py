@@ -61,6 +61,22 @@ SESSION_COOKIE_SECURE = PRODUCTION
 CSRF_COOKIE_SECURE = PRODUCTION
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 14
+# Normal environments fail closed; local student development selects its marked settings explicitly.
+STUDENT_FEATURES_ENABLED = os.getenv('STUDENT_FEATURES_ENABLED', 'false').lower() == 'true'
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
+GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', '')
+SITE_ORIGIN = os.getenv('SITE_ORIGIN', 'http://127.0.0.1:5173' if not PRODUCTION else '')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'true').lower() == 'true'
+EMAIL_TIMEOUT = 10
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@localhost')
+PASSWORD_RESET_TIMEOUT = 1800
 SECURE_SSL_REDIRECT = PRODUCTION
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') if os.getenv('TRUST_PROXY_SSL', 'false').lower() == 'true' else None
 # Enable only with a private app listener and a proxy that overwrites these headers.

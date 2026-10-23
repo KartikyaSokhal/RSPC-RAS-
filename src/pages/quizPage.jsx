@@ -2,10 +2,15 @@ import { useRef, useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import useResource from '../hooks/useResource.js'
 import { post, errorMessage } from '../api/client.js'
+import useAuth from '../hooks/useAuth.js'
 import Skeleton from '../components/ui/Skeleton.jsx'
 import StatusPanel from '../components/ui/StatusPanel.jsx'
 
 function Practice({ quiz, slug, reload, collection }) {
+  const { authenticated, featuresEnabled } = useAuth()
+  const shouldSave = authenticated && featuresEnabled
+  const submission = useRef(null)
+  if (!submission.current) submission.current = crypto.randomUUID()
   const [answers, setAnswers] = useState({})
   const [result, setResult] = useState(null)
   const [busy, setBusy] = useState(false)
@@ -21,7 +26,7 @@ function Practice({ quiz, slug, reload, collection }) {
     setBusy(true); setError('')
     try {
       const payload = collection ? { collection_id: quiz.collection_id, page: quiz.page, revision_token: quiz.revision_token, answers } : { quiz_id: quiz.id, revision_token: quiz.revision_token, answers }
-      const response = await post(`/topic/${slug}/${collection ? 'practice' : 'quiz'}/check/`, payload, request.signal)
+      const response = await post(`/topic/${slug}/${collection ? 'practice' : 'quiz'}/${shouldSave ? 'submit' : 'check'}/`, shouldSave ? {...payload, submission_id: submission.current} : payload, request.signal)
       if (!request.signal.aborted) setResult(response)
     } catch (err) {
       if (!request.signal.aborted) setError(errorMessage(err, 'Your answers could not be checked. They are still here; please try again.'))
@@ -31,8 +36,8 @@ function Practice({ quiz, slug, reload, collection }) {
     const question = quiz.questions.find(q => q.id === row.question_id)
     const choiceText = id => question?.choices.find(c => c.id === id)?.choice_text || 'Not answered'
     return <article key={row.question_id} className={`answer-review ${row.is_correct ? 'correct' : 'incorrect'}`}><div className="row"><span className="eyebrow">QUESTION {String(index+1).padStart(2, '0')}</span><span className="answer-badge">{row.is_correct ? '✓ Correct' : row.user_answer ? '↻ Keep exploring' : '— Not answered'}</span></div><h3>{row.question_text}</h3><p><span className="label">YOUR ANSWER</span><br />{choiceText(row.user_answer)}</p>{!row.is_correct && <p><span className="label">SUPPORTED ANSWER</span><br />{choiceText(row.correct_answer)}</p>}<div className="explanation"><strong>Why this answer?</strong><p>{row.explanation}</p><Link to={`/topic/${slug}`} className="text-link">Return to the source lesson ↗</Link></div></article>
-  })}<p className="privacy-note">These results are held only in this page. No learner attempt has been saved.</p></div>
-  return <><div className="page-intro quiz-intro"><span className="eyebrow">Practice, at your pace</span><h1>A moment<br /><em>to put it together.</em></h1><p>{quiz.title}</p><div className="quiz-meta"><span>{quiz.questions.length} questions</span><span>Untimed practice</span><span>No saved attempts</span></div></div>{!quiz.revision_token && <p className="notice" role="status">Preview only. Answer checking is unavailable for this quiz.</p>}<form onSubmit={check}>
+  })}<p className="privacy-note">{result.attempt_id ? <>Saved to your account. <Link to={`/attempts/${result.attempt_id}`}>Open practice history</Link></> : 'These results are held only in this page. No learner attempt has been saved.'}</p></div>
+  return <><div className="page-intro quiz-intro"><span className="eyebrow">Practice, at your pace</span><h1>A moment<br /><em>to put it together.</em></h1><p>{quiz.title}</p><div className="quiz-meta"><span>{quiz.questions.length} questions</span><span>Untimed practice</span><span>{shouldSave ? 'Saved to your account' : 'No saved attempts'}</span></div></div>{!quiz.revision_token && <p className="notice" role="status">Preview only. Answer checking is unavailable for this quiz.</p>}<form onSubmit={check}>
     <div className="quiz-progress"><span>{Object.keys(answers).length} of {quiz.questions.length} answered</span><div><span style={{ width: `${Object.keys(answers).length / quiz.questions.length * 100}%` }} /></div></div>
     {quiz.questions.map((question, index) => <fieldset className="question-card" key={question.id}><legend><span className="eyebrow">QUESTION {String(index+1).padStart(2, '0')}</span><span className="question-title">{question.question_text}</span></legend><div className="choices-list">{question.choices.map((choice, i) => <label className={`choice-option ${answers[question.id] === choice.id ? 'selected' : ''}`} key={choice.id}><input type="radio" name={`question-${question.id}`} value={choice.id} checked={answers[question.id] === choice.id} onChange={() => setAnswers(prev => ({ ...prev, [question.id]: choice.id }))} disabled={busy} /><span className="choice-letter" aria-hidden="true">{String.fromCharCode(65+i)}</span><span>{choice.choice_text}</span></label>)}</div></fieldset>)}
     {error && <div role="alert" className="inline-error">{error}<button type="button" className="text-link" onClick={reload}>Reload practice set</button></div>}<div className="quiz-submit"><p>Unanswered questions score zero.<br />Take your time. The explanation matters.</p><button className="button primary" disabled={busy || !quiz.revision_token}>{busy ? 'Checking answers…' : 'Check my answers →'}</button></div>

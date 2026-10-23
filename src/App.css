@@ -2163,3 +2163,24 @@ html, body {
   .group-title { flex: 1; }
   .tree-children { margin-left: 8px; padding-left: 8px; }
 }
+
+/* Owned student workspace: use existing surfaces, tokens and responsive controls. */
+.header-controls { flex-wrap: wrap; justify-content: flex-end; }
+.account-menu { position: relative; }
+.account-menu summary { cursor: pointer; padding: .5rem; max-width: 10rem; overflow-wrap: anywhere; }
+.account-menu[open] { background: var(--surface, #fff); padding: .35rem; border-radius: .6rem; }
+.google-signin { margin-block: 1rem; }
+.auth-form label { display: grid; gap: .5rem; }
+.auth-form input { min-width: 0; width: 100%; }
+@media (max-width: 600px) { .header-controls { gap: .35rem; } .header-controls .button { padding: .5rem .65rem; font-size: .8rem; } .brand-badge { display: none; } .account-menu summary { max-width: 6rem; } }
+.planner-layout { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 1.4fr); gap: 1.5rem; align-items: start; }
+.planner-inputs, .planner-output .card { padding: 1.25rem; }
+.planner-topic-tree { padding-inline-start: 1rem; list-style: none; overflow-wrap: anywhere; }
+.planner-topic-tree label, .study-day-options label, .planner-task label { display: flex; align-items: baseline; gap: .5rem; }
+.planner-topic-tree input, .study-day-options input, .planner-task input { width: auto; flex-shrink: 0; }
+.study-day-options { display: flex; flex-wrap: wrap; gap: .6rem; }
+.planner-output { min-width: 0; display: grid; gap: 1rem; }
+.planner-output input, .saved-plan-select select { max-width: 100%; }
+.subject-progress { padding: 1rem; margin-block: .75rem; }
+progress { width: 100%; accent-color: var(--primary); }
+@media (max-width: 800px) { .planner-layout { grid-template-columns: minmax(0, 1fr); } .planner-inputs fieldset { min-width: 0; } }

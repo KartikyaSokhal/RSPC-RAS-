@@ -8,7 +8,6 @@ export default function TutorPanel({ topic, selected, clearSelection, onCitation
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [related, setRelated] = useState(false)
   const controller = useRef(null)
   const bottom = useRef(null)
   useEffect(() => () => controller.current?.abort(), [])
@@ -20,7 +19,7 @@ export default function TutorPanel({ topic, selected, clearSelection, onCitation
     const history = messages.slice(-6).map(m => ({ role: m.role, text: m.text.slice(0, 1000) }))
     while (history.reduce((n, m) => n + m.text.length, 0) > 4000) history.shift()
     try {
-      const response = await post(`/topic/${topic.slug}/chat/`, { message: text, ...(preset ? { preset } : {}), history, allow_related: related, ...(selected ? { selected } : {}) }, request.signal)
+      const response = await post(`/topic/${topic.slug}/chat/`, { message: text, ...(preset ? { preset } : {}), history, allow_related: false, ...(selected ? { selected } : {}) }, request.signal)
       if (request.signal.aborted) return
       setMessages(previous => [...previous.slice(-18), { role: 'user', text: text || `${preset} ${selected ? 'this passage' : 'this lesson'}` }, { role: 'assistant', text: response.response, citations: response.citations || [], mocked: response.mocked }])
       setInput('')
@@ -53,10 +52,10 @@ export default function TutorPanel({ topic, selected, clearSelection, onCitation
       </div>
 
       <div className="scope-label">
-        GROUNDED IN THIS LESSON {related ? '+ RELATED SOURCES' : ''}
+        GROUNDED ONLY IN THIS LESSON
       </div>
 
-      <div className="chat-messages" aria-live="polite" aria-busy={busy}>
+      <div className="chat-messages" role="log" aria-label="Tutor conversation" tabIndex={0} aria-live="polite" aria-busy={busy}>
         {!messages.length && (
           <div className="tutor-welcome">
             <span className="welcome-spark" aria-hidden="true">💡</span>
@@ -65,7 +64,7 @@ export default function TutorPanel({ topic, selected, clearSelection, onCitation
               Ask about archaeological evidence, dates, key concepts, or select any text passage in the notes to get instant clarification.
             </p>
             <p className="small">
-              Answers are grounded in verified lesson sources. Always check citations.
+              Answers use only this published lesson. Check citations; material outside it is unavailable.
             </p>
           </div>
         )}
@@ -115,14 +114,8 @@ export default function TutorPanel({ topic, selected, clearSelection, onCitation
         <button disabled={busy} onClick={() => send('explain')}>Explain simply</button>
         <button disabled={busy} onClick={() => send('summarize')}>Summarize</button>
         <button disabled={busy} onClick={() => send('examples')}>Give an example</button>
+        <button disabled={busy || !selected} onClick={() => send('explain')}>Explain Selected Passage</button>
       </div>
-
-      {topic.related?.length > 0 && (
-        <label className="related-toggle">
-          <input type="checkbox" checked={related} onChange={e => setRelated(e.target.checked)} />
-          Include reviewed related lessons
-        </label>
-      )}
 
       {error && <p className="inline-error" role="alert">{error}</p>}
 

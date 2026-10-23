@@ -63,7 +63,7 @@ class AIContainmentTests(TestCase):
         self.assertEqual(data["citations"], [])
         self.assertIn("do not contain enough information", data["response"])
 
-    def test_related_topic_scope_strictly_respects_relations_and_flag(self):
+    def test_current_lesson_scope_cannot_be_expanded_by_a_related_flag(self):
         # Topic A is connected to Topic B via TopicRelation. Topic C is separate and unrelated.
         topic_a = Topic.objects.create(title="Topic A", slug="topic-a")
         topic_b = Topic.objects.create(title="Topic B", slug="topic-b")
@@ -88,7 +88,7 @@ class AIContainmentTests(TestCase):
         current, evidence_allowed = provider.retrieve("topic-a", {"message": "fact", "allow_related": True})
         topic_ids_allowed = {e["topic_id"] for e in evidence_allowed}
         self.assertIn(topic_a.id, topic_ids_allowed)
-        self.assertIn(topic_b.id, topic_ids_allowed)
+        self.assertNotIn(topic_b.id, topic_ids_allowed)
         self.assertNotIn(topic_c.id, topic_ids_allowed)
 
     @override_settings(AI_ENABLED=True, AI_GUEST_ENABLED=True, AI_MODEL="fixture-model", GEMINI_API_KEY="fixture-only", AI_DAILY_BUDGET_MICRO=100000, AI_INPUT_RATE_MICRO=1000000, AI_OUTPUT_RATE_MICRO=1000000)

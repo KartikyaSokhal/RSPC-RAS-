@@ -4,11 +4,35 @@ import useTheme from '../../hooks/useTheme.js'
 import useResource from '../../hooks/useResource.js'
 import { PlatformContext } from './platformContext.js'
 import { SyllabusContext } from '../study/syllabusContext.js'
+import AuthProvider from '../../context/AuthContext.jsx'
+import useAuth from '../../hooks/useAuth.js'
+import { useState } from 'react'
 import { indexSyllabus } from '../study/syllabusUtils.js'
+
+function AccountNavigation() {
+  const { featuresEnabled, authenticated, user, loading, logout } = useAuth()
+  const [error, setError] = useState('')
+  if (!featuresEnabled || loading) return null
+  return authenticated ? <><Link className="button" to="/dashboard">Dashboard</Link><details className="account-menu"><summary aria-label="Account menu">{user?.name || 'Account'}</summary><button className="button" onClick={async () => { try { await logout(); setError('') } catch { setError('Sign out failed. Try again.') } }}>Logout</button>{error && <p role="alert">{error}</p>}</details></> : <><Link className="button" to="/login">Sign In</Link><Link className="button" to="/signup">Sign Up</Link></>
+}
+
+function SessionContent({ refreshSyllabus }) {
+  const { user, authenticated } = useAuth()
+  const identity = authenticated ? user?.id : null
+  const previous = useRef(identity)
+  useEffect(() => {
+    if (previous.current !== identity) {
+      previous.current = identity
+      refreshSyllabus()
+    }
+  }, [identity, refreshSyllabus])
+  // Discard account-specific page state on sign-in, sign-out or account change.
+  return <Outlet key={identity || 'guest'} />
+}
 
 export default function AppShell() {
   const { theme, toggleTheme } = useTheme()
-  const { data: config } = useResource('/config/')
+  const { data: config, loading: configLoading } = useResource('/config/')
   const syllabus = useResource('/topics/?tree=1')
   const totalTopics = useMemo(() => syllabus.data ? indexSyllabus(syllabus.data).size : null, [syllabus.data])
   const location = useLocation()
@@ -32,6 +56,7 @@ export default function AppShell() {
   }, [location.pathname, location.hash])
 
   return (
+    <AuthProvider enabled={configLoading ? null : Boolean(config?.student_features_enabled)}>
     <PlatformContext.Provider value={config || {}}>
       <SyllabusContext.Provider value={syllabus}>
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -87,12 +112,14 @@ export default function AppShell() {
               )}
             </button>
 
+            <AccountNavigation />
+
           </div>
         </div>
       </header>
 
       <main id="main-content" ref={main} tabIndex={-1} className="main-content">
-        <Outlet />
+        <SessionContent refreshSyllabus={syllabus.retry} />
       </main>
 
       <footer className="site-footer">
@@ -115,5 +142,6 @@ export default function AppShell() {
       </footer>
       </SyllabusContext.Provider>
     </PlatformContext.Provider>
+    </AuthProvider>
   )
 }

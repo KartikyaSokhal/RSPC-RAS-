@@ -1,12 +1,22 @@
 from django.urls import path
-from . import views
-from .permissions import unavailable_learner_view
+from . import views, student_auth, student_views
 
-# Fixed content-first release boundary, independent of authentication or settings.
-# Historical handlers/models remain available for a separately approved release.
-learner_unavailable = unavailable_learner_view(['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'])
+# Student handlers enforce the server gate before authentication or body parsing.
 
 urlpatterns = [
+    path("account/deletion/", student_auth.account_deletion_readiness),
+    path("attempts/", student_views.attempt_list),
+    path("attempts/<int:pk>/", student_views.attempt_detail),
+    path("topic/<slug:slug>/practice/submit/", student_views.practice_submit),
+    path("plans/", student_views.study_plans),
+    path("plans/<int:pk>/", student_views.study_plan),
+    path("plans/<int:pk>/reschedule/", student_views.reschedule_plan),
+    path("plans/<int:pk>/tasks/<int:task_id>/", student_views.study_task),
+    path("topic/<slug:slug>/visit/", student_views.topic_visit),
+    path("auth/password-reset/", student_auth.password_reset_request),
+    path("auth/password-reset/confirm/", student_auth.password_reset_confirm),
+    path("auth/google/start/", student_auth.google_start),
+    path("auth/google/callback/", student_auth.google_callback),
     path("health/", views.health),
     path("config/", views.configuration),
     path("search/", views.search_results),
@@ -22,16 +32,16 @@ urlpatterns = [
     path("topic/<slug:slug>/", views.topic_detail),
     path("topic/<slug:slug>/chat/", views.topic_chat),
     path("topic/<slug:slug>/quiz/", views.topic_quiz),
-    path("topic/<slug:slug>/quiz/submit/", learner_unavailable),
-    path("topic/<slug:slug>/bookmark/", learner_unavailable),
-    path("topic/<slug:slug>/progress/", learner_unavailable),
-    path("profile/weaknesses/", learner_unavailable),
-    path("auth/register/", learner_unavailable),
-    path("auth/login/", learner_unavailable),
-    path("auth/logout/", learner_unavailable),
-    path("auth/status/", learner_unavailable),
-    path("dashboard/", learner_unavailable),
-    path("bookmarks/", learner_unavailable),
-    path("progress/", learner_unavailable),
+    path("topic/<slug:slug>/quiz/submit/", views.topic_quiz_submit),
+    path("topic/<slug:slug>/bookmark/", views.topic_bookmark),
+    path("topic/<slug:slug>/progress/", views.topic_progress),
+    path("profile/weaknesses/", views.profile_weaknesses),
+    path("auth/register/", views.auth_register),
+    path("auth/login/", views.auth_login),
+    path("auth/logout/", views.auth_logout),
+    path("auth/status/", views.auth_status),
+    path("dashboard/", views.learner_dashboard),
+    path("bookmarks/", views.user_bookmarks_list),
+    path("progress/", views.user_progress_list),
 ]
 

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import GoogleSignIn from '../components/auth/GoogleSignIn.jsx'
 import useAuth from '../hooks/useAuth.js'
 
 export default function SignupPage() {
@@ -45,6 +46,7 @@ export default function SignupPage() {
           </div>
         )}
 
+        <GoogleSignIn />
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label htmlFor="signup-name">Full name</label>
@@ -73,9 +75,10 @@ export default function SignupPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="signup-email">Email (optional)</label>
+            <label htmlFor="signup-email">Email *</label>
             <input
               id="signup-email"
+              required
               type="email"
               autoComplete="email"
               value={email}

@@ -33,3 +33,6 @@ CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_SECONDS = 0
 SUPPORT_EMAIL = ''
+
+# Preserve the existing content-only demo and its historical learner boundary.
+STUDENT_FEATURES_ENABLED = False

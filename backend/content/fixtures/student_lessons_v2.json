@@ -1,0 +1,3015 @@
+{
+  "version": "prepal-content-review-v2",
+  "checked_on": "23 October 2026",
+  "publication_status": "draft-human-review-required",
+  "sources": {
+    "palaces": {
+      "title": "Rajasthan Tourism — Palaces in Rajasthan",
+      "url": "https://www.tourism.rajasthan.gov.in/palaces-to-visit.html",
+      "checked_on": "2026-10-23"
+    },
+    "painting": {
+      "title": "NCERT — The Rajasthani Schools of Painting",
+      "url": "https://ncert.nic.in/textbook/pdf/lefa102.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "culture": {
+      "title": "Rajasthan Foundation — Heritage and Culture",
+      "url": "https://foundation.rajasthan.gov.in/HeritageCulture.aspx",
+      "checked_on": "2026-10-23"
+    },
+    "dance": {
+      "title": "Rajasthan Foundation — Dance forms of Rajasthan",
+      "url": "https://foundation.rajasthan.gov.in/DanceformsofRajasthan.aspx/Default.aspx",
+      "checked_on": "2026-10-23"
+    },
+    "kalbelia": {
+      "title": "Sangeet Natak Akademi — Kalbelia folk songs and dances",
+      "url": "https://indiaich-sna.in/kalbelia-folk-songs-and-dances-of-rajasthan",
+      "checked_on": "2026-10-23"
+    },
+    "festivals": {
+      "title": "Rajasthan Tourism — Fairs and festivals",
+      "url": "https://www.tourism.rajasthan.gov.in/fairs-and-festivals.html",
+      "checked_on": "2026-10-23"
+    },
+    "harappa": {
+      "title": "NCERT — Bricks, Beads and Bones",
+      "url": "https://ncert.nic.in/textbook/pdf/lehs101.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "states": {
+      "title": "NCERT — Kings, Farmers and Towns",
+      "url": "https://ncert.nic.in/textbook/pdf/lehs102.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "chola": {
+      "title": "UNESCO — Great Living Chola Temples",
+      "url": "https://whc.unesco.org/en/list/250/",
+      "checked_on": "2026-10-23"
+    },
+    "bhakti": {
+      "title": "IIT Kanpur SATHEE — Bhakti-Sufi Traditions",
+      "url": "https://www.satheebihar.iitk.ac.in/sathee-ssc/student-corner/ncert-books/class-12/themes-in-indian-history/chapter-06-bhakti-sufi-traditions-changes-in-religious-beliefs-and-devotional-texts/",
+      "checked_on": "2026-10-23"
+    },
+    "reform": {
+      "title": "NCERT — Women, Caste and Reform",
+      "url": "https://ncert.nic.in/textbook/pdf/hess207.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "education": {
+      "title": "NCERT — Civilising the Native, Educating the Nation",
+      "url": "https://ncert.nic.in/textbook/pdf/hess206.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "ugc": {
+      "title": "University Grants Commission — About UGC",
+      "url": "https://www.ugc.gov.in/Home/AboutUGC",
+      "checked_on": "2026-10-23"
+    },
+    "eci": {
+      "title": "Election Commission of India — About ECI",
+      "url": "https://www.eci.gov.in/about-eci/",
+      "checked_on": "2026-10-23"
+    },
+    "isro": {
+      "title": "ISRO — Genesis of the Indian space programme",
+      "url": "https://www.isro.gov.in/ISRO_EN/genesis.html",
+      "checked_on": "2026-10-23"
+    },
+    "csir": {
+      "title": "CSIR-IICT — Chronicling seven decades",
+      "url": "https://iict.res.in/assets/pdf/iictyears.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "physical": {
+      "title": "NCERT — Physical Features of India",
+      "url": "https://www.ncert.nic.in/textbook/pdf/iess102.pdf",
+      "checked_on": "2026-10-23"
+    },
+    "drainage": {
+      "title": "IIT Kanpur SATHEE — Drainage System",
+      "url": "https://sathee.iitk.ac.in/ncert-books/class-11/geography/india-physical-environment/chapter-03-drainage-system/",
+      "checked_on": "2026-10-23"
+    },
+    "landforms": {
+      "title": "US National Park Service — Physiographic provinces",
+      "url": "https://www.nps.gov/articles/series.htm?id=12C422BC-1DD8-B71B-0B1552CA902E5909",
+      "checked_on": "2026-10-23"
+    },
+    "colorado": {
+      "title": "Colorado Geological Survey — Prairie, Peak and Plateau",
+      "url": "https://coloradogeologicalsurvey.org/publications/prairie-peak-plateau-geology-colorado/",
+      "checked_on": "2026-10-23"
+    },
+    "rivers": {
+      "title": "US Geological Survey — Rivers, Streams and Creeks",
+      "url": "https://www.usgs.gov/water-science-school/science/rivers-streams-and-creeks",
+      "checked_on": "2026-10-23"
+    },
+    "lakes": {
+      "title": "US Environmental Protection Agency — Water Body Types",
+      "url": "https://www.epa.gov/n-steps-online/water-body-types",
+      "checked_on": "2026-10-23"
+    }
+  },
+  "lessons": [
+    {
+      "topic_id": 32,
+      "alias": "Rajasthan palaces",
+      "tags": [
+        "Rajasthan heritage",
+        "Architecture",
+        "Historical sources"
+      ],
+      "sources": [
+        "palaces",
+        "culture"
+      ],
+      "sections": [
+        {
+          "heading": "Reading a palace as evidence",
+          "paragraphs": [
+            "A palace is a residential and ceremonial complex associated with a ruling household. In Rajasthan, palaces often combine audience halls, courtyards, private apartments, gardens and service areas. Some stand within forts, while others belong to urban settlements or lake settings. A fort and a palace therefore describe different functions, even when they share walls. Compare a defensive gateway with a reception court: their arrangements answer different practical needs. Rajasthan palaces help connect political authority with climate, craftsmanship and the organisation of everyday life rather than merely illustrating royal luxury."
+          ]
+        },
+        {
+          "heading": "Form, material and environment",
+          "paragraphs": [
+            "A courtyard admits light and helps organise movement between rooms. Jharokhas are projecting window or balcony forms; jalis are perforated screens. Both can shape visibility, shade and airflow, although a particular building's function must be checked rather than assumed. Stone, plaster, painted surfaces and mirror work require different skills and conservation methods. Jaipur and Udaipur provide useful contrasting settings: one is associated with an organised urban capital and the other with a landscape of hills and lakes. Their buildings should be placed on a map before comparing individual decorative details."
+          ]
+        },
+        {
+          "heading": "Patronage and cultural connections",
+          "paragraphs": [
+            "Palace interiors are settings in which Rajasthani painting can be studied alongside architecture. Painted walls, manuscript collections and court portraits are related evidence, but they are not identical art forms. A portrait may present an ideal image of a patron rather than a literal record of every event. Courtly celebrations also interacted with folk music and ceremonial traditions. This does not mean that all community practices originated in courts. Artists, builders, labourers and surrounding markets participated in production, and their contribution deserves attention alongside the names of rulers and dynasties."
+          ]
+        },
+        {
+          "heading": "A practical comparison exercise",
+          "paragraphs": [
+            "Imagine comparing two photographed courtyards for a short answer. First describe observable features: openings, columns, materials, circulation and relation to water. Then offer a limited explanation, such as shade or ceremonial access, clearly separating observation from interpretation. A photograph alone cannot prove an exact construction date or identify every later alteration. Tourist labels and popular legends should be checked against museum records or official descriptions. Finally consider conservation: repairs, visitor pressure, water damage and changing use can affect the evidence visible today. The useful conclusion links design to function and historical setting without claiming that every palace followed one uniform plan."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For revision, sketch an entrance, a public court and a private residential zone. Draw possible movement routes between them and ask how access could be controlled. This is an analytical diagram, not a reconstruction of a named palace. It helps distinguish ceremonial display from domestic use and reminds the reader that architecture organises relationships as well as physical space."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which feature is a perforated architectural screen?",
+          "choices": [
+            "Jali",
+            "Stupa",
+            "Shikhara",
+            "Chaitya"
+          ],
+          "answer": 0,
+          "explanation": "A jali uses patterned openings in a screen and can influence light and airflow."
+        },
+        {
+          "question": "Why can a palace stand within a fort?",
+          "choices": [
+            "Every palace is only a military tower",
+            "Forts cannot contain residences",
+            "The words always mean the same thing",
+            "Residential and defensive functions can share a complex"
+          ],
+          "answer": 3,
+          "explanation": "A palace identifies residential or ceremonial functions while a fort emphasises defence."
+        },
+        {
+          "question": "Which evidence best supports a palace construction date?",
+          "choices": [
+            "The number of tourists",
+            "An unsupported legend",
+            "A relevant dated inscription or reliable building record",
+            "Its colour alone"
+          ],
+          "answer": 2,
+          "explanation": "Chronology requires contextual historical evidence rather than appearance alone."
+        },
+        {
+          "question": "What is a jharokha commonly associated with?",
+          "choices": [
+            "A type of manuscript paper",
+            "A projecting window or balcony",
+            "A buried water pipe",
+            "A coin minting method"
+          ],
+          "answer": 1,
+          "explanation": "Jharokha describes a characteristic projecting architectural opening."
+        },
+        {
+          "question": "Which approach best compares two palace courtyards?",
+          "choices": [
+            "Separate observed features from proposed interpretations",
+            "Assume identical functions everywhere",
+            "Ignore later alterations",
+            "Use only a ruler's name"
+          ],
+          "answer": 0,
+          "explanation": "Sound architectural analysis explains evidence and its limits."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 34,
+          "reason": "Connects the discussion of Rajasthan palaces with Rajasthani painting; pending human contextual review."
+        },
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of Rajasthan palaces with folk music; pending human contextual review."
+        },
+        {
+          "target_id": 114,
+          "reason": "Connects the discussion of Rajasthan palaces with lakes; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 34,
+      "alias": "Rajasthani painting",
+      "tags": [
+        "Rajasthan heritage",
+        "Historical sources",
+        "Visual arts"
+      ],
+      "sources": [
+        "painting",
+        "palaces"
+      ],
+      "sections": [
+        {
+          "heading": "Schools and historical setting",
+          "paragraphs": [
+            "Rajasthani painting refers to several regional traditions associated with courts and workshops, not a single unchanging style. Mewar, Bundi, Kota, Kishangarh, Jaipur, Bikaner and Marwar are important names in this field. Patronage, artists' movement and local literary interests shaped their development. A school label offers a useful starting point, but it cannot replace examination of the particular work. Many paintings have passed through collections, and their original sequence or setting may need reconstruction. Studying Rajasthan palaces alongside paintings helps explain the environments in which patronage operated."
+          ]
+        },
+        {
+          "heading": "Themes and the work of artists",
+          "paragraphs": [
+            "Court portraits, hunting scenes, devotional narratives, seasons and musical moods appear in these traditions. Ragamala paintings relate visual compositions to named musical modes; they should not be mistaken for diagrams that reproduce sound mechanically. Krishna imagery often connects devotion with poetry and emotional expression. Artists used line, colour, spatial arrangement and gesture to guide attention. Workshops could involve several specialised contributors, so an object should not automatically be treated as the isolated creation of one person. Subject matter, inscriptions and technical examination together provide better evidence than a quick guess from colour alone."
+          ]
+        },
+        {
+          "heading": "From painting to handicraft",
+          "paragraphs": [
+            "Miniature painting, mural work and manuscript illustration differ in scale, surface and viewing context. Handicrafts also include textile printing, pottery, metalwork and carving; these should not be collapsed into the category of miniature painting. Ask how materials and tools influence production. A painted manuscript can be handled page by page, while a mural is tied to a wall and architectural route. Folk music and literary performance provide additional contexts for some themes, but shared subject matter does not prove that every artistic tradition had the same patron, audience or method of transmission."
+          ]
+        },
+        {
+          "heading": "Reading images carefully",
+          "paragraphs": [
+            "Take a hypothetical scene showing a ruler, attendants, vegetation and animals. Record the main figures and the direction of their gaze. Next describe how size, placement and colour distinguish the central person. Then ask whether the work communicates a political ideal, a devotional narrative or a particular event. Those possibilities require supporting evidence; visual splendour alone proves none of them. Compare the image with a source description and note uncertain attribution or dating. Avoid treating a stylised landscape as a precise survey map. The final study note should connect school, theme, medium and patronage while acknowledging regional variation and the interpretive limits of a single image."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A useful image exercise compares two representations of the same narrative. Note differences in gesture, setting and the arrangement of figures, then ask whether patronage or intended viewing context might help explain them. This exercise develops visual reasoning without turning stylistic similarity into proof of common authorship. Museum attribution and provenance should remain distinct from the student’s own observations."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "A Ragamala painting is associated with which theme?",
+          "choices": [
+            "Tax account columns",
+            "Mechanical clock diagrams",
+            "Musical modes",
+            "Only military maps"
+          ],
+          "answer": 2,
+          "explanation": "Ragamala links visual imagery with named musical modes and emotional associations."
+        },
+        {
+          "question": "Which is a recognised regional painting tradition?",
+          "choices": [
+            "Mayan glyph carving",
+            "Mewar",
+            "Mesopotamian cuneiform",
+            "Roman mosaic exclusively"
+          ],
+          "answer": 1,
+          "explanation": "Mewar is one of the regional centres of Rajasthani painting."
+        },
+        {
+          "question": "How does a mural differ from a manuscript illustration?",
+          "choices": [
+            "It is tied to an architectural wall surface",
+            "It must always be a coin",
+            "It cannot depict a narrative",
+            "It is necessarily printed"
+          ],
+          "answer": 0,
+          "explanation": "A mural's wall and viewing route form part of its context."
+        },
+        {
+          "question": "Why should colour alone not determine a painting's school?",
+          "choices": [
+            "Colours never vary",
+            "Every court used one colour only",
+            "Dates are unnecessary",
+            "Attribution also needs style, inscriptions and provenance"
+          ],
+          "answer": 3,
+          "explanation": "Several kinds of evidence help assess attribution and chronology."
+        },
+        {
+          "question": "Which statement about workshops is most defensible?",
+          "choices": [
+            "No materials influenced style",
+            "Artists never moved between courts",
+            "Several specialised artists could contribute",
+            "All paintings were made by one ruler"
+          ],
+          "answer": 2,
+          "explanation": "Workshop collaboration and movement complicate simple individual attribution."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 32,
+          "reason": "Connects the discussion of Rajasthani painting with Rajasthan palaces; pending human contextual review."
+        },
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of Rajasthani painting with folk music; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 38,
+      "alias": "folk music",
+      "tags": [
+        "Rajasthan heritage",
+        "Historical sources",
+        "Performing arts"
+      ],
+      "sources": [
+        "culture",
+        "kalbelia"
+      ],
+      "sections": [
+        {
+          "heading": "Music in social life",
+          "paragraphs": [
+            "Folk music in Rajasthan accompanies work, devotion, celebration, storytelling and memory. Its meaning depends on who performs, for whom, and on what occasion. Songs associated with water collection, marriage or seasonal change can reveal everyday concerns as well as artistic skill. Oral transmission allows variation: two performances of a song need not have identical words or musical details. A recording preserves one event rather than the whole tradition. Study folk music as a living practice involving communities, training, livelihood and changing audiences, not simply as a list of instruments."
+          ]
+        },
+        {
+          "heading": "Instruments and sound production",
+          "paragraphs": [
+            "Classify instruments by the way sound is produced before memorising their names. A bowed string instrument differs from a wind instrument, while clappers and drums produce rhythm through striking or vibration. The poongi and khanjari accompany Kalbelia performance in descriptions maintained by India's intangible heritage institutions. This pairing is useful because it connects a sound-producing technique to a documented community context. Instrument names and spellings may vary in transliteration. When identifying an unfamiliar example, examine its construction and performance method instead of assuming that every object shown on a cultural poster has the same regional use."
+          ]
+        },
+        {
+          "heading": "Song, dance and cultural memory",
+          "paragraphs": [
+            "Folk dance often works with musical accompaniment, yet song and dance remain distinct subjects of analysis. Kalbelia songs transmit stories and allow improvisation; their relationship with changing livelihoods is part of their heritage significance. Court patronage, local festivals and later tourism have all offered performance settings. New stages can expand audiences while changing duration, instrumentation or presentation. Rajasthan festivals therefore provide useful contexts for music, but a commercial stage programme should not automatically be treated as a complete representation of community ritual or everyday musical life."
+          ]
+        },
+        {
+          "heading": "Listening as a study exercise",
+          "paragraphs": [
+            "For a hypothetical listening comparison, note the singer or group, instrument families, rhythmic pattern, language and occasion described by the source. Separate what is audible from what needs external confirmation: the sound alone may not establish a community identity, date or ritual meaning. Ask whether a recording was made at a village event, in a museum or for a staged production. Credit performers and avoid copying recordings or lyrics without permission. A strong short answer explains how oral transmission, improvisation and social context operate together. It should also recognise that preservation supports living practitioners and their agency, rather than freezing an imagined timeless version of Rajasthan's musical culture."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "When taking listening notes, distinguish melody from rhythm and accompaniment from the main vocal line. Describe a passage in ordinary words before assigning technical labels you cannot verify. A repeated rhythmic pattern may support collective movement, while a changing vocal phrase may carry the narrative. This comparison helps explain performance structure without reproducing protected lyrics or claiming expertise from a single recording."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which question is central when studying a folk song?",
+          "choices": [
+            "Can every version be identical?",
+            "Must it have a printed score?",
+            "Who performs it and on what occasion?",
+            "What is its guaranteed exam frequency?"
+          ],
+          "answer": 2,
+          "explanation": "Social and performance context helps explain a folk song's meaning."
+        },
+        {
+          "question": "The poongi accompanying Kalbelia performance belongs to which broad family?",
+          "choices": [
+            "Metal clappers only",
+            "Wind instruments",
+            "Bowed strings",
+            "Keyboard instruments"
+          ],
+          "answer": 1,
+          "explanation": "The poongi produces sound through an air-driven reed system."
+        },
+        {
+          "question": "What does oral transmission commonly allow?",
+          "choices": [
+            "Variation between performances",
+            "A ban on improvisation",
+            "One fixed printed version everywhere",
+            "Proof that no training occurs"
+          ],
+          "answer": 0,
+          "explanation": "Oral traditions can preserve recognisable forms while permitting variation."
+        },
+        {
+          "question": "Why is one recording incomplete evidence for an entire tradition?",
+          "choices": [
+            "It contains no sound",
+            "Every performer is interchangeable",
+            "Dates never matter",
+            "It records a particular performance and context"
+          ],
+          "answer": 3,
+          "explanation": "A recording cannot represent all occasions, practitioners and historical changes."
+        },
+        {
+          "question": "Which approach respects performers' rights?",
+          "choices": [
+            "Remove the performer's identity",
+            "Treat community knowledge as ownerless",
+            "Credit practitioners and obtain permission for reuse",
+            "Copy all lyrics and recordings automatically"
+          ],
+          "answer": 2,
+          "explanation": "Attribution and appropriate permission support responsible cultural documentation."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 39,
+          "reason": "Connects the discussion of folk music with folk dance; pending human contextual review."
+        },
+        {
+          "target_id": 49,
+          "reason": "Connects the discussion of folk music with Rajasthan festivals; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of folk music with plains; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 39,
+      "alias": "folk dance",
+      "tags": [
+        "Rajasthan heritage",
+        "Religious traditions",
+        "Performing arts"
+      ],
+      "sources": [
+        "dance",
+        "kalbelia"
+      ],
+      "sections": [
+        {
+          "heading": "Movement and community context",
+          "paragraphs": [
+            "Rajasthan's folk dance traditions combine movement, costume, music and social participation in different ways. Ghoomar is widely associated with women dancing in circular formations. Kalbelia performance is connected with the Kalbelia community and its changing social life. Neither label describes every dance performed in Rajasthan. The first task in classification is to distinguish a dance's documented community and occasion from a modern stage adaptation. Folk dance should be studied through practitioners' knowledge and credible cultural records, with attention to regional variation and to the difference between living practice and a promotional stereotype."
+          ]
+        },
+        {
+          "heading": "Recognisable forms and careful identification",
+          "paragraphs": [
+            "Bhavai is associated with balancing vessels, while Chari performances use pots as prominent objects. Terah Taali is associated with the Kamad community and seated rhythmic performance using small cymbals. Kachhi Ghodi uses a dummy-horse costume. These features provide useful memory anchors, but exact local practice and presentation may differ. Do not infer an entire community's identity or occupation from one costume. Nor should a still image be treated as enough evidence to identify every movement, musical pattern or historical origin. Names describe traditions that have developed through practice, exchange and adaptation."
+          ]
+        },
+        {
+          "heading": "Relationships with music and festivals",
+          "paragraphs": [
+            "Folk music is integral to many dance settings, and Rajasthan festivals provide occasions for performance and participation. Kalbelia songs and dances were inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2010. That recognition concerns a living cultural practice; it is different from inscription of a palace or fort as a World Heritage property. Heritage labels should therefore be used precisely. Recognition also does not mean that the form stops changing. New performers, migration, recordings and tourism can alter the settings in which knowledge is transmitted."
+          ]
+        },
+        {
+          "heading": "Building a useful comparison",
+          "paragraphs": [
+            "Construct a comparison table with four columns: form, documented performance community or setting, distinctive feature, and supporting reference. Populate it with a few carefully verified examples rather than an exhaustive list copied from an uncredited chart. For a hypothetical photograph of a performer balancing pots, describe the visible evidence and explain why more context may be needed before assigning the form. A short analytical answer can discuss coordination, training and cultural memory without inventing an ancient origin story. Conservation of intangible heritage depends on opportunities for practitioners to teach, perform and earn livelihoods. Respectful study recognises their choices and avoids treating communities as museum objects or reducing varied traditions to a single costume."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For revision, compare a seated rhythmic performance with one using circular group movement. Ask what kinds of coordination each requires and how accompaniment supports timing. These are analytical questions rather than claims of superiority between forms. The comparison makes movement, training and participation visible, while reminding the student that a named tradition can contain several local versions and contemporary adaptations."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which form is commonly associated with circular dancing by women?",
+          "choices": [
+            "A manuscript seal",
+            "Ghoomar",
+            "A parliamentary debate",
+            "A drainage basin"
+          ],
+          "answer": 1,
+          "explanation": "Ghoomar is widely associated with women moving in circular formations."
+        },
+        {
+          "question": "What distinguishes Kachhi Ghodi in common descriptions?",
+          "choices": [
+            "A dummy-horse costume",
+            "A laboratory instrument",
+            "A stone inscription only",
+            "A glacial basin"
+          ],
+          "answer": 0,
+          "explanation": "The dummy-horse costume is a recognisable feature of Kachhi Ghodi."
+        },
+        {
+          "question": "Terah Taali is especially associated with which community?",
+          "choices": [
+            "Only Gupta royal scribes",
+            "Only Chola naval officers",
+            "Only Harappan merchants",
+            "Kamad"
+          ],
+          "answer": 3,
+          "explanation": "Cultural records associate Terah Taali with the Kamad community."
+        },
+        {
+          "question": "The 2010 UNESCO recognition of Kalbelia concerns what?",
+          "choices": [
+            "A national highway",
+            "A mineral deposit",
+            "Intangible cultural heritage",
+            "A newly built dam"
+          ],
+          "answer": 2,
+          "explanation": "Kalbelia songs and dances are a living intangible heritage practice."
+        },
+        {
+          "question": "What is a sound method for identifying a dance from an image?",
+          "choices": [
+            "Ignore the performers' account",
+            "Combine visible features with reliable performance context",
+            "Assume costume alone proves every detail",
+            "Invent a fixed ancient date"
+          ],
+          "answer": 1,
+          "explanation": "Movement and social context cannot always be recovered from a still photograph alone."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of folk dance with folk music; pending human contextual review."
+        },
+        {
+          "target_id": 49,
+          "reason": "Connects the discussion of folk dance with Rajasthan festivals; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 49,
+      "alias": "Rajasthan festivals",
+      "tags": [
+        "Rajasthan heritage",
+        "Religious traditions",
+        "Public debate"
+      ],
+      "sources": [
+        "festivals",
+        "culture"
+      ],
+      "sections": [
+        {
+          "heading": "Festivals as social institutions",
+          "paragraphs": [
+            "Fairs and festivals bring together ritual, trade, entertainment, travel and social exchange. In Rajasthan their settings range from towns and pilgrimage centres to rural gathering places. The same event may have different meanings for worshippers, traders, performers and visitors. A fair is therefore more than a date in a tourism calendar. Examine its location, associated traditions, seasonal setting and contemporary organisation. Rajasthan festivals also create opportunities to observe how cultural practices respond to changing transport, markets and audiences while retaining locally important forms of participation."
+          ]
+        },
+        {
+          "heading": "Examples and distinctions",
+          "paragraphs": [
+            "Gangaur is associated with Gauri and has an important place in Rajasthan's ceremonial calendar. Teej is closely connected with the monsoon season, particularly in familiar descriptions of Jaipur celebrations. Pushkar combines pilgrimage associations with a major fair and livestock-trading traditions. Such examples should not be treated as interchangeable. A festival's religious association does not explain every economic activity occurring around it. Similarly, a livestock fair may support craft sales, performance and travel services alongside trade in animals. Avoid fixed annual Gregorian dates unless a current official announcement has been checked, because many observances follow lunar calendars."
+          ]
+        },
+        {
+          "heading": "Performance and local economies",
+          "paragraphs": [
+            "Folk dance and folk music contribute to many public celebrations. Performers, craft workers, transport providers, food sellers and accommodation services may all participate in the surrounding economy. Their benefits and costs are uneven: an increase in visitors can support livelihoods but also intensify waste, crowding and pressure on water or public space. A balanced answer identifies both cultural and practical dimensions. It should distinguish a longstanding local observance from a recently organised tourism festival rather than assuming that all advertised events have the same historical depth or community role."
+          ]
+        },
+        {
+          "heading": "An evidence-based study method",
+          "paragraphs": [
+            "Choose one event and prepare a small profile: location, principal association, broad seasonal setting, activities and a dated source. For a hypothetical comparison of Gangaur and Pushkar, explain what each example demonstrates instead of simply listing their names. Where a source reports a schedule for a particular year, label that year and avoid presenting it as permanent knowledge. Treat official visitor information as evidence about current presentation, not as a substitute for every historical question. Respectful participation also involves performers' consent, appropriate photography and attention to local rules. The strongest conclusion shows how a festival can combine belief, community interaction and livelihood without assuming that one interpretation exhausts its meaning."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "An event profile can distinguish permanent geographical facts from changing administrative information. The location of a town is comparatively stable, whereas route diversions, entry arrangements and visitor schedules may change. Keep those categories separate in notes. This prevents a temporary tourism announcement from becoming an inaccurate permanent fact and encourages responsible interpretation of information intended for visitors in a particular year."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Why should festival dates be checked for a particular year?",
+          "choices": [
+            "All festivals occur on one fixed date",
+            "Gregorian dates never change",
+            "Tourism calendars are historical inscriptions",
+            "Many observances follow a lunar calendar"
+          ],
+          "answer": 3,
+          "explanation": "Lunar observances can fall on different Gregorian dates in different years."
+        },
+        {
+          "question": "Gangaur is associated especially with whom?",
+          "choices": [
+            "Samudragupta",
+            "Vikram Sarabhai",
+            "Gauri",
+            "Aryabhata"
+          ],
+          "answer": 2,
+          "explanation": "Gangaur's devotional association centres on Gauri."
+        },
+        {
+          "question": "Which example combines pilgrimage and major fair traditions?",
+          "choices": [
+            "A colonial examination hall",
+            "Pushkar",
+            "Only a laboratory campus",
+            "A Himalayan glacier"
+          ],
+          "answer": 1,
+          "explanation": "Pushkar is associated with pilgrimage and a well-known fair including livestock traditions."
+        },
+        {
+          "question": "What does a balanced study of a fair include?",
+          "choices": [
+            "Cultural practices and economic activities",
+            "Only the number of posters",
+            "Only one visitor's opinion",
+            "A claim that every event is ancient"
+          ],
+          "answer": 0,
+          "explanation": "Fairs involve social, ritual and livelihood dimensions."
+        },
+        {
+          "question": "Which distinction should a study note preserve?",
+          "choices": [
+            "Every fair and festival is identical",
+            "All music began in one palace",
+            "All dates are permanent",
+            "Local observance versus recently organised tourism event"
+          ],
+          "answer": 3,
+          "explanation": "Different events can have different historical depth and contemporary purposes."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of Rajasthan festivals with folk music; pending human contextual review."
+        },
+        {
+          "target_id": 39,
+          "reason": "Connects the discussion of Rajasthan festivals with folk dance; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 56,
+      "alias": "Indus and Vedic traditions",
+      "tags": [
+        "Ancient India",
+        "Historical sources",
+        "State formation"
+      ],
+      "sources": [
+        "harappa",
+        "states"
+      ],
+      "sections": [
+        {
+          "heading": "Two kinds of evidence",
+          "paragraphs": [
+            "The Indus or Harappan civilisation and Vedic traditions are studied through different combinations of evidence. Mature Harappan urbanism is generally placed around 2600–1900 BCE. Archaeology supplies buildings, pottery, tools, ornaments, plant remains and other material traces. The Harappan script remains undeciphered, so particular signs cannot simply be translated into a known political story. Vedic literature was transmitted orally and compiled over time. Its hymns and other compositions offer evidence of language, belief and social concerns, but their interpretation requires attention to genre rather than treating every verse as a direct archaeological description."
+          ]
+        },
+        {
+          "heading": "Settlements and economic life",
+          "paragraphs": [
+            "Harappan settlements show variation in size, layout and access to resources. Drainage arrangements, craft production and standardised weights indicate organised activities, although similar objects do not prove a single administrative mechanism everywhere. Agricultural and pastoral activities supported settlement, with regional differences in crops and environment. For Vedic contexts, references to cattle, ritual, kinship and later agrarian expansion are important. Avoid the claim that every community followed an identical sequence from pastoralism to farming. Different livelihoods coexisted, and the geography of the subcontinent created several regional trajectories rather than one uniform pattern of development."
+          ]
+        },
+        {
+          "heading": "Comparison without false continuity",
+          "paragraphs": [
+            "A comparison should identify what the evidence can establish. A seal can reveal a recurring image or sign sequence, while a hymn can disclose language and ritual priorities. Neither by itself supplies a complete census, constitution or social history. Similarities in objects or words require careful contextual analysis before claims of direct continuity are made. The Gupta period belongs to a much later historical setting and must not be inserted into the same chronological box. Likewise, Bhakti traditions developed through later processes and should not be projected unchanged onto Harappan urban life."
+          ]
+        },
+        {
+          "heading": "Applying historical reasoning",
+          "paragraphs": [
+            "Imagine finding a storage vessel near plant remains in an excavated house. One reasonable question concerns storage and diet; an immediate claim about the occupant's exact religious identity would go beyond that evidence. Now compare a textual reference to cattle with material remains from a dated settlement. The relationship could be informative, but only if chronology, location and context are considered. Use a timeline and an evidence table separating material and textual sources. Important facts are the limits of decipherment, regional diversity and changing forms of settlement. A balanced answer recognises that archaeological reconstruction and textual interpretation are complementary methods whose conclusions must remain open to revision when new evidence becomes available."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "When revising, place an excavated object and a transmitted composition in separate evidence columns. For each, write one supported inference and one unsupported claim. This simple comparison shows why the absence of a deciphered inscription does not mean the absence of knowledge, and why the survival of a text does not automatically reveal the everyday experience of every community."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "What is the usual broad date range of Mature Harappan urbanism?",
+          "choices": [
+            "2600–1900 BCE",
+            "1200–1600 CE",
+            "1757–1857 CE",
+            "1947–1964 CE"
+          ],
+          "answer": 0,
+          "explanation": "The Mature Harappan phase is conventionally placed around 2600–1900 BCE."
+        },
+        {
+          "question": "Which statement about the Harappan script is accurate?",
+          "choices": [
+            "Every sign has an agreed Sanskrit translation",
+            "It records modern election results",
+            "It was printed by colonial universities",
+            "It remains undeciphered"
+          ],
+          "answer": 3,
+          "explanation": "Undeciphered signs limit claims about precise textual meanings."
+        },
+        {
+          "question": "Which pairing best identifies the main evidence types?",
+          "choices": [
+            "Only parliamentary debates for both",
+            "Only satellite television for both",
+            "Harappan archaeology and Vedic textual traditions",
+            "Only modern newspapers for both"
+          ],
+          "answer": 2,
+          "explanation": "Material remains and orally transmitted textual compositions require different methods."
+        },
+        {
+          "question": "Why are regional differences important?",
+          "choices": [
+            "Texts give a complete census",
+            "Livelihoods and settlement patterns were not uniform",
+            "Every site had identical buildings",
+            "All regions grew the same crop"
+          ],
+          "answer": 1,
+          "explanation": "Environmental and social variation complicate a single uniform model."
+        },
+        {
+          "question": "Which inference goes beyond a storage vessel alone?",
+          "choices": [
+            "The occupant's exact religious identity",
+            "That it could hold material",
+            "That it was manufactured",
+            "That context needs examination"
+          ],
+          "answer": 0,
+          "explanation": "A vessel's presence alone cannot establish the owner's precise beliefs."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 66,
+          "reason": "Connects the discussion of Indus and Vedic traditions with Gupta period; pending human contextual review."
+        },
+        {
+          "target_id": 88,
+          "reason": "Connects the discussion of Indus and Vedic traditions with Bhakti traditions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 66,
+      "alias": "Gupta period",
+      "tags": [
+        "Ancient India",
+        "Historical sources",
+        "State formation"
+      ],
+      "sources": [
+        "states",
+        "harappa"
+      ],
+      "sections": [
+        {
+          "heading": "Chronology and sources",
+          "paragraphs": [
+            "The Gupta period is important for understanding political formations, literary activity, art and scientific learning in early historic India. Its main imperial phase belongs broadly to the fourth through sixth centuries CE. Inscriptions, coins, sculptures and literary works provide different windows onto the period. They must be read together rather than treated as interchangeable records. A royal inscription may celebrate conquest, while a coin can reveal titles or symbols without describing the full economy. The familiar phrase golden age is a historical interpretation, not proof that every community experienced prosperity or equal social opportunity."
+          ]
+        },
+        {
+          "heading": "Power and political representation",
+          "paragraphs": [
+            "The Prayaga Prashasti associated with Samudragupta is a celebrated example of royal praise. A prashasti communicates an idealised account of a ruler's achievements and political relationships. Its language helps reveal how sovereignty was represented, but its claims require contextual reading. Land grants and local evidence also suggest variation in authority and economic arrangements. Do not assume that a large royal claim means identical direct control in every region. Local elites, religious institutions and agrarian communities could mediate political power, and conditions changed across time as well as across geographical space."
+          ]
+        },
+        {
+          "heading": "Learning, art and society",
+          "paragraphs": [
+            "Sanskrit literary production and developments in mathematics and astronomy are central to study of this era. Aryabhata belongs to the late fifth and early sixth centuries; his work should be distinguished from modern experimental institutions. Sculpture, temple building and religious patronage provide further evidence of cultural activity. These achievements do not remove the need to examine social hierarchy and access to resources. Indus and Vedic traditions belong to earlier contexts, while Chola administration developed later in a different regional setting. A chronological framework prevents attractive but inaccurate combinations of names and achievements."
+          ]
+        },
+        {
+          "heading": "Interpreting a historical claim",
+          "paragraphs": [
+            "Suppose a question calls the period uniformly prosperous. Test the word uniformly rather than accepting or rejecting the label without analysis. Ask which sources document court patronage, which speak about taxation or land, and whose experiences are difficult to recover. Compare an inscription's purpose with evidence from settlement or coin finds. A well-constructed answer can acknowledge literary and scientific achievement while explaining the limits of elite sources. Important revision points are the broad chronology, the nature of prashasti evidence and the difference between political representation and measured social conditions. Use cautious statements where evidence is incomplete; impressive artistic production is not itself a reliable indicator of universal welfare."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For a source exercise, compare the praise of a ruler with the portrait or symbol on a coin. Both may communicate authority, but they do so through different media and audiences. Agreement between them can be informative without proving every assertion literally. This comparison develops the distinction between a political message and an independently verified account of conditions across an empire."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "The main imperial Gupta phase falls broadly in which period?",
+          "choices": [
+            "Seventeenth century CE only",
+            "Twentieth century CE",
+            "Fourth–sixth centuries CE",
+            "Third millennium BCE only"
+          ],
+          "answer": 2,
+          "explanation": "The broad fourth–sixth century framework helps distinguish Gupta history from earlier and later periods."
+        },
+        {
+          "question": "A prashasti is primarily what kind of text?",
+          "choices": [
+            "A railway timetable",
+            "A eulogistic inscription",
+            "A modern weather forecast",
+            "A secret ballot"
+          ],
+          "answer": 1,
+          "explanation": "Prashastis praise rulers and require attention to their commemorative purpose."
+        },
+        {
+          "question": "The Prayaga Prashasti is closely associated with which ruler?",
+          "choices": [
+            "Samudragupta",
+            "Rajaraja I",
+            "Akbar",
+            "Ashoka alone"
+          ],
+          "answer": 0,
+          "explanation": "The inscription celebrates Samudragupta's achievements and political relationships."
+        },
+        {
+          "question": "Why should the label golden age be used critically?",
+          "choices": [
+            "It means every source is false",
+            "It dates all buildings precisely",
+            "It eliminates social hierarchy",
+            "Achievements did not prove equal prosperity for everyone"
+          ],
+          "answer": 3,
+          "explanation": "A broad celebratory label can obscure unequal social experience."
+        },
+        {
+          "question": "Which scholar belongs to the late Gupta-era chronological setting?",
+          "choices": [
+            "Macaulay",
+            "Raja Ram Mohan Roy",
+            "Aryabhata",
+            "Vikram Sarabhai"
+          ],
+          "answer": 2,
+          "explanation": "Aryabhata's mathematical and astronomical work belongs around the late fifth and early sixth centuries."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 56,
+          "reason": "Connects the discussion of Gupta period with Indus and Vedic traditions; pending human contextual review."
+        },
+        {
+          "target_id": 69,
+          "reason": "Connects the discussion of Gupta period with Chola administration; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 69,
+      "alias": "Chola administration",
+      "tags": [
+        "Ancient India",
+        "Architecture",
+        "Historical sources"
+      ],
+      "sources": [
+        "chola",
+        "states"
+      ],
+      "sections": [
+        {
+          "heading": "Regional and chronological context",
+          "paragraphs": [
+            "The Cholas were an important ruling power in southern India, especially in the Tamil region. Their imperial expansion is associated with the early medieval centuries, notably the tenth and eleventh centuries. Rajaraja I and Rajendra I are major names in this history. A regional map is essential: the Kaveri basin provides a different agrarian and political setting from the northern plains. Chola administration should therefore be understood through its own inscriptions and institutions rather than as a simple copy of the Gupta period or another distant imperial formation."
+          ]
+        },
+        {
+          "heading": "Agriculture, revenue and local bodies",
+          "paragraphs": [
+            "Irrigation and cultivated land supported revenue and institutions. Inscriptions describe assemblies, endowments and arrangements for managing resources, although local practices varied. The terms ur, sabha and nagaram are useful for distinguishing village assemblies, certain Brahmana settlement assemblies and merchant-associated bodies in historical discussion. These labels do not imply modern universal representation. Participation could be restricted by property, status or other qualifications. Evidence of local management should be evaluated alongside royal authority and social hierarchy. An inscription describing a particular village is valuable, but it cannot automatically stand for every settlement in the kingdom."
+          ]
+        },
+        {
+          "heading": "Temples and their wider roles",
+          "paragraphs": [
+            "The Great Living Chola Temples include the Brihadisvara temple at Thanjavur, the temple at Gangaikondacholapuram and the Airavatesvara temple at Darasuram. They illustrate architecture, inscriptions and long-standing worship. A temple could receive land, support ritual specialists and employ or sustain other workers and artisans. Religious, economic and political functions could thus interact. Bhakti traditions provide a wider devotional context, but a monument is not evidence that every resident shared one experience or social position. The phrase living temple concerns continuing use, not an assertion that buildings or rituals never changed."
+          ]
+        },
+        {
+          "heading": "Working with inscriptions",
+          "paragraphs": [
+            "For a hypothetical endowment record, identify who gives, what is given, who receives and what obligations are recorded. Separate this information from claims the record does not establish, such as the views of all villagers. Ask about measurement, dates and the purpose of commemoration. Compare local assembly evidence with royal titles or temple construction to explain several levels of authority. Important study distinctions include central rule versus local management, institutional wealth versus universal prosperity, and continuing worship versus complete historical continuity. A careful conclusion connects irrigation, agrarian resources, commerce and patronage without turning a complex regional society into a single administrative formula."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "Draw a small diagram connecting irrigated fields, an assembly, a temple and a market. Label the connections as questions about resources and authority rather than as proven universal relationships. An endowment could link several of these settings, but its actual terms must be read. The diagram helps organise institutional evidence while preserving the difference between a model and a specific historical record."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which river basin is central to much Chola agrarian history?",
+          "choices": [
+            "Amazon",
+            "Nile",
+            "Volga",
+            "Kaveri"
+          ],
+          "answer": 3,
+          "explanation": "The Kaveri basin was a major agrarian region of the Chola polity."
+        },
+        {
+          "question": "Which ruler is closely associated with the Brihadisvara temple at Thanjavur?",
+          "choices": [
+            "Shah Jahan",
+            "Lord Curzon",
+            "Rajaraja I",
+            "Samudragupta"
+          ],
+          "answer": 2,
+          "explanation": "Rajaraja I is associated with the great Thanjavur temple."
+        },
+        {
+          "question": "What caution applies to evidence about local assemblies?",
+          "choices": [
+            "No inscriptions mention them",
+            "Participation was not necessarily universal",
+            "They were modern parliaments with universal suffrage",
+            "They had identical membership everywhere"
+          ],
+          "answer": 1,
+          "explanation": "Local institutions could involve restrictive qualifications and social hierarchies."
+        },
+        {
+          "question": "Which monument belongs to the Great Living Chola Temples group?",
+          "choices": [
+            "Airavatesvara at Darasuram",
+            "Hawa Mahal",
+            "Sanchi Stupa",
+            "Victoria Memorial"
+          ],
+          "answer": 0,
+          "explanation": "UNESCO's serial property includes the Airavatesvara temple at Darasuram."
+        },
+        {
+          "question": "What does a land-endowment inscription directly help establish?",
+          "choices": [
+            "The opinion of every inhabitant",
+            "A modern GDP total",
+            "All future political events",
+            "The recorded donor, gift and obligations"
+          ],
+          "answer": 3,
+          "explanation": "The inscription's explicit transaction is stronger evidence than unsupported generalisations."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 66,
+          "reason": "Connects the discussion of Chola administration with Gupta period; pending human contextual review."
+        },
+        {
+          "target_id": 88,
+          "reason": "Connects the discussion of Chola administration with Bhakti traditions; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Chola administration with plains; pending human contextual review."
+        },
+        {
+          "target_id": 126,
+          "reason": "Connects the discussion of Chola administration with Northern Plains; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 88,
+      "alias": "Bhakti traditions",
+      "tags": [
+        "Religious traditions",
+        "Historical sources",
+        "Social reform"
+      ],
+      "sources": [
+        "bhakti",
+        "painting"
+      ],
+      "sections": [
+        {
+          "heading": "Devotion and diversity",
+          "paragraphs": [
+            "Bhakti broadly concerns devotional relationships with the divine. Historical traditions described under this heading developed in different regions, languages and social settings. It is misleading to imagine one organisation with a single founder and an identical programme across the subcontinent. Devotional poetry, performance, pilgrimage and institutions provide evidence of changing religious life. Some teachers emphasised a deity with attributes, while others spoke of a formless divine. The useful concepts saguna and nirguna help distinguish these emphases, but a label cannot substitute for reading the particular composition and its historical context."
+          ]
+        },
+        {
+          "heading": "Regional expression and transmission",
+          "paragraphs": [
+            "Tamil Alvar and Nayanar traditions are associated with devotion to Vishnu and Shiva respectively. Later devotional figures and communities used several other languages and forms of poetry. Songs circulated through recitation, performance, manuscripts and later compilation. Their present form may reflect transmission and selection over generations. Statements attributed to a saint should therefore be checked against reliable textual or historical evidence. Rajasthani painting can supply a related visual context for devotional themes, while folk music offers another means through which compositions acquire meaning for performers and audiences."
+          ]
+        },
+        {
+          "heading": "Social criticism and its limits",
+          "paragraphs": [
+            "Some devotional voices criticised ritual display, caste exclusion or empty claims to religious superiority. Such criticism could open important spaces for participation and debate. Yet it does not follow that every devotional institution abolished hierarchy or that all teachers held the same social views. Gender, patronage and local political conditions mattered. Sufi traditions developed through their own Islamic intellectual and institutional contexts while interacting with regional languages and communities. Comparison is productive when it recognises both contact and difference; treating every devotional expression as one indistinguishable tradition removes the very history that needs explanation."
+          ]
+        },
+        {
+          "heading": "Reading a poem historically",
+          "paragraphs": [
+            "Imagine a short devotional verse criticising pride in inherited status. First identify the argument made by the verse. Then ask who transmitted it, in what language, and whether its date and attribution are secure. A poem's challenge to hierarchy is evidence of debate, not immediate proof that inequality disappeared from society. A careful answer can connect language, audience and social criticism without making sweeping claims about an entire period. Important revision distinctions include saguna and nirguna, poet and later compiler, and an ideal expressed in verse versus its practical institutional setting. Responsible study also avoids presenting belief claims as universally accepted historical facts."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For revision, compare an image-based devotional expression with a verse emphasising a formless divine. Describe the contrast carefully without assuming that every practitioner fits a neat binary. Ask how language and performance affect accessibility. This exercise links concepts with evidence and helps avoid treating an organising category as a complete description of individual belief or community practice."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Saguna devotion commonly refers to what?",
+          "choices": [
+            "Devotion to the divine with attributes",
+            "A river classification",
+            "A colonial land tax",
+            "A form of modern banking"
+          ],
+          "answer": 0,
+          "explanation": "Saguna and nirguna distinguish important devotional emphases."
+        },
+        {
+          "question": "The Alvars are associated especially with devotion to whom?",
+          "choices": [
+            "Only a Gupta minister",
+            "A colonial governor",
+            "A modern scientist",
+            "Vishnu"
+          ],
+          "answer": 3,
+          "explanation": "Tamil Alvar traditions are associated with Vishnu devotion."
+        },
+        {
+          "question": "The Nayanars are associated especially with whom?",
+          "choices": [
+            "Rajaraja's tax officers only",
+            "A European trading company",
+            "Shiva",
+            "Macaulay"
+          ],
+          "answer": 2,
+          "explanation": "Tamil Nayanar traditions are associated with Shiva devotion."
+        },
+        {
+          "question": "Why should attribution of an orally transmitted verse be checked?",
+          "choices": [
+            "Dating is irrelevant",
+            "Transmission and later compilation can affect the text",
+            "Oral poems never change",
+            "Every manuscript has one author"
+          ],
+          "answer": 1,
+          "explanation": "Historical interpretation considers how a composition was preserved and attributed."
+        },
+        {
+          "question": "What does social criticism in a devotional poem prove most directly?",
+          "choices": [
+            "That a particular ideal or criticism was articulated",
+            "That inequality instantly disappeared everywhere",
+            "That all institutions became identical",
+            "That no patronage existed"
+          ],
+          "answer": 0,
+          "explanation": "An expressed critique is not the same as universal implementation."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 34,
+          "reason": "Connects the discussion of Bhakti traditions with Rajasthani painting; pending human contextual review."
+        },
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of Bhakti traditions with folk music; pending human contextual review."
+        },
+        {
+          "target_id": 89,
+          "reason": "Connects the discussion of Bhakti traditions with Sufi traditions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 89,
+      "alias": "Sufi traditions",
+      "tags": [
+        "Religious traditions",
+        "Historical sources",
+        "Public debate"
+      ],
+      "sources": [
+        "bhakti",
+        "culture"
+      ],
+      "sections": [
+        {
+          "heading": "Ideas and institutions",
+          "paragraphs": [
+            "Sufi traditions concern diverse forms of spiritual discipline and teaching within Islamic contexts. In South Asian history, silsilas or spiritual lineages and relations between teachers and disciples are important themes. Different lineages developed different practices and relationships with political authority. A khanqah provided an institutional setting for instruction, hospitality and devotional activity. Study these terms alongside evidence about particular places and teachers. Sufi traditions should not be reduced either to court politics alone or to an unsupported claim that every order held an identical view of society."
+          ]
+        },
+        {
+          "heading": "Shrines and regional connections",
+          "paragraphs": [
+            "A dargah is a shrine associated with a saint's tomb. Ajmer is closely associated with Muinuddin Chishti and has an important place in Rajasthan's religious history. Pilgrimage, patronage, offerings and service connected shrines with surrounding communities. These relationships could change over time. Royal gifts are evidence of a particular act of patronage, not automatic proof of agreement on every religious question. Written accounts, inscriptions and architectural development can be read together, while recognising that a later hagiography may organise a saint's life around exemplary or miraculous narratives rather than the conventions of modern biography."
+          ]
+        },
+        {
+          "heading": "Language, music and interaction",
+          "paragraphs": [
+            "Teachers and disciples communicated in varied linguistic settings. Poetry, conversations and devotional listening helped ideas circulate. The collection and transmission of remembered sayings requires source criticism, just as it does in other religious traditions. Bhakti traditions offer useful comparisons concerning vernacular expression and devotional relationships, but comparison must preserve distinct contexts and concepts. Folk music and shrine performance also invite questions about audience and adaptation. A modern recording may demonstrate a living musical practice without establishing that every detail was performed identically several centuries earlier."
+          ]
+        },
+        {
+          "heading": "A disciplined short answer",
+          "paragraphs": [
+            "For an imagined question on a shrine, organise the answer into teacher or lineage, location, institutional activity and social connections. Identify which points rest on contemporary evidence and which come from later tradition. Explain silsila, khanqah and dargah accurately rather than using them as synonyms. Avoid claims that all Sufis supported or opposed every ruler, or that all shrine visitors interpreted a place in the same way. Important study habits include mapping Ajmer, comparing institutional and literary sources, and examining both interaction and difference. The historical task is to explain how beliefs, practices and institutions worked in particular circumstances while treating living communities with respect and avoiding generalisations about present-day individuals."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A shrine profile can separate the saint’s lifetime, later construction, continuing pilgrimage and modern management. Those are related but different chronological layers. A building visible today may include additions long after the teacher lived. Recording the layers prevents the common mistake of assigning every feature of a current shrine complex to one founding moment or to a single patron."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "A silsila is best understood as what?",
+          "choices": [
+            "A mountain pass",
+            "A revenue coin only",
+            "A printed electoral roll",
+            "A spiritual lineage"
+          ],
+          "answer": 3,
+          "explanation": "Silsila refers to a lineage of spiritual teaching and affiliation."
+        },
+        {
+          "question": "What is a khanqah?",
+          "choices": [
+            "A colonial railway gauge",
+            "A type of cotton soil",
+            "A setting for spiritual teaching and hospitality",
+            "A glacial lake"
+          ],
+          "answer": 2,
+          "explanation": "Khanqahs were institutions associated with Sufi teaching and community activity."
+        },
+        {
+          "question": "Ajmer is especially associated with which Chishti figure?",
+          "choices": [
+            "Rajaraja I",
+            "Muinuddin Chishti",
+            "Aryabhata",
+            "Macaulay"
+          ],
+          "answer": 1,
+          "explanation": "Ajmer's dargah is closely associated with Muinuddin Chishti."
+        },
+        {
+          "question": "How does a dargah differ from a silsila?",
+          "choices": [
+            "A dargah is a shrine, while a silsila is a lineage",
+            "Both mean only a tax demand",
+            "Both are river names",
+            "Neither relates to religious history"
+          ],
+          "answer": 0,
+          "explanation": "The terms identify different institutional and relational concepts."
+        },
+        {
+          "question": "What caution applies to a later hagiography?",
+          "choices": [
+            "It is automatically a modern census",
+            "Its date never matters",
+            "Every miraculous account is independently measured",
+            "Its exemplary narrative needs historical source criticism"
+          ],
+          "answer": 3,
+          "explanation": "Historical analysis considers genre, transmission and corroboration."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 38,
+          "reason": "Connects the discussion of Sufi traditions with folk music; pending human contextual review."
+        },
+        {
+          "target_id": 88,
+          "reason": "Connects the discussion of Sufi traditions with Bhakti traditions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 92,
+      "alias": "social reform",
+      "tags": [
+        "Modern India",
+        "Social reform",
+        "Public debate"
+      ],
+      "sources": [
+        "reform",
+        "education"
+      ],
+      "sections": [
+        {
+          "heading": "Intellectual awakening in context",
+          "paragraphs": [
+            "Intellectual awakening in nineteenth-century India involved debate about social customs, religious interpretation, education and political power. It developed under colonial rule but was not simply a copy of European thought. Indian thinkers drew on several traditions, criticised existing arrangements and responded to changing institutions. Print, translation and new forms of association widened some conversations, though access remained unequal. Social reform should therefore be studied as a contested historical process involving arguments and practical initiatives rather than as the automatic spread of one universally accepted modern outlook."
+          ]
+        },
+        {
+          "heading": "Questions debated by reformers",
+          "paragraphs": [
+            "Women's education, widow remarriage, caste discrimination and religious practice were important subjects of debate. Reformers used different strategies: some sought reinterpretation of authoritative texts, others emphasised reason, education or challenges to inherited status. The widow-remarriage legislation of 1856 is one useful legal reference, but a law's enactment is not the same as universal acceptance or immediate social change. Public opposition, local circumstances and women's own participation affected outcomes. Avoid presenting women only as passive beneficiaries or assuming that reform debates represented all social groups equally."
+          ]
+        },
+        {
+          "heading": "Education, association and disagreement",
+          "paragraphs": [
+            "Colonial education created new opportunities and exclusions while interacting with existing centres of learning. Reform institutions organised schools, meetings, publications and other activities. Different movements disagreed over scriptural authority, religious practice and social priorities. These differences matter: the Brahmo Samaj, Arya Samaj and Satyashodhak Samaj cannot be treated as interchangeable names. The problem is not to memorise one uniform programme, but to connect an institution with particular arguments and actions. Studying public debate also reveals that criticism and resistance could arise within communities as well as between reformers and colonial authorities."
+          ]
+        },
+        {
+          "heading": "Explaining change without exaggeration",
+          "paragraphs": [
+            "Consider a hypothetical town where a school opens for girls but only some families can afford attendance. The existence of the school is evidence of an initiative; it does not establish equal educational access. Ask about fees, language, social barriers and the experience of students. Similarly, compare a reformer's speech with records of an institution's daily work. A strong answer distinguishes ideals, organisational efforts, law and social practice. Important facts should be placed on a timeline and connected to their purposes rather than listed without explanation. Intellectual awakening is most usefully understood through both new possibilities and continuing inequalities, including the voices of people whose participation is not fully captured in elite publications."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A comparative exercise can follow one reform proposal from argument to organisation, legislation and local response. Not every proposal passes through all four stages, and different participants may support it for different reasons. Recording those differences helps explain change as a process. It also creates space for evidence about resistance and negotiation rather than presenting reform as an uncontested straight line."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which distinction is essential in evaluating a reform law?",
+          "choices": [
+            "Enactment versus social implementation",
+            "A law always changes every custom instantly",
+            "Opposition never occurs",
+            "Local conditions are irrelevant"
+          ],
+          "answer": 0,
+          "explanation": "Formal legislation does not automatically establish universal social acceptance."
+        },
+        {
+          "question": "Widow-remarriage legislation in British India is associated with which year?",
+          "choices": [
+            "2600 BCE",
+            "1969",
+            "2010",
+            "1856"
+          ],
+          "answer": 3,
+          "explanation": "The 1856 law is an important nineteenth-century reform reference."
+        },
+        {
+          "question": "Which topic featured prominently in reform debates?",
+          "choices": [
+            "Only modern smartphone design",
+            "Only satellite navigation",
+            "Women's education",
+            "Only rocket launch telemetry"
+          ],
+          "answer": 2,
+          "explanation": "Women's education was one of several contested social questions."
+        },
+        {
+          "question": "Why compare reform institutions rather than treat them as identical?",
+          "choices": [
+            "Only names matter",
+            "They differed in ideas and activities",
+            "Every institution had one uniform programme",
+            "Their chronology is irrelevant"
+          ],
+          "answer": 1,
+          "explanation": "Organisational and intellectual differences form part of the historical explanation."
+        },
+        {
+          "question": "What does opening a school establish by itself?",
+          "choices": [
+            "An educational initiative existed",
+            "Every child could attend equally",
+            "All fees disappeared",
+            "All social barriers ended"
+          ],
+          "answer": 0,
+          "explanation": "A school can expand opportunity without eliminating every access barrier."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 94,
+          "reason": "Connects the discussion of social reform with colonial education; pending human contextual review."
+        },
+        {
+          "target_id": 99,
+          "reason": "Connects the discussion of social reform with reform institutions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 94,
+      "alias": "colonial education",
+      "tags": [
+        "Modern India",
+        "Social reform",
+        "Historical sources"
+      ],
+      "sources": [
+        "education",
+        "reform"
+      ],
+      "sections": [
+        {
+          "heading": "Policy and competing views",
+          "paragraphs": [
+            "Colonial education in India was shaped by political power, administrative needs and disagreements about knowledge. Orientalist approaches valued selected classical languages and texts, while Anglicist arguments placed greater emphasis on English and European learning. These categories identify policy debates, not a complete division of all Indians into two groups. Existing paths of learning continued and changed alongside new institutions. Educational policy should therefore be studied through its aims, language choices, funding and social reach rather than through an assumption that learning began only with the colonial school."
+          ]
+        },
+        {
+          "heading": "Important policy landmarks",
+          "paragraphs": [
+            "Macaulay's minute and the English-education decision of 1835 form a prominent landmark in these debates. Wood's Despatch of 1854 proposed a more organised educational structure and linked education with broader administrative and economic purposes. Universities were established at Calcutta, Bombay and Madras in 1857. Their early role should be distinguished from that of a modern research university. A timeline makes these developments easier to compare, but dates alone do not explain who attended, what was taught or how different institutions functioned. Policy declarations and actual provision remained separate questions."
+          ]
+        },
+        {
+          "heading": "Opportunities and inequalities",
+          "paragraphs": [
+            "New education could support careers, reading publics and political discussion, yet access was limited by resources, location, language, gender and social hierarchy. Indian initiatives included schools and alternative approaches, and responses to colonial education were not uniform. Social reform debates were connected with education but extended beyond it. Reform institutions could use schools to pursue different religious or social objectives. Students and teachers also interpreted knowledge in ways that did not simply reproduce the intentions of officials. A balanced account should recognise both coercive power and the agency of people working within or challenging educational arrangements."
+          ]
+        },
+        {
+          "heading": "A method for comparing sources",
+          "paragraphs": [
+            "Imagine comparing an official despatch with a student's account. The despatch records an intended policy; the student's account may reveal costs, examinations, classroom experience or exclusion. Neither source alone provides a complete picture of the education system. Identify the author, audience and date of each record before drawing conclusions. Avoid the claim that English education automatically created identical political views, or that every traditional institution disappeared immediately. Important revision distinctions are policy versus implementation, examination versus research, and opportunity versus equal access. A good explanation connects educational change to colonial authority while showing how Indian intellectual life and organisation developed through argument, adaptation and resistance."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A useful classroom exercise compares a language-policy statement with a school timetable and a household budget. Each answers a different question: official preference, institutional practice and the practical cost of attendance. Together they reveal why a policy may have uneven effects. This method avoids assuming that the choice of teaching language alone explains every educational or political outcome."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Wood's Despatch is associated with which year?",
+          "choices": [
+            "1947",
+            "2010",
+            "1854",
+            "1526"
+          ],
+          "answer": 2,
+          "explanation": "The 1854 despatch is an important colonial educational policy landmark."
+        },
+        {
+          "question": "Which three cities received universities in 1857?",
+          "choices": [
+            "Jaipur, Bikaner and Jaisalmer",
+            "Calcutta, Bombay and Madras",
+            "Ajmer, Kota and Bundi",
+            "Delhi, Leh and Gangtok"
+          ],
+          "answer": 1,
+          "explanation": "The three 1857 universities were established in Calcutta, Bombay and Madras."
+        },
+        {
+          "question": "The 1835 education debate is closely associated with whom?",
+          "choices": [
+            "Macaulay",
+            "Aryabhata",
+            "Samudragupta",
+            "Rajaraja I"
+          ],
+          "answer": 0,
+          "explanation": "Macaulay's minute is associated with the 1835 English-education policy debate."
+        },
+        {
+          "question": "What does an official education policy document establish most directly?",
+          "choices": [
+            "That every school implemented it fully",
+            "That all groups had equal access",
+            "That no Indian initiatives existed",
+            "What authorities proposed or intended"
+          ],
+          "answer": 3,
+          "explanation": "Policy intent requires comparison with evidence of actual provision."
+        },
+        {
+          "question": "Which factor could restrict educational access?",
+          "choices": [
+            "Every locality had identical resources",
+            "Examinations guaranteed equal participation",
+            "Fees and social barriers",
+            "The mere existence of a despatch removes all barriers"
+          ],
+          "answer": 2,
+          "explanation": "Economic and social conditions affected who could attend."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 92,
+          "reason": "Connects the discussion of colonial education with social reform; pending human contextual review."
+        },
+        {
+          "target_id": 99,
+          "reason": "Connects the discussion of colonial education with reform institutions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 99,
+      "alias": "reform institutions",
+      "tags": [
+        "Modern India",
+        "Social reform",
+        "Religious traditions"
+      ],
+      "sources": [
+        "reform",
+        "education"
+      ],
+      "sections": [
+        {
+          "heading": "Correct syllabus location",
+          "paragraphs": [
+            "This lesson belongs to the syllabus branch on nineteenth-century socio-religious reform institutions. It is not a general catalogue of nationalist political parties. Organisations gave social and religious ideas durable forms through meetings, schools, publications and networks of supporters. Their aims differed, and names must be linked to the relevant intellectual setting. Reform institutions allow a student to connect arguments with organised action while also asking who participated, whose interests were represented and what limits affected the reach of each initiative."
+          ]
+        },
+        {
+          "heading": "Examples and contrasting approaches",
+          "paragraphs": [
+            "The Brahmo Samaj is associated with Raja Ram Mohan Roy and its establishment in 1828. The Arya Samaj, founded by Dayanand Saraswati in 1875, drew on a different understanding of Vedic authority. Jyotirao Phule's Satyashodhak Samaj, established in 1873, challenged caste-based social inequality. These institutions should not be merged into a single programme. Comparing their concerns makes chronology useful rather than merely decorative. A named founder is an entry point, but the sustained activities of members, teachers and supporters are also part of institutional history."
+          ]
+        },
+        {
+          "heading": "Education and social participation",
+          "paragraphs": [
+            "Colonial education and Indian educational initiatives formed part of the wider setting in which reform organisations operated. Schools, lectures and publications could create opportunities for participation while retaining barriers connected with social position, language or resources. A programme's stated objectives should be compared with evidence of its implementation. Social reform did not mean the same thing to every participant, and some debates exposed sharp disagreements. Institutions could challenge particular forms of inequality while leaving other hierarchies insufficiently addressed. Attention to these tensions produces a more accurate account than an uncomplicated list of successful reforms."
+          ]
+        },
+        {
+          "heading": "Building an analytical comparison",
+          "paragraphs": [
+            "Prepare a table containing institution, associated figure, date, central concerns and an example of activity supported by a reference. For a hypothetical question comparing two organisations, choose one substantive contrast, such as their use of scriptural authority or approach to caste, and explain it. Do not attribute every later member's belief to the founder or assume that an organisation's programme remained unchanged forever. Distinguish an institution's founding date from the later date of a school or publication. Useful conclusions connect intellectual awakening with practical organisation and public debate. They also recognise that an organisation's survival or prominence is not itself proof that its goals were universally accepted or that social inequalities disappeared."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For revision, separate an organisation from its associated school, publication or later branch. Their dates and activities may differ. A statement about one institution should not be expanded to every movement with a similar label. This habit helps preserve accurate attribution and turns the comparison table into an explanation of networks and activities rather than a list of interchangeable names."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "The Brahmo Samaj is associated with which figure?",
+          "choices": [
+            "Aryabhata",
+            "Raja Ram Mohan Roy",
+            "Rajaraja I",
+            "Samudragupta"
+          ],
+          "answer": 1,
+          "explanation": "Raja Ram Mohan Roy is closely associated with the Brahmo Samaj."
+        },
+        {
+          "question": "Arya Samaj was founded in which year?",
+          "choices": [
+            "1875",
+            "1828",
+            "1956",
+            "1962"
+          ],
+          "answer": 0,
+          "explanation": "Dayanand Saraswati founded the Arya Samaj in 1875."
+        },
+        {
+          "question": "Satyashodhak Samaj is associated especially with whom?",
+          "choices": [
+            "Macaulay",
+            "Vikram Sarabhai",
+            "Lord Curzon",
+            "Jyotirao Phule"
+          ],
+          "answer": 3,
+          "explanation": "Phule's Satyashodhak Samaj challenged caste-based inequality."
+        },
+        {
+          "question": "Which year is associated with the founding of Satyashodhak Samaj?",
+          "choices": [
+            "1948",
+            "2010",
+            "1873",
+            "2600 BCE"
+          ],
+          "answer": 2,
+          "explanation": "Satyashodhak Samaj was established in 1873."
+        },
+        {
+          "question": "What is the correct syllabus emphasis of this lesson?",
+          "choices": [
+            "Only parliamentary election statistics",
+            "Socio-religious reform organisations",
+            "Only independent India's space agencies",
+            "Only national highway corridors"
+          ],
+          "answer": 1,
+          "explanation": "Its canonical parent concerns nineteenth-century socio-religious reform institutions."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 92,
+          "reason": "Connects the discussion of reform institutions with social reform; pending human contextual review."
+        },
+        {
+          "target_id": 94,
+          "reason": "Connects the discussion of reform institutions with colonial education; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 105,
+      "alias": "post-independence institutions",
+      "tags": [
+        "Modern India",
+        "State formation",
+        "Public debate"
+      ],
+      "sources": [
+        "ugc",
+        "eci"
+      ],
+      "sections": [
+        {
+          "heading": "Institutions and the new republic",
+          "paragraphs": [
+            "Institution building after independence involved converting constitutional principles and development goals into continuing public organisations and procedures. The period associated with Jawaharlal Nehru includes electoral administration, parliamentary government, higher education and planning initiatives. It should not be reduced to one leader's personal actions: legislatures, administrators, scholars and citizens also contributed. Post-independence institutions must be studied through their legal basis, functions and accountability. An institution's founding date is useful, but understanding what it was designed to do is more important than assuming that establishment alone guaranteed success."
+          ]
+        },
+        {
+          "heading": "Electoral and educational foundations",
+          "paragraphs": [
+            "The Election Commission of India was established on 25 January 1950 under the constitutional framework. Organising the first general elections in 1951–52 tested the practical meaning of adult suffrage across a large and diverse society. In higher education, the University Grants Commission acquired statutory status under the 1956 Act. Its role concerns coordination, standards and support in university education; it should not be confused with the Election Commission or a state examination board. These examples distinguish a constitutional institution from a statutory body created through legislation."
+          ]
+        },
+        {
+          "heading": "Development, capacity and debate",
+          "paragraphs": [
+            "Institutional goals required staff, budgets, records and cooperation between levels of government. Scientific institutions and educational organisations supported technical capacity, while planning debates addressed competing development priorities. Building a new organisation did not eliminate shortages, inequalities or disagreement about policy. Questions about autonomy, representation and access remained important. Colonial education provides a preceding context, but the constitutional commitments of the republic changed the political framework. A careful answer identifies both continuity in administrative practices and the new objectives pursued after independence, without treating every institution as either wholly new or wholly unchanged."
+          ]
+        },
+        {
+          "heading": "Evaluating institutional development",
+          "paragraphs": [
+            "Imagine assessing a new university-support body. Separate its statutory mandate from evidence about funding, access, teaching and research outcomes. A law defines authority; it does not supply all the resources needed to exercise that authority. For electoral administration, distinguish the principle of universal suffrage from the logistical task of registration, polling and counting. Important revision distinctions include constitutional versus statutory, founding versus later reform, and intention versus measured performance. Place developments within the syllabus endpoint of 1964 and label later events separately. A balanced conclusion explains why durable procedures and organisations matter while recognising that institutions require continuing scrutiny, public participation and improvement rather than merely celebration of their founding."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "An institutional comparison can ask who appoints officials, where powers come from, how activities are funded and to whom the organisation is accountable. These questions apply differently to electoral administration and university coordination. Answering them develops constitutional understanding without assuming that institutions with similar national reach have identical legal status, responsibilities or relationships with state governments."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "The Election Commission of India was established on which date?",
+          "choices": [
+            "15 August 1969",
+            "26 January 1857",
+            "2 October 1875",
+            "25 January 1950"
+          ],
+          "answer": 3,
+          "explanation": "ECI's establishment date is 25 January 1950."
+        },
+        {
+          "question": "The first general elections of independent India were held during which period?",
+          "choices": [
+            "1969–70",
+            "1828–29",
+            "1951–52",
+            "1905–06"
+          ],
+          "answer": 2,
+          "explanation": "The first nationwide general elections were conducted in 1951–52."
+        },
+        {
+          "question": "UGC acquired statutory status under an Act of which year?",
+          "choices": [
+            "2010",
+            "1956",
+            "1835",
+            "1873"
+          ],
+          "answer": 1,
+          "explanation": "The UGC Act of 1956 establishes its statutory basis."
+        },
+        {
+          "question": "Which function belongs to UGC?",
+          "choices": [
+            "Coordination and standards of university education",
+            "Conducting all parliamentary elections",
+            "Operating every irrigation canal",
+            "Approving every folk performance"
+          ],
+          "answer": 0,
+          "explanation": "UGC's mandate concerns university education, not electoral administration."
+        },
+        {
+          "question": "Why distinguish mandate from performance?",
+          "choices": [
+            "An Act measures every outcome",
+            "Staff and budgets never matter",
+            "Founding dates prove universal success",
+            "Legal powers do not automatically guarantee resources or outcomes"
+          ],
+          "answer": 3,
+          "explanation": "Institutional evaluation needs evidence about implementation as well as formal authority."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 94,
+          "reason": "Connects the discussion of post-independence institutions with colonial education; pending human contextual review."
+        },
+        {
+          "target_id": 106,
+          "reason": "Connects the discussion of post-independence institutions with scientific institutions; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of post-independence institutions with plains; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 106,
+      "alias": "scientific institutions",
+      "tags": [
+        "Modern India",
+        "State formation",
+        "Science and technology"
+      ],
+      "sources": [
+        "isro",
+        "csir",
+        "ugc"
+      ],
+      "sections": [
+        {
+          "heading": "Science and the problem of chronology",
+          "paragraphs": [
+            "The development of science and technology in modern India involved institutions, training, public policy and applications to social needs. This syllabus branch ends in 1964, so later achievements must be labelled clearly. Scientific institutions did not appear without earlier work by researchers, colleges and associations. Nor does the presence of a laboratory alone prove widespread technological benefit. The historical task is to connect research capacity with organisation, funding and public objectives while separating specific documented developments from later narratives of inevitable progress."
+          ]
+        },
+        {
+          "heading": "Research and national capacity",
+          "paragraphs": [
+            "The Council of Scientific and Industrial Research was established in 1942, before independence, and became important to the national laboratory network. This is a useful example of institutional continuity across 1947. Higher education and specialist training supported the people needed for research and technical work. Post-independence institutions also had to address equipment, industrial capacity and relationships between basic research and applications. Scientific work often depends on many contributors and long-term collaboration; an account focused only on a few famous individuals misses the institutional setting that makes research possible."
+          ]
+        },
+        {
+          "heading": "Early space activity",
+          "paragraphs": [
+            "INCOSPAR, the Indian National Committee for Space Research, was established in 1962 under the Department of Atomic Energy. Vikram Sarabhai is a central figure in the early programme. ISRO was established later, in 1969, and must not be described as an institution already founded within the syllabus's pre-1964 period. This distinction provides a useful chronology check. Early space work concerned developing capabilities and investigating potential applications; modern satellite services cannot simply be projected backwards onto its first years. A timeline helps separate preparatory institutions from later organisational expansion."
+          ]
+        },
+        {
+          "heading": "Assessing technology in society",
+          "paragraphs": [
+            "Consider a hypothetical laboratory programme intended to improve an industrial process. Identify the research problem, the skills and equipment required, and the path from experiment to practical adoption. A successful experiment is not automatically the same as affordable deployment at scale. Similarly, compare a founding document with later evidence of training, publications or applications. Colonial education and later university development provide parts of this wider background. Important revision points include CSIR's pre-independence origin, INCOSPAR's 1962 establishment, and the later 1969 creation of ISRO. A balanced conclusion recognises both ambition and constraints: science policy can build capacity, but social value also depends on access, implementation and evidence about real outcomes."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For a timeline exercise, place an early committee, a first experimental activity and a later national organisation on separate entries. Label the purpose of each entry as well as its date. This prevents the achievements of a later institution from being attributed automatically to its predecessor and shows how technical capacity can develop through several organisational stages and collaborative efforts."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "CSIR was established in which year?",
+          "choices": [
+            "1857",
+            "2010",
+            "1942",
+            "1969"
+          ],
+          "answer": 2,
+          "explanation": "CSIR's establishment in 1942 predates independence."
+        },
+        {
+          "question": "INCOSPAR was established in which year?",
+          "choices": [
+            "1956",
+            "1962",
+            "1828",
+            "1875"
+          ],
+          "answer": 1,
+          "explanation": "INCOSPAR began in 1962 under the Department of Atomic Energy."
+        },
+        {
+          "question": "Which figure is central to India's early space programme?",
+          "choices": [
+            "Vikram Sarabhai",
+            "Macaulay",
+            "Samudragupta",
+            "Raja Ram Mohan Roy"
+          ],
+          "answer": 0,
+          "explanation": "Vikram Sarabhai played a central role in the early Indian space programme."
+        },
+        {
+          "question": "Which event falls after this syllabus branch's 1964 endpoint?",
+          "choices": [
+            "Creation of INCOSPAR in 1962",
+            "Creation of CSIR in 1942",
+            "First general elections in 1951–52",
+            "Creation of ISRO in 1969"
+          ],
+          "answer": 3,
+          "explanation": "The 1969 creation of ISRO must be labelled as a later development."
+        },
+        {
+          "question": "Why distinguish a laboratory result from public adoption?",
+          "choices": [
+            "Institutions need no funding",
+            "An experiment proves all social outcomes",
+            "Scaling, cost and access require additional work",
+            "Every result is instantly available to everyone"
+          ],
+          "answer": 2,
+          "explanation": "Practical deployment involves more than scientific demonstration alone."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 94,
+          "reason": "Connects the discussion of scientific institutions with colonial education; pending human contextual review."
+        },
+        {
+          "target_id": 105,
+          "reason": "Connects the discussion of scientific institutions with post-independence institutions; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 109,
+      "alias": "mountains",
+      "tags": [
+        "World geography",
+        "Environmental change",
+        "Physical geography"
+      ],
+      "sources": [
+        "landforms",
+        "colorado",
+        "physical"
+      ],
+      "sections": [
+        {
+          "heading": "Relief and mountain formation",
+          "paragraphs": [
+            "Mountains are areas of substantial elevation and local relief, but elevation alone does not explain their origin. Plate convergence can produce folding, thrusting and crustal thickening; movement along faults can raise blocks; volcanic activity can build elevated landforms. Subsequent weathering, rivers and glaciers modify the resulting terrain. A mountain landscape therefore records both construction and erosion. Avoid assigning a single origin from a photograph alone. Geological structure, rock type, age and surrounding landforms help explain why different mountain systems look and behave differently."
+          ]
+        },
+        {
+          "heading": "Climate and drainage effects",
+          "paragraphs": [
+            "Elevation commonly influences temperature, while a mountain barrier can affect the movement of moist air. Orographic uplift may encourage precipitation on an exposed slope and drier conditions beyond, although prevailing winds, season and local topography matter. Mountains also help organise river systems by forming divides between drainage basins. Snow and ice can store water and release it over time, but not every mountain region is permanently glaciated. A useful study note distinguishes altitude, slope direction, climate and drainage rather than treating all mountain environments as identical cold landscapes."
+          ]
+        },
+        {
+          "heading": "Human use and environmental risk",
+          "paragraphs": [
+            "Mountain communities use different combinations of farming, pastoral activity, forestry, trade, services and tourism. Steep slopes can complicate transport and construction, while terraces and carefully managed routes may support settlement. Landslides, earthquakes and avalanches are different hazards with different causes and distributions. A road cut can destabilise a slope under some conditions, but a responsible explanation needs evidence about material, drainage and engineering. Plateaus and plains provide useful comparisons because differences in relief shape opportunities and risks without mechanically determining how every community must live."
+          ]
+        },
+        {
+          "heading": "Practising map-based reasoning",
+          "paragraphs": [
+            "Imagine a contour map in which closely spaced lines surround a river valley. Infer steep slopes from spacing, then look for a saddle or gentler route before proposing a transport corridor. Do not assume that the highest summit is automatically the watershed at every point. Mark the direction of drainage and consider where water and unstable debris could move. A good answer connects process, landform and human decision while acknowledging uncertainty. Important revision distinctions are mountain origin versus present shape, elevation versus local relief, and tectonic activity versus weathering. Examples such as the Himalayas, Andes and Rockies are useful comparative references, but an exact regional claim should always be tied to the map or source under discussion."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For an additional map exercise, compare a summit, a valley floor and a pass. Their relative heights influence movement, but weather, surface material and access to settlements also matter. A pass is not automatically safe in every season. This example shows how physical geography supports practical reasoning while still requiring local information before a real transport or settlement decision is made."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Closely spaced contour lines generally indicate what?",
+          "choices": [
+            "A guaranteed desert",
+            "An exact rock age",
+            "A political boundary",
+            "A steep slope"
+          ],
+          "answer": 3,
+          "explanation": "Contour spacing represents gradient; close lines indicate rapid elevation change."
+        },
+        {
+          "question": "Which process can build mountains at convergent plate boundaries?",
+          "choices": [
+            "Only tidal mixing",
+            "Only river deposition at sea",
+            "Crustal shortening and uplift",
+            "Only evaporation"
+          ],
+          "answer": 2,
+          "explanation": "Convergence can thicken and uplift the crust through deformation."
+        },
+        {
+          "question": "A rain shadow is most directly related to what?",
+          "choices": [
+            "The absence of gravity",
+            "Moist-air movement and a topographic barrier",
+            "The colour of a mountain",
+            "A fixed latitude alone"
+          ],
+          "answer": 1,
+          "explanation": "Relief can influence rainfall distribution as air crosses a barrier."
+        },
+        {
+          "question": "Why is not every high mountain permanently glaciated?",
+          "choices": [
+            "Climate and local conditions also matter",
+            "All mountains have identical temperatures",
+            "Elevation has no climatic effect",
+            "Glaciers exist only on plains"
+          ],
+          "answer": 0,
+          "explanation": "Permanent ice depends on the balance of accumulation and melt."
+        },
+        {
+          "question": "Which distinction improves a mountain description?",
+          "choices": [
+            "Every peak formed in one event",
+            "A photograph gives every geological age",
+            "All hazards have the same cause",
+            "Origin versus later erosional modification"
+          ],
+          "answer": 3,
+          "explanation": "Both constructive and destructive processes shape mountain landscapes."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 110,
+          "reason": "Connects the discussion of mountains with plateaus; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of mountains with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of mountains with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 127,
+          "reason": "Connects the discussion of mountains with Himalayas; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 110,
+      "alias": "plateaus",
+      "tags": [
+        "World geography",
+        "Physical geography",
+        "Environmental change"
+      ],
+      "sources": [
+        "landforms",
+        "colorado",
+        "physical"
+      ],
+      "sections": [
+        {
+          "heading": "Height, surface and relief",
+          "paragraphs": [
+            "A plateau is an elevated tract with a broadly extensive surface, often separated from lower surroundings by marked slopes. The surface need not be perfectly level or free of valleys. Rivers can dissect an uplifted region into gorges, mesas and smaller remnants, so present-day relief may differ greatly from the original surface. Distinguish elevation above sea level from local relief between nearby points. Plateaus can be high without having the continuous sharp summit pattern commonly associated with mountains, and the boundary between landform categories is not always a simple straight line."
+          ]
+        },
+        {
+          "heading": "Processes of formation",
+          "paragraphs": [
+            "Tectonic uplift, volcanic lava accumulation and long periods of erosion can contribute to plateau landscapes. The Colorado Plateau provides a familiar example of an elevated region deeply incised by rivers. Other regions reflect different geological histories. It is inaccurate to describe every plateau as volcanic or every flat-topped feature as the remains of the same event. Rock structure, resistance and drainage help explain shape. When land is uplifted, an established river may cut downward; its valley can reveal the relationship between crustal movement, stream energy and the time available for erosion."
+          ]
+        },
+        {
+          "heading": "Resources and human activity",
+          "paragraphs": [
+            "Plateau regions may contain mineral resources, grazing land, forests and cultivable areas, but neither mineral wealth nor fertile soil is universal. Volcanic parent material, climate, weathering and land management interact in soil formation. Water availability can be difficult where streams lie in deep valleys or rainfall is seasonal. Mining and infrastructure can provide income while also affecting land, water and communities. Plains offer a useful comparison in gradient and settlement patterns, while river systems help explain how plateaus connect with lower areas through erosion, sediment transfer and water movement."
+          ]
+        },
+        {
+          "heading": "Comparing two hypothetical surfaces",
+          "paragraphs": [
+            "Suppose one upland has shallow rolling valleys and another has deep narrow canyons. Both could be parts of plateaus, yet their drainage histories and local accessibility differ. Describe the observable surface and valley pattern before explaining its possible origin. A map, cross-section and rock description can help test the explanation. Important revision points include uplift versus incision, broad surface versus local variation, and resource presence versus sustainable access. The word plateau is a landform description, not a guarantee of one climate, one economy or one rock type. A sound answer uses it to organise evidence while remaining open to regional differences and to the long sequence of processes that shaped the landscape."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A cross-section can show a broad elevated surface interrupted by a deep river valley. Label absolute elevation at two points and then calculate their height difference. The exercise clarifies why a region can be described as a plateau at one scale and appear rugged at another. Classification depends partly on the scale and question being considered, not just on one viewpoint."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which statement best describes a plateau?",
+          "choices": [
+            "Only a pointed volcanic cone",
+            "Every deep sea trench",
+            "An elevated extensive surface that may be dissected",
+            "Every low coastal beach"
+          ],
+          "answer": 2,
+          "explanation": "Plateaus can contain valleys and considerable local relief."
+        },
+        {
+          "question": "Why may a plateau contain deep canyons?",
+          "choices": [
+            "Every canyon is a glacier",
+            "Rivers can incise an uplifted surface",
+            "Water never flows on plateaus",
+            "All plateaus are perfectly level"
+          ],
+          "answer": 1,
+          "explanation": "River incision can strongly modify an elevated region."
+        },
+        {
+          "question": "Which claim about plateau origin is unsafe?",
+          "choices": [
+            "Every plateau is volcanic",
+            "Some are influenced by tectonic uplift",
+            "Some are cut by rivers",
+            "Geological history matters"
+          ],
+          "answer": 0,
+          "explanation": "Plateaus have varied origins and histories."
+        },
+        {
+          "question": "Why is mineral wealth not a sufficient development measure?",
+          "choices": [
+            "A deposit guarantees universal prosperity",
+            "Mining has no land impact",
+            "Water is irrelevant",
+            "Access, ecological effects and distribution of benefits matter"
+          ],
+          "answer": 3,
+          "explanation": "Resource presence and beneficial sustainable use are different questions."
+        },
+        {
+          "question": "What is local relief?",
+          "choices": [
+            "A mineral's chemical name",
+            "A type of festival",
+            "The height difference between nearby parts of a landscape",
+            "Only distance from the equator"
+          ],
+          "answer": 2,
+          "explanation": "Local relief is distinct from absolute elevation above sea level."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 109,
+          "reason": "Connects the discussion of plateaus with mountains; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of plateaus with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of plateaus with river systems; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 111,
+      "alias": "plains",
+      "tags": [
+        "World geography",
+        "Agriculture",
+        "Physical geography"
+      ],
+      "sources": [
+        "landforms",
+        "rivers",
+        "colorado"
+      ],
+      "sections": [
+        {
+          "heading": "Identifying a plain",
+          "paragraphs": [
+            "Plains are extensive landscapes with relatively low local relief. They need not lie at exactly sea level and are not always perfectly flat. Broad plains can develop through deposition, erosion or structural processes over long periods. Describing the surface is the first step; explaining origin requires additional evidence. The term alluvial plain identifies an important depositional setting associated with rivers, but not every plain is alluvial. Coastal, lake-bed and other plains provide contrasting examples. A useful classification separates surface form, material and process instead of treating one familiar example as universal."
+          ]
+        },
+        {
+          "heading": "River-built surfaces and change",
+          "paragraphs": [
+            "River systems carry and deposit material as flow conditions change. Over time, repeated deposition can build broad floodplains, natural levees and other features. Channels may migrate, leaving abandoned bends or different sediment patterns. A floodplain is therefore an active part of a drainage system rather than permanently stable land beside it. Deposition can support fertile soils, but soil quality also depends on texture, drainage, nutrients and management. Flood risk remains important even where a settlement has not experienced a major event within the memory of its present inhabitants."
+          ]
+        },
+        {
+          "heading": "Settlement and land use",
+          "paragraphs": [
+            "Gentler gradients can facilitate farming, construction and transport, helping explain why many plains support dense settlement. Yet waterlogging, salinity, erosion and exposure to floods can constrain use. Infrastructure may reduce certain risks while transferring or increasing others if drainage is obstructed. Mountains and plateaus influence many plains through the supply of water and sediment, making upstream and downstream decisions connected. Avoid environmental determinism: a broad plain creates opportunities and constraints, but institutions, technology, history and access to resources also shape the distribution of population and livelihood."
+          ]
+        },
+        {
+          "heading": "Reading a floodplain scenario",
+          "paragraphs": [
+            "Imagine planning a settlement near a meandering river. Mark the current channel, older channels, low depressions and potential drainage routes. A dry abandoned channel can still carry water during a flood, so its appearance in one season is incomplete evidence of safety. Compare local records with mapped topography before choosing a site. Important revision distinctions include plain versus floodplain, fertile soil versus flood security, and present channel position versus long-term channel movement. A balanced answer recognises the agricultural and transport advantages of low relief while explaining the need for drainage, flood awareness and careful land-use planning across the connected river basin."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A small field sketch can distinguish a channel, a natural levee and a lower backswamp area. Their relative positions influence drainage and possible uses. Treat this as a simplified example rather than a template for every river. The exercise helps explain why apparently level land can still contain important microrelief and why local water movement should be investigated before construction or agricultural decisions."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "A plain is defined primarily by which feature?",
+          "choices": [
+            "Only a coastal location",
+            "Relatively low local relief",
+            "One universal rock type",
+            "Permanent glacier cover"
+          ],
+          "answer": 1,
+          "explanation": "Plains have limited local elevation differences but varied origins."
+        },
+        {
+          "question": "An alluvial plain is especially associated with what?",
+          "choices": [
+            "River-deposited sediments",
+            "Only volcanic ash cones",
+            "Only coral reefs",
+            "Only desert dunes"
+          ],
+          "answer": 0,
+          "explanation": "Alluvium is material transported and deposited by flowing water."
+        },
+        {
+          "question": "Why is a dry abandoned channel relevant to flood planning?",
+          "choices": [
+            "It proves floods cannot occur",
+            "It is always a political border",
+            "It has no relation to drainage",
+            "It may carry water again during high flows"
+          ],
+          "answer": 3,
+          "explanation": "Historical channels and low routes can influence future flood movement."
+        },
+        {
+          "question": "Which statement avoids environmental determinism?",
+          "choices": [
+            "Population depends only on slope",
+            "History never affects land use",
+            "Relief interacts with institutions and technology",
+            "Every plain produces one identical society"
+          ],
+          "answer": 2,
+          "explanation": "Physical opportunities do not alone determine social outcomes."
+        },
+        {
+          "question": "What distinction should be retained?",
+          "choices": [
+            "Drainage never matters",
+            "Fertility does not guarantee flood safety",
+            "Every fertile field is flood-proof",
+            "Every plain is an active channel"
+          ],
+          "answer": 1,
+          "explanation": "Agricultural suitability and hazard exposure require separate assessment."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 109,
+          "reason": "Connects the discussion of plains with mountains; pending human contextual review."
+        },
+        {
+          "target_id": 110,
+          "reason": "Connects the discussion of plains with plateaus; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of plains with river systems; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 113,
+      "alias": "river systems",
+      "tags": [
+        "World geography",
+        "Water management",
+        "Environmental change"
+      ],
+      "sources": [
+        "rivers",
+        "drainage"
+      ],
+      "sections": [
+        {
+          "heading": "Basin, channel and network",
+          "paragraphs": [
+            "A river system includes a main channel and its tributaries within a drainage basin. A drainage divide separates areas whose water generally flows toward different systems. Boundaries follow relief rather than political borders. Rainfall, snowmelt and groundwater can contribute to streamflow in different proportions. Water does not all travel directly across the surface: infiltration and later groundwater discharge can also be important. Distinguishing channel, basin and divide helps explain why changes far from the visible riverbank may affect flow, sediment and water quality downstream."
+          ]
+        },
+        {
+          "heading": "Processes along a river",
+          "paragraphs": [
+            "Flowing water can erode, transport and deposit material. Channel gradient, discharge, sediment supply and the resistance of the bed and banks influence which process dominates locally. These variables do not create a rigid sequence in which every upper, middle and lower reach looks identical. A river may form meanders, floodplains, deltas or estuaries under appropriate conditions. Deltas and estuaries are not synonyms: the balance between sediment delivery and marine processes matters. Mountains, plateaus and plains provide different settings through which the same river can move over its course."
+          ]
+        },
+        {
+          "heading": "Water use and connected effects",
+          "paragraphs": [
+            "Rivers support habitats, drinking water, irrigation, industry and transport in suitable reaches. Reservoirs and diversions alter the timing or destination of some water, creating benefits and trade-offs. A structure that helps one location may affect sediment, fish movement or water availability elsewhere. Lakes can receive river inflow and release water downstream, linking storage with flow. Claims about a river's supply should identify season and measurement location. Average annual discharge alone cannot describe a short flood peak or the conditions during a dry period."
+          ]
+        },
+        {
+          "heading": "Applying a basin perspective",
+          "paragraphs": [
+            "Consider a hypothetical basin with forested slopes, a town, farms and a reservoir. If water quality changes below the town, identify possible sources and compare upstream and downstream observations before assigning responsibility. If rainfall is measured in only one valley, do not assume it represents the whole basin. Important revision distinctions include runoff versus total rainfall, discharge versus water level, and a local intervention versus basin-wide consequences. A good answer uses the drainage basin as a connected unit while acknowledging human decisions and environmental variation. Sustainable management requires attention to quantity, timing and quality of water as well as the people and ecosystems sharing the system."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For a numerical exercise, compare two hypothetical flows measured at the same station: ten cubic metres per second during a dry period and one hundred during a wetter period. These invented values illustrate variability only. They are not observations from a named river. The exercise reinforces that discharge is a rate and that a measurement requires a location, date and consistent unit."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "What is a drainage divide?",
+          "choices": [
+            "Every river mouth",
+            "A reservoir's deepest point only",
+            "A type of rain gauge",
+            "A boundary separating drainage basins"
+          ],
+          "answer": 3,
+          "explanation": "Topographic divides separate areas draining toward different systems."
+        },
+        {
+          "question": "Which source can sustain river flow between rainfall events?",
+          "choices": [
+            "Only ocean tides everywhere",
+            "Only road traffic",
+            "Groundwater discharge",
+            "Only direct sunlight"
+          ],
+          "answer": 2,
+          "explanation": "Groundwater can enter river channels and support flow."
+        },
+        {
+          "question": "What does discharge measure?",
+          "choices": [
+            "Only the height of a mountain",
+            "Volume of water passing per unit time",
+            "Only channel length",
+            "Only the river's colour"
+          ],
+          "answer": 1,
+          "explanation": "Discharge is a flow-volume rate rather than a simple water-level reading."
+        },
+        {
+          "question": "Why is basin-wide management useful?",
+          "choices": [
+            "Upstream changes can affect downstream conditions",
+            "Political borders stop water movement",
+            "Only the riverbank matters",
+            "Reservoirs have no external effects"
+          ],
+          "answer": 0,
+          "explanation": "Water, sediment and pollutants move through connected drainage networks."
+        },
+        {
+          "question": "Which variables should accompany a river supply claim?",
+          "choices": [
+            "Only the river's name",
+            "Only a ruler's title",
+            "Only a festival date",
+            "Season and measurement location"
+          ],
+          "answer": 3,
+          "explanation": "Streamflow varies through space and time."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 109,
+          "reason": "Connects the discussion of river systems with mountains; pending human contextual review."
+        },
+        {
+          "target_id": 110,
+          "reason": "Connects the discussion of river systems with plateaus; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of river systems with plains; pending human contextual review."
+        },
+        {
+          "target_id": 114,
+          "reason": "Connects the discussion of river systems with lakes; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 114,
+      "alias": "lakes",
+      "tags": [
+        "World geography",
+        "Water management",
+        "Environmental change"
+      ],
+      "sources": [
+        "lakes",
+        "rivers"
+      ],
+      "sections": [
+        {
+          "heading": "Storage and lake origin",
+          "paragraphs": [
+            "A lake is a body of standing inland surface water occupying a basin, although its level and area may change. Basins can result from tectonic movement, glacial activity, volcanic processes or river-channel change. Human-built dams create reservoirs, which should be distinguished from natural lakes when discussing origin and management. The presence of water in a photograph does not identify the basin-forming process. A useful lake profile records location, origin, inflows, outflow and water characteristics. It also distinguishes a permanent lake from a seasonal water body without assuming that seasonal storage is ecologically unimportant."
+          ]
+        },
+        {
+          "heading": "Water balance and salinity",
+          "paragraphs": [
+            "Lake storage reflects inflow, precipitation, evaporation, seepage and outflow. A closed basin with strong evaporation may accumulate dissolved salts, but not every closed lake has the same salinity. Freshwater and saline lakes require evidence about chemistry and water balance rather than inference from their names. River systems can deliver water and sediment into lakes, while outlet channels connect some lakes with downstream areas. Groundwater exchange may also matter. If withdrawals increase or rainfall declines, the effect on a particular lake depends on the size, timing and balance of these connected flows."
+          ]
+        },
+        {
+          "heading": "Ecology and human pressure",
+          "paragraphs": [
+            "Lakes provide habitats, water storage, recreation and other services, with differences between locations. Nutrient enrichment can stimulate excessive biological production and contribute to oxygen problems under some conditions. Catchment activities influence sediment and pollutant inputs, so management cannot be confined to the shoreline. Reservoir operations may create rapid changes in water level that differ from the behaviour of a natural lake. Plains, urban areas and mountain basins each present different pressures. A balanced account distinguishes water quantity, water quality and habitat condition instead of using a single visible feature as a complete measure of ecological health."
+          ]
+        },
+        {
+          "heading": "Examining a hypothetical lake",
+          "paragraphs": [
+            "Suppose a lake has shrinking open water, expanding shoreline construction and increased nutrient inflow. List several possible mechanisms and identify observations needed to test them: rainfall records, withdrawals, inflow quality, sediment surveys and seasonal imagery. One image cannot separate all these influences. Avoid comparing lake areas measured in different seasons as if they were directly equivalent. Important study distinctions include natural lake versus reservoir, closed basin versus surface outlet, and eutrophication versus simple sediment deposition. The strongest conclusion explains the basin and catchment together and recognises that appropriate management depends on the particular lake's hydrology, ecological role and surrounding uses."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A simplified water-budget exercise can list inflows on one side and outflows on the other. If outflows exceed inflows over a period, storage declines unless another contribution has been missed. This is a conceptual accounting example, not a measured forecast. It encourages the reader to identify missing groundwater or human-use terms before explaining a real change in lake level."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "A reservoir is commonly created by what?",
+          "choices": [
+            "Only a printed decree",
+            "Only a mountain's shadow",
+            "Impounding water with a dam",
+            "Only a meteorite impact"
+          ],
+          "answer": 2,
+          "explanation": "Reservoirs are managed storage bodies commonly formed behind dams."
+        },
+        {
+          "question": "Which combination can encourage salt accumulation in a closed basin?",
+          "choices": [
+            "Only a high latitude",
+            "Strong evaporation and limited surface outflow",
+            "An unlimited freshwater outlet alone",
+            "The lake's name alone"
+          ],
+          "answer": 1,
+          "explanation": "Water loss by evaporation can concentrate dissolved salts."
+        },
+        {
+          "question": "Why should lake management include its catchment?",
+          "choices": [
+            "Sediment and pollutants can arrive from surrounding land",
+            "A shoreline blocks all runoff",
+            "Only water inside the lake matters",
+            "Rivers never enter lakes"
+          ],
+          "answer": 0,
+          "explanation": "Catchment activity influences lake quantity and quality."
+        },
+        {
+          "question": "Eutrophication is primarily associated with what?",
+          "choices": [
+            "Only a change in political boundaries",
+            "Only a rock's age",
+            "Only construction of a monument",
+            "Nutrient enrichment and increased biological production"
+          ],
+          "answer": 3,
+          "explanation": "Excess nutrients can alter lake ecology and oxygen conditions."
+        },
+        {
+          "question": "Why can seasonal imagery affect comparisons of lake area?",
+          "choices": [
+            "Only map colour changes",
+            "Evaporation never affects lakes",
+            "Water levels and area may vary through the year",
+            "Every lake has a permanently fixed area"
+          ],
+          "answer": 2,
+          "explanation": "Comparisons should account for seasonal hydrological differences."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of lakes with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of lakes with river systems; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 125,
+      "alias": "Peninsular Plateau",
+      "tags": [
+        "Indian geography",
+        "Physical geography",
+        "Water management"
+      ],
+      "sources": [
+        "physical",
+        "drainage"
+      ],
+      "sections": [
+        {
+          "heading": "Position and broad divisions",
+          "paragraphs": [
+            "The Peninsular Plateau is an ancient landmass forming a major part of India's physical geography. It differs in geological history and relief from the younger Himalayas and the sediment-filled Northern Plains. The Central Highlands and Deccan Plateau are useful broad divisions for study. The Narmada valley provides an important reference when locating the regions on a map. These divisions are not substitutes for local detail: hills, plateaus, valleys and escarpments create varied landscapes within the wider peninsular region, and a plateau surface need not be uniformly level."
+          ]
+        },
+        {
+          "heading": "Structure and drainage",
+          "paragraphs": [
+            "Much peninsular drainage reflects the region's overall relief, structural controls and long history of erosion. Many major rivers flow east toward the Bay of Bengal, while the Narmada and Tapi are important west-flowing systems. Their exceptions help prevent the false rule that every peninsular river flows east. Western and Eastern Ghats differ in continuity and position relative to the coasts. River valleys, passes and escarpments affect movement and water use. Indian river systems should be studied with this relief framework, rather than as lists detached from the land through which they flow."
+          ]
+        },
+        {
+          "heading": "Soils, resources and livelihood",
+          "paragraphs": [
+            "Parts of the Deccan are associated with basaltic lava formations and extensive black soils. This does not mean that the entire Peninsular Plateau has one rock or soil type. Weathering, climate, parent material and local drainage contribute to variation. Mineral-bearing areas and agricultural regions support different economic activities, while seasonal water availability can create important constraints. Irrigation, reservoir management and groundwater use therefore deserve attention alongside resources. Avoid equating geological age with uniform prosperity or assuming that a mineral deposit guarantees fair distribution of economic benefits."
+          ]
+        },
+        {
+          "heading": "Building a map explanation",
+          "paragraphs": [
+            "On a hypothetical outline map, mark the Central Highlands, Deccan Plateau, Narmada and the two Ghats before tracing selected rivers. Ask how slope and structural lines help explain direction. Then compare an inland plateau location with a coastal location in rainfall, access and drainage, using evidence rather than an absolute rule. Important revision distinctions include ancient geological framework versus present surface, east-flowing majority versus west-flowing exceptions, and basaltic areas versus the entire peninsula. A strong answer relates landforms, rivers and human use without making every district identical. Indian lakes and reservoirs provide further examples of how water storage is adapted to varied landscapes and seasonal supply conditions across the region."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A regional comparison can place a basaltic plateau surface beside a deeply incised valley and a steep coastal escarpment. Each illustrates a different aspect of the same broad region. Label the process question attached to each scene rather than assigning one description to all three. This exercise makes the distinction between regional geological framework and local present-day landform easier to remember."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which broad division forms part of the Peninsular Plateau?",
+          "choices": [
+            "Only the Northern Plains",
+            "Only the Great Himalaya",
+            "Only the coastal lagoons",
+            "Deccan Plateau"
+          ],
+          "answer": 3,
+          "explanation": "The Deccan Plateau is a broad division of the peninsular region."
+        },
+        {
+          "question": "Which pair is a major west-flowing peninsular exception?",
+          "choices": [
+            "Mahanadi and Kaveri",
+            "Ganga and Brahmaputra",
+            "Narmada and Tapi",
+            "Godavari and Krishna"
+          ],
+          "answer": 2,
+          "explanation": "Narmada and Tapi flow west toward the Arabian Sea."
+        },
+        {
+          "question": "Why should black soil not be assigned to every peninsular district?",
+          "choices": [
+            "Basalt covers every Indian landscape",
+            "Parent material and environmental conditions vary",
+            "Every plateau has one identical soil",
+            "Soils cannot change locally"
+          ],
+          "answer": 1,
+          "explanation": "Soil distribution reflects more than a broad landform label."
+        },
+        {
+          "question": "Many major peninsular rivers drain toward which sea region?",
+          "choices": [
+            "Bay of Bengal",
+            "Only the Arctic Ocean",
+            "Only the Caspian Sea",
+            "Only the Baltic Sea"
+          ],
+          "answer": 0,
+          "explanation": "Many large peninsular river systems flow eastward to the Bay of Bengal."
+        },
+        {
+          "question": "Which comparison is appropriate?",
+          "choices": [
+            "Both regions formed identically at one instant",
+            "Age alone determines income",
+            "Drainage never reflects relief",
+            "Ancient plateau framework versus younger Himalayan relief"
+          ],
+          "answer": 3,
+          "explanation": "Physical regions have different histories and present characteristics."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 110,
+          "reason": "Connects the discussion of Peninsular Plateau with plateaus; pending human contextual review."
+        },
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Peninsular Plateau with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of Peninsular Plateau with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 114,
+          "reason": "Connects the discussion of Peninsular Plateau with lakes; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 126,
+      "alias": "Northern Plains",
+      "tags": [
+        "Indian geography",
+        "Agriculture",
+        "Water management"
+      ],
+      "sources": [
+        "physical",
+        "drainage",
+        "rivers"
+      ],
+      "sections": [
+        {
+          "heading": "A depositional landscape",
+          "paragraphs": [
+            "The Northern Plains developed through extensive deposition associated with the Indus, Ganga and Brahmaputra systems and their tributaries. Their broad low-relief surface contrasts with the Himalayas to the north and the Peninsular Plateau to the south. The landscape is not an unchanging sheet of identical sediment. Channels, older surfaces and local depressions create important variation. A regional description should therefore combine river-basin location with landform distinctions and seasonal processes. Sediment deposited over long periods helps explain the plains, while present rivers continue to modify parts of them."
+          ]
+        },
+        {
+          "heading": "Bhabar, terai, bhangar and khadar",
+          "paragraphs": [
+            "Bhabar describes a porous belt of coarse deposits near the Himalayan foothills where streams can disappear into the material. Farther south, the terai is associated with wetter conditions and re-emerging drainage. Bhangar and khadar distinguish older and newer alluvial surfaces in common geographical descriptions. These terms are useful conceptual anchors, but mapped boundaries and local conditions vary. Do not treat each label as a fixed administrative region or assume that one photograph can identify every soil property. Processes of deposition, drainage and surface renewal help explain the distinctions more clearly than memorising names alone."
+          ]
+        },
+        {
+          "heading": "Farming, settlement and hazards",
+          "paragraphs": [
+            "Alluvial soils, water availability and gentler gradients have supported agriculture, transport and dense settlement in many areas. Yet fertility does not make the landscape free from flood, waterlogging, erosion or salinity risks. Indian river systems carry water and sediment from large upstream areas, so local conditions depend partly on distant changes. Embankments, roads and settlement expansion can influence drainage and exposure. A balanced account should recognise advantages and constraints together. Social access to land, irrigation and services also matters; a fertile plain does not ensure that every household has the same opportunities or protection."
+          ]
+        },
+        {
+          "heading": "Interpreting a floodplain map",
+          "paragraphs": [
+            "Imagine a map showing a main channel, abandoned bends and a slightly higher older alluvial surface. Compare their possible exposure during high flows rather than assuming that the current dry surface is permanently safe. Check the season and scale of the map. A river can shift or reconnect channels, and one flood event does not reveal every future possibility. Important revision points include older versus newer alluvium, porous foothill deposits versus wetter terai, and regional fertility versus local hazard. A useful conclusion links sediment supply, drainage and land use while avoiding the claim that the entire Northern Plains have one identical soil, climate, cropping system or level of flood risk."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "For revision, sketch a sequence from the foothills toward lower plains and annotate infiltration, surface drainage and alluvial renewal. The drawing is conceptual and should not imply that the belts have equal width everywhere. Compare it with a real regional map before applying it locally. This approach ties the named zones to processes while avoiding rigid boundaries unsupported by the source."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "The Northern Plains are strongly associated with which process?",
+          "choices": [
+            "Only coral growth",
+            "Only wind carving of hard granite",
+            "Alluvial deposition",
+            "Only recent volcanic cone building"
+          ],
+          "answer": 2,
+          "explanation": "Rivers and tributaries have deposited extensive sediments across the region."
+        },
+        {
+          "question": "Which term commonly identifies newer alluvium?",
+          "choices": [
+            "Jharokha",
+            "Khadar",
+            "Bhangar",
+            "Khanqah"
+          ],
+          "answer": 1,
+          "explanation": "Khadar is conventionally distinguished as newer alluvial material."
+        },
+        {
+          "question": "Which term commonly identifies older alluvial surfaces?",
+          "choices": [
+            "Bhangar",
+            "Khadar",
+            "Poongi",
+            "Dargah"
+          ],
+          "answer": 0,
+          "explanation": "Bhangar refers to older alluvial surfaces in common geographical descriptions."
+        },
+        {
+          "question": "Why may streams disappear in the bhabar belt?",
+          "choices": [
+            "All water turns into salt",
+            "Gravity stops there",
+            "The belt contains no sediments",
+            "Its coarse material is porous"
+          ],
+          "answer": 3,
+          "explanation": "Coarse porous deposits can allow water to infiltrate."
+        },
+        {
+          "question": "Which statement about fertile floodplains is correct?",
+          "choices": [
+            "Rivers cannot change channels",
+            "Waterlogging is impossible",
+            "They can remain exposed to floods and drainage problems",
+            "Fertility proves permanent safety"
+          ],
+          "answer": 2,
+          "explanation": "Agricultural potential and hazard exposure are separate considerations."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Northern Plains with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of Northern Plains with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 125,
+          "reason": "Connects the discussion of Northern Plains with Peninsular Plateau; pending human contextual review."
+        },
+        {
+          "target_id": 127,
+          "reason": "Connects the discussion of Northern Plains with Himalayas; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 127,
+      "alias": "Himalayas",
+      "tags": [
+        "Indian geography",
+        "Physical geography",
+        "Environmental change"
+      ],
+      "sources": [
+        "physical",
+        "drainage",
+        "landforms"
+      ],
+      "sections": [
+        {
+          "heading": "A major mountain system",
+          "paragraphs": [
+            "The Himalayas form a major mountain system along the northern part of the Indian subcontinent. Their geological development is linked to convergence between the Indian and Eurasian plates, followed by continuing deformation and erosion. They should not be described as static walls with one uniform elevation. Ranges, valleys, passes and river gorges create varied environments. A regional map helps establish location and relationships before individual peaks are memorised. Distinguish the Himalayas from other northern mountain systems and from the older Peninsular Plateau when making broad geological comparisons."
+          ]
+        },
+        {
+          "heading": "Parallel divisions and regional variation",
+          "paragraphs": [
+            "The Himadri or Great Himalaya, Himachal or Lesser Himalaya, and Shiwalik ranges are useful broad north-to-south divisions. Their rocks, heights and local landscapes vary, and the terms do not capture every regional feature. Valleys and passes affect settlement and movement. Eastern and western portions differ in climate and drainage as well as in the arrangement of ranges. Avoid assuming that a single photograph of snow-covered peaks represents every Himalayan slope. Some areas carry forests, cultivated terraces or settlements, while others have different environmental conditions and uses."
+          ]
+        },
+        {
+          "heading": "Rivers, weather and risk",
+          "paragraphs": [
+            "The Himalayas influence Indian river systems and regional patterns of precipitation. Snow and glacier storage contribute to some rivers alongside rainfall and groundwater. This is not a claim that every Himalayan stream has an identical seasonal flow. Steep slopes and active tectonic settings can create important hazards, while local geology, vegetation, drainage and engineering affect exposure. The Northern Plains receive water and sediment from connected upstream basins, making mountain and plain management linked. Roads, tourism and hydropower can bring benefits but require attention to slope stability, ecology and the people whose land and livelihoods are affected."
+          ]
+        },
+        {
+          "heading": "Reasoning from a cross-section",
+          "paragraphs": [
+            "Draw a simple north-to-south cross-section and locate the three broad divisions without assigning identical heights everywhere. Then trace a river toward the plains and explain how gradient and material transport may change. For a hypothetical road proposal, ask about slope, rock stability, drainage and settlement needs rather than relying on distance alone. Important revision distinctions include geological uplift versus present erosion, regional mountain divisions versus local variation, and water storage versus guaranteed year-round supply at every point. A balanced answer treats the Himalayas as an active, inhabited and environmentally diverse region. It recognises that broad physical patterns help organise knowledge but never replace evidence about a particular valley or project."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "An altitude-based comparison can place two settlements on different slopes at similar heights. Their conditions may still differ because of exposure to winds, shading, rainfall and access. The example is hypothetical, but it demonstrates why altitude alone is insufficient. Use such comparisons to explain regional variation without inventing precise temperature or rainfall values for locations whose observations have not been checked."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which plate interaction is central to Himalayan development?",
+          "choices": [
+            "Only riverbank deposition",
+            "Indian–Eurasian convergence",
+            "Only Atlantic seafloor spreading",
+            "Only coastal tides"
+          ],
+          "answer": 1,
+          "explanation": "Convergence and deformation of these plates are central to the mountain system's development."
+        },
+        {
+          "question": "What is another name for the Great Himalaya?",
+          "choices": [
+            "Himadri",
+            "Terai",
+            "Khadar",
+            "Deccan"
+          ],
+          "answer": 0,
+          "explanation": "Himadri is the common name for the Great Himalayan range."
+        },
+        {
+          "question": "Which is the broad outer Himalayan division?",
+          "choices": [
+            "Deccan Plateau",
+            "Malwa Plateau",
+            "Coromandel Coast",
+            "Shiwalik"
+          ],
+          "answer": 3,
+          "explanation": "The Shiwalik ranges form a broad outer Himalayan division."
+        },
+        {
+          "question": "Why should one snow-covered photograph not represent every Himalayan environment?",
+          "choices": [
+            "Every slope is uninhabited",
+            "All rainfall is the same",
+            "The region contains varied elevations, climates and land uses",
+            "All valleys have identical ice cover"
+          ],
+          "answer": 2,
+          "explanation": "Regional and local environmental differences are substantial."
+        },
+        {
+          "question": "What should assessment of a mountain road include?",
+          "choices": [
+            "Only a festival calendar",
+            "Slope stability and drainage as well as access needs",
+            "Distance alone",
+            "Only the colour of vehicles"
+          ],
+          "answer": 1,
+          "explanation": "Engineering and environmental evidence are essential alongside connectivity goals."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Himalayas with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of Himalayas with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 125,
+          "reason": "Connects the discussion of Himalayas with Peninsular Plateau; pending human contextual review."
+        },
+        {
+          "target_id": 126,
+          "reason": "Connects the discussion of Himalayas with Northern Plains; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 130,
+      "alias": "Indian river systems",
+      "tags": [
+        "Indian geography",
+        "Water management",
+        "Environmental change"
+      ],
+      "sources": [
+        "drainage",
+        "rivers",
+        "physical"
+      ],
+      "sections": [
+        {
+          "heading": "Relief and drainage patterns",
+          "paragraphs": [
+            "Indian river systems reflect the country's varied relief, geological structure and climate. Himalayan and peninsular groupings provide a useful broad framework, but both contain variation. A drainage basin includes the area supplying a river network; a water divide separates it from neighbouring basins. Do not confuse a basin with a state boundary or assume that a river's name describes only the visible main channel. Tributaries, groundwater connections and upstream land use help explain the behaviour of the wider system. Study maps before memorising long sequences of place names."
+          ]
+        },
+        {
+          "heading": "Important river examples",
+          "paragraphs": [
+            "The Ganga system includes major tributaries draining parts of the northern region, while the Brahmaputra has a course extending across different national and physical settings. In peninsular India, the Godavari, Krishna, Mahanadi and Kaveri are important east-flowing systems. The Narmada and Tapi are prominent west-flowing exceptions. Their direction should be checked on a map rather than inferred from a broad regional rule. The Himalayas and Peninsular Plateau provide contrasting source and structural settings, yet rainfall variability and human intervention affect both groups in different ways."
+          ]
+        },
+        {
+          "heading": "Seasonal supply and human use",
+          "paragraphs": [
+            "Some Himalayan rivers receive snow or glacier melt as well as rainfall, while many peninsular rivers have pronounced seasonal responses to monsoon rainfall. This contrast is useful but not an absolute statement that every reach in one group behaves identically. Reservoirs, withdrawals and groundwater exchanges can modify local flow. Indian lakes and wetlands are also connected to river processes through storage, flooding and sediment movement. Water use for irrigation, households, industry and ecosystems creates shared management questions. Quantity, timing and quality must be considered together rather than reducing every issue to annual water volume."
+          ]
+        },
+        {
+          "heading": "A basin-based exercise",
+          "paragraphs": [
+            "Consider a hypothetical dispute about reduced dry-season flow downstream. Identify the measurement period and location, compare rainfall and storage records, and examine withdrawals before assigning one cause. A map of tributaries and major structures helps reveal which parts of the basin may contribute to the change. Avoid treating a flood peak and an annual average as equivalent observations. Important revision distinctions are Himalayan versus peninsular frameworks, east-flowing patterns versus exceptions, and natural supply versus managed flow. A strong conclusion explains how relief and climate interact with infrastructure and social decisions. It should recognise that sustainable use involves the whole connected basin, including downstream communities and ecological requirements, rather than only the place where water is diverted."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "A map exercise can follow a river from source region to mouth and identify two tributaries, one divide and one major water-use location. The purpose is to understand connectivity rather than memorise a decorative line. Where names cross languages or national borders, record the context carefully. Consistent mapping helps prevent confusion between a river’s whole basin and one familiar reach."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which pair forms important west-flowing peninsular rivers?",
+          "choices": [
+            "Krishna and Kaveri",
+            "Ganga and Yamuna",
+            "Narmada and Tapi",
+            "Godavari and Mahanadi"
+          ],
+          "answer": 2,
+          "explanation": "Narmada and Tapi are prominent west-flowing exceptions in peninsular drainage."
+        },
+        {
+          "question": "The Godavari generally drains toward which body of water?",
+          "choices": [
+            "Baltic Sea",
+            "Bay of Bengal",
+            "Arctic Ocean",
+            "Caspian Sea"
+          ],
+          "answer": 1,
+          "explanation": "The Godavari is a major east-flowing peninsular river system."
+        },
+        {
+          "question": "Why should a drainage basin not be equated with a state?",
+          "choices": [
+            "Hydrological boundaries can cross administrative borders",
+            "State borders stop tributaries",
+            "All basins lie within one district",
+            "Rain falls only on borders"
+          ],
+          "answer": 0,
+          "explanation": "Water movement follows relief and connected networks."
+        },
+        {
+          "question": "Which comparison helps investigate lower dry-season flow?",
+          "choices": [
+            "Only the river's name",
+            "Only a single festival date",
+            "Only the colour of a map",
+            "Rainfall, storage and withdrawal records for matching periods"
+          ],
+          "answer": 3,
+          "explanation": "Multiple observations help distinguish climatic and human influences."
+        },
+        {
+          "question": "What is the main caution in broad river classifications?",
+          "choices": [
+            "All peninsular rivers are permanently dry",
+            "Infrastructure never affects flow",
+            "Individual rivers and reaches vary",
+            "Every Himalayan stream has identical flow"
+          ],
+          "answer": 2,
+          "explanation": "Broad categories are starting points rather than universal descriptions."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Indian river systems with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of Indian river systems with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 114,
+          "reason": "Connects the discussion of Indian river systems with lakes; pending human contextual review."
+        },
+        {
+          "target_id": 125,
+          "reason": "Connects the discussion of Indian river systems with Peninsular Plateau; pending human contextual review."
+        }
+      ]
+    },
+    {
+      "topic_id": 131,
+      "alias": "Indian lakes",
+      "tags": [
+        "Indian geography",
+        "Water management",
+        "Environmental change"
+      ],
+      "sources": [
+        "drainage",
+        "lakes",
+        "physical"
+      ],
+      "sections": [
+        {
+          "heading": "Variety of lake environments",
+          "paragraphs": [
+            "Indian lakes and associated inland waters occur in mountain basins, river floodplains, arid areas and coastal settings. Their origins, salinity, seasonality and uses differ. A natural lake, a reservoir and a coastal lagoon should not automatically be treated as one category, even when common language refers to each as a lake. A useful profile records location, formation, inflow and outflow before comparing size or economic importance. Avoid rankings such as largest without stating the category, season and measurement basis; changing water levels and definitions can make apparently simple comparisons misleading."
+          ]
+        },
+        {
+          "heading": "Examples on the map",
+          "paragraphs": [
+            "Sambhar in Rajasthan is an inland saline lake with an important relationship to salt production and wetland ecology. Chilika on the Odisha coast is a brackish coastal lagoon, illustrating exchange between freshwater inputs and the sea. Wular in the Kashmir Valley provides a contrasting freshwater setting linked with the Jhelum system. These examples demonstrate why the category and hydrological connections matter as much as a remembered place name. Indian river systems supply, drain or periodically reconnect many water bodies, while other lakes have more limited surface outlets."
+          ]
+        },
+        {
+          "heading": "Water balance, use and ecology",
+          "paragraphs": [
+            "Rainfall, inflow, evaporation, groundwater exchange and withdrawals influence lake levels and salinity. Catchment activities can deliver sediment or nutrients, so shoreline management alone is insufficient. Indian lakes support different combinations of habitat, fishing, water storage, livelihoods and cultural use. A change in water level may affect these uses unequally. The Northern Plains and Himalayan valleys provide different surrounding landscapes, while arid Rajasthan introduces another water-balance setting. A sound account explains those differences without assuming that all saline waters are lifeless or that every freshwater lake is safe for unrestricted human use."
+          ]
+        },
+        {
+          "heading": "Comparing lakes responsibly",
+          "paragraphs": [
+            "Create a table for Sambhar, Chilika and Wular with state or region, water-body type, major hydrological connection and a source date. Do not infer water quality from a scenic photograph. For a hypothetical shrinking water body, compare equivalent seasons and investigate rainfall, inflow, extraction and catchment change rather than immediately assigning one explanation. Important revision distinctions include saline versus brackish versus fresh, inland basin versus coastal exchange, and natural lake versus impounded reservoir. Conservation should consider ecological functioning and community livelihoods together. The strongest conclusion recognises that each water body is part of a wider landscape and water cycle, requiring site-specific evidence and management rather than a single prescription based only on its name or surface area."
+          ]
+        },
+        {
+          "heading": "Applied study exercise",
+          "paragraphs": [
+            "When comparing a saline inland basin and a brackish lagoon, draw their possible inflow and outlet connections. Label the diagrams as simplified models. Ask how evaporation and exchange with the sea could affect salinity, then identify measurements needed for the real site. This develops causal understanding without assuming that water chemistry is constant through the year or uniform across an entire water body."
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "question": "Sambhar in Rajasthan is commonly classified as what?",
+          "choices": [
+            "A modern university",
+            "An inland saline lake",
+            "A Himalayan glacier",
+            "An open ocean trench"
+          ],
+          "answer": 1,
+          "explanation": "Sambhar is a saline inland water body in Rajasthan."
+        },
+        {
+          "question": "Chilika is best described as what?",
+          "choices": [
+            "A brackish coastal lagoon",
+            "A permanent inland ice sheet",
+            "A dry mountain pass",
+            "A Gupta inscription"
+          ],
+          "answer": 0,
+          "explanation": "Chilika's coastal exchange helps explain its brackish lagoon environment."
+        },
+        {
+          "question": "Wular is associated with which river system?",
+          "choices": [
+            "Amazon",
+            "Nile",
+            "Colorado",
+            "Jhelum"
+          ],
+          "answer": 3,
+          "explanation": "Wular is linked with the Jhelum system in the Kashmir Valley."
+        },
+        {
+          "question": "Why qualify claims about a lake being largest?",
+          "choices": [
+            "All lakes are identical reservoirs",
+            "Water level never changes",
+            "Category, season and measurement basis can differ",
+            "Every lake has one fixed surface area"
+          ],
+          "answer": 2,
+          "explanation": "A meaningful ranking needs a defined comparison basis."
+        },
+        {
+          "question": "Which distinction improves a lake profile?",
+          "choices": [
+            "Coastal exchange never matters",
+            "Saline, brackish and freshwater conditions",
+            "All water bodies have the same chemistry",
+            "Scenery proves drinking-water safety"
+          ],
+          "answer": 1,
+          "explanation": "Water chemistry and hydrological setting are important classification features."
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 111,
+          "reason": "Connects the discussion of Indian lakes with plains; pending human contextual review."
+        },
+        {
+          "target_id": 113,
+          "reason": "Connects the discussion of Indian lakes with river systems; pending human contextual review."
+        },
+        {
+          "target_id": 114,
+          "reason": "Connects the discussion of Indian lakes with lakes; pending human contextual review."
+        },
+        {
+          "target_id": 126,
+          "reason": "Connects the discussion of Indian lakes with Northern Plains; pending human contextual review."
+        }
+      ]
+    }
+  ]
+}

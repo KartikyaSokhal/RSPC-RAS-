@@ -4,6 +4,14 @@ from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 
 
+def bounded(env, name, default, low, high):
+    try:
+        value = int(env.get(name, default))
+        if not low <= value <= high: raise ValueError
+    except (ValueError, TypeError):
+        raise ImproperlyConfigured(f'{name} must be an integer from {low} to {high}.') from None
+    return value
+
 def database_config(env, *, production=False):
     engine = env.get('DATABASE_ENGINE', 'postgresql')
     if engine == 'sqlite':
@@ -32,13 +40,17 @@ def database_config(env, *, production=False):
             raise ValueError
     except ValueError:
         raise ImproperlyConfigured('POSTGRES_PORT must be a valid port.') from None
-    options = {'connect_timeout': 5, 'sslmode': sslmode}
+    options = {'connect_timeout': bounded(env, 'POSTGRES_CONNECT_TIMEOUT', 5, 1, 30), 'sslmode': sslmode,
+               'options': '-c statement_timeout={} -c lock_timeout={} -c idle_in_transaction_session_timeout={}'.format(
+                   bounded(env, 'POSTGRES_STATEMENT_TIMEOUT_MS', 15000, 1000, 600000),
+                   bounded(env, 'POSTGRES_LOCK_TIMEOUT_MS', 5000, 100, 60000),
+                   bounded(env, 'POSTGRES_IDLE_TRANSACTION_TIMEOUT_MS', 60000, 1000, 600000))}
     if env.get('POSTGRES_SSLROOTCERT'):
         options['sslrootcert'] = str(Path(env['POSTGRES_SSLROOTCERT']).expanduser())
     return {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env['POSTGRES_DB'], 'USER': env['POSTGRES_USER'],
         'PASSWORD': env.get('POSTGRES_PASSWORD', ''), 'HOST': env['POSTGRES_HOST'],
-        'PORT': str(port), 'CONN_MAX_AGE': 0, 'CONN_HEALTH_CHECKS': True,
+        'PORT': str(port), 'CONN_MAX_AGE': bounded(env, 'POSTGRES_CONN_MAX_AGE', 0, 0, 300), 'CONN_HEALTH_CHECKS': True,
         'OPTIONS': options,
     }

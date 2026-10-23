@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AppShell from './components/layout/AppShell.jsx'
 import Skeleton from './components/ui/Skeleton.jsx'
 import './App.css'
+import useAuth from './hooks/useAuth.js'
 
 const Home = lazy(() => import('./pages/home.jsx'))
 const Syllabus = lazy(() => import('./pages/syllabusPage.jsx'))
@@ -13,7 +14,19 @@ const Search = lazy(() => import('./pages/searchPage.jsx'))
 const Resource = lazy(() => import('./pages/resourcePage.jsx'))
 const Info = lazy(() => import('./pages/infoPage.jsx'))
 const LearnerUnavailable = lazy(() => import('./pages/learnerUnavailablePage.jsx'))
+const Login = lazy(() => import('./pages/loginPage.jsx'))
+const Signup = lazy(() => import('./pages/signupPage.jsx'))
+const Dashboard = lazy(() => import('./pages/dashboardPage.jsx'))
+const Attempt = lazy(() => import('./pages/attemptPage.jsx'))
+const Planner = lazy(() => import('./pages/plannerPage.jsx'))
+const ResetPassword = lazy(() => import('./pages/resetPasswordPage.jsx'))
 const NotFound = lazy(() => import('./pages/notFoundPage.jsx'))
+
+function StudentRoute({ children }) {
+  const { loading, featuresEnabled } = useAuth()
+  if (loading) return <div className="page"><Skeleton label="Loading student access…" /></div>
+  return featuresEnabled ? children : <LearnerUnavailable />
+}
 
 class ErrorBoundary extends Component {
   state = { failed: false }
@@ -52,9 +65,12 @@ export default function App() {
                 <Route path="resources/:id" element={<Resource />} />
                 <Route path="about" element={<Info />} />
                 <Route path="help" element={<Info />} />
-                <Route path="login" element={<LearnerUnavailable />} />
-                <Route path="signup" element={<LearnerUnavailable />} />
-                <Route path="dashboard" element={<LearnerUnavailable />} />
+                <Route path="login" element={<StudentRoute><Login /></StudentRoute>} />
+                <Route path="signup" element={<StudentRoute><Signup /></StudentRoute>} />
+                <Route path="attempts/:id" element={<StudentRoute><Attempt /></StudentRoute>} />
+                <Route path="planner" element={<StudentRoute><Planner /></StudentRoute>} />
+                <Route path="reset-password" element={<StudentRoute><ResetPassword /></StudentRoute>} />
+                <Route path="dashboard" element={<StudentRoute><Dashboard /></StudentRoute>} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

@@ -67,7 +67,10 @@ def summary(pub, publications, quiz_topics=None):
 
 
 def detail(pub, publications, user=None):
+    from .student import owned_status, eligible_publications
+    bookmarks, completed = owned_status(user, publications)
     data = summary(pub, publications)
+    data.update(is_bookmarked=pub.topic_id in bookmarks, is_completed=pub.topic_id in completed, is_learning_unit=pub.topic_id in eligible_publications(publications))
     data['blocks'] = copy.deepcopy(pub.snapshot.get('blocks', []))
     for block in data['blocks']:
         block.pop('file_name', None); block.pop('file_hash', None)
@@ -86,6 +89,12 @@ def detail(pub, publications, user=None):
     ids = pub.snapshot.get('resource_ids', [])
     resources = LearningResource.objects.filter(id__in=ids, topic_id=pub.topic_id, status='approved').order_by('pk')
     data['resources'] = [{'id': r.pk, 'title': r.title, 'page_count': r.page_count, 'url': f'/resources/{r.pk}?page=1'} for r in resources]
+    from .quiz import select_reviewed_quiz, QuizServiceError
+    try:
+        select_reviewed_quiz(pub.snapshot['slug'])
+        data['has_quiz'] = True
+    except QuizServiceError:
+        data['has_quiz'] = False
     data['published_at'] = pub.published_at
     data['status'] = 'published'
     return data
@@ -100,8 +109,8 @@ def get_syllabus_tree(published_only=False, include_tree=False, user=None):
     except (OperationalError, ProgrammingError):
         quiz_topics = set()
 
-    user_bookmarks = set()
-    user_completed = set()
+    from .student import owned_status
+    user_bookmarks, user_completed = owned_status(user, pubs)
 
     if published_only:
         def pub_node(pub):

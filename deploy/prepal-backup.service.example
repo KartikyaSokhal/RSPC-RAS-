@@ -1,0 +1,17 @@
+# Local-only template. Do not enable before configuring private paths, key custody,
+# retention, off-host destination and failure alert delivery. Production activation
+# requires an independently approved wrapper; postgres_ops refuses production.
+[Unit]
+Description=Prepal encrypted local PostgreSQL backup
+OnFailure=prepal-backup-alert.service
+[Service]
+Type=oneshot
+User=prepal-backup
+Group=prepal-backup
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/prepal-backups
+ExecStart=/srv/prepal/backend/.venv/bin/python /srv/prepal/scripts/postgres_ops.py backup-local --env-file /etc/prepal/backup.env --pg-bin /usr/lib/postgresql/17/bin --media /srv/prepal-media --destination /var/lib/prepal-backups --certificate /etc/prepal/backup-recipient.crt

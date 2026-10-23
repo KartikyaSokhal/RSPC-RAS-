@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 import unicodedata
@@ -69,6 +70,7 @@ class Topic(models.Model):
 
     order = models.PositiveIntegerField(default=0)
     tags = models.ManyToManyField(Tag, blank=True, related_name='draft_topics')
+    estimated_study_minutes = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(15), MaxValueValidator(2400)], help_text='Approximate total minutes for learning, revision and practice; blank uses the learner plan default.')
     editorial_status = models.CharField(max_length=20, default='draft', choices=[('draft', 'Draft'), ('in_review', 'Awaiting review')])
 
     class Meta:
@@ -157,6 +159,21 @@ class Choice(models.Model):
         return self.choice_text
 
 
+class StudentIdentity(models.Model):
+    """Unique verified-provider identity; existing legacy rows are never claimed."""
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student_identity')
+    email = models.EmailField(unique=True)
+    google_subject = models.CharField(max_length=255, unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class AuthRateWindow(models.Model):
+    # HMAC(scope, time window, identifier/IP); no raw credential, email or IP.
+    key = models.CharField(max_length=64, unique=True)
+    count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
 class Bookmark(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="bookmarks")
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="bookmarks")
@@ -176,6 +193,7 @@ class UserProgress(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="progress_records")
     is_completed = models.BooleanField(default=False)
     last_read_at = models.DateTimeField(auto_now=True)
+    last_visited_at = models.DateTimeField(null=True, blank=True, db_index=True)
 
     class Meta:
         constraints = [
@@ -188,11 +206,19 @@ class UserProgress(models.Model):
 
 class QuizAttempt(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="attempts")
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="attempts")
+    quiz = models.ForeignKey(Quiz, on_delete=models.PROTECT, related_name="attempts")
+    collection_topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.PROTECT, related_name="practice_attempts")
+    submission_id = models.UUIDField(null=True, blank=True)
+    snapshot = models.JSONField(default=dict, blank=True)
+    request_digest = models.CharField(max_length=64, blank=True)
     score = models.PositiveIntegerField()
     total_questions = models.PositiveIntegerField()
     attempted_at = models.DateTimeField(auto_now_add=True)
     incorrect_questions = models.ManyToManyField(Question, blank=True)
+
+    class Meta:
+        indexes = [models.Index(fields=['user', '-attempted_at'], name='attempt_user_time_idx')]
+        constraints = [models.UniqueConstraint(fields=['user', 'submission_id'], condition=models.Q(user__isnull=False, submission_id__isnull=False), name='unique_owned_submission')]
 
     def __str__(self):
         return f"Attempt: {self.quiz.title} - {self.score}/{self.total_questions}"
@@ -349,3 +375,40 @@ class AiRequest(models.Model):
     model = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     deadline_at = models.DateTimeField()
+
+
+class StudyPlan(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='study_plans')
+    title = models.CharField(max_length=120, default='My study plan')
+    mode = models.CharField(max_length=10, choices=[('learn', 'Learn from scratch'), ('revision', 'Quick revision')], default='learn')
+    study_days = models.JSONField(default=list)
+    daily_minutes = models.PositiveIntegerField(default=120)
+    default_estimate_minutes = models.PositiveIntegerField(default=90)
+    start_date = models.DateField()
+    exam_date = models.DateField(null=True, blank=True)
+    selected_topics = models.ManyToManyField(Topic, related_name='study_plans')
+    revision = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        indexes = [models.Index(fields=['user', '-updated_at'], name='plan_user_updated_idx')]
+        constraints = [models.CheckConstraint(condition=models.Q(daily_minutes__gte=15, daily_minutes__lte=720), name='plan_daily_minutes_bounds')]
+
+
+class StudyTask(models.Model):
+    plan = models.ForeignKey(StudyPlan, on_delete=models.CASCADE, related_name='tasks')
+    topic = models.ForeignKey(Topic, on_delete=models.PROTECT, related_name='study_tasks')
+    topic_title = models.CharField(max_length=255)
+    kind = models.CharField(max_length=12, choices=[('learn', 'Learning'), ('revision', 'Revision'), ('practice', 'MCQ practice')])
+    due_date = models.DateField()
+    minutes = models.PositiveIntegerField()
+    sequence = models.PositiveIntegerField()
+    used_default = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['due_date', 'sequence', 'pk']
+        constraints = [models.UniqueConstraint(fields=['plan', 'sequence'], name='plan_unique_task_sequence'), models.CheckConstraint(condition=models.Q(minutes__gt=0), name='study_task_minutes_positive')]
+        indexes = [models.Index(fields=['plan', 'is_completed', 'due_date'], name='plan_task_due_idx')]

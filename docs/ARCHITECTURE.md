@@ -1,12 +1,14 @@
 # Architecture
 
-Prepal is a React 19/Vite SPA plus Django 6/DRF, Django Admin and PostgreSQL. Source structure remains unchanged by documentation cleanup. [Database schema](DATABASE_SCHEMA.md), [API](API_DOCUMENTATION.md), [Admin workflow](ADMIN_WORKFLOW.md) and [AI system](AI_SYSTEM.md) describe their detailed boundaries.
+Prepal is a React 19/Vite SPA plus Django 6/DRF, Django Admin and PostgreSQL. The student platform extends existing models/routes/components; no duplicate application stack is introduced. [Database schema](DATABASE_SCHEMA.md), [API](API_DOCUMENTATION.md), [Admin workflow](ADMIN_WORKFLOW.md) and [AI system](AI_SYSTEM.md) describe their detailed boundaries.
 
 ## Runtime and identity
 
 Vite proxies same-origin /api to private Django during local development. Reviewed Nginx/systemd/Gunicorn examples live under deploy/ and backend/gunicorn.conf.py; they are not an installed/verified production service. Static output and private media are separate. No retired Express/Mongo launch path remains active.
 
-Django sessions provide administrative identity with HTTP-only cookies. Only superusers manage staff accounts. Public learner auth/dashboard/bookmark/progress/attempt/report URLs are fixed unavailable handlers for every identity; retained models/nullable ownership constraints and historical rows do not enable student features. Public serializers do not read global learner state. Stateless practice uses CSRF and signed manifests, not saved attempts. Theme preference is the only persistent student UI state; no auth token is stored in localStorage.
+Django sessions now serve owned student accounts as well as administrative identity, with CSRF, HTTP-only cookies, 14-day expiry and production secure cookies. StudentIdentity binds normalized unique email and optional unique Google subject to the existing User. AuthRateWindow uses HMAC keys. Google state/nonce/PKCE and signed issuer/audience/expiry/email checks prevent client identity claims and automatic account linking. Password reset tokens are single-use and not stored. No auth token is stored in localStorage.
+
+STUDENT_FEATURES_ENABLED defaults false in production; a closed gate returns constant unavailable responses before authentication/body parsing. Enabled handlers query request.user exclusively and never adopt ownerless rows. Dashboard, subject progress and planner share published content-bearing unit eligibility. Explicit POST visits update history; GET does not. StudyPlan/StudyTask use deterministic estimates/calendar allocation, revision conflict checks and completed-row preservation. Canonical practice remains stateless for guests; enabled students can save a UUID-idempotent immutable QuizAttempt snapshot. Existing Question records are not copied. Account changes remount private page state and refresh syllabus status.
 
 ## Content and publication
 
@@ -28,9 +30,9 @@ DOMPurify SafeHtml is the browser educational-HTML insertion boundary; SafeMarkd
 
 ## Tutor and database boundaries
 
-Current retrieval is bounded lexical ranking of published notes/approved PDF pages and, with opt-in, up to two reviewed related topics. Selection validates source ID/revision/text. History is not factual evidence. Server-built citation manifests, response validation, quotas and spend reservations bound the existing adapter; live AI defaults off. Strict current-topic-only retrieval and topic-note PDF export remain pending master Phase C, not completed features. See AI_SYSTEM for limits and billing caveats.
+Tutor retrieval is bounded lexical ranking of current published **note blocks only**. It excludes PDFs/related topics and refuses cross-scope requests. Selection validates source ID/revision/text; history is not evidence. Server manifests, repeated scope/publication checks, safe Markdown, quotas and conservative spend reservation constrain the existing adapter. Live Gemini defaults off and is not live-verified. Topic-note PDF export remains deferred. See AI_SYSTEM for precise limits.
 
-PostgreSQL is mandatory for normal/production runtime, with no implicit original-SQLite fallback. Original SQLite remains content 0004; schema source includes unchanged migrations 0001–0008. Explicit test/demo configurations are isolated. Prior migration/transfer/sequence/native-restore rehearsals used disposable copies; they do not authorize real cutover or prove durable production recovery.
+PostgreSQL is mandatory for normal/production runtime without original-SQLite fallback. Migrations 0001–0008 are unchanged; new 0009–0012 cover identity, visits, planner and immutable practice. Original SQLite remains 0004 and existing demos remain unchanged. New review/demo/test targets alone receive the new migrations. Disposable PostgreSQL tests and source-copy/transfer/restore rehearsals do not authorize real cutover or establish durable production recovery.
 
 ## UI requirements consolidated from the retired design document
 
@@ -45,15 +47,33 @@ Use the existing components, routes and tokens; targeted maintenance must not in
 
 Retain readable system/Inter typography, restrained shadows/radii and the sun/moon toggle with system preference and prepal-theme persistence. Motion tokens use 140ms/220ms and cubic-bezier(0.16,1,0.3,1); reduced-motion overrides reduce transitions. Automated contrast evidence is not AAA certification or manual assistive-technology proof.
 
-- Header: logo left, empty center, existing /search entry and theme toggle right on desktop/mobile; no auth/Syllabus/About header links. Preserve routes and footer Syllabus/Search/Help navigation, academic branding, honest dynamic counts and noninteractive future social space.
+- Header: logo left, empty center, existing /search entry and theme toggle right on desktop/mobile; student Sign In/Sign Up when enabled and logged out; Dashboard/account/logout when signed in. Syllabus/About remain absent from the header. Preserve routes and footer Syllabus/Search/Help navigation, academic branding, honest dynamic counts and noninteractive future social space.
 - Homepage: retain the existing RajasthanMap SVG geometry/aspect ratio and compact responsive spacing. Keep Explore Syllabus, source-aware assistant copy and two honest statistics. Root buttons scroll/focus actual API subjects without filtering or changing routes; no duplicate hero/explorer search/status controls.
 - AppShell shares one hierarchy response through SyllabusContext/useSyllabus. Derive counts from all returned roots/descendants, including genuine zero data and loading/error/retry states. Do not truncate fixtures/future data to five; five roots are the original syllabus, not a UI constant.
 - indexSyllabus derives numbering from original unfiltered order: numeric roots, dotted immediate children and per-parent alphabetic deeper children (AA after Z). Preserve titles/slugs and filtered original positions. Expand All opens all nodes; Collapse All leaves root labels; individual native-details toggles work after either. No Default View control. Standalone syllabus filtering remains separate from homepage simplification.
-- Reader: preserve approved links, popup context/focus/new-tab behavior, tags, related topics and stateless practice. Keep one nonmodal bottom-right Tutor launcher, passage entry, responsive close/Escape/focus restoration without scroll loss; remove no existing reading ability or activate learner state.
+- Reader: preserve approved links, popup context/focus/new-tab behavior, tags, related topics and stateless practice. Keep one nonmodal bottom-right Tutor launcher, passage entry, responsive close/Escape/focus restoration without scroll loss. Learner buttons require the server gate, authentication and owned endpoints.
 - At mobile/tablet/desktop widths, maintain readable layouts, wrapped subject buttons, visible focus/labels and no horizontal overflow. Existing browser coverage sampled 320/390/768/1024/1280px; this is viewport emulation, not physical-device or manual screen-reader certification.
 
 ## Development samples and release inputs
 
 Versioned sample tooling uses the canonical 142-topic fixture, existing review/publication services and a NEW isolated destination; no automatic startup/GET seed. It refuses existing/populated/symlinked targets, marks non-production engineering approval and never transfers original records. The query-only verifier checks corpus/API/CSRF/practice while blocking provider/network construction. Existing sample/demo data is preserved.
 
-Shared workspace exclusions hide installed dependencies/generated/private trees without deleting them. scripts/release_manifest.py defines explicit source/config/test/canonical-doc inputs and rejects missing/symlinked/ignored/private inputs or known local credentials. Canonical cleanup produces 211 worktree release files; a manifest export is not a committed release. Historical evidence/recovery remains private. See [verification](TESTING.md) and [release gates](DEPLOYMENT.md).
+Shared workspace exclusions hide installed dependencies/generated/private trees without deleting them. scripts/release_manifest.py defines explicit source/config/test/canonical-doc inputs and rejects missing/symlinked/ignored/private inputs or known local credentials. The manifest includes student source, migrations, corpus and browser tests; a worktree export is not a committed release. Historical evidence/recovery remains private. See [verification](TESTING.md) and [release gates](DEPLOYMENT.md).
+
+The new student review corpus adds 25 drafts/125 MCQs at real previously unused lesson IDs. Existing sample publications remain synthetic; new material/aliases/relations/quizzes receive no automatic human approval. Private review inventory and original sources accompany the seed.
+
+## Local student environment selection
+
+The student UI reuses AppShell/AuthProvider and existing routes. Header order is Search, theme, guest Sign In/Sign Up or authenticated Dashboard/named Account menu/Logout. Normal settings now default learner access off in both development and production. Explicit ready student_demo_settings enables the owned flow. run_student_dev.py validates marker/schema0012 read-only and binds the student API on8002, separate from the content-only8000 service. Vite reads ignored .env.local PREPAL_DEV_API_ORIGIN in development only; server config/ownership/CSRF remain authoritative and build/preview routes are unchanged. No migrations/auth duplication or separate Profile page.
+
+## PostgreSQL operations boundary
+
+core.database builds explicit PostgreSQL config with bounded connect/statement/lock/idle-transaction timeouts and connection age. core.local_postgres_settings requires explicit local opt-in, loopback and prepal_local_/prepal_rehearsal_ name; no AI/Google. core.staging_settings and core.production_settings require separate matching environment identities and force learner/AI/Google closed. Active student-review SQLite is unchanged; configuration files alone are not a cutover.
+
+content.services.postgres_ops provisions NEW local databases and separate restricted migration/runtime/backup roles; postgres_backup exports a read-only repeatable-read snapshot, native custom pg_dump and stable paired media inventory, then encrypts with OpenSSL CMS AES-256-GCM. Restore decrypts/authenticates first, rejects unsafe tar members, provisions a NEW local DB, pg_restores without owner/ACL replay and verifies all table hashes/IDs/FKs/sequence minima/media. It never restores roles or overwrites a target. Operators must select trusted archives: encryption authenticates ciphertext, not its sender or arbitrary SQL inside an archive. No production backup execution/off-host integration is enabled.
+
+scripts/postgres_ops.py is a private-env CLI; scripts/rehearse_student_postgres.py composes copied-source migration/transfer, real HTTP backend restart/session checks, ownership, native encrypted restore and corruption tests. Tests use synthetic content only. Account/deletion is a non-destructive backend readiness boundary, not a new authentication system or deletion implementation.
+
+## Prepared single-origin Render staging
+
+The Render-only settings/URL modules add an explicit SPA route map, WhiteNoise serving of dist/collected staticfiles and a private HTTP Basic staging barrier. Existing development URLs and student session authentication are unchanged. Basic staging credentials never become DRF user credentials. API/private path404s remain real404s. Built SPA/API/Admin share HTTPS and host-only secure SameSite=Lax cookies; CORS stays empty. A paid media disk and verified PostgreSQL external TLS are prerequisites, not provisioned resources. See [deployment](DEPLOYMENT.md).

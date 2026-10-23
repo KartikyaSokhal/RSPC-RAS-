@@ -1,6 +1,14 @@
 # Decisions and significant history
 
-Current authority is the approved documentation cleanup and local verification, ending before any new commit/push. Historical approvals below are context, never permission to bypass the current owner brief. Complete original decision/task/design narratives remain in verified private archives; this ledger preserves the consequential choices.
+Current authority is safe local implementation of the full student platform, not deployment/publication/cutover or paid provider requests. Historical approvals below never bypass the latest owner brief.
+
+## 23 October 2026 — owned student platform
+
+Reuse Django User/sessions and existing learner records with strict ownership; never adopt NULL owners. Add StudentIdentity rather than replace User. Google linking is deliberately explicit/manual on collisions; provider tokens are not retained. Production student gate defaults off, older demos remain content-only. SMTP and Google are mocked until configured and externally accepted; password-account email verification policy remains an owner decision.
+
+Use one content-bearing published-unit counting rule. Planner schedules deterministically, marks estimates approximate and preserves completed work separately from whole-lesson completion. Save immutable answer/classification snapshots under existing QuizAttempt with per-user UUID idempotence; guest grading stays stateless and questions canonical.
+
+Tutor scope is narrowed to current published notes only, including no PDF or related retrieval. No paid test without model/budget approval. Twenty-five additional lessons/125 MCQs are isolated drafts with verifiable references and no fabricated human approval. Migrations 0009–0012 run only on new/disposable targets; original data and 0001–0008 remain unchanged. Previous presentation cleanup is not executed.
 
 ## 21 October 2026 — documentation consolidation and release hold
 
@@ -43,3 +51,15 @@ The content-first release superseded the earlier learner-enabled dashboard direc
 Preserve React, Django/DRF and Django Admin rather than replacing the stack or adding a new CMS/vector/Redis service. Use explicit publication snapshots, one previous version, persistent quiz review fingerprints/stable IDs and deterministic stateless practice. Bounded immutable PDF candidates need text/rights review; no OCR or arbitrary remote fetch. Public prototypes/screenshots/synthetic fixtures do not certify real content or production operations. Migration 0005 integrated MVP tables; real database application was gated. The old student/dashboard and SQLite-primary directions are historical, superseded above.
 
 Production content/language/rights coverage, approved model/rates/budget, target roles/TLS/media/durable recovery, hosting/domain and final release remain owner decisions. [Roadmap](IMPLEMENTATION_PLAN.md) and [handoff](AGENT_HANDOFF.md) contain the current next action.
+
+## 23 October 2026 — explicit local authentication navigation
+
+Hidden auth controls were caused by the running core.demo_settings backend correctly returning learner=false. Preserve that legacy boundary and select the existing ready student environment rather than bypassing it in React. Normal dev defaults closed; only explicit configuration enables students. A development-only API override avoids stale shell proxy values; production build/preview are unaffected. Use existing named Account menu without inventing a Profile route. Google remains disabled. No original-data migration, paid service or Git operation.
+
+## 23 October2026 — PostgreSQL setup without cutover; deletion policy gate
+
+Use existing Django models and migrations0001–0012. Preserve active student-review SQLite and originals; test only new loopback PostgreSQL databases from verified source copies. Separate generated migration/runtime/backup credentials; runtime DDL/sequence reset and backup writes denied. Use native exported-snapshot custom dump plus stable media, authenticated CMS AES-256-GCM and native independent restore. Do not enable production backup/scheduling/off-host services before owner configuration and acceptance. Retention is review-only; account deletion is readiness-only pending explicit owner approval of permanent erasure, session revocation, staff references, backup expiry and post-restore deletion ledger. Keep learner/AI/Google forced closed in unactivated staging/production profiles. Local PostgreSQL16.2 proof lacks SSL and does not establish PG17/production TLS or durable recovery. Daily dump nominal RPO24h requires owner decision on PITR.
+
+## 23 October 2026 — commercial staging architecture
+
+Choose a single-origin Render Python web service for React/Django/Admin with PostgreSQL17/private disk. Vercel browser access works, but Hobby cannot host this confirmed commercial/client product; avoid an extra paid frontend/proxy for the first staging environment. Preserve strict verify-full: Render internal self-signed TLS is incompatible, so test the external hostname with CA validation and restricted CIDRs before database use. Keep hosted learner/AI/Google closed and restrict staging access. Owner approved template restoration and30-day production retention requirement, not billing/Git publication/cutover.

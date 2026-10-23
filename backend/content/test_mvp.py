@@ -63,15 +63,14 @@ class ProductTests(TestCase):
         self.assertGreater(pub.revision, revision)
         self.assertIn('Observation describes', self.client.get('/api/topic/observation/').content.decode())
 
-    def test_related_scope_requires_explicit_published_edge_and_request(self):
+    def test_related_publication_does_not_expand_tutor_scope(self):
         TopicRelation.objects.create(source=self.topic, target=self.related, kind='related', status='approved', reason='Fixture connection')
         _, before = DatabaseRetrievalProvider().retrieve('observation', {'message': 'sequence', 'allow_related': True})
         self.assertEqual(before, [])
         publish(self.topic, self.editor)
         _, denied = DatabaseRetrievalProvider().retrieve('observation', {'message': 'sequence'})
         _, allowed = DatabaseRetrievalProvider().retrieve('observation', {'message': 'sequence', 'allow_related': True})
-        self.assertEqual(denied, []); self.assertTrue(allowed)
-        self.assertEqual({e['topic_id'] for e in allowed}, {self.related.pk})
+        self.assertEqual(denied, []); self.assertEqual(allowed, [])
 
     def test_selection_requires_current_source_text_and_revision(self):
         for selected in [{'source_id': 'b9999', 'text': 'invented', 'revision': 1}, {'source_id': f'b{self.block.pk}', 'text': 'injected unrelated text', 'revision': 1}, {'source_id': f'b{self.block.pk}', 'text': 'Observation', 'revision': 999}]:

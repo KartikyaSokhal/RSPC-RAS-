@@ -114,3 +114,10 @@ secrets/
 privkey*.pem
 *-private.pem
 *_private.pem
+
+# Private PostgreSQL operations files; keep only blank .env.example templates.
+*.env
+!.env.example
+*.cms
+.pgpass
+.pg_service.conf

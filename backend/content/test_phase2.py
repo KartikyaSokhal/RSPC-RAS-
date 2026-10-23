@@ -253,10 +253,9 @@ class Phase2MigrationTests(TransactionTestCase):
                 self.assertEqual(QuizReview.objects.get(quiz_id=quiz.pk).fingerprint, fingerprint)
                 self.assertEqual(TopicRelation.objects.get(pk=relation.pk).status, 'approved')
                 self.assertEqual(TopicRelation.objects.get(pk=pending.pk).status, 'draft')
-                self.assertEqual(QuizAttempt.objects.get(pk=attempt.pk).incorrect_questions.get().pk, q.pk)
-                from .models import Bookmark, UserProgress
-                self.assertEqual(Bookmark.objects.get(pk=bookmark.pk).topic_id, topic.pk)
-                self.assertTrue(UserProgress.objects.get(pk=progress.pk).is_completed)
+                self.assertEqual(state.get_model('content', 'QuizAttempt').objects.get(pk=attempt.pk).incorrect_questions.get().pk, q.pk)
+                self.assertEqual(state.get_model('content', 'Bookmark').objects.get(pk=bookmark.pk).topic_id, topic.pk)
+                self.assertTrue(state.get_model('content', 'UserProgress').objects.get(pk=progress.pk).is_completed)
                 executor = MigrationExecutor(connection); executor.migrate([before])
                 self.assertEqual(old.get_model('content', 'Question').objects.get(pk=q.pk).question_text, 'Preserved?')
         finally:

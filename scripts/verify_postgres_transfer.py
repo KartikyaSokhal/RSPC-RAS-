@@ -37,6 +37,9 @@ def seed_worker(directory):
     User = get_user_model()
     editor = User.objects.create_superuser('synthetic-editor', password='fixture-only-unused')
     learner = User.objects.create_user('synthetic-legacy-learner', password='fixture-only-unused')
+    from content.models import StudentIdentity, AuthRateWindow, StudyPlan, StudyTask
+    StudentIdentity.objects.create(user=learner, email='synthetic-transfer@example.test')
+    AuthRateWindow.objects.create(key='synthetic-transfer-window', count=2)
     group = Group.objects.create(name='Synthetic editorial group')
     permission = Permission.objects.filter(content_type__app_label='content', codename='change_topic').get()
     User.groups.through.objects.create(pk=401, user=editor, group=group)
@@ -75,9 +78,16 @@ def seed_worker(directory):
     decide(proposal, 'approved', editor)
     for owner in (None, learner):
         Bookmark.objects.create(topic=topic, user=owner)
-        UserProgress.objects.create(topic=topic, user=owner, is_completed=True)
-        attempt = QuizAttempt.objects.create(quiz=quiz, user=owner, score=0, total_questions=1)
+        UserProgress.objects.create(topic=topic, user=owner, is_completed=True, last_visited_at=timezone.now() if owner else None)
+        attempt = QuizAttempt.objects.create(quiz=quiz, user=owner, score=0, total_questions=1,
+            submission_id=uuid.uuid4() if owner else None,
+            snapshot={'version': 1, 'title': 'Synthetic historical practice', 'results': [{'question_id': question.pk, 'question_text': question.question_text}]} if owner else {})
         attempt.incorrect_questions.add(question)
+    plan = StudyPlan.objects.create(user=learner, title='Synthetic transfer plan', mode='learn', study_days=[0, 2], daily_minutes=60,
+                                   default_estimate_minutes=90, start_date=timezone.localdate())
+    plan.selected_topics.add(topic)
+    StudyTask.objects.create(plan=plan, topic=topic, topic_title=topic.title, kind='learn', due_date=plan.start_date,
+                             minutes=30, sequence=0, is_completed=True, completed_at=timezone.now())
     through = QuizAttempt.incorrect_questions.through.objects.first()
     old = through.pk
     QuizAttempt.incorrect_questions.through.objects.filter(pk=old).update(id=777)
@@ -110,7 +120,7 @@ def main():
     assert report['transfer']['sequences']['content_topic'] == 9000
     assert report['transfer']['sequences']['auth_user_groups'] == 9001
     assert report['transfer']['tables']['content_quizattempt_incorrect_questions']['count'] == 2
-    for table in ['content_tag', 'content_topicalias', 'content_topic_tags', 'content_topicpublication_tags', 'content_question_related_topics', 'content_question_tags', 'content_connectionscan', 'content_keywordlinkproposal']:
+    for table in ['content_tag', 'content_topicalias', 'content_topic_tags', 'content_topicpublication_tags', 'content_question_related_topics', 'content_question_tags', 'content_connectionscan', 'content_keywordlinkproposal', 'content_studentidentity', 'content_authratewindow', 'content_studyplan', 'content_studyplan_selected_topics', 'content_studytask']:
         assert report['transfer']['tables'][table]['count'] > 0, table
     print(json.dumps({'status': 'PASS', 'private_artifacts': str(directory), 'postgres_database': report['postgres_database'],
                       'tables_compared': len(report['transfer']['tables']), 'rows_transferred': report['transfer']['rows'],

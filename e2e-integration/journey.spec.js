@@ -16,11 +16,12 @@ test('content-first desktop journey through Django, mock tutor, PDF and stateles
   await expect(page.getByText('PREPAL · MOCK RESPONSE',{exact:true})).toBeVisible()
   await page.locator('.citation-link').first().click();await expect(page).toHaveURL(/#block-/)
   await page.getByRole('button',{name:'Clear selected passage'}).click()
-  await page.getByRole('checkbox',{name:'Include reviewed related lessons'}).check()
-  await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain relative order and precise dates from the related chronology lesson')
+  await expect(page.getByRole('checkbox',{name:'Include reviewed related lessons'})).toHaveCount(0)
+  await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain quantum entanglement')
   await page.getByRole('button',{name:'Send question'}).click()
   await expect(page.locator('.chat-msg-bot')).toHaveCount(2)
-  await expect(page.locator('.chat-msg-bot').last().locator('.citation-link')).toHaveAttribute('href', /building-chronology/);
+  await expect(page.locator('.chat-msg-bot').last().locator('.citation-link')).toHaveCount(0);
+  await expect(page.locator('.chat-msg-bot').last()).toContainText('do not contain enough information');
   await page.locator('.related-lessons a[href="/topic/building-chronology"]').click();await expect(page).toHaveURL(/building-chronology$/)
   await page.locator('.resource-card').click();await expect(page.locator('canvas')).toBeVisible()
   await expect(page.getByText('Opening page 1…')).toHaveCount(0)
@@ -31,7 +32,7 @@ test('content-first desktop journey through Django, mock tutor, PDF and stateles
   await page.getByRole('button',{name:'Check my answers →'}).click();await expect(page.getByRole('heading',{name:'Understand your answers.'})).toBeVisible()
   await expect(page.locator('.answer-review')).toHaveCount(5)
   await page.getByRole('button',{name:'Try again ↻'}).click();await expect(page.getByRole('radio').first()).not.toBeChecked()
-  await page.goto('/topic/reading-evidence');await page.getByRole('button',{name:'Ask AI Tutor'}).click();await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain the thoughtful reading field guide');await page.getByRole('button',{name:'Send question'}).click();await expect(page.locator('.citation-link')).toHaveAttribute('href', /resources\/1\?page=/);await page.locator('.citation-link').click();await expect(page.locator('canvas')).toBeVisible();
+  await page.goto('/topic/reading-evidence');await page.getByRole('button',{name:'Ask AI Tutor'}).click();await page.getByRole('textbox',{name:'Ask the tutor'}).fill('Explain observation and inference');await page.getByRole('button',{name:'Send question'}).click();await expect(page.locator('.citation-link')).toHaveAttribute('href', /topic\/reading-evidence#block-/);await page.locator('.citation-link').click();await expect(page.locator('.study-reader')).toBeVisible();
   expect(errors).toEqual([])
 })
 

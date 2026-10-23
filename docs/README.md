@@ -1,6 +1,6 @@
 # Documentation index
 
-Start with [AGENTS](../AGENTS.md), [handoff](AGENT_HANDOFF.md), [status](PROJECT_STATUS.md) and [roadmap/checklist](IMPLEMENTATION_PLAN.md). Current HEAD is 49407b2; approved documentation cleanup is uncommitted and publication remains blocked for review. No commit/push/merge/deployment/cutover is authorized.
+Start with [AGENTS](../AGENTS.md), [handoff](AGENT_HANDOFF.md), [status](PROJECT_STATUS.md) and [roadmap/checklist](IMPLEMENTATION_PLAN.md). Current committed HEAD is 8ef43c7; the student platform is implemented locally as uncommitted work. No new commit/push/deployment/real cutover or paid provider request is authorized.
 
 | Need | Canonical document |
 |---|---|

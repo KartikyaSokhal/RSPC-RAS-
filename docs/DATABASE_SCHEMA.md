@@ -1,8 +1,17 @@
-# Current cleanup database boundary
+# Current database schema — student platform
 
-Content migrations **0001–0008** are preserved byte-for-byte. Cleanup adds no model or migration. Original `backend/db.sqlite3` remains at **0004**; existing demos remain at their own recorded schema versions (legacy demo 0008, before-seed-proof 0005, academic sample 0008). Never migrate an existing demo merely to align its version label. Real PostgreSQL cutover is pending separate approval.
+Current source ends at content **0012**. Migrations 0001–0008 are byte-identical. Original backend/db.sqlite3 remains at 0004; all existing demo databases/media remain unchanged. Only new isolated review/test targets were migrated. Normal PostgreSQL configuration and historical foundation evidence follow below; historical counts describe those earlier schemas, not the current release.
 
-Every cleanup verification run uses isolated tests or newly prepared demo directories outside the working checkout. The original and existing demo databases/media are hash-protected, including both referenced duplicate planner PDFs. The full pre-cleanup recovery archive and independently restored original database were verified before mutation. Disposable integration migrations are not a source-data migration. See TESTING and AGENT_HANDOFF for current evidence and recovery location identifiers.
+| Migration | Additions/constraints |
+|---|---|
+| 0009 | StudentIdentity: User one-to-one, unique normalized email, nullable unique Google subject. AuthRateWindow: unique HMAC key, counter and creation index. No legacy user/data backfill. |
+| 0010 | UserProgress.last_visited_at nullable/indexed; completion and visits remain distinct. |
+| 0011 | Topic.estimated_study_minutes nullable 15–2400; owned StudyPlan, selected Topic M2M, weekdays/daily/default estimates/dates/revision. StudyTask retains topic/title snapshot, stage/date/minutes/sequence/completion timestamp; positive minutes, unique plan/sequence and lookup indexes. |
+| 0012 | QuizAttempt immutable JSON snapshot, UUID submission ID/request digest, nullable collection topic; unique owned submission, user/time index. Quiz FK PROTECT preserves history. |
+
+Existing Bookmark/UserProgress conditional user/topic uniqueness remains; user=NULL records are neither assigned nor exposed. New saved attempts snapshot text/choices/answers/explanations and classification while retaining canonical IDs. Legacy attempts honestly retain empty snapshots. Reversing 0009–0012 preserves legacy records but discards the new module tables/fields: back up all newly entered student work first. Reversal is a disposable-test capability, not a production rollback authorization.
+
+New SQLite column operations reuse the existing sequence-preserving migration operation. Disposable PostgreSQL forward/reverse tests preserve original owned and ownerless bookmarks/progress/attempt IDs/fields. A fresh copy migrated 0004→0012 and preserved all 18 original tables/437 rows/columns/IDs/high-water counters with clean integrity/FKs. Synthetic transfer/restore includes identity, limiter, plan/M2M/task and attempt snapshots; actual results are in [TESTING](TESTING.md).
 
 ---
 
@@ -72,3 +81,15 @@ Current rehearsal: 437 original non-migration rows preserved across the source m
 Native PostgreSQL custom-format dump/restore was independently rehearsed into another fresh local database. `scripts/verify_postgres_restore.py PRIVATE_RESULT_JSON` reads the restored target, compares every table and sequence to the rehearsal manifest, and checks constraints; it does not perform restore or cutover. Set the explicit rehearsal environment and migrated-copy path as described in [deployment](DEPLOYMENT.md).
 
 The SQLite archive, private backup/media and code/config baseline remain the recovery sources. Do not switch current code to the unmigrated archive as an automatic fallback. Rehearsal artifacts in temporary directories are not a durable backup policy. Final destination, TLS, least-privilege roles, durable backup storage and the actual cutover require owner review/approval. See verified results (retained privately as `docs/evidence/PHASE_1_VERIFICATION.md`).
+
+## Module 4 — deterministic study planning
+
+Local planner implemented with owned plans/tasks, selected published branches, Monday=0 days, daily capacity and approximate admin estimated_study_minutes per topic. Default 90 minutes is editable per plan; learning allocates 60/20/20% to learn/revise/practice, quick revision halves total (minimum 15), allocated 20/50/30%. Schedules split across chosen days, report exam feasibility and weekly/monthly subject totals. Edits/rescheduling preserve completed task IDs/timestamps and replace unfinished tasks; task completion is separate from marking a whole lesson completed. Migration 0011 is additive and not applied to existing data. Focused student backend: 30 passed. Production gate remains off by default.
+
+## Current PostgreSQL student preparation — 23 October 2026
+
+No model or migration was changed in this task. Schema0001–0012 was genuinely applied to NEW disposable PostgreSQL targets; original SQLite/demo files were not migrated. StudentIdentity→User and owned Bookmark/UserProgress/QuizAttempt/StudyPlan→User, StudyTask→StudyPlan remain the same existing relationships. NULL-owner legacy rows are never assigned automatically.
+
+Actual8002 settings: core.student_demo_settings. Source is ../.recovery/prepal-student-platform-yeqsw05q/student-review/demo.sqlite3 (SQLite), media sibling media/. At preflight: one synthetic staff editor; zero student identities/nonstaff users/sessions/bookmarks/progress/attempts/plans/tasks;142 topics,200 questions,800 choices. Source backup restored40SQLite tables including sqlite_sequence. A restored copy, not the running DB, supplied the PostgreSQL rehearsal:39 application tables/2,433 rows, exact fields/IDs/FKs/migration history;37 sequence high-water marks. Synthetic persistence tests then produced2,467 rows in39 tables, independently dumped/restored with37 sequences plus one synthetic media file. Session, password hash, immutable quiz and completed planner history remained usable after restore. Source/data cutover NOT performed.
+
+Database owner/migration credentials differ from limited runtime and read-only backup roles; new local provisioning revokes PUBLIC database access and public-schema creation. Production needs approved host/CA and verified TLS/role/backup acceptance. The local16.2 binary has no SSL support. No synthetic staff/accounts/publication decisions may be transferred into production without explicit approval.

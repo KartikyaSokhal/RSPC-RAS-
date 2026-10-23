@@ -109,7 +109,7 @@ def main():
     os.environ.update(env)
     os.environ.update(DJANGO_SETTINGS_MODULE='core.rehearsal_settings', PREPAL_REHEARSAL='1', DATABASE_ENGINE='postgresql', POSTGRES_DB=name,
                       PREPAL_REHEARSAL_COPY=str(root / 'migrated/migration-copy.sqlite3'), DJANGO_ENV='development', DEBUG='false',
-                      SECRET_KEY=secrets.token_urlsafe(48), PRIVATE_MEDIA_ROOT=str(root / 'restored/media'))
+                      SECRET_KEY=secrets.token_urlsafe(48), PRIVATE_MEDIA_ROOT=str(root / 'restored/media'), STUDENT_FEATURES_ENABLED='false')
     import django
     django.setup()
     from django.core.management import call_command

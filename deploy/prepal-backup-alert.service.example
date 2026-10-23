@@ -1,0 +1,7 @@
+# journald is local failure evidence, not an off-host alert. Connect the approved
+# infrastructure monitor to this failed unit and the age/status check before use.
+[Unit]
+Description=Record Prepal backup failure for infrastructure monitoring
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/logger -p user.err -t prepal-backup BACKUP_FAILED_check_private_status_and_recovery_runbook

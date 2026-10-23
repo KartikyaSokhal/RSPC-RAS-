@@ -8,6 +8,8 @@ import ContentRenderer from '../components/study/ContentRenderer.jsx'
 import TutorPanel from '../components/ai/TutorPanel.jsx'
 import Skeleton from '../components/ui/Skeleton.jsx'
 import StatusPanel from '../components/ui/StatusPanel.jsx'
+import useAuth from '../hooks/useAuth.js'
+import { post, errorMessage } from '../api/client.js'
 import { LEARNER_FEATURES_UNAVAILABLE_MESSAGE } from '../learnerFeatures.js'
 
 function filterSidebarTree(items, query) {
@@ -23,6 +25,27 @@ function filterSidebarTree(items, query) {
 }
 
 function StudyWorkspace({ topic, roots }) {
+  const { authenticated, featuresEnabled } = useAuth()
+  const syllabus = useSyllabus()
+  const [saved, setSaved] = useState(Boolean(featuresEnabled && authenticated && topic.is_bookmarked))
+  const [completed, setCompleted] = useState(Boolean(featuresEnabled && authenticated && topic.is_completed))
+  const [actionBusy, setActionBusy] = useState(false)
+  const [feedback, setFeedback] = useState('')
+  useEffect(() => {
+    if (featuresEnabled && authenticated && topic.is_learning_unit) {
+      post(`/topic/${topic.slug}/visit/`, {}).catch(() => setFeedback('Reading history could not be saved. You can keep reading.'))
+    }
+  }, [featuresEnabled, authenticated, topic.slug, topic.is_learning_unit])
+  async function updateLearner(kind) {
+    setActionBusy(true); setFeedback('')
+    try {
+      const result = await post(`/topic/${topic.slug}/${kind}/`, kind === 'bookmark' ? {is_bookmarked: !saved} : {is_completed: !completed})
+      if (kind === 'bookmark') setSaved(result.is_bookmarked)
+      else setCompleted(result.is_completed)
+      setFeedback(kind === 'bookmark' ? (result.is_bookmarked ? 'Bookmark saved.' : 'Bookmark removed.') : (result.is_completed ? 'Lesson completed.' : 'Lesson marked incomplete.'))
+      syllabus.retry?.()
+    } catch (error) { setFeedback(errorMessage(error)) } finally { setActionBusy(false) }
+  }
   const [panel, setPanel] = useState('notes')
   const [selected, setSelected] = useState(null)
   const [sidebarFilter, setSidebarFilter] = useState('')
@@ -146,26 +169,14 @@ function StudyWorkspace({ topic, roots }) {
             </div>
 
             <div className="topic-action-controls">
-              <button
-                type="button"
-                className="topic-action-btn"
-                disabled
-                title="Bookmarks are unavailable in this release"
-              >
-                <span aria-hidden="true">☆</span> Bookmark Topic
+              <button type="button" className="topic-action-btn" disabled={!featuresEnabled || !authenticated || !topic.is_published || actionBusy} aria-pressed={saved} onClick={() => updateLearner('bookmark')}>
+                {saved ? '★ Remove Bookmark' : '☆ Bookmark Topic'}
               </button>
-
-              <button
-                type="button"
-                className="topic-action-btn"
-                disabled
-                title="Completion tracking is unavailable in this release"
-              >
-                <span aria-hidden="true">○</span> Mark as Completed
+              <button type="button" className="topic-action-btn" disabled={!featuresEnabled || !authenticated || !topic.is_learning_unit || actionBusy} aria-pressed={completed} onClick={() => updateLearner('progress')}>
+                {completed ? '✓ Mark as Incomplete' : '○ Mark as Completed'}
               </button>
             </div>
-
-            <p className="topic-action-feedback" role="status">{LEARNER_FEATURES_UNAVAILABLE_MESSAGE}</p>
+            <p className="topic-action-feedback" role="status">{feedback || (!featuresEnabled ? LEARNER_FEATURES_UNAVAILABLE_MESSAGE : !authenticated ? <Link to="/login" state={{from: location}}>Sign in to save bookmarks and progress.</Link> : !topic.is_learning_unit ? 'Completion becomes available when learning material is published.' : '')}</p>
           </header>
 
 

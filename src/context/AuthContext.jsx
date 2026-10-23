@@ -6,7 +6,7 @@ function getCookie(name) {
   return match ? decodeURIComponent(match[2]) : null
 }
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children, enabled = false }) {
   const [user, setUser] = useState(null)
   const [authenticated, setAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -45,8 +45,9 @@ export function AuthProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    refreshStatus()
-  }, [refreshStatus])
+    if (enabled) { refreshStatus() }
+    else { setAuthenticated(false); setUser(null); setLoading(enabled === null) }
+  }, [enabled, refreshStatus])
 
   const login = async ({ username, password }) => {
     const token = await fetchCsrfToken()
@@ -90,22 +91,20 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     const token = await fetchCsrfToken()
-    try {
-      await fetch('/api/auth/logout/', {
+    const response = await fetch('/api/auth/logout/', {
         method: 'POST',
         headers: {
           'X-CSRFToken': token,
         },
         credentials: 'same-origin',
       })
-    } finally {
+      if (!response.ok) throw new Error('Sign out failed. Please try again.')
       setAuthenticated(false)
       setUser(null)
-    }
   }
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, login, register, logout, refreshStatus }}>
+    <AuthContext.Provider value={{ user, authenticated, featuresEnabled: enabled === true, loading, login, register, logout, refreshStatus }}>
       {children}
     </AuthContext.Provider>
   )

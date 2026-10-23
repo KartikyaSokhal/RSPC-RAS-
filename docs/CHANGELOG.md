@@ -1,4 +1,21 @@
+## 23 October 2026 — approved staging release publication
+
+Prepared the reviewed student-platform/Render candidate for an approved normal development-branch publication, with exact index/diff/secret checks and post-push SHA/CI verification. Added repository-specific Render access instructions that preserve existing selections and require separate approval before permission expansion. No application edits, paid provisioning, deployment, real database migration/cutover or main merge in this publication task.
+
+---
+
 # Changelog
+
+## 23 October 2026 — local student platform (uncommitted)
+
+- Added secure session/password/reset and mocked Google OAuth flow, stable identity and HMAC rate limits; production gate stays opt-in.
+- Enabled owned dashboard/bookmarks/completion/visits, deterministic planner and immutable saved canonical practice; guests remain stateless and legacy ownerless data remains private.
+- Authored 25 new isolated draft lessons, 125 MCQs/500 choices and source/review inventory without human publication claims.
+- Restricted Tutor to current published note evidence; preserved cost controls, mocked verification, reader discovery and existing resources.
+- Added reversible migrations 0009–0012, isolated PostgreSQL/migration/restore tests and desktop/mobile student journeys; updated existing documentation/CI/release inputs.
+- Preserved original SQLite, all previous demos/media/credentials and migrations 0001–0008. No commit/push, production cutover, deployment or paid request.
+
+
 
 Current worktree changes are uncommitted. Significant decisions remain in [DECISIONS](DECISIONS.md); verified private archives preserve complete earlier narratives. [TESTING](TESTING.md) separates fresh results from historical evidence.
 
@@ -33,3 +50,19 @@ Phase 1 made PostgreSQL mandatory normal storage, added isolated transfer/backup
 ## 19 October 2026 — historical foundation
 
 Established guest reading/search/reviewed stateless practice, explicit publication/resource review, safe HTML/Markdown and mock/budgeted AI architecture. Earlier search/UI/auth/dashboard experiments and audit plans preceded the later content-first containment. Historical PostgreSQL/Chromium/transfer evidence is retained privately and summarized only with its original date/limits; none is relabeled current production proof.
+
+## 23 October 2026 — local authentication navigation restoration
+
+Restored local student navigation by selecting the prepared student backend, placing theme before account actions, defaulting normal development learner access off, and adding guarded startup/dev-only proxy routing. Added header/login/session/keyboard/theme and local configuration regressions; preserved existing learner ownership, production restrictions, old databases and uncommitted work. No migrations/commit/push/deployment.
+
+## 23 October2026 — PostgreSQL student-data/security preparation (uncommitted)
+
+Added guarded PostgreSQL profiles, connection/statement/lock/idle limits, separate least-privilege local migration/runtime/backup roles, private-env operations CLI, ID-preserving student rehearsal with real backend restart checks, native CMS AES-256-GCM DB/media backup/restore, status/age/failure reporting and review-only retention planning. Added unactivated daily systemd/failure templates and non-destructive account-deletion readiness/reauthentication policy gate. Existing auth/data models and0001–0012 unchanged; original/demo data and8002 configuration preserved. No actual cutover, production scheduler/off-host integration, account deletion, paid request, commit/push/deploy. Current verification is in TESTING; earlier reports remain historical.
+
+## 23 October 2026 — staging candidate (unreleased)
+
+Prepared Render-only same-origin delivery, private staging gate, secure config validation, WhiteNoise6.12.0 hash locks and non-migrating build/start scripts. Restored sanitized root.env.example with owner approval; tightened required release inputs. Fixed verified CI keyboard accessibility issue in Tutor scrolling. Inspected designated Render/Vercel identities, existing services, GitHub permissions and cost/TLS constraints. No external resource provisioned, commit/push/deployment or original database change.
+
+Staging security audit initially found PYSEC-2026-4320 in certifi2026.10.18 and CVE-2026-114136/114137/114138 in DRF3.17.2. Updated to the upstream fixed certifi2026.10.19/DRF3.18.2 and regenerated both hash locks; final runtime advisory scan is clean. This required clearing Django's cached Authorization mapping after staging Basic authentication so patched DRF does not treat the separate staging credential as a student credential. No token-auth system was introduced.
+
+Created the authorized non-billable Prepal project container and empty Staging environment in the verified Render workspace. No compute/database resources, secrets or data were added. See DEPLOYMENT for the actual project URL.

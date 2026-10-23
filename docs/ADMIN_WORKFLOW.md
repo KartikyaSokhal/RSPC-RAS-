@@ -1,6 +1,6 @@
 # Local academic sample content — 21 October 2026
 
-The new `.local/sample-content-v1` demo uses the existing syllabus IDs, titles, slugs and parents exactly. It contains no invented syllabus nodes. Its canonical input is `backend/content/fixtures/sample_lessons_v1.json`; preparation and startup are documented in [README](../README.md#academic-sample-demo--21-october-2026).
+The new `.local/sample-content-v1` demo uses the existing syllabus IDs, titles, slugs and parents exactly. It contains no invented syllabus nodes. Its canonical input is `backend/content/fixtures/sample_lessons_v1.json`; preparation and startup are documented in [README](../README.md#isolated-student-review-demo).
 
 | Original subject | Existing lesson ID and title | Reader path | Note words | MCQs |
 |---|---|---|---:|---:|
@@ -40,19 +40,19 @@ Edit this isolated demo through the existing draft/review/publish workflow if de
 
 Matching supports case-insensitive whole phrases, Unicode marks/casefold and variable whitespace. Longest approved overlaps win before duplicate-target suppression; maximum eight links per article. Existing links/headings/code are skipped. Phrases spanning separate inline-formatting text nodes are intentionally not joined; use a coherent phrase or a manually authored safe link. Ambiguous vocabulary is withheld for editorial correction. Existing source/formatting/resource rules below remain; earlier statements that aliases have no link behavior describe Phase 2 only.
 
-Public tag routes use released associations and stable slugs. Subject practice references canonical questions from published branches and matching reviewed quiz containers; no copying, saved attempts, new quiz authoring system or learner login is enabled.
+Public tag routes use released associations and stable slugs. Subject practice references canonical questions from published branches and matching reviewed quiz containers, without copying questions. Guest checks remain stateless; the enabled student platform additionally supports owned immutable attempts.
 
 
 # Content editing, review and publication
 
-Use Django Admin. Real PostgreSQL cutover needs separate approval; isolated SQLite/PostgreSQL authoring tests are available. Phase 2 retains the content-first boundary: student accounts/reports are disabled while normal staff login remains functional. Give real editors named staff accounts with only required content permissions; do not reuse demo credentials or share superuser access.
+Use Django Admin. Real PostgreSQL cutover needs separate approval; isolated SQLite/PostgreSQL authoring tests are available. The current student gate is opt-in in production; content-only demos keep it closed. Administrative learner reports remain disabled while staff login works. Give real editors named staff accounts with only required content permissions; do not reuse demo credentials or share superuser access.
 
 ## Lesson workflow
 
 1. Create parent collections first, then ordered Topic children. Existing published slugs/parents remain stable; creating a cycle is rejected.
 2. Add ordered ContentBlock headings/text/images. Text accepts educational HTML; unsafe markup and inline remote images are stripped from publication. Use image blocks for validated PNG/JPEG/WebP with alt text, caption and source. Stored draft HTML is preserved.
 3. Save drafts, then open **Preview draft** from the topic list. Preview is staff-only and sanitized; private image preview is permission checked. Saving drafts does not change the public version.
-4. Select controlled tags on the Topic; register keywords in Topic keyword aliases with their Topic and draft/approved/withdrawn status. Aliases are not yet searchable links. Add related/prerequisite TopicRelation entries with a useful reason and explicitly approve reviewed edges before publishing the source. Targets must independently be public. Revoking an edge suppresses it immediately in existing consumers.
+4. Select controlled tags on the Topic; register keywords in Topic keyword aliases with their Topic and draft/approved/withdrawn status. Approved aliases support the evidence-reviewed linking workflow above; saving one never approves every phrase. Add related/prerequisite TopicRelation entries with a useful reason and explicitly approve reviewed edges before publishing the source. Targets must independently be public. Revoking an edge suppresses it immediately in existing consumers.
 5. Use **Submit for review** to mark the saved draft awaiting review; this does not publish. Review facts, claims, sources, reading order, formatting, image rights and alternatives. Select **Publish selected topics after editorial review**; publish parents before children. Public catalog/reader/search/tutor all use that snapshot.
 6. Withdraw to hide the topic and descendants without deleting rows. Republish the previous approved snapshot when appropriate; this increments revision and preserves the replaced current snapshot as the previous one.
 
@@ -64,7 +64,7 @@ Upload a LearningResource with its Topic, title, source reference and rights not
 
 Open the resource's **Inspect private source PDF** and **Review extracted pages** links after processing. Compare page count/order and text with the original; identify scanned pages and extraction mistakes. Encrypted/active/invalid files fail; pages without enough text become `needs_ocr` and cannot be approved. No paid OCR is used. Approved/processed candidates cannot be silently overwritten in Admin; upload a new candidate for revisions.
 
-Approve only `ready` resources with verified source/rights. Then publish the topic to explicitly include the approved resource. Withdrawal immediately removes public file, search and RAG access. Raw private-media links are never publicly routed. Historical ContentBlock attachments remain stored but are withheld from public reading until represented by an explicitly reviewed LearningResource. This is an intentional compatibility restriction; no original file or record is deleted.
+Approve only `ready` resources with verified source/rights. Then publish the topic to explicitly include the approved resource. Withdrawal immediately removes public file and search access. PDFs are excluded from the current-lesson Tutor evidence. Raw private-media links are never publicly routed. Historical ContentBlock attachments remain stored but are withheld from public reading until represented by an explicitly reviewed LearningResource. This is an intentional compatibility restriction; no original file or record is deleted.
 
 ## Quiz workflow
 
@@ -81,3 +81,25 @@ Target real unit: eight connected lessons, forty reviewed MCQs and two rights-cl
 ## Administrative accounts and navigation
 
 Staff login/logout remains at `/admin/`. Superusers may manage staff accounts; learner reports, nonstaff account details and direct learner-model Admin/history URLs are closed. The previous Students navigation/report source is retained dormant; it is not a release toggle. The three primary sections are Topics, Content and Practice Questions, shown only for assigned permissions. Assign view/add/change permissions for the necessary Topics, blocks, resources, tags, aliases, relations, quizzes, questions and choices; no permission is granted automatically by migration. Superusers alone see advanced maintenance, extracted-page maintenance and staff-account management. PDF reviewers without extracted-page access can inspect the private source PDF; superusers can inspect extracted-page records. Saving a standalone Content block is draft-only. Tags are a controlled registry; normalized names and slugs must be unique. Slugs remain stable on tag renames. Published topic slug/parent stability remains the existing policy; relation/alias/question FKs remain stable regardless of title/slug edits.
+
+## Module 4 — deterministic study planning
+
+Local planner implemented with owned plans/tasks, selected published branches, Monday=0 days, daily capacity and approximate admin estimated_study_minutes per topic. Default 90 minutes is editable per plan; learning allocates 60/20/20% to learn/revise/practice, quick revision halves total (minimum 15), allocated 20/50/30%. Schedules split across chosen days, report exam feasibility and weekly/monthly subject totals. Edits/rescheduling preserve completed task IDs/timestamps and replace unfinished tasks; task completion is separate from marking a whole lesson completed. Migration 0011 is additive and not applied to existing data. Focused student backend: 30 passed. Production gate remains off by default.
+
+## Student-platform content review batch — 23 October 2026
+
+Prepare only a NEW destination with scripts/prepare_student_demo.py (README). The original SQLite, existing sample and demos must not be migrated/reset. New source fixture: backend/content/fixtures/student_lessons_v2.json. It contains 25 new lesson IDs, 10,929 note words, 125 MCQs and 500 choices, plus original sources and controlled tags. Seeded notes are editorial in_review, quizzes have no QuizReview approval and new aliases/relations stay draft. No human reviewer is invented. The private review-inventory.json records every syllabus path/reference/status and proposed relationship. Repeated unchanged seed runs are idempotent; altered notes cause refusal rather than overwrite.
+
+| Actual root subject | Five existing lesson IDs / exact titles |
+|---|---|
+| History, Art, Culture, Literature, Tradition & Heritage of Rajasthan | 32 c. Palaces; 34 7. Various schools of paintings and handicrafts; 38 c. Folk Music & Instruments; 39 d. Folk Dances & Drama; 49 a. Fairs and Festivals |
+| Ancient & Medieval Period | 56 a. Indus and Vedic Age; 66 d. Gupta; 69 g. Chola; 88 a. Bhakti; 89 b. Sufi Movement |
+| Modern Period (from early 19th century to 1964) | 92 a. Intellectual awakening; 94 c. Western education; 99 b. Instituitions; 105 b. Institutional building during Nehruvian age; 106 c. Development of science and technology |
+| World Geography | 109 a. Mountains; 110 b. Plateaus; 111 c. Plains; 113 2. Major Rivers; 114 3. Major Lakes |
+| Geography of India | 125 a. Plateaus; 126 b. Plains; 127 c. Mountains; 130 10. Major Rivers of india; 131 11. Major Lakes of India |
+
+The table preserves stored titles/spelling; stable slugs and full paths are in the private inventory. All new lessons are different from the prior 15 sample lessons. Primary MCQ locations use canonical lesson IDs; subject collections derive ancestry without copying questions. New practice remains unavailable publicly until human content publication and explicit quiz review.
+
+Review references/facts/rights, format and MCQ explanations. Inspect private preview, approve suitable aliases/relationships, explicitly publish eligible ancestors/lesson and review the quiz. Run existing Suggest Connections/regenerate workflow and approve exact source evidence before active links appear. Withdrawal immediately suppresses public links/discovery. Draft proposals never masquerade as approved navigation. Existing old sample links/tag pages/practice remain engineering regression fixtures.
+
+Topic estimated_study_minutes is an optional validated approximate total for learning/revision/practice. Planner defaults are labelled estimates. Student identity/planner/attempt records do not create a new Admin student-management scope; existing learner report restrictions remain.

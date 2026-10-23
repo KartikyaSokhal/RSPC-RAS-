@@ -26,3 +26,4 @@ os.environ["PYTHON_DOTENV_DISABLED"] = "1"
 
 # Never inherit real editorial approvals into synthetic test fixtures.
 APPROVED_QUIZ_IDS = ()
+STUDENT_FEATURES_ENABLED = False

@@ -66,6 +66,12 @@ jobs:
           backend/.venv/bin/python scripts/prepare_sample_demo.py --directory "$PREPAL_DEMO_ROOT"
           backend/.venv/bin/python scripts/verify_sample_demo.py
           npm run test:sample
+      - name: Fresh isolated student review and owned browser journeys
+        env:
+          PREPAL_DEMO_ROOT: ${{ runner.temp }}/prepal-student-review
+        run: |
+          backend/.venv/bin/python scripts/prepare_student_demo.py --directory "$PREPAL_DEMO_ROOT"
+          npm run test:student
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

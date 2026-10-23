@@ -11,16 +11,24 @@ TOP = {
     '.env.example', '.gitignore', '.nvmrc', '.python-version', 'AGENTS.md', 'README.md',
     'index.html', 'package.json', 'package-lock.json', 'eslint.config.js',
     'vite.config.js', 'vitest.config.js', 'playwright.config.js',
-    'playwright.integration.config.js', 'playwright.sample.config.js', 'prepal.code-workspace',
+    'playwright.integration.config.js', 'playwright.sample.config.js', 'playwright.student.config.js', 'prepal.code-workspace',
 }
 BACKEND = {
     '.env.example', '.gitignore', 'README.md', 'manage.py', 'run_tests.py', 'gunicorn.conf.py',
     'requirements.in', 'requirements.txt', 'requirements-dev.in', 'requirements-dev.txt',
 }
-TREES = ('src', 'public', 'e2e', 'e2e-integration', 'e2e-sample', 'scripts', 'deploy',
+TREES = ('src', 'public', 'e2e', 'e2e-integration', 'e2e-sample', 'e2e-student', 'scripts', 'deploy',
          '.github', 'backend/content', 'backend/core')
 SKIP = {'__pycache__', 'node_modules', '.venv', 'env', '.local', '.git', '.pytest_cache'}
 REQUIRED = {
+    'backend/content/student_auth.py', 'backend/content/student_views.py',
+    'backend/core/render_settings.py', 'backend/core/render_support.py',
+    'backend/core/render_urls.py', 'backend/core/static_build_settings.py',
+    'deploy/render-build.sh', 'deploy/render-start.sh', 'deploy/render-gunicorn.conf.py',
+    'backend/content/test_render.py',
+    'backend/content/services/planner.py', 'backend/content/services/attempts.py',
+    'backend/content/fixtures/student_lessons_v2.json', 'src/pages/plannerPage.jsx',
+    'scripts/prepare_student_demo.py', 'e2e-student/platform.spec.js',
     'docs/AGENT_HANDOFF.md', 'docs/PROJECT_STATUS.md', 'docs/MVP_SCOPE.md',
     'docs/ADMIN_WORKFLOW.md', 'docs/AI_SYSTEM.md', 'docs/FEATURES.md',
     'src/pages/tagPage.jsx', 'src/pages/learnerUnavailablePage.jsx',
@@ -59,7 +67,7 @@ def private_values(root):
     if env.exists():
         for line in env.read_text().splitlines():
             key, sep, value = line.partition('=')
-            if sep and key.strip() in {'SECRET_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY', 'POSTGRES_PASSWORD'}:
+            if sep and key.strip() in {'SECRET_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY', 'POSTGRES_PASSWORD', 'GOOGLE_CLIENT_SECRET', 'EMAIL_HOST_PASSWORD'}:
                 value = value.strip().strip('\"\'')
                 if len(value) >= 12:
                     values.add(value.encode())
