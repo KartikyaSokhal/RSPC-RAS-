@@ -1,3 +1,9 @@
+## Restricted free Render demo (not deployed)
+
+Use core.free_demo_settings via bash deploy/render-free-demo-start.sh only after separate live configuration/release approval. Set DJANGO_ENV=production, PREPAL_ENVIRONMENT=free-demo, PREPAL_FREE_DEMO=1 and PREPAL_FREE_DEMO_SYNTHETIC_DATA=1; retain existing signing/access/database credentials. Use external Render PostgreSQL hostname, verify-full and valid CA (pinned certifi default). Normal render-start/production/staging settings remain unchanged. No build/start migration or seeding; no upload directory or SQLite fallback. See [deployment](../docs/DEPLOYMENT.md) and [testing](../docs/TESTING.md) for exact observed service state, limitations and pending authenticated DB audit.
+
+---
+
 # Prepal Django backend
 
 Python 3.14.6, Django 6/DRF, PostgreSQL via hash-pinned psycopg and Django Admin. Install `requirements-dev.txt` with `--require-hashes` in backend/.venv as described in the [root README](../README.md). Retired Express/Mongo code remains private and is not a launch path.

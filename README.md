@@ -87,3 +87,8 @@ A single-origin Render staging configuration is prepared in deploy/render-build.
 
 
 The reviewed staging candidate is published through the development branch with CI verification; publication does not activate hosted services. See [deployment and repository access](docs/DEPLOYMENT.md) for the separate Render permission and infrastructure gates.
+
+
+A restricted free Render demonstration profile is prepared locally: same-origin React/Django/static delivery, private access, text-only synthetic content, disabled learner/AI features and no uploads. It preserves production security and uses verified external PostgreSQL TLS. It is not deployed. See [free-demo configuration](docs/DEPLOYMENT.md).
+
+The restricted free-demo candidate is approved for main publication. GitHub visibility is Public with explicit owner approval. Render auto-deploy is Off; the start switch and manual deployment remain blocked on live profile/database prerequisites. See [deployment readiness](docs/DEPLOYMENT.md) and [current handoff](docs/AGENT_HANDOFF.md).

@@ -1,3 +1,9 @@
+## Current free-demo scope
+
+Owner selected existing Free Render web/PostgreSQL17 resources only. Prepare changes locally; no purchases/upgrades, Git release, live configuration/redeploy, DB initialization/write/cutover. New profile must preserve production-strength settings, existing barrier/secrets, strict TLS and synthetic-only content while disabling student/AI features and uploads. No durable private media or production user data on free resources. External verified TLS is available; no require-mode exception is approved or implemented. Previous paid architecture remains a future production option, not current authority.
+
+---
+
 ## Approved staging branch publication
 
 The owner authorized committing and normally pushing the reviewed staging candidate after final staged security/diff checks. This includes its required student-platform source/migrations and tested staging configuration; it does not authorize unrelated implementation. Render GitHub access instructions only, no permission grant. Paid infrastructure, real data cutover, production launch, main merge and billable Gemini remain excluded. Stop if release security/divergence/critical CI checks fail.

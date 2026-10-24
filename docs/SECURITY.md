@@ -1,3 +1,19 @@
+## Free-demo publication security review — 24 October2026
+
+GitHub visibility is now Public, unlike the previous private-release observation. Owner explicitly approved publishing this reviewed candidate after disclosure of the changed scope and known retired Django key in reachable history. Retired key stays retired; no history/visibility rewrite. Required release/staged scans exclude real environment files, credentials, databases, media, backups and generated artifacts. Existing production/staging/TLS modules and private file hashes are preserved.
+
+Render auto-deploy is Off before main publication. No secret/environment edits or redeploy; free-demo acknowledgements cannot be asserted until the live target is audited as synthetic. Internal host plus verify-full remains an explicit blocker, never a reason to lower TLS. Authenticated SQL/schema/roles and current hosted service security remain unverified.
+
+---
+
+## Restricted free-demo controls
+
+Production/staging/shared database security files are unchanged. New profile requires explicit synthetic/free-demo opt-in, strong production secret/HTTPS/host validation, existing private access barrier and external PostgreSQL verify-full plus trusted CA. It rejects internal host and lower TLS modes. Actual external TLS1.3/certificate/hostname negotiation passed; no login or SQL was performed. Credentials were not exposed or changed; browser-redacted placeholders are not usable credentials. Do not invent a successful authenticated connection.
+
+Students, signup/login, progress/planner/attempt saving, Gemini/Google/email are forced off. All multipart requests are rejected before parsing; default storage rejects writes/reads/deletion and Admin content-changing methods are blocked. Existing private media environment value is preserved but unused. Only synthetic staff sessions/content are allowed in the designated disposable DB, after read-only audit. Current live inbound rules include0.0.0.0/0 and were not changed: separately review/narrow before hosted acceptance. No production user data on free, expiring PostgreSQL; no valuable uploads to ephemeral web storage. Normal30-day encrypted production recovery requirements remain unfulfilled by free demo and unchanged.
+
+---
+
 ## Staging publication security gate
 
 Only the reviewed candidate may be committed/pushed, after verifying the complete Git index excludes real environment files, credentials, databases, media, backups and generated artifacts. Safe blank.env.example templates remain included. Scan the exact staged snapshot and compare known local/private and retired historical keys without logging values. The known retired Django key remains in historical commits and must never be reused; scanner silence does not erase that known exposure. No history rewrite. Render installation access is not granted by this batch; DEPLOYMENT provides the repository-specific least-privilege approval steps.

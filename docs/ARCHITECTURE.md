@@ -1,3 +1,11 @@
+## Restricted Render Free demonstration
+
+core.free_demo_settings is an explicit alternative, separate from existing production/staging profiles. It imports normal strong production settings, then requires free-demo identity/two synthetic acknowledgements, full external-host TLS with a trusted CA, exact HTTPS origin and the existing independent staging password barrier. It reuses reviewed Render SPA routes/static serving; free_demo_urls adds a minimal database-readiness503 boundary. No source schema or production policy changed.
+
+FreeDemoRestrictions rejects multipart before parsing and Admin content-changing requests (synthetic staff login/logout remain). DisabledUploadStorage denies uploads, file reads/deletion and media URLs; no persistent or valuable ephemeral file storage exists. Student/AI/Google flags and provider keys are disabled in runtime regardless of opt-in environment values, without altering stored environment secrets. Read-only content/search/reviewed stateless practice remain; only an explicitly synthetic disposable PostgreSQL target may be selected. Test browser adapter substitutes a newly prepared SQLite fixture only in private test settings, not in deployable profile.
+
+---
+
 # Architecture
 
 Prepal is a React 19/Vite SPA plus Django 6/DRF, Django Admin and PostgreSQL. The student platform extends existing models/routes/components; no duplicate application stack is introduced. [Database schema](DATABASE_SCHEMA.md), [API](API_DOCUMENTATION.md), [Admin workflow](ADMIN_WORKFLOW.md) and [AI system](AI_SYSTEM.md) describe their detailed boundaries.

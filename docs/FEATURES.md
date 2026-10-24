@@ -1,3 +1,9 @@
+## Free Render demo candidate — local only
+
+Prepared password-protected React/API/Admin/static demo with forced-off student accounts, progress/planner/attempt saving and AI/Google/email. Reader content/discovery and stateless reviewed practice reuse existing code. Admin content mutations and every upload are disabled; no valuable data/media is accepted. Strict external PostgreSQL TLS is retained; only TLS negotiation is verified live, not SQL/schema/content. No new deployment was made. Free database expires23November2026 and is not production storage.
+
+---
+
 # Feature inventory
 
 Current implementation is uncommitted work over 8ef43c7 on codex/prepal-1-0. Verification is local, with isolated databases and mocked external providers; it is not production acceptance.

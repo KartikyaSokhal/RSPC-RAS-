@@ -1,3 +1,15 @@
+## Current authority — approved free-demo publication to main
+
+24 October2026: owner authorizes committing the verified free-demo candidate and a normal fast-forward push to main in KartikyaSokhal/RSPC-RAS-. Remote main038a4b2ff8a40b84b6d2c272b3c5835a1d793c5d contains approved deployment1e685ee2a7b408fe6936dd0245fa776630d3286e with identical tree. GitHub is now Public; owner explicitly approved publication after being told of this visibility change and the retired historical key. Never reuse that key or rewrite history. Existing Render auto-deploy was changed from On Commit to Off before publication; keep it off. No manual redeploy, live SQL writes/migrations/schema creation, secret changes, paid resources or production cutover. Start-command switch is conditional on verified free-demo prerequisites: current staging/internal-host settings and missing demo acknowledgements do not pass. Leave the existing start command until those gates are resolved; see newest handoff. Historical authority sections below do not supersede this authorization.
+
+---
+
+## Current authority — restricted free Render demo, 24 October 2026
+
+Prepare locally only: existing Free Web Service srv-dbe6d5vb9u1s738ikh80 and existing Free PostgreSQL17 dpg-dbe7a1oae00c73c5g090-a in the designated Render account. No paid resources/upgrades, commit/push/redeploy, live DB writes/migrations or cutover. Use core.free_demo_settings only with its explicit acknowledgements and production-strength HTTPS/secret settings. Existing production/staging/database policy files must remain unchanged. Free demo always disables learner/AI/Google, rejects uploads and Admin content mutations, and has no persistent media. Only synthetic data/accounts may be selected; audit the target read-only before any separately approved initialization. The exact external Render endpoint passed CA/hostname/TLS1.3 negotiation, but authenticated SQL/schema/data remain unverified. Never fall back to require/disable/internal self-signed TLS to make it boot. Reuse DEPLOYMENT and the newest handoff. Prior publication authority does not authorize this batch's Git operations.
+
+---
+
 ## Current release authority — 23 October 2026
 
 The owner approved committing and normally pushing the reviewed staging candidate to codex/prepal-1-0 after exact staged-diff and secret checks. This supersedes earlier Git-publication prohibitions for this candidate only. All259 reviewed source inputs matched their approved hashes at preflight; required student source/migrations are part of this reproducible deployment candidate. No unrelated changes may be included. Stop on unexpected secrets, divergence or critical CI failure. No force push, main merge, paid provisioning, production deploy, database cutover or billable Gemini request. Render access work is instructions only; do not grant new permissions under this batch.

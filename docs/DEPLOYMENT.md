@@ -1,3 +1,45 @@
+# Free Render demonstration — approved main release, 24 October 2026
+
+Use only existing [RSPC-RAS- Web Service](https://dashboard.render.com/web/srv-dbe6d5vb9u1s738ikh80/settings) and [prepal-staging-db](https://dashboard.render.com/d/dpg-dbe7a1oae00c73c5g090-a/info) under kartikyasokhal28@gmail.com. Both are Free/Singapore in the existing Prepal project. The database is PostgreSQL17/Available in the project's db environment and expires23November2026; web is in Staging. The publication task disabled auto-deploy; no resources, permissions, secrets or other service settings were changed. No paid upgrade, new purchase or persistent disk is needed for this **synthetic, text-only demonstration**. It cannot hold valuable data or uploads.
+
+The service tracks main, with auto-deploy now Off (saved and verified before publication), repository root, bash deploy/render-build.sh and bash deploy/render-start.sh, health/api/health/. Latest completed failure stopped at core.staging_settings environment guard before DB access; subsequently inspected flags are production/staging and verify-full/internal hostname. Do not label that historical failure an observed TLS failure. No successful hosted React/API/health result exists yet. Only auto-deploy Off and a conditional start-command switch are authorized. No redeploy, live environment/secret edit or DB write is authorized. The start switch is deferred: current PREPAL_ENVIRONMENT is staging, POSTGRES_HOST is internal, and PREPAL_FREE_DEMO/PREPAL_FREE_DEMO_SYNTHETIC_DATA are absent. Do not falsely acknowledge an unaudited target as synthetic.
+
+## Prepared separate profile
+
+Start command to save only after all prerequisites below are verified: `bash deploy/render-free-demo-start.sh`. Existing build remains `bash deploy/render-build.sh` and never migrates or seeds. This selects core.free_demo_settings without changing production/staging/database policy modules.
+
+| Configuration | Required for this demo only |
+|---|---|
+| DJANGO_ENV / DEBUG |production / false; normal strong key and explicit host validation apply |
+| PREPAL_ENVIRONMENT |free-demo |
+| PREPAL_FREE_DEMO / PREPAL_FREE_DEMO_SYNTHETIC_DATA |1 /1, explicit acknowledgement of disposable synthetic target |
+| SECRET_KEY / STAGING_ACCESS_USERNAME / STAGING_ACCESS_PASSWORD |Retain existing private values; no rotation in this task |
+| POSTGRES_DB / POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_PORT |Retain existing private connection values |
+| POSTGRES_HOST |Exact external hostname: dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com |
+| POSTGRES_SSLMODE |verify-full; require/disable/verify-ca are refused |
+| POSTGRES_SSLROOTCERT |Existing trusted CA file when configured; otherwise pinned certifi CA bundle |
+| ALLOWED_HOSTS / SITE_ORIGIN |Exact Render hostname / matching HTTPS origin; no wildcard/CORS expansion |
+| PRIVATE_MEDIA_ROOT |Existing variable preserved but not used for any files in free profile |
+| STUDENT_FEATURES_ENABLED / AI_ENABLED / AI_GUEST_ENABLED |Always false, even if environment attempts an opt-in |
+
+The start script disables dotenv loading and selects only this profile. Secure host-only cookies, CSRF/HTTPS/HSTS policy and the independent staging Basic password barrier remain. Only healthGET/HEAD bypasses the barrier. No private credentials are logged, copied into source or embedded in frontend variables. New profile disables outbound email/Google/Gemini, and does not permit the staging student-test escape hatch. Admin login/logout for synthetic staff may use database sessions; content-changing Admin methods and every multipart request return403 before file parsing. Default media storage rejects direct saves/opens/deletes. No upload directory or ephemeral user database is created. Static build assets are regenerable; text sample content stays in the designated disposable PostgreSQL target after separate initialization approval.
+
+## TLS and actual connectivity evidence
+
+Render [internal TLS](https://render.com/docs/postgresql-creating-connecting#ssl-modes-for-internal-connections) uses self-signed certificates and cannot satisfy verify-full. We did not weaken that policy. The external endpoint actually passed trusted CA and hostname verification with TLS1.3, cipher TLS_AES_128_GCM_SHA256, using PostgreSQL SSLRequest negotiation. This proves network reachability and certificate validation from the local machine; it does not prove a web-service-origin connection, database authentication, schema or role permissions. No SQL or live DB write was performed. Browser-redacted credentials cannot be used as a connection string; do not try a placeholder or print passwords. A private existing environment file is required to complete authenticated read-only SELECT/version/schema/count checks. No root cause is inferred from an unperformed authenticated query.
+
+Current inbound rules include0.0.0.0/0. This local-only task leaves them unchanged; narrowing needs an approved live network configuration change and appropriate service/operator addresses. Do not disable certificate verification or open further access to troubleshoot. The profile refuses an internal host rather than silently selecting require mode. No TLS exception is proposed because a verified external endpoint is available.
+
+## Acceptance and free-tier limits
+
+[Free Render limits](https://render.com/docs/free) include idle spin-down, ephemeral web files, no disk/SSH/Shell/one-off jobs and a30-day expiring free database. Outbound/public-database traffic can also lead to suspension. Render may bill bandwidth/build overages if a payment method is present; inspect account usage/spend policy before live redeploy, without automatically changing plans/payment settings. The owner permits no purchases/upgrades. Production30-day encrypted-backup requirements remain unchanged and are not met by this expiring demo; no production data is permitted here.
+
+Current live DB contents, migration state and accounts are unverified. Before a separately approved initialization or deployment: read-only audit the exact database; confirm disposable/synthetic intent and absence of valuable records; review empty-target migrations0001–0012 and safe synthetic seed procedure; preserve existing secrets; deploy only reviewed code/profile. No in-build or automatic startup migrate/seed is provided. Health checks return503 on missing schema/connectivity and200 only when the publication table is readable. Keep Admin content changes disabled and learner/AI off. Verify hosted HTTPS/access/CSRF/assets/notes/practice and read-only DB after separate approval. Do not report local SQLite browser tests as live PostgreSQL acceptance.
+
+One read-only HTTPS request to https://rspc-ras.onrender.com/api/health/ timed out after12seconds. Free-tier spin-up may take longer; do not infer a permanent outage or claim API readiness. The new profile passed local Gunicorn/React/Admin/static/health checks against a newly generated synthetic SQLite fixture only.
+
+---
+
 # Staging release publication authority — 23 October 2026
 
 Owner approved the reviewed staging candidate for commit/normal push to the existing codex/prepal-1-0 branch, subject to final index/diff/secret checks. Source matched the259-file approved manifest; no application changes were added by this publication task. Verify the pushed SHA and its CI run before any future infrastructure step. This approval does not authorize Render permission expansion, paid services, production deployment or real database cutover. Prior approval states below are historical.

@@ -1,3 +1,9 @@
+## 24 October2026 — free demo without a TLS exception
+
+Use a separate text-only, synthetic-only free-demo profile rather than changing production/staging disk/TLS requirements. The external Render PostgreSQL endpoint passed CA/hostname verification over TLS1.3; preserve verify-full and provide a trusted CA bundle. Internal self-signed endpoint is refused. Free uploads are blocked at HTTP, upload-handler and storage boundaries; Admin editing is read-only and learners/AI remain off. Database expires and is explicitly disposable. Authenticated SQL and actual hosted app acceptance remain unverified; no live edits or deployment authorized by local preparation.
+
+---
+
 # Decisions and significant history
 
 Current authority is safe local implementation of the full student platform, not deployment/publication/cutover or paid provider requests. Historical approvals below never bypass the latest owner brief.

@@ -1,3 +1,23 @@
+# Current status — approved free-demo publication on main
+
+24 October2026. main was fast-forwarded to remote merge038a4b2 (identical tree to verified1e685ee); all264 approved release inputs matched before publication-only documentation edits. Owner explicitly approved the now-Public GitHub destination, including disclosure of the known retired key's historical presence. Release SHA/remote equality and CI must be verified after the approved normal push; this document does not predeclare CI success.
+
+Render auto-deploy is now Off (saved and verified), build unchanged. Start-command switch is blocked by current staging/internal-host configuration and missing free-demo acknowledgements; no redeploy, environment/secret edits or live DB SQL. Schema/data/roles remain unaudited. Next: authenticated read-only synthetic-target audit, separately approved configuration/initialization, then manual deployment approval. Local tests/security and limits are in TESTING and the latest handoff.
+
+---
+
+# Current status — free-demo candidate, 24 October 2026
+
+Local clean baseline codex/prepal-1-0 at1e685ee2a7b408fe6936dd0245fa776630d3286e. New restricted free-demo settings/storage/HTTP guard/start script/tests are prepared locally; current work is uncommitted/unstaged and no redeploy is authorized. Production, staging and shared TLS settings are unchanged. No models/migrations or live DB changes.
+
+Existing owner-managed Render service is Free/Python/Singapore at srv-dbe6d5vb9u1s738ikh80, tracks main/038a4b2 with auto-deploy On Commit. Existing Free PostgreSQL17 dpg-dbe7a1oae00c73c5g090-a reports Available and expiry23November2026. Account is the designated email; resources remain in the original Prepal project. Earlier documentation describing an empty project is historical.
+
+External PostgreSQL TLS1.3/CA/hostname verification passed without authentication or SQL. Current internal-host/verify-full combination is unsupported by Render; the new profile requires the verified external endpoint and trusted CA, with no weaker TLS exception. Authenticated SQL/schema/content are pending an existing private credential file; do not claim live DB acceptance. Current service has no verified successful deployment; last failure preceded DB access. Free candidate disables learner/AI/Google, uploads and Admin editorial mutations and has no valuable ephemeral storage. Actual local test results are in TESTING. Next: review local changes and obtain separate commit/push/live configuration/bootstrap/redeploy approval after authenticated synthetic-data checks.
+
+Final local verification:214backend passes/five PGskips;90frontend;15public+4free-demo Chromium;lint/build/system/deploy/migration checks;264release inputs/19docs;secret scan0;16protected hashes unchanged. Hosted health probe timed out after12seconds and authenticated SQL remains unverified; no deployment acceptance claim.
+
+---
+
 # Current status — approved development-branch publication
 
 23 October 2026: the owner approved the reviewed staging candidate for a verified local commit and normal push to codex/prepal-1-0. Preflight local/remote base8ef43c7e945d8d81d232b44583990b69f82519ff, zero divergence,259reviewed files unchanged. This section travels with the release commit; obtain the release SHA from Git and confirm the matching GitHub Actions run. Publication/CI outcomes are verified after push, not inferred from historical runs. No hosted service, paid provisioning, production deployment, main merge or data cutover is authorized. Next gate: separate Render repository-access and paid staging approval after successful CI. Previous status sections are historical.

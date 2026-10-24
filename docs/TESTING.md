@@ -1,3 +1,46 @@
+# Free-demo publication verification — 24 October2026
+
+Approved candidate264inputs matched the previous final manifest before edits; private recovery archive verified. Current main base038a4b2 contains approved1e685ee and has identical tree. Public repository visibility was verified in GitHub UI and explicitly approved by owner. Render auto-deploy was saved Off before push and rechecked after navigation; build unchanged, start deferred because live prerequisites fail. No live DB query/write or redeploy.
+
+Rerun under pinned Node24.22.0:90frontend tests/13files;lint/build pass;15public Chromium pass. Full Django219discovered/214passed/five PG-only skips;system check0issues;makemigrations --check --dry-run nochanges. The first sandboxed full run and focused PDF regression failed because the existing macOS worker requires /bin/ps; unchanged full suite passed outside the sandbox in15.631seconds. No assertions or extraction code changed. Four private Gunicorn/free-demo journeys rerun against the existing isolated synthetic SQLite fixture only; no live provider. Staged manifest/diff/secret results are verified before committing and preserved privately. This task does not claim authenticated hosted PostgreSQL or successful hosted app acceptance. CI is verified for the actual published SHA after pushing, not inferred from prior green runs.
+
+---
+
+# Restricted free-demo verification — 24 October 2026
+
+Baseline source SHA1e685ee2a7b408fe6936dd0245fa776630d3286e. New free-demo profile is local/uncommitted; no live environment/database edits, Git release or redeploy. Details and private evidence are in the top handoff and DEPLOYMENT.
+
+Verified live read-only observations: designated account; existing Free web service and Available Free PostgreSQL17; database expiry23November2026; current settings/internal hostname/verify-full; last deployment failure at staging guard before DB access. A PostgreSQL SSLRequest probe against the external hostname verified the trusted certificate/hostname and TLS1.3. It sent no login credentials and executed no SQL. The browser's redacted connection string was detected as a placeholder and could not authenticate; that is not evidence of database authentication failure. Actual PostgreSQL SELECT1/schema/role/data and web-service-origin connectivity remain unverified pending a private environment file. Nothing was bypassed or written to the live database.
+
+Automated backend adds10tests for explicit synthetic mode/strong settings, refusal of lower TLS or internal host, trusted CA, immutable production boundaries, learner closures for guests/staff, provider non-invocation, staging barrier, read-only Admin, rejected multipart/direct-storage writes, safe health and route/static behavior. Full suite219discovered:214passed/five PostgreSQL-only skips on final rerun. First full run hit the existing quiz equality test across a signing-timestamp second; only revision-token bytes differed. No quiz code/assertions were changed; full rerun passed. Original method-boundary test now posts explicit JSON so it checks405, while the free-demo tests separately assert403 for multipart before parsing.
+
+Local actual Gunicorn+Chromium smoke uses a NEW marked15lesson/75MCQ synthetic SQLite fixture, not active8002 or original demos. Four journeys passed: Basic barrier/public health; React/closed flags/Admin assets; published notes/approved popup/390px and1280px automated accessibility/themes; closed learner operations/Admin writes/uploads/private paths. Synthetic content/account/learner counts unchanged; Django deploy check passes. This tests the new runtime routing/static/middleware with the built React distribution. Local HTTP uses a test forwarded-HTTPS header to emulate TLS termination; it is not hosted HTTPS or a PostgreSQL-auth test. Initial browser attempt corrected only the Admin Username: label selector; no product guard was weakened.
+
+Frontend lint/90tests/build pass. The host default Node26was detected, so a private vendor-SHA256-verified Node24.22.0 runtime is used for final pinned frontend/browser checks; no global/runtime project pin changed. Final source/release/secret/protected-data verification results follow in the task report/private receipts. No new remote CI run is claimed. Existing baseline CI39968769235 was green, including PG17; this new uncommitted profile was not run remotely.
+
+Reproduction: use backend/run_tests.py and npm run check under pinned Node24; new backend free-demo tests are part of normal discovery. Private browser verification source/run result is in /Users/kartikyasokhal/Downloads/MYPLACE/rpsc/.recovery/prepal-free-demo-zqihtnby. Never point browser/test settings at hosted credentials or valuable data. Start/stop only loopback verification processes you created. Free-tier hosted acceptance remains gated on separate approval.
+
+## Final local results for this candidate
+
+| Check | Actual result |
+|---|---|
+| Full Django |219 discovered;214 passed;5PostgreSQL-only skips; final full rerun15.360s |
+| Frontend under Node24.22.0 |90tests/13files, lint and production build passed |
+| Existing public Chromium under Node24 |15passed,35.5s |
+| Free-demo actual Gunicorn/Chromium under Node24 |4smoke journeys passed;zero failures |
+| System/deploy/migration checks |No issues;no changes detected |
+| Release and documentation |264release inputs;19release Markdown docs validate |
+| Gitleaks |Zero findings in the release export |
+| Protected data/config |16private hashes unchanged; production/staging/shared TLS/models/migrations/locks byte-identical |
+| Live database TLS |External PostgreSQL SSLRequest certificate+hostname verified;TLS1.3;no login/SQL |
+| Hosted web health |One HTTPS request timed out after12seconds;hosted app health unverified |
+| Live SQL/schema/accounts |Not executed: browser credentials are redacted; no complete local shell connection config |
+| Git/live state |HEAD1e685ee unchanged;index empty;no commit/push/redeploy/resource/env/DB write |
+
+A12second timeout can reflect free-tier startup delay and does not prove a permanent outage. No security constraint was relaxed. The source profile is ready for owner review; authenticated read-only DB/schema/synthetic-data acceptance and any live configuration/initialization/redeploy remain separate steps.
+
+---
+
 # Approved staging publication checks — 23 October 2026
 
 All259 release source inputs exactly matched the previously reviewed/tested manifest before publication documentation edits. Reuse the recorded90frontend/204backend+five skips/20Chromium/clean-export-build evidence for that source; no application change was made in this publication task. New checks cover exact staged diff, full index completeness, exclusions, redacted secret scanning including retired-key non-reintroduction, documentation links and normal remote branch equality. Inspect CI for the newly pushed SHA; prior failure at8ef43c7 is not evidence about this new commit. The final task report/private receipt records actual publication and CI results. Stop on critical failure. No tests or migrations against valuable databases, live AI requests or deployment are part of this batch.

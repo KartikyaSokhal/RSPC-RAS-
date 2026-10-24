@@ -74,7 +74,7 @@ class RenderDeliveryTests(TestCase):
             self.assertIn(b'Synthetic SPA', b''.join(response.streaming_content))
             self.assertIn("script-src 'self'", response['Content-Security-Policy'])
             self.assertIn('noindex', response['X-Robots-Tag'])
-        self.assertEqual(self.client.post('/dashboard', HTTP_AUTHORIZATION=self.authorization, secure=True).status_code, 405)
+        self.assertEqual(self.client.post('/dashboard', content_type='application/json', HTTP_AUTHORIZATION=self.authorization, secure=True).status_code, 405)
 
     def test_assets_admin_and_real_api_not_spa_fallback(self):
         self.assertEqual(self.get('/asset.js').status_code, 200)

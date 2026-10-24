@@ -1,3 +1,17 @@
+## Current approved batch — main free-demo publication
+
+Owner explicitly approved the verified free-demo candidate to main and, after current inspection, the now-Public GitHub repository. Preserve previous candidate/history and use normal fast-forward push only. Keep Render auto-deploy Off (now saved); preserve build command and secrets. Current free-demo start prerequisites fail, so switch remains deferred. No redeploy/live DB migration/schema/write or paid service is authorized. Next: authenticated read-only target audit, review synthetic-only initialization/configuration separately, then approve manual deployment after passing prerequisite checks. Read latest handoff and DEPLOYMENT before any live action.
+
+---
+
+## Current local batch — free Render demonstration
+
+Completed local implementation: separate explicit free-demo profile/start; verified external-host TLS/CA requirement; existing password barrier and SPA/static reuse; learner/AI/Google disabled; rejected uploads/direct storage/Admin mutations; safe DB readiness and focused regression coverage. Actual hosted resources/settings were inspected without edits. No live SQL/authenticated schema audit was possible with redacted credentials; owner can identify an existing private local environment file, without pasting secrets.
+
+Next sequence after local review: authenticate/read-only audit actual PostgreSQL schema and synthetic-only contents; separately approve any Git publication, live profile/host changes and empty-target synthetic initialization; then approved redeploy and hosted acceptance. Current service tracks main with auto-deploy On Commit, so publication/config changes could trigger deployment and require explicit coordination. Do not weaken TLS, bypass seed-tool safety guards, purchase storage or transfer real data. Keep production security and backup/cutover gates unchanged.
+
+---
+
 ## Current approved batch — staging release publication
 
 Commit the exact reviewed staging candidate after staged-diff/secret/exclusion verification, normally push codex/prepal-1-0, compare remote SHA and inspect that commit's CI. Stop on new secrets, divergence or critical CI failure. Documentation and required source dependencies belong to the candidate; no new feature implementation. After passing CI, the exact next task is separately approved Render repository-access and paid staging setup. No main merge, real cutover, paid AI or production deploy. Earlier Git approval gates below are superseded only for this candidate.

@@ -1,3 +1,16 @@
+## 24 October2026 — free-demo main release preparation
+
+- Prepared verified free-demo publication on main, preserving the previous deployment candidate and all protected data.
+- Recorded explicit owner approval for the now-Public GitHub repository and retained historical-key retirement.
+- Disabled existing Render auto-deploy before publication; kept build unchanged and deferred start switch because hosted prerequisites fail.
+- Reran isolated tests/release checks; no live SQL, migration, paid resource or redeploy.
+
+## 24 October2026 — local restricted free-demo candidate
+
+Added separate free-demo settings/support/readiness routing/start command with strict verified external PostgreSQL TLS, existing staging barrier, forced learner/AI closure and blocked uploads/Admin content edits. Added10backend regressions and final pinned frontend/browser verification. Inspected owner-created Free web/PG17 resources and historical startup failure; external certificate/hostname/TLS1.3 verified without SQL. No production/staging security, model, migration, dependency-lock, live environment/data, commit/push or deployment change.
+
+---
+
 ## 23 October 2026 — approved staging release publication
 
 Prepared the reviewed student-platform/Render candidate for an approved normal development-branch publication, with exact index/diff/secret checks and post-push SHA/CI verification. Added repository-specific Render access instructions that preserve existing selections and require separate approval before permission expansion. No application edits, paid provisioning, deployment, real database migration/cutover or main merge in this publication task.
