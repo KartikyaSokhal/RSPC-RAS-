@@ -1,0 +1,42 @@
+# Review domain/certificate/paths. Include in nginx http{}; never serve repository root.
+limit_req_zone $binary_remote_addr zone=prepal_api:10m rate=5r/s;
+limit_req_zone $binary_remote_addr zone=prepal_chat:10m rate=5r/m;
+limit_req_zone $binary_remote_addr zone=prepal_admin:10m rate=10r/m;
+log_format prepal '$remote_addr $request_method $uri $status $request_time';
+server {
+    listen 80;
+    server_name prepal.example.invalid;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name prepal.example.invalid;
+    ssl_certificate /etc/ssl/prepal/fullchain.pem;
+    ssl_certificate_key /etc/ssl/prepal/privkey.pem;
+    root /srv/prepal/current/dist;
+    client_max_body_size 22m;
+    access_log /var/log/nginx/prepal-access.log prepal;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    add_header X-Frame-Options DENY always;
+    # Static SPA uses no inline scripts/external assets. React needs inline styles for progress/canvas sizes.
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" always;
+    location ~ ^/api/topic/[^/]+/chat/$ {
+        limit_req zone=prepal_chat burst=3 nodelay;
+        include /etc/nginx/prepal-proxy.conf;
+    }
+    location /api/ {
+        limit_req zone=prepal_api burst=20 nodelay;
+        include /etc/nginx/prepal-proxy.conf;
+    }
+    location /admin/login/ {
+        limit_req zone=prepal_admin burst=5 nodelay;
+        include /etc/nginx/prepal-proxy.conf;
+    }
+    location /admin/ { include /etc/nginx/prepal-proxy.conf; }
+    location /static/ { alias /srv/prepal/static/; }
+    location ~ ^/(private-media|media|backend|docs|\.git|\.env|\.local)(/|$) { return 404; }
+    location ~ /\. { return 404; }
+    location /assets/ { try_files $uri =404; expires 1y; }
+    location / { try_files $uri $uri/ /index.html; }
+}

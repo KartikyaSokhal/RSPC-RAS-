@@ -1,0 +1,128 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/prepal_wysiwyg.css' %}">
+<style>
+  .preview-wrapper {
+    max-width: 820px;
+    margin: 20px 0;
+  }
+  .preview-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .preview-card {
+    background: #ffffff;
+    padding: 36px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    line-height: 1.8;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .preview-card h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 12px;
+  }
+  .preview-block {
+    margin-bottom: 24px;
+  }
+  .preview-source {
+    display: inline-block;
+    font-size: 12px;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="preview-wrapper">
+  <div class="preview-header-bar">
+    <div>
+      <a href="{% url 'admin:content_topic_change' topic.pk %}" class="btn-prepal btn-prepal-outline" style="font-size: 13px;">
+        ← Continue Editing
+      </a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span class="prepal-badge badge-draft">👁️ Draft Preview</span>
+      <form method="post" action="{% url 'admin:content_topic_change' topic.pk %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" name="_publish_now" class="btn-prepal btn-prepal-primary">
+          🚀 Publish Snapshot to Live Site
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {% if error %}
+    <div class="errornote" style="padding: 12px 16px; margin-bottom: 16px;">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <article class="preview-card">
+    <h1>{{ topic.title }}</h1>
+
+    {% if snapshot.blocks %}
+      {% for block in snapshot.blocks %}
+        <div class="preview-block">
+          {% if block.block_type == 'heading' %}
+            <h2 style="font-size: 20px; font-weight: 700; color: #1e293b; margin-top: 1.5em; margin-bottom: 0.5em;">
+              {{ block.content }}
+            </h2>
+          {% elif block.block_type == 'text' %}
+            <div class="prepal-wysiwyg-editor" style="border: none; padding: 0; min-height: auto;">
+              {{ block.safe_html }}
+            </div>
+          {% elif block.block_type == 'image' %}
+            <figure style="margin: 16px 0;">
+              <img src="{{ block.preview_url }}" alt="{{ block.alt_text }}" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0;">
+              {% if block.caption %}
+                <figcaption style="font-size: 13px; color: #64748b; margin-top: 6px;">{{ block.caption }}</figcaption>
+              {% endif %}
+            </figure>
+          {% endif %}
+
+          {% if block.source_reference %}
+            <div>
+              <span class="preview-source">Source: {{ block.source_reference }}</span>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="color: #94a3b8; font-style: italic;">
+        No content blocks have been added to this topic draft yet. Return to the editor to add headings, notes, or images.
+      </p>
+    {% endif %}
+
+    {% if snapshot.resource_ids %}
+      <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+        <h3 style="font-size: 16px; font-weight: 700; color: #334155; margin-bottom: 12px;">
+          📄 Attached Learning Resources (PDFs):
+        </h3>
+        <p style="font-size: 13px; color: #64748b;">
+          {{ snapshot.resource_ids|length }} approved PDF resource(s) associated with this topic snapshot.
+        </p>
+      </div>
+    {% endif %}
+  </article>
+</div>
+{% endblock %}

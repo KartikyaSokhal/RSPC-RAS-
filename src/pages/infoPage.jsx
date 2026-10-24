@@ -1,0 +1,20 @@
+import { useContext } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { PlatformContext } from '../components/layout/platformContext.js'
+export default function InfoPage() {
+  const help = useLocation().pathname === '/help'
+  const config = useContext(PlatformContext)
+  return <div className="page info-page"><span className="eyebrow">{help ? 'Make yourself at home' : 'The Prepal approach'}</span><h1>{help ? <>A little guidance.<br /><em>A smoother journey.</em></> : <>Preparation with<br /><em>understanding at its heart.</em></>}</h1><p className="info-lead">{help ? 'Find your way around the library, use sources thoughtfully, and learn at your own pace.' : 'Prepal brings structured reading, connected ideas and thoughtful practice into one quiet learning space for RPSC & RAS aspirants.'}</p><div className="info-grid">{(help ? [
+    ['Find a starting point', 'Explore the syllabus, open a collection and choose a published lesson. Search also finds matching notes and approved PDF pages.'],
+    ['Read with the tutor', 'Select a passage or use “Explain this passage”. The tutor uses only notes in your current published lesson. Related links and PDFs do not expand its evidence. Check the linked sources; AI may be unavailable or reach a configured quota.'],
+    ['Practice at your pace', config.student_features_enabled ? 'Choose your answers, read the explanations and retry without a timer. Signed-in students save reviewed practice to their own history; guest results stay only in the page.' : 'Choose your answers, check them, read the explanations and retry. There is no timer. Your answers and score stay in this page; no personal attempt is stored.'],
+    ['Privacy and your choices', config.student_features_enabled ? 'Your account stores private bookmarks, completion, reading visits, study plans and practice history. Sign out on a shared device. Theme preference is stored in this browser; tutor messages stay in page memory. Limited pseudonymous usage records support quotas.' : 'Theme preference is stored in this browser. Tutor messages stay in page memory. A signed visitor cookie and limited pseudonymous usage records support request quotas. Admin uses a separate authenticated session.'],
+    ['Source limitations', 'Only published sources are offered. PDF extraction can lose formatting. AI can make mistakes; citations help you inspect the material, but do not guarantee accuracy.'],
+    ['Something is unavailable?', config.student_features_enabled ? 'Try again or continue reading. Sign in to save learning activity or create a study plan. Google sign-in and recovery email depend on the configured service; failed saves show feedback.' : 'Try the page again, browse another collection, or continue reading while the tutor is unavailable. Bookmarks, progress and weakness reports remain paused.'],
+  ] : [
+    ['Content comes first', 'A useful lesson begins with a clear question, a careful explanation and sources that a reader can check. Editors control what is published.'],
+    ['A library, thoughtfully connected', 'Related ideas belong together. The learning map makes it easier to move from a concept to its prerequisites and the material that builds on it.'],
+    ['AI beside the reader', 'The tutor works from published sources within a controlled topic scope. It should explain what is supported and acknowledge when the material is insufficient.'],
+    ['Progress through understanding', 'Simple, untimed practice gives you space to reflect. We focus on explanations and clear next steps rather than rankings or pressure.'],
+  ]).map(([title, text], i) => <section className="info-card" key={title}><span className="card-number">{String(i+1).padStart(2, '0')}</span><h2>{title}</h2><p>{text}</p></section>)}</div>{config.support_email && <p className="contact-note">Need help? <a href={`mailto:${config.support_email}`}>{config.support_email}</a></p>}<div className="info-bottom"><h2>Your next idea is waiting.</h2><Link className="button primary" to="/syllabus">Explore the library ↗</Link></div></div>
+}

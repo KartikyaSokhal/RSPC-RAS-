@@ -1,50 +1,17 @@
-# Prepal AI - AI System Design (RAG)
+# Current-lesson Tutor
 
-This document details the retrieval and response generation pipeline for Prepal's RPSC Chatbot.
+The existing Django Gemini adapter and quota/cost architecture are retained. `DatabaseRetrievalProvider.retrieve` now accepts evidence **only from note blocks in the currently open published lesson**. It never retrieves other topics, related/prerequisite documents, PDF pages, general website material or internet results. `allow_related=true` is rejected, and the provider itself enforces scope even if directly called with that argument. Reader hyperlinks do not expand Tutor evidence.
 
----
+Selection must match a current note source ID, revision and text substring. History helps interpret intent and is not factual evidence. Bounded lexical ranking filters generic question terms, uses 2,400-character windows and abstains if nothing relevant remains. A PDF-only lesson can be read/completed but has no Tutor note evidence and must refuse. This is not embeddings or a claim of semantic retrieval quality.
 
-## 1. Content Storing & Extraction
-* All RPSC syllabus chapters are stored natively in the SQLITE database via the `Topic` and `ContentBlock` models.
-* To prepare the search context, the backend queries the database for the active topic. If it has parent topics, we collect parent names. If it has child topics, we list those subheadings.
-* The content blocks are filtered to pull out `heading` and `text` block content types, ignoring binary fields (like image files or PDFs) to preserve prompt size.
+The UI retains one bottom-right launcher, mobile/desktop closable panel, question input, Explain Simply, Summarize This Lesson and Explain Selected Passage. Raw HTML is disabled in SafeMarkdown. Server-built citations can only reference current lesson blocks; evidence scope is checked before provider invocation and publication is checked again before response. Obvious instruction-override/private-prompt requests refuse before spending. Evidence/history remain untrusted data in provider instructions. These controls constrain provenance and scope; they do not mathematically establish factual entailment or comprehensive prompt-injection immunity.
 
----
+## Limits and costs
 
-## 2. Context-Aware Prompt Design
-* We formulate a system prompt constraining the assistant to act as a highly specialized Rajasthan State Exam prep coach.
-* **Hierarchy Aware Context Builder:**
-  If a user requests information, we provide the context showing their position in the syllabus layout:
-  ```
-  Topic Hierarchy: {Parent Topic} > {Active Topic} > {Child Topics}
-  Active Notes:
-  {ContentBlock text contents concatenated...}
-  ```
-* **AI Mentor Presets & System Commands:**
-  We add structured commands to the endpoint `POST /api/topic/<slug>/chat/` with a `"preset"` parameter (e.g. `{"preset": "mnemonics"}`):
-  * **`explain_beginner`:** "Rewrite the provided topic notes in extremely simple terms suitable for a absolute beginner. Use real-life analogies."
-  * **`exam_importance`:** "Analyze the notes and rank the RPSC exam importance as High, Medium, or Low. Explain why in 2 sentences based on past paper trends."
-  * **`pyq_analysis`:** "List typical questions asked in RPSC RAS prelims/mains from this topic and detail how to address them."
-  * **`common_mistakes`:** "Outline 3 common pitfalls or factual confusion students face in this topic (e.g. mixing up dynasties or geographic boundaries)."
-  * **`mnemonics`:** "Create catchy, easy-to-remember mnemonics (Hindi/English mixing allowed) for the main dates, names, or lists in the context."
-  * **`flashcards`:** "Format exactly 5 question-and-answer flashcard units from this material."
-  * **`revision`:** "Produce a 5-minute bulleted summaries list focusing on core high-yielding facts."
-  * **`generate_mcqs`:** "Generate 3 high-quality RPSC standard MCQs with options A-D and a hidden explanation field."
-  * **`examiner_mode`:** "Ask me one single challenging question based on the topic notes. Wait for my response before asking follow-up questions."
-  * **`next_topics`:** "Based on this syllabus section, recommend the next logical 2 topics to read next and explain the connection."
-* **System Prompt Constraints:**
-  1. *Context boundaries:* "You are a professional tutor for RPSC exams. Rely first on the provided context. If the answer is not in the context, use your general knowledge, but flag it to the user. Never state facts that contradict historical or geographical truths."
-  2. *Tone:* Concise, structured, preferring bullet points and tabular formats.
-  3. *Cross-references:* "If the context mentions subtopics (e.g. {Subtopic A}), remind the user that further details can be found under that specific sub-chapter."
+Question: 2,000 characters; history: six messages/4,000 total characters; selection: 1,000 characters; at most 12 chunks/18,000 candidate characters. Final UTF-8 upper bound plus framing is limited to 16,000 input tokens and 1,000 output tokens. Old history/low-priority chunks are trimmed before reservation. Gemini uses the pinned official SDK, 30-second timeout, one attempt, JSON output mode, no tools and thinking budget zero. Approved model compatibility still needs live evaluation.
 
----
+AI_ENABLED=false and AI_GUEST_ENABLED=false are normal defaults. Authenticated requests use stable per-user identity and CSRF; guest requests require the explicit guest gate and signed visitor cookie. Default limits remain 20 requests per identity/day, 100 per IP/day and five/minute; all workers must share the PostgreSQL quota database. Trusted proxies alone may supply validated X-Real-IP. Raw IPs/prompts/answers are not stored in quota rows.
 
-## 3. Caching & Token Optimization
-* **Max Context Trim:** Keep context blocks capped at 6,000 tokens (approx. 4,500 words). If a topic is abnormally large, we truncate oldest content blocks or select blocks matching search keywords.
-* **Isolating Client Operations:** All Gemini client connections are isolated in `backend/content/ai_engine.py`. The controller interacts with a high-level `ask_gemini(context, question, history)` function. If we swap Gemini for another model or managed RAG, the API and frontend remain unchanged.
+Live mode requires an owner-approved model, server-only key, positive daily cap and positive input/output microcurrency rates. Conservative reservations cover the full bounded request before one provider call. Unknown/timeout billing retains the full reservation; only verified bounded actual usage releases unused cost. Expired in-flight locks release availability, not money. PostgreSQL concurrency and settlement tests verify caps/idempotence. Do not derive rates from stale prices or enable paid requests automatically.
 
----
-
-## 4. Hallucination Prevention & Error Handling
-* **Out-of-Syllabus questions:** If a user asks "Who won the 2024 NBA Finals?", the bot replies: *"I am optimized to answer doubts related to the syllabus of {Active Topic}. That question is outside the scope of our RPSC preparation."*
-* **API Fault Tolerance:** If the Gemini API fails, returns rate limits (error 429), or goes offline, the backend catches the exception and returns a friendly local fallback error: *"I'm having trouble connecting to my AI brain. Please try again in a few seconds."*
+Demo/student-review settings clear real keys and use DemoProvider only; responses explicitly identify mock evidence quotation. Tests cover strict scope, refusal, prompt injection, citation validation, quota identity/limits, timeout/provider failure and existing cost concurrency. **No live Gemini request was made.** Remaining: explicit provider/model/budget approval, real Hindi/English grounding/refusal evaluation and billing reconciliation. [Official SDK](https://googleapis.github.io/python-genai/), [testing](TESTING.md), [deployment](DEPLOYMENT.md).

@@ -1,0 +1,70 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/prepal_wysiwyg.css' %}">
+{% endblock %}
+
+{% block form_top %}
+{% if original and original.pk %}
+<div class="prepal-workflow-bar">
+  <div class="prepal-workflow-title-wrap">
+    <div>
+      <span style="font-size: 16px; font-weight: 700; color: #0f172a;">
+        {{ original.title }}
+      </span>
+      <span style="color: #64748b; font-size: 13px; margin-left: 6px;">
+        ({{ original.slug }})
+      </span>
+    </div>
+    {% if publication_info.is_published %}
+      <span class="prepal-badge badge-published">🟢 Published · Rev {{ publication_info.revision }}</span>
+    {% elif original.blocks.exists %}
+      <span class="prepal-badge badge-draft">🟡 Draft / Unpublished</span>
+    {% else %}
+      <span class="prepal-badge badge-unreviewed">⚪ Empty / No Notes</span>
+    {% endif %}
+    {% if original.editorial_status == "in_review" %}
+      <span class="prepal-badge badge-draft">Awaiting review</span>
+    {% endif %}
+  </div>
+
+  <div class="prepal-workflow-actions">
+    <button type="submit" name="_save" class="btn-prepal btn-prepal-outline">
+      💾 Save Draft
+    </button>
+    <a href="{% url 'admin:content_topic_preview' original.pk %}" target="_blank" class="btn-prepal btn-prepal-secondary">
+      👁️ Preview Draft
+    </a>
+    <button type="submit" name="_submit_review" class="btn-prepal btn-prepal-outline">Submit for review</button>
+    <button type="submit" name="_publish_now" class="btn-prepal btn-prepal-primary">
+      Review &amp; Publish
+    </button>
+    {% if publication_info.is_published %}
+      <button type="submit" name="_withdraw_now" class="btn-prepal btn-prepal-danger" onclick="return confirm('Withdraw this topic? It will be hidden from students, but all content remains safely saved.');">
+        ⏸️ Withdraw
+      </button>
+    {% endif %}
+    {% if publication_info.has_previous %}
+      <button type="submit" name="_restore_previous" class="btn-prepal btn-prepal-outline" onclick="return confirm('Restore the previously approved published snapshot?');">
+        ↩️ Restore Previous
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: #166534; display: flex; align-items: center; justify-content: space-between;">
+  <div>
+    <strong>💡 One-Click Workflow:</strong> You can edit notes, add rich text tables/callouts, and upload PDFs below.
+    Edits are saved as draft until you click <strong>Review &amp; Publish</strong>.
+  </div>
+  <div>
+    <a href="{% url 'admin:content_topic_tree' %}" style="color: #15803d; font-weight: 600; text-decoration: underline;">
+      🌲 View Syllabus Tree
+    </a>
+  </div>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock %}

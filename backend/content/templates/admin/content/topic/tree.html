@@ -1,0 +1,173 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/prepal_wysiwyg.css' %}">
+<style>
+  .tree-node-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+  }
+  .tree-node-row:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+  .tree-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .tree-arrow {
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+    color: #64748b;
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+  }
+  .tree-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tree-meta-pill {
+    font-size: 11px;
+    padding: 2px 7px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    color: #475569;
+    font-weight: 500;
+  }
+  .tree-children {
+    padding-left: 24px;
+    border-left: 2px solid #e2e8f0;
+    margin-left: 8px;
+    list-style: none;
+  }
+  .tree-children.collapsed {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="prepal-tree-container">
+  <div class="prepal-tree-header">
+    <div>
+      <h1 style="margin: 0 0 4px 0; font-size: 22px; font-weight: 700; color: #0f172a;">
+        🌲 Syllabus Hierarchy Explorer
+      </h1>
+      <p style="margin: 0; color: #64748b; font-size: 13px;">
+        Browse the complete 152-topic RPSC syllabus tree, inspect publication states, and jump directly to editing notes.
+      </p>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <a href="{% url 'admin:content_topic_changelist' %}" class="btn-prepal btn-prepal-outline">
+        📋 Standard Table View
+      </a>
+      <a href="{% url 'admin:content_topic_add' %}" class="btn-prepal btn-prepal-primary">
+        ➕ Add New Topic
+      </a>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <input type="text" id="treeSearchInput" class="prepal-tree-search" placeholder="🔍 Filter syllabus topics by title or slug...">
+    <div style="display: flex; gap: 6px;">
+      <button type="button" id="expandAllBtn" class="btn-prepal btn-prepal-outline" style="padding: 5px 10px; font-size: 12px;">
+        Expand All
+      </button>
+      <button type="button" id="collapseAllBtn" class="btn-prepal btn-prepal-outline" style="padding: 5px 10px; font-size: 12px;">
+        Collapse All
+      </button>
+    </div>
+  </div>
+
+  <div id="treeContainer">
+    {% include "admin/content/topic/tree_nodes.html" with nodes=tree_data %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('treeSearchInput');
+  const treeContainer = document.getElementById('treeContainer');
+  const expandAllBtn = document.getElementById('expandAllBtn');
+  const collapseAllBtn = document.getElementById('collapseAllBtn');
+
+  // Toggle arrows
+  treeContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('tree-arrow')) {
+      const childList = e.target.closest('.tree-item').querySelector('.tree-children');
+      if (childList) {
+        childList.classList.toggle('collapsed');
+        e.target.textContent = childList.classList.contains('collapsed') ? '▶' : '▼';
+      }
+    }
+  });
+
+  // Expand all
+  expandAllBtn.addEventListener('click', function () {
+    document.querySelectorAll('.tree-children').forEach(ul => ul.classList.remove('collapsed'));
+    document.querySelectorAll('.tree-arrow').forEach(a => a.textContent = '▼');
+  });
+
+  // Collapse all
+  collapseAllBtn.addEventListener('click', function () {
+    document.querySelectorAll('.tree-children').forEach(ul => ul.classList.add('collapsed'));
+    document.querySelectorAll('.tree-arrow').forEach(a => a.textContent = '▶');
+  });
+
+  // Filter search
+  searchInput.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    const rows = document.querySelectorAll('.tree-node-row');
+
+    if (!q) {
+      rows.forEach(r => {
+        r.style.display = '';
+        r.style.background = '';
+      });
+      return;
+    }
+
+    rows.forEach(row => {
+      const title = row.dataset.topicTitle || '';
+      const slug = row.dataset.topicSlug || '';
+      const match = title.includes(q) || slug.includes(q);
+
+      if (match) {
+        row.style.display = '';
+        row.style.background = '#fef08a';
+        // Auto-expand ancestors
+        let parent = row.closest('.tree-children');
+        while (parent) {
+          parent.classList.remove('collapsed');
+          const parentItem = parent.closest('.tree-item');
+          if (parentItem) {
+            const arrow = parentItem.querySelector('.tree-arrow');
+            if (arrow) arrow.textContent = '▼';
+            parent = parentItem.parentElement.closest('.tree-children');
+          } else {
+            break;
+          }
+        }
+      } else {
+        row.style.background = '';
+      }
+    });
+  });
+});
+</script>
+{% endblock %}

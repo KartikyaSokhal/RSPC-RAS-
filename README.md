@@ -1,105 +1,89 @@
-# Prepal AI - Premium RPSC/RAS Prep Platform
+# Prepal — RPSC/RAS learning platform
 
-Prepal AI is a modern, premium educational platform specifically designed for Rajasthan State Government Exam (RPSC/RAS) preparation. It features a hierarchical syllabus tree, study notes, a timed quiz testing engine, progress tracking, and an interactive context-aware AI chatbot powered by Google Gemini.
-
----
+Prepal connects the Rajasthan examination syllabus to published study notes, reviewed resources and practice questions. React 19/Vite provides the student interface; Django 6/DRF, Django Admin and PostgreSQL provide authoring, publication and owned student records.
 
 ## Features
-* **Hierarchical Syllabus Tree:** Drill down into subtopics to see specific study materials.
-* **Premium Dark UI:** Designed with deep premium tones, glassmorphism cards, and responsive sidebars.
-* **AI Chatbot (RAG):** Context-aware chatbot restricted to the selected chapter. It helps explain concepts, define words, create flashcards/mnemonics, and test your knowledge.
-* **Timed Quiz Engine:** Timed tests generated over syllabus content with automatic scoring.
-* **Bookmarks & Progress Tracker:** Save important chapters and track reading completion progress.
 
----
+- Hierarchical syllabus explorer, search, light/dark themes and responsive topic reading.
+- Editorially approved keyword popups, related topics and controlled tag discovery.
+- Reviewed canonical MCQs, deterministic grading and stateless guest practice.
+- Session-based student accounts, owned bookmarks/completion, dashboard, recent reading and saved practice history.
+- Deterministic study planning with approximate editor estimates, weekly/monthly targets and rescheduling that retains completed work.
+- A single Tutor panel, restricted server-side to the current published lesson's notes, with source citations, refusals and cost controls.
 
-## Tech Stack
-* **Frontend:** React, React Router, Axios, CSS (Vanilla Custom Design System)
-* **Backend:** Django, Django REST Framework
-* **AI Engine:** Google Gemini API (via `google-genai` SDK)
-* **Database:** SQLite (default sqlite3 backend)
+These features are implemented and verified locally. Google OAuth is mocked in tests and needs owner credentials; password recovery needs configured SMTP. Live Gemini remains off and has not been called. Production student access defaults off until approved acceptance. Uploaded PDF reading is implemented; topic-note PDF export is deferred. There is no verified deployment URL or real database cutover.
 
----
+## Install
 
-## Installation & Setup
+Use [.nvmrc](.nvmrc) and [.python-version](.python-version). From this application root:
 
-### 1. Clone & Setup Workspace
-Ensure your system has Python (>= 3.11) and Node.js (>= 18) installed.
-
-### 2. Backend Setup
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt   # If requirements.txt is freeze-compiled
-# Or install manually:
-pip install django djangorestframework django-cors-headers python-dotenv google-genai
+```sh
+npm ci
+python3.14 -m venv backend/.venv
+backend/.venv/bin/python -m pip install --require-hashes -r backend/requirements-dev.txt
 ```
 
-Create a `.env` file in the `backend/` directory:
-```env
-GEMINI_API_KEY=your_gemini_api_key
-SECRET_KEY=your_django_secret_key
-DEBUG=True
+Normal runtime requires a separately provisioned PostgreSQL database and ignored private configuration based on [backend/.env.example](backend/.env.example). There is no automatic fallback to the original SQLite archive. See [backend setup](backend/README.md) and [deployment prerequisites](docs/DEPLOYMENT.md). Do not run migrations against existing valuable data without an approved backup/cutover plan.
+
+## Isolated student review demo
+
+Student UI is enabled only by the explicitly selected `core.student_demo_settings` environment. Normal development **and production** settings default `STUDENT_FEATURES_ENABLED=false`. The content-only `core.demo_settings` intentionally hides accounts; changing frontend buttons cannot bypass it.
+
+For an **already prepared**, ready student-review database at schema 0012:
+
+```sh
+export PREPAL_DEMO_ROOT=/absolute/path/to/prepared/student-review
+npm run dev:student -- --check
+npm run dev:student
 ```
 
-Apply database migrations:
-```bash
-python manage.py migrate
+The guarded launcher starts Django on `127.0.0.1:8002` and Vite on `127.0.0.1:5173`. It reads the marker/schema without writing, refuses an unmarked/incomplete/original/symlinked database or production environment, and never prepares data or applies migrations. Stop conflicting local listeners before a cold start. Ctrl-C stops only its own child processes.
+
+If Vite is already managed/running, set `PREPAL_DEV_API_ORIGIN=http://127.0.0.1:8002` in ignored `.env.local`, then run only the selected backend:
+
+```sh
+export PREPAL_DEMO_ROOT=/absolute/path/to/prepared/student-review
+npm run dev:student -- --backend-only
 ```
 
-### 3. Frontend Setup
-```bash
-cd ..
-npm install
+Vite loads that override **only in development**, including when an old shell exports the previous API origin. Build/preview still use explicit PREPAL_API_ORIGIN or the usual fallback. This selects an API server, never enables accounts by itself; `/api/config/` and backend ownership/CSRF remain authoritative.
+
+Open `http://127.0.0.1:5173/`. Logged out: Search, theme, Sign In, Sign Up. Logged in: Search, theme, Dashboard, named Account menu and Logout. The menu uses native keyboard controls; the existing routes are reused. No separate Profile page is invented. A guest opening /dashboard sees the sign-in prompt and cannot fetch private records.
+
+Create a local student account. Recovery mail uses an in-memory test mailbox here, not delivered SMTP. Google remains a disabled, clearly unconfigured option. No real provider keys or paid AI requests are used. Existing Admin credentials stay private in the selected demo directory; do not publish or reuse them.
+
+If no prepared environment exists, creating a NEW isolated sample requires separate authorization where migrations/preparation are restricted. The existing `scripts/prepare_student_demo.py --directory /absolute/new/private/directory` is the versioned preparation tool; it refuses existing destinations. Do not run it on the original archive or preserved demos merely to expose navbar controls. No preparation/migration was performed in this navigation task.
+
+The demo includes the preserved versioned 15-lesson synthetic sample plus **25 new draft review lessons**, five per actual syllabus subject, with 125 new MCQs/500 choices. New academic material is not publicly published or quiz-approved. Its private `review-inventory.json` lists mappings, references and review states. See [Admin workflow/catalogue](docs/ADMIN_WORKFLOW.md) and [new corpus](backend/content/fixtures/student_lessons_v2.json). Human review/publication is required through the existing Admin; seed flags are never production approval.
+
+Existing content-only demos continue to use `core.demo_settings`. Start already prepared demos without rerunning preparation or migrations. Original SQLite, demo data and private media remain preserved.
+
+## Verify
+
+```sh
+npm run check
+backend/.venv/bin/python backend/run_tests.py
+backend/.venv/bin/python backend/manage.py check --settings=core.test_settings
+backend/.venv/bin/python backend/manage.py makemigrations --check --dry-run --settings=core.test_settings
+backend/.venv/bin/python scripts/check_docs.py --release
+backend/.venv/bin/python scripts/release_manifest.py
 ```
 
-Create a `.env` file in the root `Prepal/` directory:
-```env
-VITE_API_BASE=http://127.0.0.1:8000/api
-```
+[Testing](docs/TESTING.md) covers guarded disposable PostgreSQL, browser and clean-export checks. [Architecture](docs/ARCHITECTURE.md), [security](docs/SECURITY.md) and the [documentation index](docs/README.md) describe operational boundaries. Credentials, databases, media, dependencies and reports remain outside release inputs.
 
----
+## License
 
-## Running Locally
+All rights reserved. Independent examination preparation resource; not affiliated with RPSC or the government examination authority.
 
-### Start Django Backend
-```bash
-cd backend
-source .venv/bin/activate
-python manage.py runserver 127.0.0.1:8000
-```
+## PostgreSQL preparation and local recovery
 
-### Start Vite Frontend
-```bash
-cd ..
-npm run dev
-```
-Open **[http://localhost:5173](http://localhost:5173)** in your browser.
+The active student preview on8002 still uses the isolated SQLite student-review database; it has **not** been switched. A new disposable PostgreSQL16.2 rehearsal verified schema0001–0012, ownership, persisted sessions across backend restarts and encrypted independent restore. Normal PostgreSQL configuration uses separate migration/runtime/backup roles, bounded connections/timeouts and production verify-full TLS. Local rehearsals do not approve public student access.
 
----
+Use [backend setup](backend/README.md), [deployment and recovery](docs/DEPLOYMENT.md), [security/retention approval](docs/SECURITY.md) and [verification](docs/TESTING.md). scripts/postgres_ops.py reads private0600 environment files; no passwords belong in shell arguments or Git. Account deletion currently provides a non-destructive readiness gate only; irreversible deletion, backup expiry, real cutover and production activation require owner approval. Daily scheduling/off-host storage examples are unactivated, not a configured production service. The pre-existing missing root .env.example still blocks release completeness.
 
-## Folder Structure
-```
-Prepal/
-├── docs/               # Detailed architectural and design documentation
-├── src/                # React Frontend code
-│   ├── assets/
-│   ├── pages/
-│   │   ├── home.jsx    # Dashboard & Syllabus Catalog
-│   │   ├── topicPage.jsx # Reading room & AI Chatbot
-│   │   └── quizPage.jsx  # Timer Quiz testing interface
-│   └── App.jsx
-└── backend/            # Django Backend code
-    ├── content/        # Content app (models, RAG views, serializers)
-    └── core/           # Configuration settings
-```
+## Hosting candidate
 
----
+A single-origin Render staging configuration is prepared in deploy/render-build.sh and deploy/render-start.sh. It serves the React build, Django API and Admin together, with PostgreSQL17 and a separate private-media disk. No hosted deployment exists yet. See [deployment instructions](docs/DEPLOYMENT.md) for account, recurring-cost, release and database approval gates. Production learners and live AI remain disabled.
 
-## API Overview
-* `GET /api/topics/` - List all main syllabus segments.
-* `GET /api/topic/<slug>/` - Retrieve full notes & subtopics for a syllabus segment.
-* `POST /api/topic/<slug>/chat/` - Talk to the context-aware chatbot.
-* `GET /api/topic/<slug>/quiz/` - Retrieve Quiz questions for the chapter.
-* `POST /api/topic/<slug>/quiz/submit/` - Submit answers and receive scores.
+
+The reviewed staging candidate is published through the development branch with CI verification; publication does not activate hosted services. See [deployment and repository access](docs/DEPLOYMENT.md) for the separate Render permission and infrastructure gates.

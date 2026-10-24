@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily Prepal encrypted backup (unactivated template)
+[Timer]
+OnCalendar=*-*-* 02:15:00 UTC
+Persistent=true
+RandomizedDelaySec=300
+Unit=prepal-backup.service
+[Install]
+WantedBy=timers.target

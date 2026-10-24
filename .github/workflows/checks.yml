@@ -1,0 +1,80 @@
+name: Verify Prepal
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: prepal_test_ci
+          POSTGRES_USER: prepal_ci
+          POSTGRES_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U prepal_ci -d prepal_test_ci"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PYTHON_DOTENV_DISABLED: '1'
+      GEMINI_API_KEY: ''
+      GOOGLE_API_KEY: ''
+      AI_ENABLED: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - run: python -m venv backend/.venv
+      - run: backend/.venv/bin/pip install --require-hashes -r backend/requirements-dev.txt
+      - run: npm ci
+      - run: npm run check
+      - run: backend/.venv/bin/python scripts/release_manifest.py --output "$RUNNER_TEMP/prepal-release-manifest.json"
+      - run: backend/.venv/bin/python scripts/check_docs.py --release
+      - run: cd backend && .venv/bin/python run_tests.py && .venv/bin/python manage.py makemigrations --check --dry-run --settings=core.test_settings
+      - name: PostgreSQL migrations, API regressions and data-transfer rehearsal
+        env:
+          PREPAL_TEST_POSTGRES: '1'
+          POSTGRES_HOST: '127.0.0.1'
+          POSTGRES_PORT: '5432'
+          POSTGRES_DB: prepal_test_ci
+          POSTGRES_USER: prepal_ci
+          POSTGRES_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+          POSTGRES_SSLMODE: disable
+        run: |
+          backend/.venv/bin/python backend/run_tests.py --postgres
+          backend/.venv/bin/python scripts/verify_postgres_transfer.py
+      - run: backend/.venv/bin/python scripts/verify_budget_race.py
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Fresh synthetic demo and browser integration
+        env:
+          PREPAL_DEMO_ROOT: ${{ runner.temp }}/prepal-browser-demo
+        run: |
+          backend/.venv/bin/python scripts/prepare_demo.py
+          npm run test:integration
+      - name: Fresh academic sample demo and browser regressions
+        env:
+          PREPAL_DEMO_ROOT: ${{ runner.temp }}/prepal-academic-demo
+        run: |
+          backend/.venv/bin/python scripts/prepare_sample_demo.py --directory "$PREPAL_DEMO_ROOT"
+          backend/.venv/bin/python scripts/verify_sample_demo.py
+          npm run test:sample
+      - name: Fresh isolated student review and owned browser journeys
+        env:
+          PREPAL_DEMO_ROOT: ${{ runner.temp }}/prepal-student-review
+        run: |
+          backend/.venv/bin/python scripts/prepare_student_demo.py --directory "$PREPAL_DEMO_ROOT"
+          npm run test:student
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: chromium-failure-evidence
+          path: test-results/
+          retention-days: 7

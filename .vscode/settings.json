@@ -1,0 +1,41 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/env": true,
+    "**/venv": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.local": true,
+    "**/dist": true,
+    "**/coverage": true,
+    "**/test-results": true,
+    "**/playwright-report": true,
+    "**/*.log": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/env": true,
+    "**/venv": true,
+    "**/__pycache__": true,
+    "**/.local": true,
+    "**/dist": true,
+    "**/test-results": true,
+    "**/playwright-report": true,
+    "**/coverage": true,
+    "**/*.log": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/env/**": true,
+    "**/__pycache__/**": true,
+    "**/.local/**": true,
+    "**/dist/**": true,
+    "**/test-results/**": true,
+    "**/playwright-report/**": true
+  }
+}

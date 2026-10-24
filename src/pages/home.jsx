@@ -1,189 +1,62 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../App.css";
-
-const API_BASE = "http://127.0.0.1:8000/api";
-
-function TopicItem({ item, level = 0, searchQuery = "" }) {
-  const [open, setOpen] = useState(level === 0);
-  const [children, setChildren] = useState(item.children ?? null);
-  const [loadingChildren, setLoadingChildren] = useState(false);
-  const navigate = useNavigate();
-
-  const hasChildren = Array.isArray(children) && children.length > 0;
-
-  // Filter children based on search query
-  const filteredChildren = hasChildren
-    ? children.filter((child) =>
-        child.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
-
-  // Determine if this topic matches search query
-  const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
-  
-  // If search query is active, only render if this item or any of its children match
-  const shouldRender =
-    searchQuery === "" || matchesSearch || filteredChildren.length > 0;
-
-  const handleToggle = async (e) => {
-    e.stopPropagation();
-
-    // Lazy-load children on first expand
-    if (children === null) {
-      try {
-        setLoadingChildren(true);
-        const res = await axios.get(`${API_BASE}/topic/${item.slug}/`);
-        setChildren(res.data.children || []);
-      } catch (err) {
-        console.error("Failed to load children:", err);
-        setChildren([]);
-      } finally {
-        setLoadingChildren(false);
-      }
-    }
-
-    setOpen((prev) => !prev);
-  };
-
-  const handleNavigate = () => {
-    navigate(`/topic/${item.slug}`);
-  };
-
-  useEffect(() => {
-    if (level === 0 && children === null) {
-      handleToggle({ stopPropagation: () => {} });
-    }
-  }, []);
-
-  // Force open state if search is active and child elements are matched
-  useEffect(() => {
-    if (searchQuery !== "" && filteredChildren.length > 0) {
-      setOpen(true);
-    }
-  }, [searchQuery, filteredChildren.length]);
-
-  if (!shouldRender) return null;
-
-  return (
-    <div style={{ marginLeft: level > 0 ? 16 : 0 }} className="topic-node">
-      <div className="topic-header" onClick={handleNavigate}>
-        <div className="topic-title-wrapper">
-          <span className="topic-index">{level + 1}.</span>
-          <span className="topic-title">
-            {item.is_completed && <span style={{ color: "var(--accent-success)", marginRight: "6px" }}>✔</span>}
-            {item.title}
-            {item.is_bookmarked && <span style={{ color: "var(--accent-warning)", marginLeft: "8px" }}>⭐</span>}
-          </span>
-        </div>
-
-        {item.has_children && (
-          <div
-            className={`arrow-icon ${open ? "open" : ""}`}
-            onClick={handleToggle}
-          >
-            ▶
-          </div>
-        )}
-      </div>
-
-      {open && (
-        <div className="subtopics-list">
-          {loadingChildren && <div className="loading block-text">Loading subtopics…</div>}
-
-          {!loadingChildren &&
-            (searchQuery !== "" ? filteredChildren : children || []).map((child) => (
-              <TopicItem
-                key={child.slug}
-                item={child}
-                level={level + 1}
-                searchQuery={searchQuery}
-              />
-            ))}
-        </div>
-      )}
-    </div>
-  );
-}
+import { useMemo } from 'react'
+import useSyllabus from '../hooks/useSyllabus.js'
+import { indexSyllabus } from '../components/study/syllabusUtils.js'
+import SyllabusTree from '../components/study/SyllabusTree.jsx'
+import Skeleton from '../components/ui/Skeleton.jsx'
+import StatusPanel from '../components/ui/StatusPanel.jsx'
+import RajasthanMap from '../components/ui/RajasthanMap.jsx'
 
 export default function Home() {
-  const [topics, setTopics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { data, loading, error, retry } = useSyllabus()
+  const topics = useMemo(() => data || [], [data])
+  const totalCount = useMemo(() => indexSyllabus(topics).size, [topics])
+  const countsReady = !loading && !error && data !== null
 
-  useEffect(() => {
-    axios
-      .get(`${API_BASE}/topics/`)
-      .then((res) => {
-        setTopics(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load topics:", err);
-        setLoading(false);
-      });
-  }, []);
+  function jumpToSubject(id) {
+    const root = document.getElementById(`home-subject-${id}`)
+    root?.scrollIntoView({ block: 'start' })
+    root?.querySelector('summary,a')?.focus({ preventScroll: true })
+  }
 
   return (
-    <div className="app">
-      <header className="navbar">
-        <div className="logo-container" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="logo-badge">RPSC</div>
-          <div className="logo-text">Prepal AI</div>
-        </div>
-        <div className="nav-actions">
-          <button className="btn btn-outline" onClick={() => window.open('https://rpsc.rajasthan.gov.in/', '_blank')}>
-            Official Site
-          </button>
-        </div>
-      </header>
-
-      <section className="hero">
-        <div className="hero-content">
-          <span className="hero-tag">AI-Powered Prep</span>
-          <h1 className="hero-title">Master the RPSC RAS Syllabus</h1>
-          <p className="hero-desc">
-            Explore the official syllabus with granular notes, test yourself with timed quizzes, and resolve doubts instantly with your personal AI Study Companion.
+    <div className="page home-page">
+      {/* HERO SECTION: LEFT COPY & CTAS | RIGHT RAJASTHAN MAP */}
+      <section className="home-hero-grid" aria-labelledby="hero-title">
+        <div className="hero-content-col">
+          <span className="eyebrow">RPSC / RAS Examination Platform</span>
+          <h1 id="hero-title" className="hero-title">
+            Master the Rajasthan<br />
+            <em>Administrative Services</em> Syllabus.
+          </h1>
+          <p className="hero-description">
+            Explore the RPSC/RAS syllabus, published study notes and reviewed practice. Ask the AI assistant for help understanding available lesson sources, and check its citations.
           </p>
-          <button className="btn btn-primary" onClick={() => document.getElementById("syllabus").scrollIntoView({ behavior: 'smooth' })}>
-            Start Exploring 📚
-          </button>
+          <div className="hero-cta-group">
+            <a href="#syllabus-explorer" className="button primary hero-primary-btn">
+              Explore Syllabus ↓
+            </a>
+          </div>
+        </div>
+
+        <div className="hero-visual-col" aria-hidden="true">
+          <RajasthanMap className="home-rajasthan-graphic" />
         </div>
       </section>
 
-      <main className="syllabus-container" id="syllabus">
-        <div className="syllabus-card">
-          <div className="search-container">
-            <span className="search-icon">🔍</span>
-            <input
-              type="text"
-              placeholder="Search syllabus segments and subtopics..."
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
-          {loading ? (
-            <div style={{ padding: "40px 0" }}>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "100%" }}></div>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "95%" }}></div>
-              <div className="skeleton-line" style={{ height: "40px", marginBottom: "12px", width: "90%" }}></div>
-            </div>
-          ) : (
-            <div className="syllabus-tree">
-              {topics.map((topic) => (
-                <TopicItem
-                  key={topic.slug}
-                  item={topic}
-                  searchQuery={searchQuery}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </main>
+      <section className="syllabus-stats-summary" aria-label="Curriculum Overview Statistics" aria-busy={loading}>
+        <div className="summary-stat-pill"><span className="pill-dot blue" aria-hidden="true" /><span className="pill-label">Total Curriculum Topics:</span><strong>{countsReady ? totalCount : '—'}</strong></div>
+        <div className="summary-stat-pill"><span className="pill-dot amber" aria-hidden="true" /><span className="pill-label">Core Subjects:</span><strong>{countsReady ? topics.length : '—'}</strong></div>
+      </section>
+      <section className="syllabus-explorer-section" id="syllabus-explorer" aria-label="Syllabus Directory Explorer">
+        {loading ? <Skeleton label="Loading syllabus topics…" /> : error ? (
+          <StatusPanel title="Syllabus directory is temporarily unreachable" retry={retry}>Unable to load the RPSC examination hierarchy. Please refresh or try again in a moment.</StatusPanel>
+        ) : topics.length ? <>
+          <nav className="subject-navigation" aria-label="Jump to a subject">
+            {topics.map((root, i) => <button className="button subject-nav-button" key={root.id} type="button" onClick={() => jumpToSubject(root.id)} aria-controls={`home-subject-${root.id}`}>{i + 1}. {root.title}</button>)}
+          </nav>
+          <SyllabusTree topics={topics} showControls rootAnchorPrefix="home-subject" />
+        </> : <p className="notice">The syllabus outline is not available yet.</p>}
+      </section>
     </div>
-  );
+  )
 }

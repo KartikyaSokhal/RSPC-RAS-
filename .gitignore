@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.env
 
 # Runtime data
 pids
@@ -22,6 +23,9 @@ jspm_packages/
 # Frontend build output
 dist/
 dist-ssr/
+coverage/
+test-results/
+playwright-report/
 .next/
 out/
 
@@ -33,6 +37,7 @@ out/
 .pytest_cache/
 .tox/
 .venv/
+.venv-test/
 venv/
 ENV/
 env/
@@ -53,7 +58,8 @@ Thumbs.db
 .env.production.local
 
 # IDEs
-.vscode/
+.vscode/*
+!.vscode/settings.json
 !.vscode/extensions.json
 .idea/
 *.suo
@@ -61,3 +67,57 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Private runtime state and environment variants
+.env.*
+!.env.example
+*.sqlite3-*
+*.db-*
+backend/private-media/
+backend/media/
+backend/staticfiles/
+.local/
+backups/
+
+# Private historical material and generated verification evidence.
+# Canonical docs/*.md are release inputs and must remain trackable.
+docs/evidence/
+docs/history/
+docs/proposals/
+docs/design/
+
+# Legacy retired Express backend (privately archived outside checkout)
+backend/package.json
+backend/package-lock.json
+backend/src/
+
+# Local release exports, archives and tooling caches.
+.release/
+release-manifest.json
+.ruff_cache/
+.mypy_cache/
+.cache/
+*.tar.gz
+*.backup
+
+
+# Approved private-key, credential and dump exclusions.
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.dump
+*.token
+admin-credentials.txt
+.secrets/
+secrets/
+privkey*.pem
+*-private.pem
+*_private.pem
+
+# Private PostgreSQL operations files; keep only blank .env.example templates.
+*.env
+!.env.example
+*.cms
+.pgpass
+.pg_service.conf

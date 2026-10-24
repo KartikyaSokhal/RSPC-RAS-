@@ -1,0 +1,1867 @@
+{
+  "version": 1,
+  "notice": "Local development sample; not production or human editorial approval. Original wording; references checked 21 October 2026.",
+  "sources": {
+    "forts": {
+      "title": "UNESCO World Heritage Centre — Hill Forts of Rajasthan",
+      "url": "https://whc.unesco.org/en/list/247/",
+      "checked_on": "2026-10-21"
+    },
+    "ranakpur": {
+      "title": "Rajasthan Tourism — Ranakpur Temple",
+      "url": "https://www.tourism.rajasthan.gov.in/content/rajasthan-tourism/en/tourist-destinations/ranakpur-temple.html",
+      "checked_on": "2026-10-21"
+    },
+    "chittor": {
+      "title": "Rajasthan Tourism — Chittorgarh",
+      "url": "https://www.tourism.rajasthan.gov.in/chittorgarh.html",
+      "checked_on": "2026-10-21"
+    },
+    "chand": {
+      "title": "Rajasthan Tourism — Chand Baori",
+      "url": "https://www.tourism.rajasthan.gov.in/chand-baori.html",
+      "checked_on": "2026-10-21"
+    },
+    "bundi": {
+      "title": "Rajasthan Tourism — Bundi, Raniji ki Baori and Dabhai Kund",
+      "url": "https://www.tourism.rajasthan.gov.in/bundi.html",
+      "checked_on": "2026-10-21"
+    },
+    "thinkers": {
+      "title": "NCERT — Themes in Indian History I, Theme 4: Thinkers, Beliefs and Buildings",
+      "url": "https://ncert.nic.in/textbook/pdf/lehs104.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "sanchi": {
+      "title": "UNESCO World Heritage Centre — Buddhist Monuments at Sanchi",
+      "url": "https://whc.unesco.org/en/list/524",
+      "checked_on": "2026-10-21"
+    },
+    "vows": {
+      "title": "JAINpedia — Vows, scholarly account of Jain mendicant and lay practice",
+      "url": "https://jainpedia.org/article/themes/principles/jain-beliefs/vows/",
+      "checked_on": "2026-10-21"
+    },
+    "mahavira": {
+      "title": "President of India — Mahavir Jayanti message listing the five principles",
+      "url": "https://www.presidentofindia.gov.in/press_releases/president-indias-greetings-eve-mahavir-jayanti-2",
+      "checked_on": "2026-10-21"
+    },
+    "maurya": {
+      "title": "IIT Kanpur SATHEE — Kings, Farmers and Towns: Early States and Economies",
+      "url": "https://sathee.iitk.ac.in/sathee-jee/notes-class-12/history/kings-farmers-and-towns-early-states-and-economies-c-bce-ce/",
+      "checked_on": "2026-10-21"
+    },
+    "print": {
+      "title": "NCERT via IIT Kanpur SATHEE — Print Culture and the Modern World",
+      "url": "https://sathee.iitk.ac.in/sathee-ssc/student-corner/ncert-books/class-10/social-science/india-and-the-contemporary-world-2/chapter-05-print-culture-and-the-modern-world/",
+      "checked_on": "2026-10-21"
+    },
+    "national": {
+      "title": "NCERT — Our Pasts III, The Making of the National Movement: 1870s–1947",
+      "url": "https://ncert.nic.in/textbook/pdf/hess208.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "reform": {
+      "title": "NCERT — Our Pasts III, Women, Caste and Reform",
+      "url": "https://ncert.nic.in/textbook/pdf/hess207.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "phule": {
+      "title": "NCERT — Savitribai Phule, History supplementary reading",
+      "url": "https://www.ncert.nic.in/dgs/pdf/KGBV-HistoryENGLISH.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "states": {
+      "title": "NCERT — Politics in India since Independence, Challenges of Nation Building",
+      "url": "https://ncert.nic.in/textbook/pdf/leps201.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "act1956": {
+      "title": "India Code — States Reorganisation Act, 1956, especially sections 2–10",
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/1680/1/a1956-37.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "deserts": {
+      "title": "US Geological Survey — Types of Deserts",
+      "url": "https://pubs.usgs.gov/gip/deserts/types/",
+      "checked_on": "2026-10-21"
+    },
+    "aridity": {
+      "title": "US Geological Survey — How the Atmosphere Influences Aridity",
+      "url": "https://pubs.usgs.gov/gip/deserts/atmosphere/",
+      "checked_on": "2026-10-21"
+    },
+    "desertfeatures": {
+      "title": "US Geological Survey — Desert Features",
+      "url": "https://pubs.usgs.gov/gip/deserts/features/",
+      "checked_on": "2026-10-21"
+    },
+    "forests": {
+      "title": "NASA Earth Observatory — Tropical Deforestation",
+      "url": "https://science.nasa.gov/earth/earth-observatory/tropical-deforestation/",
+      "checked_on": "2026-10-21"
+    },
+    "carbon": {
+      "title": "NASA Earth Observatory — The Carbon Cycle",
+      "url": "https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/",
+      "checked_on": "2026-10-21"
+    },
+    "ozone": {
+      "title": "US EPA — Basic Ozone Layer Science",
+      "url": "https://www.epa.gov/ozone-layer-protection/basic-ozone-layer-science",
+      "checked_on": "2026-10-21"
+    },
+    "uv": {
+      "title": "US EPA — Health and Environmental Effects of Ozone Layer Depletion",
+      "url": "https://www.epa.gov/ozone-layer-protection/health-and-environmental-effects-ozone-layer-depletion",
+      "checked_on": "2026-10-21"
+    },
+    "climate": {
+      "title": "NCERT — India: Physical Environment, Chapter 4: Climate",
+      "url": "https://ncert.nic.in/textbook/pdf/kegy104.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "imd": {
+      "title": "India Meteorological Department — Monsoon monitoring, onset criteria and rainfall products",
+      "url": "https://mausam.imd.gov.in/imd_latest/contents/monsoon.php",
+      "checked_on": "2026-10-21"
+    },
+    "watercycle": {
+      "title": "NASA Earth Observatory — The Water Cycle",
+      "url": "https://science.nasa.gov/earth/earth-observatory/the-water-cycle/",
+      "checked_on": "2026-10-21"
+    },
+    "rice": {
+      "title": "NCERT — Contemporary India II, Chapter 4: Agriculture",
+      "url": "https://ncert.nic.in/textbook/pdf/jess104.pdf",
+      "checked_on": "2026-10-21"
+    },
+    "dsr": {
+      "title": "ICAR — Field day on weedy rice management under direct-seeded rice",
+      "url": "https://icar.gov.in/en/field-day-weedy-rice-management-under-dsr-organized-dungariya",
+      "checked_on": "2026-10-21"
+    }
+  },
+  "lessons": [
+    {
+      "topic_id": 30,
+      "alias": "Rajasthan temples",
+      "tags": [
+        "Rajasthan heritage",
+        "Sacred architecture",
+        "Jain traditions"
+      ],
+      "sources": [
+        "ranakpur",
+        "chittor",
+        "thinkers"
+      ],
+      "sections": [
+        {
+          "heading": "Reading a temple as historical evidence",
+          "paragraphs": [
+            "A temple is simultaneously a sacred place, a built structure and evidence of social organisation. In Rajasthan, study its location, patronage, materials and worship tradition separately. A building may have additions from several periods; its present appearance need not belong to one ruler. Distinguish an inscription, a later literary account and a local legend before assigning a date. Religious significance is important evidence about communities, but a devotional story alone cannot establish a construction chronology."
+          ]
+        },
+        {
+          "heading": "Ranakpur: a focused example",
+          "paragraphs": [
+            "Ranakpur's principal Jain temple stands in the Aravalli region of Pali. Rajasthan Tourism identifies its major construction with the fifteenth century, merchant patron Dhanna Shah and the support of Rana Kumbha of Mewar. Its Chaumukha shrine honours Adinath, the first Tirthankara in Jain tradition. Marble columns and interconnected halls create a complex interior. The term chaumukha points to a four-faced arrangement. Treat these identifying features as a connected set rather than memorising an isolated numerical claim about pillars."
+          ]
+        },
+        {
+          "heading": "Form, function and patronage",
+          "paragraphs": [
+            "The sanctum houses the principal sacred image; a mandapa provides a pillared space associated with approach, assembly or ritual. These terms describe functions within a building, not complete architectural styles. When looking at a plan, identify the route of entry, transitions between spaces and the relationship between the central shrine and subsidiary shrines. A richly carved column tells us about craftsmanship, while a donor record can help identify who financed work. Neither feature, by itself, proves that every local resident had equal access.",
+            "Royal protection and mercantile donations could operate together. This makes the temple a useful entry point into trade, labour and political authority. Jainism supplies the religious context for Ranakpur; Rajasthan forts supply a different setting in which shrines, residences and defensive works coexist. Do not assume that every temple is Jain or that every sacred building in a fort was constructed when its walls were erected."
+          ]
+        },
+        {
+          "heading": "A comparison exercise",
+          "paragraphs": [
+            "Compare a photograph of a shrine with a plan of a fortified settlement. Record only visible features first: gateways, halls, columns and paths. Then add an interpretation in a second column, such as a proposed assembly function. Finally, specify the evidence needed to test that interpretation. This method keeps observation distinct from inference. A modern repaired roof, for example, should not automatically be treated as proof of the original roof design."
+          ]
+        },
+        {
+          "heading": "Revision anchors",
+          "paragraphs": [
+            "Remember Ranakpur, Pali, Adinath and fifteenth-century patronage together. Explain the difference between a sanctum and a mandapa in one sentence. For an analytical answer, connect religious practice to resources and craftsmanship, then acknowledge rebuilding and uncertain attribution. Conservation also involves living worship traditions: preserving stonework without understanding community use would give an incomplete account of the monument."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 31,
+          "reason": "Fort complexes provide the political and urban context of sacred buildings."
+        },
+        {
+          "target_id": 61,
+          "reason": "Jain ethics and communities help contextualise Ranakpur patronage."
+        }
+      ],
+      "questions": [
+        {
+          "question": "The principal Chaumukha temple at Ranakpur is dedicated to whom?",
+          "choices": [
+            "Gautama Buddha",
+            "Raja Rammohun Roy",
+            "Adinath",
+            "Ashoka"
+          ],
+          "answer": 2,
+          "explanation": "Adinath is the first Tirthankara in Jain tradition and the principal deity of the Chaumukha shrine."
+        },
+        {
+          "question": "Ranakpur is located in which Rajasthan district?",
+          "choices": [
+            "Bharatpur",
+            "Pali",
+            "Bikaner",
+            "Kota"
+          ],
+          "answer": 1,
+          "explanation": "Ranakpur lies in the Aravalli setting of Pali district."
+        },
+        {
+          "question": "Which term usually identifies a pillared hall in a temple?",
+          "choices": [
+            "Mandapa",
+            "Baori",
+            "Rampart",
+            "Moat"
+          ],
+          "answer": 0,
+          "explanation": "A mandapa is a pillared hall; a baori is a stepwell and ramparts and moats are defensive features."
+        },
+        {
+          "question": "Which pairing correctly describes Ranakpur patronage?",
+          "choices": [
+            "Ashoka and Bindusara",
+            "Savitribai Phule and Vidyasagar",
+            "Fazl Ali and Potti Sriramulu",
+            "Dhanna Shah and Rana Kumbha"
+          ],
+          "answer": 3,
+          "explanation": "The merchant Dhanna Shah is associated with construction under the patronage of Rana Kumbha."
+        },
+        {
+          "question": "A temple has additions from several centuries. What is the soundest interpretation?",
+          "choices": [
+            "Ignore donor inscriptions",
+            "Treat every legend as a construction record",
+            "Date its different building phases using evidence",
+            "Assign all parts to its earliest ruler"
+          ],
+          "answer": 2,
+          "explanation": "Separate phases and compare inscriptions, material evidence and accounts; present form need not represent one date."
+        }
+      ]
+    },
+    {
+      "topic_id": 31,
+      "alias": "Rajasthan forts",
+      "tags": [
+        "Rajasthan heritage",
+        "Architecture",
+        "Water management"
+      ],
+      "sources": [
+        "forts",
+        "chittor"
+      ],
+      "sections": [
+        {
+          "heading": "Forts as settlements",
+          "paragraphs": [
+            "Rajasthan forts should be studied as organised places where defence, residence, worship and exchange interacted. A wall establishes a boundary, but it does not explain everything inside that boundary. Ask how people entered, where supplies were stored and how routes connected the settlement to its surroundings. These questions make fort architecture relevant to political history and everyday life rather than reducing it to a list of battles and rulers."
+          ]
+        },
+        {
+          "heading": "The UNESCO group",
+          "paragraphs": [
+            "The Hill Forts of Rajasthan serial World Heritage property includes Chittorgarh, Kumbhalgarh, Ranthambore, Gagron, Amber and Jaisalmer. Inscribed in 2013, the group illustrates different relationships between fortified settlements and terrain. Gagron uses a river setting, Ranthambore a forested landscape and Jaisalmer a desert environment. UNESCO also identifies urban activity, sacred buildings and water systems within the complexes. A serial property consists of separate components connected by a shared heritage argument; it is not a single continuous site."
+          ]
+        },
+        {
+          "heading": "Defence and water",
+          "paragraphs": [
+            "A defensible location can improve visibility and make an approach difficult, but height alone does not guarantee security. Access to supplies, routes and water also matters. Think of a hypothetical hill settlement whose only water source lies outside its gates. Even impressive walls would leave it vulnerable when movement was restricted. Reservoirs and catchments reduce that dependence. The lesson on Rajasthan water bodies explains why collecting and storing seasonal water belongs in an architectural answer about defence.",
+            "Gateways should be read in sequence. A route passing through several controlled points differs from a straight, unrestricted approach. Study the actual plan before attributing a purpose to every bend. A narrow street might reflect a defence requirement, the slope, later construction or several influences together. Avoid turning a plausible function into a certain historical claim without supporting evidence."
+          ]
+        },
+        {
+          "heading": "Monuments within the complex",
+          "paragraphs": [
+            "At Chittorgarh, the Vijay Stambh is associated with Maharana Kumbha's victories. It is a commemorative tower, not the entire fort. This distinction is useful in MCQs that mix a structure with its surrounding complex. Rajasthan temples provide another reminder that forts contained more than military facilities. Buildings could be retained, adapted or expanded by later patrons; the oldest shrine and the surrounding fortifications may have different histories."
+          ]
+        },
+        {
+          "heading": "Applying the framework",
+          "paragraphs": [
+            "Create a comparison with four headings: setting, defence, water and civic life. Fill it for two forts using their published descriptions and plans. Then explain one similarity and one difference without ranking the sites by grandeur. For example, river access and stored rainwater solve different supply problems, even when both support a defended population. A strong answer joins the physical landscape to human choices. It also recognises that continued residence and worship affect conservation needs, so protecting a fort requires attention to people as well as its masonry."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 33,
+          "reason": "Water storage sustained defended settlements."
+        },
+        {
+          "target_id": 30,
+          "reason": "Sacred buildings form part of the social life of fort complexes."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which fort belongs to the UNESCO Hill Forts of Rajasthan serial property?",
+          "choices": [
+            "Agra Fort",
+            "Gagron",
+            "Red Fort, Delhi",
+            "Golconda"
+          ],
+          "answer": 1,
+          "explanation": "Gagron is one of the six Rajasthan components; the other options are outside this serial property."
+        },
+        {
+          "question": "Which setting is especially associated with Gagron in the UNESCO description?",
+          "choices": [
+            "A river setting",
+            "A polar ice sheet",
+            "A coastal coral reef",
+            "A volcanic island"
+          ],
+          "answer": 0,
+          "explanation": "Gagron illustrates the defensive use of a river landscape."
+        },
+        {
+          "question": "Why are reservoirs relevant to the study of fort defence?",
+          "choices": [
+            "They eliminate every siege risk",
+            "They identify a modern railway route",
+            "They prove all buildings share one date",
+            "They reduce dependence on water outside the walls"
+          ],
+          "answer": 3,
+          "explanation": "Stored water supported people during restricted access; it did not make a settlement invulnerable."
+        },
+        {
+          "question": "Which ruler is associated with Chittorgarh’s Vijay Stambh?",
+          "choices": [
+            "Akbar II",
+            "Potti Sriramulu",
+            "Maharana Kumbha",
+            "Bindusara"
+          ],
+          "answer": 2,
+          "explanation": "Rajasthan Tourism associates the commemorative Vijay Stambh with Maharana Kumbha."
+        },
+        {
+          "question": "What does serial World Heritage property mean here?",
+          "choices": [
+            "A single building reconstructed six times",
+            "Several separate components sharing a heritage justification",
+            "One uninterrupted defensive wall across Rajasthan",
+            "A list of sites awaiting automatic publication"
+          ],
+          "answer": 1,
+          "explanation": "The inscription brings together separate fort components under a common statement of heritage value."
+        }
+      ]
+    },
+    {
+      "topic_id": 33,
+      "alias": "Rajasthan water bodies",
+      "tags": [
+        "Rajasthan heritage",
+        "Water management",
+        "Architecture"
+      ],
+      "sources": [
+        "chand",
+        "bundi",
+        "watercycle"
+      ],
+      "sections": [
+        {
+          "heading": "Water infrastructure in a seasonal landscape",
+          "paragraphs": [
+            "Man-made water bodies connect Rajasthan's architectural history with the practical management of a limited and variable resource. A useful study begins with function: collection, storage, access and distribution. These are related but different tasks. A structure can store water without collecting all of it directly from rainfall. Its supply may depend on runoff, groundwater or a combination. Therefore, identify the setting and water pathway before describing every historic structure as the same kind of rainwater harvesting device."
+          ]
+        },
+        {
+          "heading": "Stepwells and tanks",
+          "paragraphs": [
+            "A baori provides stepped access toward water, allowing people to descend as its level changes. A tank or kund can store water in a differently organised basin. Names alone do not settle the engineering details of every site; examine its form and documented supply. Steps also create a spatial sequence between the surrounding settlement and the water. Shaded areas and decorated pavilions show that some structures served social and ceremonial purposes alongside water access.",
+            "Chand Baori at Abhaneri is a well-known example of stepped geometry. Rajasthan Tourism describes flights of steps on three sides and a pavilion on the fourth. The nearby Harshat Mata temple places the water structure within a broader sacred setting. Avoid presenting an exact construction year as settled when published accounts offer different dating. Identifying the place, form and relationship to the temple is more defensible than choosing an unsupported precise date."
+          ]
+        },
+        {
+          "heading": "Patronage and urban examples",
+          "paragraphs": [
+            "Bundi provides a comparison. Rajasthan Tourism dates Raniji ki Baori to 1699 and associates it with Rani Nathavati Ji. Its carvings and gateways show investment in public-facing architecture. Dabhai Kund, also described in the Bundi guide, offers another stepped arrangement. Compare these structures through access, ornament and setting rather than assuming that all stepwells follow one design. Patronage records can reveal who funded construction, but they do not automatically establish who controlled access at every later date."
+          ]
+        },
+        {
+          "heading": "A simple water balance",
+          "paragraphs": [
+            "Imagine a storage basin receiving 100 units of water during a wet period. If evaporation, leakage and withdrawals together remove 70 units before the next inflow, 30 remain. This invented example demonstrates accounting, not a measured Rajasthan reservoir. A larger basin helps only if adequate inflow reaches it and the stored water remains usable. Catchment protection, removal of accumulated sediment and responsible use can matter as much as building a taller wall."
+          ]
+        },
+        {
+          "heading": "Connections and revision",
+          "paragraphs": [
+            "Rajasthan forts depended on reliable supplies for residents and defenders. Rainfall distribution explains why seasonal storage and local conditions must be considered together. In an answer, distinguish architectural beauty from hydraulic function, then connect them through a specific example. State Chand Baori–Abhaneri and Raniji ki Baori–Bundi accurately. Finally, explain why conserving the structure without its catchment or access routes may preserve an impressive object while weakening the system that once made it useful."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 31,
+          "reason": "Stored water helped forts support their populations."
+        },
+        {
+          "target_id": 129,
+          "reason": "Seasonality and uneven rainfall help explain the need for storage."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Chand Baori is associated with which settlement?",
+          "choices": [
+            "Ranakpur",
+            "Sanchi",
+            "Pataliputra",
+            "Abhaneri"
+          ],
+          "answer": 3,
+          "explanation": "Chand Baori is the stepwell at Abhaneri in Rajasthan."
+        },
+        {
+          "question": "What is the main practical advantage of steps descending toward water?",
+          "choices": [
+            "They prevent all evaporation",
+            "They turn groundwater into seawater",
+            "Access can adjust to changing water levels",
+            "They guarantee unlimited water"
+          ],
+          "answer": 2,
+          "explanation": "Stepped access accommodates varying levels; supply and losses still constrain availability."
+        },
+        {
+          "question": "Which pair is correctly matched?",
+          "choices": [
+            "Ranakpur temple — Jaipur",
+            "Raniji ki Baori — Bundi",
+            "Chand Baori — Sanchi",
+            "Dabhai Kund — Pataliputra"
+          ],
+          "answer": 1,
+          "explanation": "Raniji ki Baori is a documented Bundi stepwell."
+        },
+        {
+          "question": "A basin receives 100 units and loses 70. Ignoring other flows, how much remains?",
+          "choices": [
+            "30 units",
+            "70 units",
+            "100 units",
+            "170 units"
+          ],
+          "answer": 0,
+          "explanation": "The illustrative balance is inflow minus total losses: 100 − 70 = 30."
+        },
+        {
+          "question": "Why should a water structure’s catchment be considered in conservation?",
+          "choices": [
+            "Only the carved surface affects water supply",
+            "Every tank receives water from the ocean",
+            "Catchments have no relationship to runoff",
+            "Its inflow may depend on the surrounding drainage"
+          ],
+          "answer": 3,
+          "explanation": "Storage functions within a drainage system; conserving masonry alone may not protect its supply."
+        }
+      ]
+    },
+    {
+      "topic_id": 60,
+      "alias": "Buddhism",
+      "tags": [
+        "Ancient India",
+        "Religious traditions",
+        "Sacred architecture"
+      ],
+      "sources": [
+        "thinkers",
+        "sanchi"
+      ],
+      "sections": [
+        {
+          "heading": "Setting the tradition in history",
+          "paragraphs": [
+            "Buddhism developed amid debates about human suffering, conduct and liberation in the first millennium BCE. Its teachings are associated with Siddhartha Gautama, known as the Buddha. For historical study, distinguish the teachings preserved by communities from evidence about when a particular text or monument took its surviving form. Oral transmission, compilation and later interpretation all matter. A text can preserve an older teaching while its written version belongs to a later period."
+          ]
+        },
+        {
+          "heading": "Teachings and practice",
+          "paragraphs": [
+            "A useful introductory framework connects suffering, craving, the possibility of ending suffering and a path of disciplined practice. The Middle Way avoids both indulgence and extreme self-mortification. Ethical conduct, mental discipline and understanding work together; memorising a doctrinal label without explaining its purpose misses the central relationship. The sangha refers especially to the monastic community in this historical context. Monks and nuns depended on wider networks of lay support, so renunciation did not mean that religious institutions existed outside society."
+          ]
+        },
+        {
+          "heading": "Sanchi as material evidence",
+          "paragraphs": [
+            "Sanchi in present-day Madhya Pradesh provides evidence of Buddhist patronage over many centuries. UNESCO associates its early development with Ashoka and identifies later expansions under subsequent dynasties. The Great Stupa's present appearance therefore should not be assigned entirely to the Mauryan period. Railings, gateways, smaller stupas and monasteries allow different questions about worship, movement and support. A stupa is a sacred monument associated with relics and commemoration; a monastery accommodates a community. The two functions should not be confused."
+          ]
+        },
+        {
+          "heading": "How to interpret a monument",
+          "paragraphs": [
+            "Consider a hypothetical donor inscription naming a craft worker beside a railing. It would support the conclusion that this person contributed to that particular feature. It would not, by itself, prove that every craft worker followed the same tradition or enjoyed equal wealth. Similarly, a scene carved on a gateway requires interpretation in relation to its imagery and narrative setting. Record what is visible before identifying a story. This separates material observation from an explanatory claim.",
+            "Royal support was influential, but a monument's long history also depended on nonroyal donors and maintenance. Mauryan rule helps contextualise Ashoka's patronage without making Buddhist history identical to the history of one dynasty. Jainism offers a useful comparison because it also valued ethical restraint and liberation while developing distinct teachings and disciplinary traditions."
+          ]
+        },
+        {
+          "heading": "Revision and comparison",
+          "paragraphs": [
+            "Organise revision under teacher, ethical framework, community and evidence. Explain why a teaching, a donor inscription and a building plan answer different questions. For a short analytical response, connect an ideal to an institution: support for a monastic community makes teaching and collective practice possible, while donations link that community to a wider economy. Avoid assuming that all Buddhist communities across Asia or across centuries had identical practices. This lesson introduces a historical framework rather than an exhaustive account of living Buddhist traditions."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 61,
+          "reason": "Compare shared ethical concerns without conflating distinct traditions."
+        },
+        {
+          "target_id": 63,
+          "reason": "Mauryan patronage helps explain the historical expansion of Buddhist institutions."
+        }
+      ],
+      "questions": [
+        {
+          "question": "The Middle Way is best understood as avoiding which extremes?",
+          "choices": [
+            "Indulgence and extreme self-mortification",
+            "Writing and speaking",
+            "Agriculture and trade",
+            "Monasteries and all lay support"
+          ],
+          "answer": 0,
+          "explanation": "The Middle Way rejects both indulgence and severe self-mortification as paths to liberation."
+        },
+        {
+          "question": "Which site is associated with the Great Stupa discussed in this lesson?",
+          "choices": [
+            "Ranakpur",
+            "Abhaneri",
+            "Bundi",
+            "Sanchi"
+          ],
+          "answer": 3,
+          "explanation": "Sanchi is the Buddhist monumental complex in Madhya Pradesh."
+        },
+        {
+          "question": "In this historical context, what does sangha especially refer to?",
+          "choices": [
+            "A rainwater tank",
+            "A colonial newspaper",
+            "The monastic community",
+            "A defensive gateway"
+          ],
+          "answer": 2,
+          "explanation": "Sangha identifies the monastic community; it is distinct from architectural and administrative terms."
+        },
+        {
+          "question": "Why should Sanchi’s surviving Great Stupa not be dated entirely to Ashoka?",
+          "choices": [
+            "UNESCO identifies it as a Jain shrine",
+            "It was expanded and embellished in later periods",
+            "No Mauryan connection exists",
+            "Every part was made in 1956"
+          ],
+          "answer": 1,
+          "explanation": "The site has multiple construction and patronage phases, including later additions."
+        },
+        {
+          "question": "A donor inscription names one craft worker. Which conclusion is directly supported?",
+          "choices": [
+            "That named person contributed to the recorded work",
+            "All workers had identical beliefs",
+            "Every part of the site was built together",
+            "The entire population was equally wealthy"
+          ],
+          "answer": 0,
+          "explanation": "An inscription supports a specific contribution; wider claims require additional evidence."
+        }
+      ]
+    },
+    {
+      "topic_id": 61,
+      "alias": "Jainism",
+      "tags": [
+        "Ancient India",
+        "Religious traditions",
+        "Jain traditions"
+      ],
+      "sources": [
+        "thinkers",
+        "vows",
+        "mahavira",
+        "ranakpur"
+      ],
+      "sections": [
+        {
+          "heading": "Tradition and historical context",
+          "paragraphs": [
+            "Jainism places liberation and disciplined conduct at the centre of religious life. Jain tradition recognises twenty-four Tirthankaras, with Mahavira as the twenty-fourth and Adinath, also called Rishabhanatha, as the first. Mahavira belongs to the first-millennium-BCE setting of debates about renunciation and liberation. Describing him simply as the inventor of every Jain idea erases the tradition's own understanding of earlier teachers. Keep traditional succession distinct from what particular historical sources can independently establish."
+          ]
+        },
+        {
+          "heading": "The ethical framework",
+          "paragraphs": [
+            "Five central vows concern nonviolence, truthfulness, non-stealing, celibacy or sexual restraint, and non-possession or non-attachment. Their familiar terms are ahimsa, satya, asteya, brahmacharya and aparigraha. Ahimsa requires attention to the harm actions can cause. Aparigraha concerns attachment and possession; it is not another name for truthfulness. Learn the terms through situations as well as definitions. Declining to take something that was not given illustrates non-stealing, while examining an excessive desire to accumulate possessions illustrates non-attachment."
+          ]
+        },
+        {
+          "heading": "Mendicants and householders",
+          "paragraphs": [
+            "The discipline of monks and nuns is more stringent than that of householders. JAINpedia distinguishes the great vows of mendicants from limited vows adapted to lay responsibilities. This distinction prevents an inaccurate claim that every Jain follows an identical daily routine. Right faith, right knowledge and right conduct form another connected framework, often called the three jewels. Conduct is not treated as an isolated checklist: understanding and commitment are part of the path.",
+            "A hypothetical merchant who reduces unnecessary possessions while maintaining a household helps illustrate why levels of discipline matter. The example is an explanatory device, not a claim about one documented historical individual. In an exam answer, state the principle, identify the relevant form of practice and acknowledge the difference between a general ideal and the conduct of every community member."
+          ]
+        },
+        {
+          "heading": "Institutions and architectural evidence",
+          "paragraphs": [
+            "Rajasthan temples connect these ideas to a later material setting. Ranakpur's principal shrine honours Adinath and reflects the importance of merchant patronage alongside royal support. A richly funded temple should not be treated as a logical disproof of an ethical ideal of non-attachment. Institutions, donors and ascetics occupy different social roles, and their relationships need historical investigation. Buildings reveal resources and craftsmanship; doctrinal texts explain ideals; neither can replace the other."
+          ]
+        },
+        {
+          "heading": "Comparisons without conflation",
+          "paragraphs": [
+            "Buddhism and Jainism can be compared through renunciation, ethics and institutional support, but shared concerns do not make their teachings interchangeable. Build a two-column revision chart and identify both similarities and distinctions. Avoid attributing a Buddhist monument to Jainism merely because both traditions had monastic communities. For this introductory lesson, retain the teacher sequence, the five vows, the distinction between lay and mendicant discipline, and one accurate architectural example. More detailed sectarian histories require additional specialist reading."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 60,
+          "reason": "Compare renunciation and ethical discipline across distinct traditions."
+        },
+        {
+          "target_id": 30,
+          "reason": "Ranakpur illustrates the later architectural patronage of Jain communities."
+        }
+      ],
+      "questions": [
+        {
+          "question": "In Jain tradition, Mahavira is which Tirthankara?",
+          "choices": [
+            "First",
+            "Fifth",
+            "Twelfth",
+            "Twenty-fourth"
+          ],
+          "answer": 3,
+          "explanation": "Mahavira is the twenty-fourth; Adinath is the first in the traditional sequence."
+        },
+        {
+          "question": "Which term is most directly associated with non-attachment or non-possession?",
+          "choices": [
+            "Mandapa",
+            "Dhamma-mahamatta",
+            "Aparigraha",
+            "Satya"
+          ],
+          "answer": 2,
+          "explanation": "Aparigraha concerns possession and attachment; satya concerns truthfulness."
+        },
+        {
+          "question": "What do the Jain three jewels comprise?",
+          "choices": [
+            "Speech, print and censorship",
+            "Right faith, right knowledge and right conduct",
+            "Fort, palace and reservoir",
+            "Tax, tribute and toll"
+          ],
+          "answer": 1,
+          "explanation": "The three jewels connect commitment and understanding with disciplined conduct."
+        },
+        {
+          "question": "Which statement about vows is most accurate?",
+          "choices": [
+            "Mendicant vows are more stringent than the limited vows of householders",
+            "Every practitioner has identical obligations",
+            "Householders are prohibited from all ethical practice",
+            "The five vows refer only to temple architecture"
+          ],
+          "answer": 0,
+          "explanation": "Jain practice distinguishes monastic discipline from obligations adapted to household life."
+        },
+        {
+          "question": "Which example most directly illustrates asteya?",
+          "choices": [
+            "Building a gateway",
+            "Measuring rainfall",
+            "Publishing a newspaper",
+            "Refusing to take an object that was not given"
+          ],
+          "answer": 3,
+          "explanation": "Asteya means non-stealing; the example concerns taking another person’s property."
+        }
+      ]
+    },
+    {
+      "topic_id": 63,
+      "alias": "Mauryan rule",
+      "tags": [
+        "Ancient India",
+        "State formation",
+        "Historical sources"
+      ],
+      "sources": [
+        "maurya",
+        "sanchi",
+        "thinkers"
+      ],
+      "sections": [
+        {
+          "heading": "Empire and chronology",
+          "paragraphs": [
+            "The Mauryan dynasty emerged in the late fourth century BCE under Chandragupta Maurya. Bindusara and Ashoka followed him. Pataliputra was the principal imperial centre. This sequence is essential, but a history of empire needs more than names: it must explain how distant regions, resources and officials were connected. Avoid drawing a modern political map over an ancient state. Imperial reach, communication and local control could vary substantially across different landscapes."
+          ]
+        },
+        {
+          "heading": "Sources and their limits",
+          "paragraphs": [
+            "Inscriptions, archaeological remains and literary traditions provide different kinds of evidence. Ashoka's inscriptions are especially valuable because they present royal messages from his own period. They still express a ruler's chosen public position rather than a neutral survey of everyday behaviour. Later narratives may preserve memories and interpretations, but their date and purpose must be examined. An administrative ideal in a text does not prove that it was applied uniformly in every district.",
+            "Build a source table with three columns: what the source is, what it directly tells us and what remains uncertain. For an inscription urging respectful conduct, the direct evidence is that the ruler promoted that message. The actual response of every listener remains a separate question. This distinction helps prevent a common error: treating a prescription as a complete description of society."
+          ]
+        },
+        {
+          "heading": "Administration and communication",
+          "paragraphs": [
+            "Large states require ways to collect resources, communicate decisions and organise officials. The Mauryan example invites attention to routes, settlements and regional centres. Compare the movement of a message along a river route with movement across difficult upland terrain. Even without calculating an exact travel time, the comparison explains why distance and geography affect administration. The existence of an imperial centre does not eliminate local variation or automatically imply the same intensity of control everywhere."
+          ]
+        },
+        {
+          "heading": "Ashoka, ethics and patronage",
+          "paragraphs": [
+            "Ashoka promoted dhamma through messages concerned with conduct, respect and welfare. His personal support for Buddhism should be distinguished from the broader ethical language of these public messages. Buddhist institutions received royal support, but reducing the empire to a single religious identity obscures its diversity. Jainism and other traditions also belonged to the intellectual environment of ancient India.",
+            "Sanchi supplies a concrete material connection. UNESCO associates its early sacred development with Ashoka, while later dynasties contributed further structures and embellishment. This is evidence of a continuing site history, not a reason to assign every visible feature to one reign. Identify the specific phase before using a monument as evidence for Mauryan architecture."
+          ]
+        },
+        {
+          "heading": "Exam application",
+          "paragraphs": [
+            "A strong short answer joins chronology, administration and sources. State the Chandragupta–Bindusara–Ashoka sequence, locate Pataliputra, and explain why inscriptions matter. Then add a limitation: royal statements illuminate intended policy but need comparison with other evidence. For a longer response, distinguish territorial ambition from everyday implementation. This approach produces a reasoned account of state formation rather than an untested claim that ancient government worked exactly like a modern bureaucracy."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 60,
+          "reason": "Ashoka’s patronage connects state history with Buddhist institutions."
+        },
+        {
+          "target_id": 61,
+          "reason": "Renunciatory traditions formed part of the empire’s diverse religious setting."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which succession is correct?",
+          "choices": [
+            "Chandragupta Maurya → Ashoka → Bindusara",
+            "Chandragupta Maurya → Bindusara → Ashoka",
+            "Ashoka → Chandragupta Maurya → Bindusara",
+            "Bindusara → Ashoka → Chandragupta Maurya"
+          ],
+          "answer": 1,
+          "explanation": "Bindusara succeeded Chandragupta Maurya, and Ashoka followed Bindusara."
+        },
+        {
+          "question": "Which city was the principal Mauryan imperial centre?",
+          "choices": [
+            "Pataliputra",
+            "Bundi",
+            "Abhaneri",
+            "Ranakpur"
+          ],
+          "answer": 0,
+          "explanation": "Pataliputra was the central seat of Mauryan authority."
+        },
+        {
+          "question": "What does an inscription urging ethical conduct directly establish?",
+          "choices": [
+            "Every subject obeyed it without exception",
+            "All provinces had identical administration",
+            "The inscription was written in the twentieth century",
+            "The ruler publicly promoted that message"
+          ],
+          "answer": 3,
+          "explanation": "A royal prescription shows intended messaging; universal implementation requires separate evidence."
+        },
+        {
+          "question": "Which statement best distinguishes Ashoka’s public dhamma from his personal patronage?",
+          "choices": [
+            "Ashoka left no public messages",
+            "Sanchi was built entirely after independence",
+            "Public ethical messages had a broader scope than support for Buddhist institutions",
+            "Dhamma was a modern rainfall classification"
+          ],
+          "answer": 2,
+          "explanation": "Royal ethical communication and patronage are related but analytically distinct forms of evidence."
+        },
+        {
+          "question": "Why do routes and terrain matter when studying an ancient empire?",
+          "choices": [
+            "They prove every text is contemporary",
+            "They affect communication and the practical reach of authority",
+            "They establish equal control everywhere",
+            "They remove the need for officials"
+          ],
+          "answer": 1,
+          "explanation": "Distance and geographical obstacles can produce regional differences in administration."
+        }
+      ]
+    },
+    {
+      "topic_id": 93,
+      "alias": "Indian press",
+      "tags": [
+        "Modern India",
+        "Public debate",
+        "Historical sources"
+      ],
+      "sources": [
+        "print",
+        "national",
+        "reform"
+      ],
+      "sections": [
+        {
+          "heading": "Print and a wider public",
+          "paragraphs": [
+            "The press helped people discuss political, economic and social questions beyond a face-to-face gathering. Newspapers could connect a local grievance with arguments circulating elsewhere. Printing did not create a single opinion shared by every Indian: editors, readers, languages and political positions differed. The important historical change was the expansion of recurring public debate. A newspaper should therefore be studied as an institution with an audience and a position, not as a transparent record of everything that happened."
+          ]
+        },
+        {
+          "heading": "Circulation and participation",
+          "paragraphs": [
+            "Print and oral communication often reinforced each other. A report could be read aloud, discussed in a meeting or summarised for people who did not subscribe. This means that circulation figures and actual influence are related but not identical. At the same time, low literacy, cost and uneven access limited participation. Avoid claiming that the press reached everyone equally. Different regional languages made arguments accessible to different audiences and helped connect political discussion with familiar social experience."
+          ]
+        },
+        {
+          "heading": "Colonial restrictions",
+          "paragraphs": [
+            "The Vernacular Press Act of 1878 was used to restrict criticism in Indian-language publications. NCERT places it among measures that intensified dissatisfaction with colonial rule. Its significance lies in the relationship between communication and political authority: officials feared the consequences of hostile reporting, while publicists sought room to criticise policy. Keep the year and purpose together. Do not confuse a law governing newspapers with a reform concerning schools or the later reorganisation of state boundaries."
+          ]
+        },
+        {
+          "heading": "Newspapers as historical sources",
+          "paragraphs": [
+            "Consider an invented editorial describing a new tax as unfair. It directly tells us how that editor framed the measure. To assess its wider significance, ask who owned the paper, which language it used, what evidence it supplied and whether other reports agreed. A strong adjective is evidence of a viewpoint, not a measurement of the tax burden. Compare the editorial with an official statement and a petition from affected people before concluding that it represented every reader.",
+            "The distinction between reporting and advocacy is particularly useful. A paper might report a meeting and also urge readers to attend the next one. Both passages are historical evidence, but they answer different questions. The first may help reconstruct an event; the second reveals an attempt to mobilise participation. Dating the issue precisely can prevent later commentary from being mistaken for a contemporary response."
+          ]
+        },
+        {
+          "heading": "Connections for revision",
+          "paragraphs": [
+            "Social reformers used publications to contest practices and promote education. Linguistic reorganisation later raised different questions about language and representative government; it should not be treated as an automatic consequence of one newspaper campaign. Connect these topics through the importance of public communication while preserving chronology and differences of purpose. For revision, organise notes under audience, argument, restriction and evidence. A balanced answer explains the press's role in political awareness and its limits without assuming either complete freedom or complete uniformity of opinion."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 98,
+          "reason": "Reformers used print to extend debates about education and social practices."
+        },
+        {
+          "target_id": 104,
+          "reason": "Regional-language public discussion provides context for later linguistic demands."
+        }
+      ],
+      "questions": [
+        {
+          "question": "The Vernacular Press Act discussed here belongs to which year?",
+          "choices": [
+            "1757",
+            "1956",
+            "1960",
+            "1878"
+          ],
+          "answer": 3,
+          "explanation": "The Act of 1878 targeted criticism in vernacular publications under colonial rule."
+        },
+        {
+          "question": "Why can a newspaper’s influence exceed its number of subscriptions?",
+          "choices": [
+            "Subscription figures measure universal agreement",
+            "Printing abolishes language differences",
+            "Copies and reports may be shared or read aloud",
+            "Every resident necessarily owns a copy"
+          ],
+          "answer": 2,
+          "explanation": "Reading aloud and discussion can carry reports beyond direct subscribers."
+        },
+        {
+          "question": "An editorial calls a tax unfair. What is immediately established?",
+          "choices": [
+            "The article contains no viewpoint",
+            "The editor expressed opposition to the tax",
+            "Every taxpayer opposed it",
+            "The tax was never collected"
+          ],
+          "answer": 1,
+          "explanation": "The editorial directly records a position; broader social or fiscal conclusions need other evidence."
+        },
+        {
+          "question": "Which comparison best tests whether an editorial represented a wider grievance?",
+          "choices": [
+            "Compare it with petitions and other contemporary accounts",
+            "Count only its adjectives",
+            "Ignore its date and audience",
+            "Assume all newspapers agree"
+          ],
+          "answer": 0,
+          "explanation": "Independent contemporary evidence helps evaluate representativeness and context."
+        },
+        {
+          "question": "Which statement about the Indian press is most accurate?",
+          "choices": [
+            "It produced one identical national opinion",
+            "It reached every person equally",
+            "It operated without any colonial restrictions",
+            "It enabled debate among varied audiences and viewpoints"
+          ],
+          "answer": 3,
+          "explanation": "Different languages, costs, literacy and political commitments shaped the press’s reach and positions."
+        }
+      ]
+    },
+    {
+      "topic_id": 98,
+      "alias": "Social reformers",
+      "tags": [
+        "Modern India",
+        "Public debate",
+        "Social reform"
+      ],
+      "sources": [
+        "reform",
+        "phule",
+        "print"
+      ],
+      "sections": [
+        {
+          "heading": "Reform as argument and organised action",
+          "paragraphs": [
+            "Nineteenth-century social reform involved debates about education, gender, caste and religious practice. Reformers did not all agree on methods or goals. Some appealed to religious texts, some emphasised reason and equality, and many established institutions alongside writing and public campaigning. An exam answer should connect a person with an issue and a method rather than treating reform as a parade of biographies. Changes in law, access to education and everyday practice also occurred at different speeds."
+          ]
+        },
+        {
+          "heading": "Selected reformers and issues",
+          "paragraphs": [
+            "Raja Rammohun Roy is associated with the Brahmo Sabha and opposition to sati. Ishwar Chandra Vidyasagar supported widow remarriage and girls' education. These examples show how textual argument and institutional activity could be combined. Avoid assuming that support for one reform meant agreement on every social question. A specific campaign must be evaluated within its own context, including the opposition it faced and the groups whose voices it included or overlooked.",
+            "Savitribai and Jyotirao Phule opened a school for girls in Pune in 1848. Their work provides a concrete example of education as organised social action. Savitribai should be recognised as an educator and reformer in her own right, rather than mentioned only as someone's wife. Studying teaching, school access and the conditions facing pupils makes the example more informative than merely memorising a founding year."
+          ]
+        },
+        {
+          "heading": "Women as authors and agents",
+          "paragraphs": [
+            "Tarabai Shinde's critique of unequal treatment of women and men illustrates that women actively shaped reform debates. They were not simply passive recipients of changes proposed by men. The Indian press and other printed forms could circulate arguments, but publishing a criticism did not automatically secure broad acceptance. Distinguish an author's claim, the audience reached and the subsequent response. These are separate historical questions that require different evidence."
+          ]
+        },
+        {
+          "heading": "An analytical example",
+          "paragraphs": [
+            "Imagine a proposed school that admits girls but charges fees beyond most households' means. The institution creates an opportunity while leaving an economic barrier in place. This hypothetical case explains why the existence of a school is not enough to demonstrate equal access. Ask about admission, language, travel, cost and the curriculum. A similar method can be used for legal reform: the passage of a rule and its implementation in social life should be evaluated separately."
+          ]
+        },
+        {
+          "heading": "Comparison and revision",
+          "paragraphs": [
+            "Linguistic reorganisation concerns the territorial organisation of a later democratic state; social reform concerns a different set of institutions and practices. Comparing the two can illuminate how public demands become institutional changes without collapsing their chronology. For revision, make a person–issue–method table: Rammohun Roy and opposition to sati, Vidyasagar and widow remarriage, and the Phules and educational access. Add women's own writing as evidence of agency. Conclude an analytical answer by identifying both change and continuing barriers, rather than declaring an entire social problem solved by one law or school."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 93,
+          "reason": "Print was a medium for reform debates and public persuasion."
+        },
+        {
+          "target_id": 104,
+          "reason": "Comparing social reform with later state reorganisation clarifies distinct kinds of institutional change."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which pair is associated with a girls’ school in Pune in 1848?",
+          "choices": [
+            "Fazl Ali and H. N. Kunzru",
+            "Dhanna Shah and Rana Kumbha",
+            "Savitribai and Jyotirao Phule",
+            "Ashoka and Bindusara"
+          ],
+          "answer": 2,
+          "explanation": "The Phules’ educational work includes the Pune school established in 1848."
+        },
+        {
+          "question": "Ishwar Chandra Vidyasagar is especially associated with which reform issue?",
+          "choices": [
+            "The Hill Forts inscription",
+            "Widow remarriage",
+            "The Montreal Protocol",
+            "The first Mauryan capital"
+          ],
+          "answer": 1,
+          "explanation": "Vidyasagar supported widow remarriage and girls’ education."
+        },
+        {
+          "question": "Why include Tarabai Shinde in a study of reform?",
+          "choices": [
+            "Her writing demonstrates women’s active participation in critique",
+            "She designed Chand Baori",
+            "She led the States Reorganisation Commission",
+            "She founded the Mauryan dynasty"
+          ],
+          "answer": 0,
+          "explanation": "Her criticism of unequal gender treatment is evidence of women’s agency in reform debates."
+        },
+        {
+          "question": "A school exists but most families cannot afford its fees. What follows?",
+          "choices": [
+            "All children necessarily attend",
+            "Fees have no bearing on participation",
+            "No educational institution exists",
+            "Institutional availability does not guarantee equal access"
+          ],
+          "answer": 3,
+          "explanation": "Cost can restrict access even after a school is established."
+        },
+        {
+          "question": "Which approach best explains social reform?",
+          "choices": [
+            "Treat women solely as passive beneficiaries",
+            "Equate a law with immediate universal change",
+            "Connect each person to an issue, method and historical context",
+            "Assume all reformers agreed on every issue"
+          ],
+          "answer": 2,
+          "explanation": "A contextual person–issue–method approach avoids overstating agreement or implementation."
+        }
+      ]
+    },
+    {
+      "topic_id": 104,
+      "alias": "Linguistic reorganisation",
+      "tags": [
+        "Modern India",
+        "State formation",
+        "Federalism"
+      ],
+      "sources": [
+        "states",
+        "act1956",
+        "national"
+      ],
+      "sections": [
+        {
+          "heading": "The problem after independence",
+          "paragraphs": [
+            "Independent India inherited territorial units shaped by colonial administration and princely rule. Their boundaries did not consistently correspond to the languages people used in daily life. Reorganisation involved balancing regional aspirations with national unity, administrative feasibility and economic considerations. It was therefore more complex than drawing a separate boundary around every language group. Many areas were multilingual, and changing a border could affect services, resources and minority communities as well as political representation."
+          ]
+        },
+        {
+          "heading": "Andhra and the national debate",
+          "paragraphs": [
+            "The campaign for a Telugu-speaking state gained particular force around Potti Sriramulu's fast and death. Andhra State was created in 1953 from Telugu-speaking areas of Madras State. Distinguish Andhra State in 1953 from the enlarged Andhra Pradesh formed in 1956. This difference matters because similarly named political units can have different boundaries and dates. A timeline should identify both the event and the territorial change rather than treating the names as interchangeable."
+          ]
+        },
+        {
+          "heading": "The 1956 settlement",
+          "paragraphs": [
+            "The States Reorganisation Commission was appointed in 1953 under Fazl Ali. Its work informed the major reorganisation of 1956. The States Reorganisation Act defines its appointed day as 1 November 1956 and contains provisions for several territorial changes. These include the formation of Kerala and changes affecting Rajasthan. The Act is a useful primary source for what the legislation provided; a textbook helps explain the political debate and background. Neither should be used as a substitute for the other.",
+            "Language was an important basis, but the process did not eliminate multilingual populations or end future demands. In 1960, the bilingual Bombay State was divided into Maharashtra and Gujarat. This later example, still within the syllabus period ending in 1964, shows why 1956 should be understood as a major stage rather than a final solution to every question about state boundaries."
+          ]
+        },
+        {
+          "heading": "A worked reasoning example",
+          "paragraphs": [
+            "Suppose a proposed boundary places a linguistic minority within a new majority-language state. The existence of a majority does not remove the minority's needs for schooling, communication and public services. This hypothetical case explains why linguistic organisation and protection of diversity must be considered together. Similarly, a district's language profile alone cannot answer questions about shared water resources or transport connections. Administrative design requires several kinds of evidence."
+          ]
+        },
+        {
+          "heading": "Connecting the syllabus",
+          "paragraphs": [
+            "The Indian press provides context for public communication in regional languages, while social reformers illustrate earlier debates about inclusion and institutional change. These connections concern participation, not an assertion that the same people or organisations caused every later development. For revision, keep four markers clear: Andhra in 1953, the commission under Fazl Ali, the 1956 Act and the Bombay division of 1960. A strong answer explains how accommodation of regional identity could support a democratic union while acknowledging practical and minority-rights questions."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 93,
+          "reason": "Language and public debate connect representative demands with communication."
+        },
+        {
+          "target_id": 98,
+          "reason": "Different reform movements show how public claims can lead to institutional change."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Andhra State was created in which year?",
+          "choices": [
+            "1953",
+            "1878",
+            "1848",
+            "1964"
+          ],
+          "answer": 0,
+          "explanation": "Andhra State was created in 1953; the enlarged Andhra Pradesh followed in 1956."
+        },
+        {
+          "question": "Who chaired the States Reorganisation Commission appointed in 1953?",
+          "choices": [
+            "Rana Kumbha",
+            "Ishwar Chandra Vidyasagar",
+            "Chandragupta Maurya",
+            "Fazl Ali"
+          ],
+          "answer": 3,
+          "explanation": "Fazl Ali chaired the commission that examined state reorganisation."
+        },
+        {
+          "question": "What is the appointed day defined by the States Reorganisation Act, 1956?",
+          "choices": [
+            "26 January 1950",
+            "1 January 1960",
+            "1 November 1956",
+            "15 August 1947"
+          ],
+          "answer": 2,
+          "explanation": "Section 2 defines the appointed day as 1 November 1956; do not confuse it with the enactment date."
+        },
+        {
+          "question": "Which states emerged from the division of Bombay State in 1960?",
+          "choices": [
+            "Assam and Bihar",
+            "Maharashtra and Gujarat",
+            "Kerala and Rajasthan",
+            "Punjab and Odisha"
+          ],
+          "answer": 1,
+          "explanation": "Bombay State was divided into Maharashtra and Gujarat in 1960."
+        },
+        {
+          "question": "Why is language alone insufficient for evaluating a proposed boundary?",
+          "choices": [
+            "Administrative, economic and minority concerns also matter",
+            "Every district has exactly one language",
+            "Transport and resources never cross borders",
+            "Reorganisation removes all regional diversity"
+          ],
+          "answer": 0,
+          "explanation": "Language is important, but services, resources and multilingual populations require additional consideration."
+        }
+      ]
+    },
+    {
+      "topic_id": 112,
+      "alias": "Deserts",
+      "tags": [
+        "World geography",
+        "Climate processes",
+        "Water management"
+      ],
+      "sources": [
+        "deserts",
+        "aridity",
+        "desertfeatures"
+      ],
+      "sections": [
+        {
+          "heading": "Aridity rather than heat",
+          "paragraphs": [
+            "A desert is identified principally by aridity, not by a requirement that it be hot. Low precipitation and limited moisture availability shape its ecosystems and surface processes. Polar deserts make the distinction especially clear: very cold conditions can coexist with little precipitation. Conversely, a hot place with abundant rainfall is not a desert merely because its temperature is high. Always separate a moisture classification from a temperature description when interpreting an unfamiliar climate graph."
+          ]
+        },
+        {
+          "heading": "Why deserts occur",
+          "paragraphs": [
+            "Many subtropical deserts are associated with descending air that inhibits cloud formation. Other dry regions lie in continental interiors or on the sheltered side of mountains. In a rain shadow, moist air rises on the windward side, cools and can lose moisture as precipitation; descending air on the other side becomes warmer and relatively drier. Coastal deserts can also be influenced by cold ocean currents and stable air. These are mechanisms, not rigid boxes: several influences may operate together in one region.",
+            "The Sahara is a major hot desert in North Africa, the Namib lies along southwestern Africa, and the Atacama is on the western side of South America. Antarctica demonstrates cold desert conditions. A map exercise should locate each example and connect it to a plausible atmospheric or geographic setting. Do not repeat the misleading claim that the Sahara is the largest desert of every type; that overlooks polar deserts."
+          ]
+        },
+        {
+          "heading": "Landscapes and processes",
+          "paragraphs": [
+            "Deserts are not continuous seas of sand. Rocky surfaces, gravel plains, dunes and dry channels may occur together. Wind transports suitably sized particles, but occasional water flow can also reshape the landscape. Sparse vegetation and intense rainfall over a short period can produce rapid runoff. Thus, an arid climate does not mean that flooding is impossible. The amount, intensity and timing of precipitation are different variables and must not be substituted for one another."
+          ]
+        },
+        {
+          "heading": "A climate-graph exercise",
+          "paragraphs": [
+            "Consider two invented stations receiving 180 millimetres of precipitation annually. One is hot throughout the year; the other remains very cold for much of it. Their equal precipitation totals do not imply equal evaporation, vegetation or temperature range. Add monthly values and temperature data before comparing environments. Similarly, 180 millimetres spread across many small events has different consequences from the same amount concentrated in a few storms. This example explains why one annual number is an incomplete environmental description."
+          ]
+        },
+        {
+          "heading": "Rajasthan and wider connections",
+          "paragraphs": [
+            "Rainfall distribution helps connect global aridity to variation within India. Rajasthan water bodies illustrate strategies for collecting and accessing scarce or seasonal supplies, but engineering does not remove climatic constraints. Distinguish a natural desert from desertification, which concerns land degradation in drylands. A dry ecosystem can support adapted species and human livelihoods; describing it as useless land obscures both. For revision, organise examples by location and process, then test statements containing absolute words such as always, only and never against the diversity of desert environments."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 129,
+          "reason": "Rainfall patterns help explain aridity and rain shadows."
+        },
+        {
+          "target_id": 33,
+          "reason": "Historic storage structures illustrate human responses to scarce seasonal water."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which feature best distinguishes a desert?",
+          "choices": [
+            "Aridity and limited precipitation",
+            "High temperature in every month",
+            "A continuous cover of sand dunes",
+            "Complete absence of life"
+          ],
+          "answer": 0,
+          "explanation": "Deserts are defined by dryness; they can be hot or cold and support adapted life."
+        },
+        {
+          "question": "What commonly happens on the leeward side of a rain-shadow mountain range?",
+          "choices": [
+            "Air must remain saturated at all times",
+            "Rainfall is necessarily greater than on the windward side",
+            "Ocean tides create daily snowfall",
+            "Descending air becomes warmer and relatively drier"
+          ],
+          "answer": 3,
+          "explanation": "After windward uplift and moisture loss, descending air tends to warm and become relatively drier."
+        },
+        {
+          "question": "Which pairing is correct?",
+          "choices": [
+            "Sahara — Antarctica",
+            "Antarctica — exclusively hot desert",
+            "Atacama — western South America",
+            "Namib — eastern Europe"
+          ],
+          "answer": 2,
+          "explanation": "The Atacama lies in western South America; the alternatives misplace or misclassify deserts."
+        },
+        {
+          "question": "Why can floods occur in an arid region?",
+          "choices": [
+            "Deserts never contain channels",
+            "Intense short rainfall can produce rapid runoff",
+            "Aridity guarantees rain every day",
+            "Wind turns sand directly into water"
+          ],
+          "answer": 1,
+          "explanation": "Low annual rainfall does not rule out occasional intense storms and runoff."
+        },
+        {
+          "question": "Two stations have the same annual rainfall. What additional information improves comparison?",
+          "choices": [
+            "Monthly distribution and temperature",
+            "Only the spelling of their names",
+            "Only whether a dune is photographed",
+            "Nothing; all environmental conditions must match"
+          ],
+          "answer": 0,
+          "explanation": "Seasonality and temperature affect water availability and distinguish environments with equal annual totals."
+        }
+      ]
+    },
+    {
+      "topic_id": 119,
+      "alias": "Deforestation",
+      "tags": [
+        "World geography",
+        "Environmental change",
+        "Water management"
+      ],
+      "sources": [
+        "forests",
+        "carbon",
+        "watercycle"
+      ],
+      "sections": [
+        {
+          "heading": "Defining the change",
+          "paragraphs": [
+            "Deforestation involves conversion of forest to another land use. It should be distinguished from forest degradation, in which forest remains but its structure, biodiversity or functioning is damaged. Satellite images showing fewer trees may suggest change, yet interpretation requires attention to location, season and land-use history. A harvested plantation, a temporary disturbance and conversion of natural forest are not necessarily equivalent processes. Clear definitions make both environmental analysis and public reporting more reliable."
+          ]
+        },
+        {
+          "heading": "Direct and underlying drivers",
+          "paragraphs": [
+            "Agricultural expansion, timber extraction, roads and mining can affect forests. These activities often interact. A road may open access, extraction may fragment a landscape and later conversion may establish farmland or pasture. Underlying incentives include markets, land policies and livelihood pressures. Avoid attributing every case to a single group or motive. NASA's discussion of tropical deforestation emphasises this interaction between immediate land-use changes and broader economic conditions."
+          ]
+        },
+        {
+          "heading": "Carbon, water and habitat",
+          "paragraphs": [
+            "Trees store carbon in their biomass. Clearing and burning can return part of that carbon to the atmosphere, while regrowth takes carbon up again over time. Equal areas of young plantation and mature natural forest need not store equal amounts of carbon or support the same species. Carbon accounting therefore requires attention to forest condition, time and what happens to cleared material, not merely the number of hectares planted.",
+            "Vegetation also participates in evapotranspiration and influences surface energy and water movement. Removing forest can alter these processes, but it is unsafe to claim that every local clearing causes the same rainfall response. Atmospheric circulation, scale and background climate matter. Habitat fragmentation adds another concern: the remaining patches may be separated from one another and exposed to different edge conditions, affecting species even where some trees survive."
+          ]
+        },
+        {
+          "heading": "Interpreting an example",
+          "paragraphs": [
+            "Imagine two satellite maps taken ten years apart. The second shows a road and a rectangular cleared area. You can identify a spatial change, but the image alone does not establish legal ownership, the community's motives or the complete sequence of events. Combine remote sensing with ground observations and land-use records. A time series is stronger than one before-and-after pair when distinguishing seasonal vegetation changes from persistent conversion."
+          ]
+        },
+        {
+          "heading": "Responses and connected issues",
+          "paragraphs": [
+            "Conservation can include preventing unnecessary conversion, protecting connected habitats, restoring damaged areas and supporting viable local livelihoods. A plantation may serve a useful purpose without replacing all the ecological functions of a natural forest. Treat effectiveness as an evidence question rather than assuming that every tree-planting total measures restored biodiversity.",
+            "Rainfall distribution provides the larger water-cycle context. Ozone depletion concerns a different atmospheric mechanism involving ozone-destroying chemicals; it is not another name for deforestation. Comparing the two encourages precise cause-and-effect explanations. For revision, trace a chain from driver to land-use change to ecological consequence, then identify the evidence and uncertainty at each step. This is more informative than listing generic environmental harms without explaining how they occur."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 122,
+          "reason": "Distinguish forest and carbon-cycle change from stratospheric ozone chemistry."
+        },
+        {
+          "target_id": 129,
+          "reason": "Vegetation interacts with water cycling, while rainfall has multiple controls."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which description best identifies deforestation?",
+          "choices": [
+            "Any change in wind direction",
+            "Conversion of forest to another land use",
+            "Any photograph of a deciduous tree without leaves",
+            "Every instance of tree pruning"
+          ],
+          "answer": 1,
+          "explanation": "Deforestation involves land-use conversion; seasonal change or pruning alone does not establish it."
+        },
+        {
+          "question": "How does fragmentation differ from total removal?",
+          "choices": [
+            "Forest patches can remain but become separated",
+            "All trees necessarily disappear",
+            "It concerns only ocean currents",
+            "It creates identical habitats everywhere"
+          ],
+          "answer": 0,
+          "explanation": "Fragmentation can isolate surviving patches and change edge conditions."
+        },
+        {
+          "question": "Why is tree-planting area alone an incomplete restoration measure?",
+          "choices": [
+            "All plantations immediately match mature forests",
+            "Tree numbers measure every species present",
+            "Carbon storage never changes with age",
+            "Species, age, connectivity and ecosystem functions also matter"
+          ],
+          "answer": 3,
+          "explanation": "Area totals cannot establish equivalence in biodiversity, carbon or habitat function."
+        },
+        {
+          "question": "What can a pair of satellite images establish most directly?",
+          "choices": [
+            "Universal legality of clearing",
+            "The exact political opinion of residents",
+            "A visible spatial change between observation dates",
+            "Every landholder’s motive"
+          ],
+          "answer": 2,
+          "explanation": "Images reveal patterns; motives, ownership and legal context require other evidence."
+        },
+        {
+          "question": "Which is a sound distinction?",
+          "choices": [
+            "Ozone depletion means harvesting every tree",
+            "Deforestation affects land and carbon cycling; ozone depletion involves stratospheric chemistry",
+            "Both terms mean the same process",
+            "Neither can have environmental consequences"
+          ],
+          "answer": 1,
+          "explanation": "The mechanisms differ even though both are environmental issues."
+        }
+      ]
+    },
+    {
+      "topic_id": 122,
+      "alias": "Ozone depletion",
+      "tags": [
+        "World geography",
+        "Environmental change",
+        "Atmospheric science"
+      ],
+      "sources": [
+        "ozone",
+        "uv"
+      ],
+      "sections": [
+        {
+          "heading": "Ozone and altitude",
+          "paragraphs": [
+            "Ozone is a form of oxygen containing three oxygen atoms per molecule. Most atmospheric ozone is concentrated in the stratosphere, where it absorbs important portions of the Sun's ultraviolet radiation. The protective role of this layer must be distinguished from ozone near the ground, which is an air pollutant. The same molecule can therefore have very different environmental significance depending on its location. An exam question that simply asks whether ozone is good or bad is incomplete without this context."
+          ]
+        },
+        {
+          "heading": "The destruction mechanism",
+          "paragraphs": [
+            "Certain long-lived chemicals carry chlorine or bromine into the stratosphere. Ultraviolet radiation can break these compounds down, releasing atoms involved in reactions that destroy ozone. Chlorofluorocarbons are an important example of ozone-depleting substances. The chemistry can be catalytic, so the effect is not limited to one ozone molecule for each released atom. This explains why the persistence and atmospheric behaviour of a compound matter, rather than only the location where it was originally emitted."
+          ]
+        },
+        {
+          "heading": "Understanding the ozone hole",
+          "paragraphs": [
+            "The Antarctic ozone hole describes a seasonal region of severe depletion, not a physical opening through the atmosphere. Very cold stratospheric conditions and polar stratospheric clouds help create conditions for rapid ozone loss when sunlight returns during Antarctic spring. Do not transfer the Southern Hemisphere seasonal calendar directly to the Northern Hemisphere. A year-to-year change in the hole's extent also does not, by itself, establish the entire long-term recovery trend."
+          ]
+        },
+        {
+          "heading": "Effects and appropriate responses",
+          "paragraphs": [
+            "Reduced stratospheric protection allows more ultraviolet-B radiation to reach the surface. This can increase risks to human health and affect plants and aquatic organisms. The lesson concerns the environmental mechanism, not personal medical advice. Policies controlling ozone-depleting substances address the cause by reducing their production and release. Existing chemicals can persist, so a policy change need not produce an immediate return to earlier atmospheric conditions. Monitoring remains necessary even after emissions decline."
+          ]
+        },
+        {
+          "heading": "Avoiding a common confusion",
+          "paragraphs": [
+            "Ozone depletion and global warming are distinct processes. The first centres on loss of stratospheric ozone; the second concerns changes in Earth's energy balance and rising global temperature. Some chemicals can contribute to both, but overlap does not make the mechanisms identical. Deforestation influences carbon storage and land-surface processes, yet planting trees is not a direct substitute for controlling ozone-depleting refrigerants. Match an intervention to the mechanism it is intended to address."
+          ]
+        },
+        {
+          "heading": "A reasoning exercise",
+          "paragraphs": [
+            "Suppose two products have equal short-term usefulness, but one releases a persistent ozone-depleting compound when discarded. A sound environmental comparison must consider leakage, disposal and atmospheric lifetime as well as performance during use. This invented example demonstrates a lifecycle approach; it does not identify a particular commercial product. For revision, explain the sequence from release to stratospheric breakdown to ozone loss to increased ultraviolet exposure. Keep troposphere and stratosphere, chemical identity and environmental role, and short-term variability and long-term trends clearly separated."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 119,
+          "reason": "Compare different environmental mechanisms and the interventions each requires."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Where is the protective ozone layer concentrated?",
+          "choices": [
+            "Earth’s inner core",
+            "Only at ground level",
+            "The stratosphere",
+            "The ocean floor"
+          ],
+          "answer": 2,
+          "explanation": "Most atmospheric ozone is concentrated in the stratosphere, where it absorbs ultraviolet radiation."
+        },
+        {
+          "question": "Which atoms released from some long-lived compounds contribute to ozone destruction?",
+          "choices": [
+            "Only sodium and potassium",
+            "Chlorine and bromine",
+            "Only helium and neon",
+            "Only iron and copper"
+          ],
+          "answer": 1,
+          "explanation": "Stratospheric chlorine and bromine participate in ozone-destroying reactions."
+        },
+        {
+          "question": "What does the Antarctic ozone hole describe?",
+          "choices": [
+            "A seasonal region of severe ozone depletion",
+            "A literal empty tunnel through all air",
+            "A permanent gap in Earth’s crust",
+            "The complete disappearance of atmospheric oxygen"
+          ],
+          "answer": 0,
+          "explanation": "The term refers to very low ozone amounts over a region, not a physical opening."
+        },
+        {
+          "question": "Why can ozone near the ground and ozone high in the stratosphere have different effects?",
+          "choices": [
+            "They always contain different numbers of atoms",
+            "Ground-level ozone is necessarily harmless",
+            "Stratospheric ozone blocks all sunlight",
+            "Location changes its environmental role and exposure pathways"
+          ],
+          "answer": 3,
+          "explanation": "The same molecule is protective aloft but a pollutant near the surface."
+        },
+        {
+          "question": "Which response directly addresses ozone-depleting substances?",
+          "choices": [
+            "Treat every warm day as an ozone-hole measurement",
+            "Increase release of long-lived CFCs",
+            "Control their production, leakage and release",
+            "Assume tree planting removes the need for refrigerant controls"
+          ],
+          "answer": 2,
+          "explanation": "Controlling the relevant substances addresses the chemical cause of depletion."
+        }
+      ]
+    },
+    {
+      "topic_id": 128,
+      "alias": "Indian monsoon",
+      "tags": [
+        "Indian geography",
+        "Climate processes",
+        "Water management"
+      ],
+      "sources": [
+        "climate",
+        "imd",
+        "watercycle"
+      ],
+      "sections": [
+        {
+          "heading": "A seasonal circulation system",
+          "paragraphs": [
+            "The Indian monsoon involves a seasonal reorganisation of atmospheric circulation, including a reversal in prevailing winds. It should not be defined merely as a heavy shower. A thunderstorm can occur before the monsoon becomes established, and a monsoon season can include dry intervals. Keep three questions separate: when circulation changes, where rain falls and how much accumulates. They describe related aspects of the same system but are not interchangeable measurements."
+          ]
+        },
+        {
+          "heading": "Heating, pressure and moisture",
+          "paragraphs": [
+            "Differential heating of land and ocean contributes to seasonal pressure contrasts. The migration of tropical convergence and changes in larger circulation help organise moisture-bearing winds. This explanation is broader than treating the monsoon as a local sea breeze enlarged without qualification. Air moving across the ocean can acquire moisture, but moisture alone does not guarantee rain at every location. Uplift, atmospheric stability and circulation determine where condensation and precipitation develop.",
+            "Topography modifies these flows. Air forced upward along a mountain slope can cool and produce rainfall, while the leeward side may receive less. The location and orientation of terrain therefore matter. Rainfall distribution should be studied alongside the circulation mechanism: a national monsoon label does not imply identical conditions in a coastal district, an interior plateau and western Rajasthan."
+          ]
+        },
+        {
+          "heading": "Onset, spells and withdrawal",
+          "paragraphs": [
+            "IMD monitors onset, advance and withdrawal using specified meteorological criteria and observations. These are assessments of the evolving system, not simply a declaration based on one wet afternoon. Seasonal totals can conceal active spells and breaks. A break may be important for crops even if later rainfall brings the season's total closer to its average. Similarly, an early wet spell does not establish that every later week will be favourable."
+          ]
+        },
+        {
+          "heading": "A worked agricultural example",
+          "paragraphs": [
+            "Imagine two districts receiving the same seasonal total. District A receives useful rain around sowing and during crop growth; district B receives much of its rain in a few late storms after a prolonged dry interval. Their totals are equal, but agricultural consequences can differ because water availability must match crop needs. This is an illustrative comparison, not measured district data. Irrigation, soils, drainage and crop variety would also influence outcomes.",
+            "Rice cultivation supplies a concrete connection between seasonal moisture and decisions about planting. Farmers need information at relevant local timescales; an all-India seasonal average cannot determine every field-level decision. A long-range outlook and a short-range weather forecast answer different questions, so they should be read with their stated scale and uncertainty."
+          ]
+        },
+        {
+          "heading": "Revision framework",
+          "paragraphs": [
+            "Trace the sequence from seasonal heating and circulation to moisture transport, uplift and rainfall. Then explain how terrain and the timing of weather systems modify that pattern. Avoid a one-factor explanation that attributes every wet or dry event to land heating alone. For a concise answer, define the monsoon, identify the role of pressure and moisture, add a topographic example and finish by distinguishing seasonal averages from local variability."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 129,
+          "reason": "The circulation mechanism produces spatially uneven rainfall."
+        },
+        {
+          "target_id": 134,
+          "reason": "Seasonal moisture helps explain rice cultivation calendars."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which description best defines the monsoon in this lesson?",
+          "choices": [
+            "Seasonal reorganisation and reversal of prevailing winds",
+            "Any isolated afternoon thunderstorm",
+            "Rainfall of exactly the same amount everywhere",
+            "A permanent wind direction with no seasonal change"
+          ],
+          "answer": 0,
+          "explanation": "The monsoon is a seasonal circulation system, not simply one heavy rainfall event."
+        },
+        {
+          "question": "Why does moisture-bearing air not guarantee rain everywhere?",
+          "choices": [
+            "Moisture can never condense",
+            "All terrain is identical",
+            "Rain requires an absence of water vapour",
+            "Uplift and atmospheric conditions also influence precipitation"
+          ],
+          "answer": 3,
+          "explanation": "Moisture supply must interact with uplift, stability and other conditions for rainfall."
+        },
+        {
+          "question": "Which evidence is insufficient by itself to establish monsoon onset?",
+          "choices": [
+            "Persistent circulation assessed under official criteria",
+            "Multiple relevant weather indicators",
+            "One wet afternoon",
+            "A specified set of meteorological observations"
+          ],
+          "answer": 2,
+          "explanation": "A single shower can occur outside an established monsoon circulation."
+        },
+        {
+          "question": "Two districts receive equal seasonal totals but different crop outcomes. Which explanation is plausible?",
+          "choices": [
+            "Only the districts’ names differ",
+            "Rainfall timing and dry intervals differ",
+            "Equal totals guarantee equal crop water availability",
+            "Soils and drainage cannot matter"
+          ],
+          "answer": 1,
+          "explanation": "Water arriving at different crop stages can produce different outcomes despite equal totals."
+        },
+        {
+          "question": "Which statement about an all-India seasonal average is correct?",
+          "choices": [
+            "It does not determine every local weekly rainfall outcome",
+            "It specifies rainfall in every field each day",
+            "It makes short-range forecasts unnecessary",
+            "It proves there will be no dry spells"
+          ],
+          "answer": 0,
+          "explanation": "A national seasonal statistic cannot resolve every local and short-term variation."
+        }
+      ]
+    },
+    {
+      "topic_id": 129,
+      "alias": "Rainfall distribution",
+      "tags": [
+        "Indian geography",
+        "Climate processes",
+        "Water management"
+      ],
+      "sources": [
+        "climate",
+        "imd",
+        "watercycle",
+        "aridity"
+      ],
+      "sections": [
+        {
+          "heading": "What a rainfall map represents",
+          "paragraphs": [
+            "Rainfall distribution describes how precipitation varies across space and time. Before interpreting a map, read its units, period and legend. An annual average map and a map of one week's rainfall answer different questions. A region can have a low long-term average and still experience an exceptional storm. Conversely, a normally wet region can undergo a damaging dry interval. The period of observation is part of the meaning of the number, not a minor detail."
+          ]
+        },
+        {
+          "heading": "Broad Indian contrasts",
+          "paragraphs": [
+            "The western slopes of the Western Ghats and parts of northeastern India receive abundant rainfall, while western Rajasthan is comparatively dry. The leeward interior of the peninsula provides examples of rain-shadow effects. Tamil Nadu's seasonal pattern differs from much of India because the retreating or northeast monsoon period contributes substantially to its rainfall. These broad patterns are a starting point; they should not be turned into claims that every location within a state receives the same amount.",
+            "The Indian monsoon supplies the circulation context, while relief influences uplift and the paths of moisture-bearing air. Distance from moisture sources and changing weather systems also matter. A complete explanation links several controls. The presence of a mountain on a map is insufficient unless its position relative to the prevailing flow is considered."
+          ]
+        },
+        {
+          "heading": "Amount, intensity and reliability",
+          "paragraphs": [
+            "A total tells us how much accumulated over a period. Intensity concerns how quickly rain fell. Reliability concerns variation between comparable periods, such as successive seasons. These concepts affect runoff, infiltration, water storage and agriculture differently. A brief downpour may generate more rapid runoff than gentler rainfall with the same total, depending on soil and surface conditions. Do not equate a large monthly total with continuously available soil moisture."
+          ]
+        },
+        {
+          "heading": "Working with numbers",
+          "paragraphs": [
+            "Suppose a station's long-term reference for a season is 800 millimetres and the observed total is 600. The shortfall is 200 millimetres, or 25 percent of the reference. The calculation is the difference divided by the reference, multiplied by 100. These numbers are invented for practice. They do not classify a real district or replace an official assessment. A percentage departure and an absolute amount should both retain their units and reference period.",
+            "Comparing two places also requires care. A 100-millimetre shortfall is proportionally much larger against a 200-millimetre reference than against a 1,000-millimetre reference. Reading only the absolute difference can therefore hide an important contrast. Station density and measurement quality also affect confidence in a mapped estimate."
+          ]
+        },
+        {
+          "heading": "Applying the pattern",
+          "paragraphs": [
+            "Deserts provide a wider comparison for understanding persistent aridity. Rice cultivation shows why seasonal supply, irrigation and drainage must be considered together. In revision, identify a wet region, a dry region and a contrasting seasonal regime, then explain their controls. For an analytical answer, connect rainfall to a specific process while stating the scale of the evidence. Avoid treating a single weather event as proof of a permanent climate change."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 128,
+          "reason": "Seasonal circulation provides the mechanism behind many spatial patterns."
+        },
+        {
+          "target_id": 112,
+          "reason": "Comparing dry regions clarifies aridity and rain-shadow processes."
+        },
+        {
+          "target_id": 134,
+          "reason": "Rainfall amount and timing influence crop suitability and water management."
+        }
+      ],
+      "questions": [
+        {
+          "question": "Which region broadly illustrates a rain-shadow setting?",
+          "choices": [
+            "Every windward mountain slope",
+            "All of northeastern India without exception",
+            "Every coastline regardless of winds",
+            "The leeward interior east of the Western Ghats"
+          ],
+          "answer": 3,
+          "explanation": "The leeward interior can receive less rain after moist air rises and loses moisture on the western slopes."
+        },
+        {
+          "question": "Which distinction is correct?",
+          "choices": [
+            "Intensity has no relationship to time",
+            "Annual maps describe every individual storm",
+            "Rainfall total measures accumulation; intensity concerns the rate",
+            "Total and intensity always mean the same thing"
+          ],
+          "answer": 2,
+          "explanation": "Amount over a period and the rate during events are different measures."
+        },
+        {
+          "question": "A reference is 800 mm and observed rainfall is 600 mm. What is the percentage shortfall?",
+          "choices": [
+            "8 percent",
+            "25 percent",
+            "200 percent",
+            "75 percent"
+          ],
+          "answer": 1,
+          "explanation": "The shortfall is 200 mm; 200 ÷ 800 × 100 = 25 percent."
+        },
+        {
+          "question": "Why can a 100 mm shortfall have different significance in two regions?",
+          "choices": [
+            "Their reference rainfall amounts may differ",
+            "Millimetres change meaning between regions",
+            "Reference periods never matter",
+            "Every region receives 100 mm annually"
+          ],
+          "answer": 0,
+          "explanation": "A departure must be considered relative to the local reference and period."
+        },
+        {
+          "question": "Which state has a distinctive contribution from the northeast monsoon period?",
+          "choices": [
+            "Rajasthan alone",
+            "Punjab alone",
+            "Haryana alone",
+            "Tamil Nadu"
+          ],
+          "answer": 3,
+          "explanation": "Tamil Nadu receives an important share of rainfall during the retreating or northeast monsoon period."
+        }
+      ]
+    },
+    {
+      "topic_id": 134,
+      "alias": "Rice cultivation",
+      "tags": [
+        "Indian geography",
+        "Agriculture",
+        "Water management"
+      ],
+      "sources": [
+        "rice",
+        "dsr",
+        "imd"
+      ],
+      "sections": [
+        {
+          "heading": "Rice as a crop and a farming system",
+          "paragraphs": [
+            "Rice is a major food crop in India, but its cultivation should be understood through climate, water, soils, labour and farming practices together. It is commonly associated with warm conditions and adequate moisture. In many areas it is grown in the kharif season, linked to summer rainfall. That association does not mean rice can grow only during one season or only where rainfall is high. Irrigation and regional conditions support other cultivation calendars as well."
+          ]
+        },
+        {
+          "heading": "Water and regional distribution",
+          "paragraphs": [
+            "Rice cultivation is prominent in eastern and southern India and in irrigated areas elsewhere. A geographical explanation must distinguish naturally favourable moisture conditions from water supplied by canals or groundwater. The Indian monsoon helps explain seasonal planting, while rainfall distribution explains why management needs differ among regions. A map of crop area cannot, by itself, show whether water was supplied by rain, irrigation or both. Those sources must be investigated separately."
+          ]
+        },
+        {
+          "heading": "Establishment and field management",
+          "paragraphs": [
+            "Transplanting involves raising seedlings before moving them into a prepared field. Direct seeding places seed directly in the field instead. These methods have different requirements for labour, water management and weed control. ICAR's discussion of direct-seeded rice highlights the importance of managing weeds and weedy rice. It would be misleading to describe a method as automatically superior under every local condition. Suitability depends on the farming system and on how well the required management is carried out.",
+            "Standing water is familiar in many lowland rice systems, but it should not be treated as an identical requirement at every stage for every variety and environment. Drainage also matters: uncontrolled flooding can damage crops. Distinguish planned water management from accidental submergence. Selecting a variety and establishment method requires local agronomic advice; this lesson explains geographical relationships rather than prescribing a field treatment."
+          ]
+        },
+        {
+          "heading": "A comparison exercise",
+          "paragraphs": [
+            "Imagine one district with dependable seasonal rain and another with limited rainfall but reliable irrigation. Both may grow rice, yet their exposure to a rainfall delay differs. The irrigated district may instead face pumping costs, groundwater pressure or interruptions in canal supply. These are hypothetical examples showing that the same crop can depend on different resource systems. An answer that attributes every cultivated hectare directly to annual rainfall would miss this distinction.",
+            "A second comparison concerns a dry interval around planting. Farmers with access to timely irrigation may respond differently from those relying entirely on rainfall. Soil moisture, labour availability and the chosen method also influence decisions. Equal seasonal totals do not guarantee identical establishment conditions, so the timing of water is part of the explanation."
+          ]
+        },
+        {
+          "heading": "Revision anchors",
+          "paragraphs": [
+            "Link rice to warm growing conditions, moisture supply and common kharif cultivation, then qualify the pattern with irrigation and regional variation. Explain transplanting versus direct seeding accurately. Finally, distinguish water availability from sustainable water use. A productive system can still require careful evaluation of its resource demands. Strong geographical reasoning connects the crop, its location and the management system without assuming that one national average describes every farm."
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "target_id": 128,
+          "reason": "Monsoon timing influences sowing and crop-water availability."
+        },
+        {
+          "target_id": 129,
+          "reason": "Regional rainfall and irrigation help explain cultivation patterns."
+        }
+      ],
+      "questions": [
+        {
+          "question": "In many Indian regions, rice is commonly associated with which crop season?",
+          "choices": [
+            "Only a season without rain or irrigation",
+            "No seasonal pattern anywhere",
+            "Kharif",
+            "Only winter everywhere"
+          ],
+          "answer": 2,
+          "explanation": "Rice is commonly grown in kharif, although irrigation and regional conditions support other calendars."
+        },
+        {
+          "question": "What distinguishes direct seeding from transplanting?",
+          "choices": [
+            "It means growing rice without seed",
+            "Seed is placed directly in the field",
+            "Seedlings must always be raised in a nursery first",
+            "It eliminates all weed management"
+          ],
+          "answer": 1,
+          "explanation": "Direct seeding bypasses the nursery-to-field transfer of seedlings; weed management remains important."
+        },
+        {
+          "question": "Why can rice be cultivated in a region with limited rainfall?",
+          "choices": [
+            "Irrigation may supply part of the water requirement",
+            "Rice never uses water",
+            "Rainfall maps are always false",
+            "Temperature alone guarantees water supply"
+          ],
+          "answer": 0,
+          "explanation": "Canals or groundwater can supplement rainfall, creating different resource dependencies."
+        },
+        {
+          "question": "Which issue remains important in direct-seeded rice systems?",
+          "choices": [
+            "Ignoring all competing plants",
+            "Replacing every field with a temple",
+            "Assuming management is unnecessary",
+            "Weed and weedy-rice management"
+          ],
+          "answer": 3,
+          "explanation": "ICAR highlights weed management as an important part of direct-seeded rice practice."
+        },
+        {
+          "question": "Why does equal seasonal rainfall not ensure equal planting conditions?",
+          "choices": [
+            "All soils store water identically",
+            "Every farm has the same labour and water supply",
+            "Timing, soil moisture and access to irrigation can differ",
+            "Seasonal totals fix every daily condition"
+          ],
+          "answer": 2,
+          "explanation": "Establishment depends on when moisture arrives and the local farming system, not only on the seasonal sum."
+        }
+      ]
+    }
+  ]
+}

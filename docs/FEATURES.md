@@ -1,54 +1,37 @@
-# Prepal AI - Features Catalog
+# Feature inventory
 
-This document details the functional features of the Prepal AI platform.
+Current implementation is uncommitted work over 8ef43c7 on codex/prepal-1-0. Verification is local, with isolated databases and mocked external providers; it is not production acceptance.
 
----
+| Feature | Implemented behavior | Limits |
+|---|---|---|
+| Reading and discovery | Original syllabus/slugs/numbering, published notes, safe rich text, search, approved resources/images, links/popups, tags and related topics | Publication and ancestor eligibility required |
+| Content management | Django Admin, draft/private preview/review/publish/withdraw, controlled metadata, canonical reviewed MCQs | Human academic/rights review remains mandatory |
+| Accounts | Email/username password sessions, registration/logout/reset, Google authorization-code flow | Google credentials/consent and SMTP delivery unverified; password email verification deferred |
+| Dashboard | Owned completion/bookmarks, weighted accuracy across all attempts, subject progress/performance, visits/continue/next lessons and plan targets | Empty structural topics excluded; no invented counts |
+| Saved learning | Idempotent owned bookmark/completion, explicit visits; legacy ownerless records never adopted | Production gate defaults closed |
+| Planner | Owned plans, published branch selection, approximate duration, weekdays/capacity, Learn/Revision modes, daily/weekly/monthly output, exam feasibility, edits/rescheduling | Default 90-minute estimate is editable; task completion is separate from whole-lesson completion |
+| Practice | Reviewed stable signed quiz/collection preview, stateless guest grading, owned UUID-idempotent attempts and immutable answer snapshots | One canonical question; no AI generation or GET writes; legacy attempts lack detailed snapshots |
+| Tutor | Current published note evidence only, selected passage, explain/summarize, source citations, refusals, quotas/cost reservation | Mock verified; live Gemini off and not live-validated; PDFs/related lessons excluded |
+| New review corpus | 25 new real-syllabus lessons, 125 MCQs, 500 choices, source inventory and draft relationships | Isolated drafts, not public/human approved; existing 15-lesson sample preserved |
 
-## 1. Syllabus Hierarchy Explorer
-* **Purpose:** Allows students to browse the complete, layered RPSC/RAS syllabus using a clean, collapsible navigation tree.
-* **Current Status:** Basic implementation in place; will be upgraded to a premium collapsible tree sidebar layout with smooth transitions.
-* **Dependencies:** Backend APIs `GET /api/topics/` and `GET /api/topic/<slug>/`.
-* **Future Improvements:** Add search filters, highlight active syllabus nodes, and display completion checkboxes directly on parent nodes.
+One eligibility rule is shared by dashboard, subject progress and planner: a currently visible publication with nonempty note text or an approved PDF attached to its released snapshot. Structural headings are excluded. Bookmarks may target any published topic. Overall quiz accuracy is total correct / total attempted questions, rather than an unweighted mean or a recent-history cap.
 
----
+Preserved frontend behavior includes light/dark themes, original-order tree numbering, search, responsive footer counts, Phase 3 popups and one Tutor launcher. Account changes discard private page state and refresh owned syllabus flags.
 
-## 2. AI Study Companion & Mentor
-* **Purpose:** Acts as an interactive personal mentor right beside the reading content. In addition to answering user doubts, it offers dedicated one-click study buttons:
-  * **Explain Like I'm a Beginner:** Simplifies complex RPSC exam details into layman's terms.
-  * **Exam Importance:** Identifies weightage of the current topic (High/Medium/Low) for RPSC.
-  * **Previous Year Questions (PYQ) Analysis:** Highlights trends and types of questions asked previously.
-  * **Common Mistakes:** Lists typical traps students fall into for this topic.
-  * **Memory Tricks:** Generates custom mnemonics to memorize key facts.
-  * **Flashcards:** Generates Q&A pairs for active recall.
-  * **5-minute Revision:** Delivers bulleted cheat sheets summarizing the main notes.
-  * **Generate MCQs:** Instantly drafts 3 practice questions from the reading material.
-  * **Examiner Mode:** The AI asks the user questions, evaluates their response, and guides them.
-  * **Next Study Recommendations:** Identifies related topics to read next.
-  * **Weakness Tracking & Revision:** Analyzes chatbot and quiz history to map weaknesses and design personalized study tracks.
-* **Current Status:** Basic UI placeholder. To be implemented as an interactive side panel with quick-action trigger buttons.
-* **Dependencies:** Python `google-genai` SDK, custom prompt pipelines, and database records of user progress/errors.
-* **Future Improvements:** Voice-guided mentor mode and localized Hindi-English language support.
+Deferred: phone OTP, email verification policy, live Google/SMTP/Gemini acceptance, production DB cutover/hosting, human academic review/publication, topic-note PDF export and production load/manual assistive-technology testing. See [scope](MVP_SCOPE.md), [testing](TESTING.md) and [deployment](DEPLOYMENT.md).
 
----
+## Local authentication navigation
 
-## 3. Timed Quiz & MCQ Testing Engine
-* **Purpose:** Generates multiple-choice practice tests over syllabus segments. Features a countdown timer to simulate real exam pressure.
-* **Current Status:** Not started. To be implemented in Phase 5.
-* **Dependencies:** Database tables for Quizzes, Questions, and Choices; UI components with timer countdown state.
-* **Future Improvements:** Adaptive difficulty (serving harder questions based on user's history), detailed explanations for wrong answers, and performance analytics.
+Verified local navbar and existing signup/login/logout/session/dashboard routes are exposed only when the selected backend permits students. Authenticated users retain owned bookmarks/completion/planner. Guest/private isolation remains. The explicit student API is8002 and frontend5173; normal development/production gates default off. Google is disabled/unconfigured in this environment; SMTP/live OAuth acceptance remains pending.
 
----
+## PostgreSQL preparation status
 
-## 4. Bookmarks & Revision Lists
-* **Purpose:** Lets users save complex pages for fast revision access.
-* **Current Status:** Not started. To be implemented in Phase 6.
-* **Dependencies:** `Bookmark` model in database, user identification system, and bookmark status API endpoint.
-* **Future Improvements:** Tagging bookmarks (e.g. "Hard", "Review Needed"), and exporting bookmarked text blocks as study guides.
+Verified locally: separate migration/runtime/read-only backup roles; bounded connection/timeouts; guarded local/staging/production profiles; fresh schema0001–0012 and ID-preserving student-source copy transfer; persisted accounts/password hashes/sessions/bookmarks/progress/visits/immutable attempts/plans/completed task history through restart and native restore; authenticated AES-GCM DB/media archives; corruption rejection and backup failure/age status. No model/migration changes in this task.
 
----
+Readiness-only account/deletion endpoint protects authentication/CSRF/password/ownership and returns policy pending without erasing anything. Deferred pending owner acceptance: irreversible deletion/retention ledger, pruning, real PostgreSQL cutover, production TLS connectivity/PG17, off-host backup/alert delivery/scheduler activation, SMTP/Google/email verification and public learner release. Existing8002 remains isolated SQLite; all prior student/content/UI functionality is preserved.
 
-## 5. Reading Progress Tracker
-* **Purpose:** Visual indicators showing how much of a chapter a student has read.
-* **Current Status:** Not started. To be implemented in Phase 6.
-* **Dependencies:** Frontend scroll position monitoring, and saving completion states to the backend database.
-* **Future Improvements:** Gamified achievements, study streak badges, and personalized study reminders.
+## Staging preparation
+
+Locally implemented Render same-origin SPA/Admin/API serving, restricted staging access, explicit secure configuration and non-migrating build/start commands. Hosted deployment, PostgreSQL17 TLS, durable media, off-host backups and live external-service acceptance are still pending. Tutor conversation now supports keyboard focus for its scrollable region. Learner/AI/Google access remains closed in staging/production profiles.
+
+Render-only synthetic student acceptance has a separate explicit two-flag/database-name/private-access guard; normal staging and production remain closed. No hosted flags were enabled.

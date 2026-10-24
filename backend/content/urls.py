@@ -1,7 +1,33 @@
 from django.urls import path
-from . import views
+from . import views, student_auth, student_views
+
+# Student handlers enforce the server gate before authentication or body parsing.
 
 urlpatterns = [
+    path("account/deletion/", student_auth.account_deletion_readiness),
+    path("attempts/", student_views.attempt_list),
+    path("attempts/<int:pk>/", student_views.attempt_detail),
+    path("topic/<slug:slug>/practice/submit/", student_views.practice_submit),
+    path("plans/", student_views.study_plans),
+    path("plans/<int:pk>/", student_views.study_plan),
+    path("plans/<int:pk>/reschedule/", student_views.reschedule_plan),
+    path("plans/<int:pk>/tasks/<int:task_id>/", student_views.study_task),
+    path("topic/<slug:slug>/visit/", student_views.topic_visit),
+    path("auth/password-reset/", student_auth.password_reset_request),
+    path("auth/password-reset/confirm/", student_auth.password_reset_confirm),
+    path("auth/google/start/", student_auth.google_start),
+    path("auth/google/callback/", student_auth.google_callback),
+    path("health/", views.health),
+    path("config/", views.configuration),
+    path("search/", views.search_results),
+    path("tags/<str:slug>/", views.tag_discovery),
+    path("topic/<slug:slug>/context/", views.topic_context),
+    path("topic/<slug:slug>/practice/", views.practice_collection),
+    path("topic/<slug:slug>/practice/check/", views.practice_collection_check),
+    path("resources/<int:resource_id>/", views.resource_detail),
+    path("resources/<int:resource_id>/file/", views.resource_file),
+    path("topic/<slug:slug>/images/<int:block_id>/", views.topic_image),
+    path("topic/<slug:slug>/quiz/check/", views.topic_quiz_check),
     path("topics/", views.topic_root_list),
     path("topic/<slug:slug>/", views.topic_detail),
     path("topic/<slug:slug>/chat/", views.topic_chat),
@@ -10,4 +36,12 @@ urlpatterns = [
     path("topic/<slug:slug>/bookmark/", views.topic_bookmark),
     path("topic/<slug:slug>/progress/", views.topic_progress),
     path("profile/weaknesses/", views.profile_weaknesses),
+    path("auth/register/", views.auth_register),
+    path("auth/login/", views.auth_login),
+    path("auth/logout/", views.auth_logout),
+    path("auth/status/", views.auth_status),
+    path("dashboard/", views.learner_dashboard),
+    path("bookmarks/", views.user_bookmarks_list),
+    path("progress/", views.user_progress_list),
 ]
+
