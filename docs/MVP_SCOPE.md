@@ -1,3 +1,9 @@
+## Guarded free-demo security and initialization preparation
+
+Only existing Render Free resources/account/main are in scope. Owner approved credential0600, separate restricted DB roles and scoped DB networking; these security preparations are complete. No live app schema/migrations/corpus/Render env/redeploy or paid service is authorized. A guarded operator-only initializer and encrypted manual recovery workflow are prepared/tested locally; actual local17.11/native recovery checks pass; live initialization approval, durable recovery key custody and new CI remain. Approved pypdf6.21.2 input/hash-lock patch passes audits and PDF regressions; normal publication is authorized after checks, no unrelated upgrades. One view-only synthetic staff, no learner functionality or uploads, and engineering-only sample review labels are mandatory. See current DEPLOYMENT/handoff; older local-only authority below is historical.
+
+---
+
 ## Current free-demo scope
 
 Owner selected existing Free Render web/PostgreSQL17 resources only. Prepare changes locally; no purchases/upgrades, Git release, live configuration/redeploy, DB initialization/write/cutover. New profile must preserve production-strength settings, existing barrier/secrets, strict TLS and synthetic-only content while disabling student/AI features and uploads. No durable private media or production user data on free resources. External verified TLS is available; no require-mode exception is approved or implemented. Previous paid architecture remains a future production option, not current authority.

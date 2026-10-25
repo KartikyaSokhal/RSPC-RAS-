@@ -1,3 +1,11 @@
+## 24 October2026 — guarded free-demo database preparation
+
+- Preserved prior audit work and secret values; restricted existing credential file to0600.
+- Added explicit PostgreSQL initializer, separate limited role workflow, strict idempotent verification, encrypted read-only manual snapshot and disposable rehearsal; preserved existing local seed guards.
+- Prepared/verified restricted roles and narrowed network access on existing Render database without application schema/data initialization or Render environment/deployment changes.
+- Added local security/regression and future PostgreSQL17 CI coverage; actual native17.11 initialization/encrypted restore and224-test PostgreSQL backend suite pass. All33 browser journeys pass.
+- Publication was held after runtime audit found3Moderate pypdf6.21.1 advisories. On25October the owner approved6.21.2 and both regenerated hash locks; only that package changes, runtime/development audits and PDF regressions pass. Normal main publication authorized after verification; no live operation.
+
 ## 24 October2026 — free-demo main release preparation
 
 - Prepared verified free-demo publication on main, preserving the previous deployment candidate and all protected data.

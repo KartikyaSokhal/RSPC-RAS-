@@ -1,3 +1,42 @@
+# Patched PostgreSQL17 publication verification — 25 October2026
+
+Exact28-file boundary: previously reviewed25 plus approved3 dependency files;271 pre-patch source inputs hash-archived outside checkout;17 protected database/media/environment hashes unchanged. PostgreSQL17.11 source SHA256 dd27f2b3c59e73ed14aa3324901242bf69a032a6347805f274e6260322d42979 verified against official ftp.postgresql.org. Built native server/pg_dump/pg_restore/psql17.11 with OpenSSL; private loopback SCRAM cluster only. No global install or hosted writes.
+
+| Check | Actual result |
+|---|---|
+| Full backend, PostgreSQL17.11 |224 passed,0 skipped |
+| Full backend, isolated SQLite |219 passed,5 PostgreSQL-only skips |
+| Frontend |90 passed/13files; lint/build pass on Node24.22.0 |
+| Chromium, fresh synthetic fixtures |15 public +9 integration +4 sample +5 student =33 passed |
+| Django/migrations |System check0issues; makemigrations check no changes |
+| PostgreSQL transfer/concurrency |Existing disposable transfer and budget-race checks passed |
+| Guarded initialization and recovery |11 assertions pass;30 migrations, exact synthetic corpus, idempotence, unknown/nonempty refusal, advisory concurrency refusal, all-migration rollback, runtime denials and Admin/API gates |
+| Native encrypted restore |AES256-GCM authenticated snapshot restored in NEW PG17 target in one transaction;40 tables/1237 rows/37 sequences match, including row/PK hashes; wrong recipient and tamper refused before extraction |
+| Hosted connectivity/privileges |Both existing limited roles independently authenticate over verify-full; native psql17.11 confirms server17.11/TLS/read-only; target still empty, no live changes |
+| Dependency security |PASS: pypdf6.21.2 installed with regenerated hashes; runtime and development pip-audit zero; pip check clean. Only pypdf pin/hashes change. npm runtime audit zero |
+| Git/secret state |Approved publication from ff4acdc, normal push only; exact staged inputs/private-value checks required before commit. Known retired historical key remains retired |
+| Remote CI |New release must pass its own Actions job including explicit PostgreSQL17 initializer rehearsal. Prior ff4acdc run40110060327 success is historical, not candidate acceptance |
+
+Patched31focused PDF/content/Admin regressions pass. Private patch/source/log/rehearsal evidence: ../.recovery/prepal-pypdf-release-gu5_5t3f/. Native runtime/prior evidence: ../.recovery/prepal-pg17-publication-tz8_ejzs/. Previous16.2 results are historical and superseded for this initializer by actual17.11 evidence. First hosted metadata probe failed on the test harness accessor (info.ssl_in_use); corrected to pgconn.ssl_in_use and both-role/native checks passed without writes. No security assertion was disabled. Test recovery recipient/key is local0600 under0700, not durable off-host production custody. No live initialization or Render mutation. Approved pypdf6.21.2 remediation is now applied with no other dependency upgrades or advisory suppressions. Publication requires exact final checks and matching remote CI; local success does not establish hosted application acceptance.
+
+
+Final source checks:19 release documents and271 inputs validate; clean private export installs hash-locked Python/npm dependencies, builds React and collects159 Admin/static files (459 post-processed) without database access. Gitleaks source/reachable-history scans and independent exact active/retired-value scans are clean; original SQLite/demo query-only integrity/FKs and17 protected hashes pass. CI YAML parses with postgres:17; new initializer CI remains unrun/unpublished. Final staging/commit/push is authorized only after exact checks; the resulting SHA/CI are reported after publication.
+
+
+25October patched-source final rerun: all33 Chromium journeys pass (15public/9integration/4sample/5student). Clean private export installs the regenerated hash locks with pypdf6.21.2, builds React and collects159 static files/459 post-processed. Npm runtime audit zero, full runtime/development pip-audit zero;19 canonical docs/271 release inputs validate. PostgreSQL17 guarded initializer and authenticated encrypted independent restore passed again with the patched environment. No original data, migrations, hosted credentials or deployment changes. The approved publication SHA and its matching CI outcome must be checked after the push; no earlier CI result substitutes for it.
+
+---
+
+# Authenticated Render read-only audit — 24 October2026
+
+Local and remote main ff4acdc442cb971bd1e609433bd7de28488ddab1 verified, clean preflight. Browser account/resources/current flags/start/build/auto-deploy and four historical deployments inspected without mutation. Existing ignored private connection file used directly; no credential output. Strong TLS connection passed against the exact external endpoint with verify-full/trusted certifi, PostgreSQL17.11/TLS1.3/TLS_AES_256_GCM_SHA384. Enforced startup default_transaction_read_only, explicit repeatable-read READ ONLY, verified transaction_read_only=on and rolled back. No migration, seed, DDL or data write.
+
+Catalog/aggregate audit: only public non-system schema; zero non-system relation objects, routines or large objects; no django_migrations/auth_user; zero application rows/users/content. Five cluster login roles exist; current role is non-superuser/non-replication/non-BYPASSRLS but has CREATEDB/CREATEROLE. Private database-audit.json stores safe aggregate/privilege results only. Source graph inspected offline (no DB):30migrations, content0001–0012 plus framework18. Canonical corpus validates142topics/five roots/15lessons/15quizzes/75questions/300choices/19tags/15aliases/30curated relations/30published topics including ancestors; proposed single synthetic staff, zero students/uploads. These are planned initialization counts, not hosted data.
+
+Evidence and verified pre-edit docs archive are private at ../.recovery/prepal-render-readonly-fecadz1d/. Existing root.env bytes and protected original/demo/media/environment hashes are preserved. Current batch edits documentation only; previous full application/CI results are historical, not rerun or hosted acceptance. Documentation/release/secret checks are run for these edits. Startup remains blocked by missing demo acknowledgement flags, empty schema/content, broad runtime role and network acceptance. No full app startup, provider call or live deployment was attempted. Final local checks:10focused free-demo tests passed;19release documents and264release inputs validated;Gitleaks0 and exact private Render credential matches0;17protected hashes unchanged;git diff --check clean. No new full-suite or hosted application claim.
+
+---
+
 # Free-demo publication verification — 24 October2026
 
 Approved candidate264inputs matched the previous final manifest before edits; private recovery archive verified. Current main base038a4b2 contains approved1e685ee and has identical tree. Public repository visibility was verified in GitHub UI and explicitly approved by owner. Render auto-deploy was saved Off before push and rechecked after navigation; build unchanged, start deferred because live prerequisites fail. No live DB query/write or redeploy.

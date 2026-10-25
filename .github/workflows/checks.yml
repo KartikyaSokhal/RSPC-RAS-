@@ -50,6 +50,14 @@ jobs:
         run: |
           backend/.venv/bin/python backend/run_tests.py --postgres
           backend/.venv/bin/python scripts/verify_postgres_transfer.py
+          backend/.venv/bin/python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'])/'free-demo-admin.env'
+          p.write_text(''.join(k+'='+json.dumps(os.environ[k])+'\n' for k in ('POSTGRES_HOST','POSTGRES_PORT','POSTGRES_DB','POSTGRES_USER','POSTGRES_PASSWORD','POSTGRES_SSLMODE')))
+          p.chmod(0o600)
+          PY
+          backend/.venv/bin/python scripts/verify_free_demo_database.py --admin-config "$RUNNER_TEMP/free-demo-admin.env" --directory "$RUNNER_TEMP/free-demo-rehearsal" --expect-major 17
       - run: backend/.venv/bin/python scripts/verify_budget_race.py
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

@@ -1,3 +1,15 @@
+## Current batch — guarded free-demo preparation complete locally
+
+Implement/test guarded PostgreSQL bootstrap and encrypted manual snapshot, shared canonical sample builder with preserved SQLite guards, private role files, restricted runtime grants and disposable rehearsal. Credential permission0600 and existing hosted DB role/network security preparation completed; target still has zero application objects. No live migrate/seed/Render env/deploy; normal main Git publication is now separately approved after verification. Actual PostgreSQL17.11 local initializer/encrypted restore and full224-test backend suite pass; native17 tools authenticate read-only to hosted17. Approved pypdf6.21.2 patch now clears runtime/development audits; only that dependency pin/hashes change. Publish the reviewed candidate with a normal push and verify its own CI. Exact commands and next approvals are in DEPLOYMENT/latest handoff. Stop before guarded live initialization; no automatic next phase or production launch.
+
+---
+
+## Current batch — authenticated read-only free-demo audit
+
+Completed existing-resource/account/branch/config checks and authenticated verify-full/TLS1.3 PostgreSQL17.11 audit. Target empty: no application schema/users/rows/migrations. Current Render free-demo/external-host/start are correct; acknowledgements absent, auto-deploy Off. No live mutations or Git publication. Exact future initialization sequence is in DEPLOYMENT: protect operator configuration; separate limited runtime from existing admin credentials; approved network restrictions; review/test a dedicated guarded PostgreSQL initializer using canonical text-only sample services; then separately approved30migrations and synthetic corpus installation; read-only acceptance; explicit manual deployment. Existing SQLite/local provisioning/seed/transfer guards must remain intact. Do not start implementation or remote writes from this audit.
+
+---
+
 ## Current approved batch — main free-demo publication
 
 Owner explicitly approved the verified free-demo candidate to main and, after current inspection, the now-Public GitHub repository. Preserve previous candidate/history and use normal fast-forward push only. Keep Render auto-deploy Off (now saved); preserve build command and secrets. Current free-demo start prerequisites fail, so switch remains deferred. No redeploy/live DB migration/schema/write or paid service is authorized. Next: authenticated read-only target audit, review synthetic-only initialization/configuration separately, then approve manual deployment after passing prerequisite checks. Read latest handoff and DEPLOYMENT before any live action.

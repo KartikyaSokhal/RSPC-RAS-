@@ -1,3 +1,70 @@
+# Current handoff — approved pypdf security patch and PostgreSQL17 release
+
+25 October2026. Branch main; publication base ff4acdc442cb971bd1e609433bd7de28488ddab1. Owner approves the existing25-file initializer candidate plus exactly3 dependency files, normal commit/push and matching GitHub CI verification. Resolve the candidate release SHA with git log -1 --format=%H -- backend/requirements.in; confirm equality with origin/main and inspect that exact SHA in Actions before live work. This handoff is part of the release commit and does not predeclare its future CI result; publication SHA/run/results are reported after push and preserved privately. No force-push, live initialization, Render change, deployment or purchase.
+
+Verified271-input pre-patch recovery archive and new evidence: ../.recovery/prepal-pypdf-release-gu5_5t3f/. Prior native17 evidence remains ../.recovery/prepal-pg17-publication-tz8_ejzs/. Exactly28 approved changed paths; all pre-existing work and eight earlier audit document bodies retained. Only pypdf changes in generated locks:6.21.1→6.21.2 and its two package hashes; all other direct/transitive pins unchanged. Runtime and development pip-audit now report zero known vulnerabilities, pip check passes, no advisories suppressed. No application behavior/security policy/model/migration/production setting change for the patch.
+
+Patched-dependency verification:31 focused PDF/content/Admin regressions;224/224 PostgreSQL17 backend;219 SQLite passes/five PostgreSQL-only skips;90frontend tests/lint/build. NEW local PostgreSQL17.11 guarded-initializer rehearsal passes all11 assertions: exact142topics/15lessons/75questions/300choices/one view-only staff/zero students/uploads,30 migrations, idempotence, unknown/nonempty refusal, advisory locking, rollback of migration DDL/content on injected failure, runtime42501 denials, CSRF Admin/API/gates, encrypted independent transactional restore40tables/1237rows/37sequences, wrong-key/tamper refusal and private key permissions. Existing disposable transfer and budget-race checks pass. Browser and clean-export final results are recorded in TESTING before publication. Remote CI must cover the initializer using the existing postgres:17 disposable service; encrypted native recovery is separately verified locally.
+
+Native PostgreSQL server/pg_dump/pg_restore/psql17.11 are private at ../.recovery/prepal-pg17-publication-tz8_ejzs/tools/postgres-17.11/bin/, built from checksum-verified official source with OpenSSL. Previous24October read-only hosted evidence verified server17.11, verify-full/native psql TLS for both limited roles and empty prepal_staging_db. Neither role has unsafe administrative flags/memberships/database CREATE/TEMP; migration alone has public CREATE. No hosted SQL or credential/environment/network change is part of this patch. Existing designated Render account/service main/build/start rechecked; Auto-Deploy visually Off before push. No redeploy is authorized.
+
+Prepared hosted operator files remain ../.recovery/prepal-demo-init-hw0bq8ne/render-roles/ (migration.env,runtime.env,staff-password.txt,plan.json),0600 under0700. Do not regenerate/rotate them or bulk-copy operator signing/barrier values to Render. Recipient test key is local0600 under0700 and excluded from Git; not approved durable/off-host recovery custody. Select an owner-controlled long-lived recipient certificate and secure the private key separately/off-host before live initialization. No backup scheduler, off-host copy or production30-day guarantee enabled.
+
+Exact next task after matching successful publication CI: obtain explicit approval for the DEPLOYMENT initialize/grant-runtime/verify commands, first rechecking empty target/identity/roles/TLS/network/private credentials and recovery key custody. Then separately obtain Render runtime credential/demo-acknowledgement and manual-deployment approval. No valuable data, SQLite transfer, real students/uploads, paid AI or additional resources. Known retired Django key remains historical and retired; no history rewrite.
+
+Files changed (includes the preserved prior audit documentation edits):
+- `.github/workflows/checks.yml`
+- `AGENTS.md`
+- `README.md`
+- `backend/README.md`
+- `backend/content/management/commands/create_sample_content.py`
+- `backend/content/management/commands/initialize_free_demo.py`
+- `backend/content/services/free_demo_database.py`
+- `backend/content/services/sample_install.py`
+- `backend/content/test_free_demo_database.py`
+- `backend/core/free_demo_ops_settings.py`
+- `docs/AGENT_HANDOFF.md`
+- `docs/ARCHITECTURE.md`
+- `docs/CHANGELOG.md`
+- `docs/DATABASE_SCHEMA.md`
+- `docs/DECISIONS.md`
+- `docs/DEPLOYMENT.md`
+- `docs/FEATURES.md`
+- `docs/IMPLEMENTATION_PLAN.md`
+- `docs/MVP_SCOPE.md`
+- `docs/PROJECT_STATUS.md`
+- `docs/SECURITY.md`
+- `docs/TESTING.md`
+- `scripts/free_demo_database.py`
+- `scripts/release_manifest.py`
+- `scripts/verify_free_demo_database.py`
+
+
+- `backend/requirements.in`
+- `backend/requirements.txt`
+- `backend/requirements-dev.txt`
+
+
+25October patched-source final rerun: all33 Chromium journeys pass (15public/9integration/4sample/5student). Clean private export installs the regenerated hash locks with pypdf6.21.2, builds React and collects159 static files/459 post-processed. Npm runtime audit zero, full runtime/development pip-audit zero;19 canonical docs/271 release inputs validate. PostgreSQL17 guarded initializer and authenticated encrypted independent restore passed again with the patched environment. No original data, migrations, hosted credentials or deployment changes. The approved publication SHA and its matching CI outcome must be checked after the push; no earlier CI result substitutes for it.
+
+---
+
+# Current handoff — authenticated Render PostgreSQL audit
+
+24 October2026. Local branch main and remote main both ff4acdc442cb971bd1e609433bd7de28488ddab1; preflight clean. This audit changes documentation only, uncommitted. Existing account kartikyasokhal28@gmail.com / My Workspace / Prepal project and Free web/database resources reverified. No live mutation, migration, seed, deletion, credential rotation, Git commit/push, redeploy or purchase. Verified private pre-edit documentation archive and audit results: ../.recovery/prepal-render-readonly-fecadz1d/.
+
+Observed current service: branch main, auto-deploy Off, build bash deploy/render-build.sh, start bash deploy/render-free-demo-start.sh. Render PREPAL_ENVIRONMENT=free-demo, DJANGO_ENV=production, DEBUG=false, DATABASE_ENGINE=postgresql, exact external hostname dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com, POSTGRES_SSLMODE=verify-full, ALLOWED_HOSTS=rspc-ras.onrender.com, SITE_ORIGIN=https://rspc-ras.onrender.com. AI_ENABLED/AI_GUEST_ENABLED/STUDENT_FEATURES_ENABLED false. Existing SECRET_KEY and access-barrier variable names remain present; their private values were not revealed or changed. PREPAL_FREE_DEMO and PREPAL_FREE_DEMO_SYNTHETIC_DATA are absent on Render. Configuration changes since the previous handoff were owner-managed, not performed here. Four historical deploys still refer to038a4b2, all failed/canceled; ff4acdc is published, not deployed. No successful running commit is verified.
+
+Actual authenticated connection used the existing ignored root.env connection credentials, overriding only the connection's host to the documented external endpoint (no file/env edits). libpq verify-full and pinned certifi CA succeeded; server17.11, TLS1.3/AES256-GCM. default_transaction_read_only was set at connection startup; transaction explicitly READ ONLY/REPEATABLE READ, verified read-only and rolled back. SELECT/catalog checks found only public schema, zero non-system tables/views/sequences/foreign tables/materialized views/routines/large objects, zero application rows, no django_migrations or auth_user tables. Therefore no application student/Admin accounts or content exist. Cluster has five login roles; those are PostgreSQL roles, not student accounts. Current configured role is not superuser/replication/BYPASSRLS, but has CREATEDB and CREATEROLE: do not use it as the deployed app runtime role. No SQL writes were performed.
+
+The target is empty and suitable for disposable synthetic demonstration at audit time; setting both demo acknowledgements would be truthful if only the reviewed synthetic corpus/accounts are subsequently initialized. Flags are not deployment acceptance and were not set here. Recheck emptiness immediately before approved writes. Existing private root.env is mode0644 and still uses the internal host; its connection values/bytes were preserved. Restrict to0600 and use a dedicated protected operator config before future operations; do not load this root.env as a full free-demo app configuration. Original/archive/demo/media and the retired Django-key status remain unchanged. Current public network rules include0.0.0.0/0; narrow using verified Render egress/operator sources under separate approval. Free DB expires23November2026.
+
+Verification for these documentation updates:10focused free-demo tests passed,19release documents/264inputs validate,secret scan0,17protected hashes unchanged,index empty. No full suite was rerun for documentation-only changes.
+
+Exact next task: owner separately approves a guarded initialization implementation and existing-DB role/network/configuration changes. DEPLOYMENT specifies the30-migration empty-target plan and142-topic/15-lesson/75-question text-only corpus. Existing create_sample_content and rehearsal/provisioning/transfer commands deliberately refuse remote PostgreSQL: no ready remote seed command exists. Implement/review a dedicated guarded initializer reusing canonical corpus/publication/review/link services, test it against disposable PostgreSQL17, then separately authorize remote migrations/seeding/runtime credentials and manual deployment. Keep learner/AI/Google/uploads off, auto-deploy Off, secrets private, build/start non-migrating. Do not copy old demo DBs, PDFs, sessions, students or real data.
+
+---
+
 # Current handoff — approved main free-demo release
 
 24 October2026. Current branch main, publication base038a4b2ff8a40b84b6d2c272b3c5835a1d793c5d; it contains the previous verified candidate1e685ee2a7b408fe6936dd0245fa776630d3286e and has the same application tree. Local main was fast-forwarded without resetting work. All264 approved inputs matched the previous manifest; a new private archive was hash-verified before edits. The release includes exactly the existing17modified/five new files plus publication updates within those documentation boundaries; no removed files, models/migrations/dependency-lock changes or unrelated code. Resolve this release commit with `git log -1 --format=%H -- docs/AGENT_HANDOFF.md`; verify origin/main equality and its own Actions result before acceptance. CI outcome is checked after publication and reported separately; pre-push local success is not remote CI evidence.

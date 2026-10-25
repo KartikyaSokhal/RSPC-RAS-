@@ -1,3 +1,19 @@
+## Guarded initializer — schema not applied live
+
+Source30Django migrations/models remain unchanged. Explicit operator initialize_free_demo applies them only on the confirmed empty PostgreSQL target inside one transaction with the canonical synthetic corpus and an operator-owned prepal_free_demo_manifest completion table. It is not a Django model/migration or startup task. A fully initialized sample has40public tables including that marker and37sequences; exact corpus and migration graph are verified, and unknown/partial targets are refused without reset. Role/session/framework metadata is distinguished from student records.
+
+Existing hosted target has only its pre-existing public namespace: no application tables, migration recorder, completion marker or corpus. Newly created limited migration/runtime roles and schema ACLs are security preparation only. Runtime has no schema CREATE; migration has public CREATE, neither has database CREATE/TEMP or administrative attributes/membership. Post-initialization grants are limited to SELECT plus synthetic Admin session/auth bookkeeping. See DEPLOYMENT; no live schema or corpus write in this task.
+
+---
+
+## Hosted free-demo target audit — 24 October2026
+
+Existing Free Render PostgreSQL17.11 authenticated over verify-full/TLS1.3 in an enforced read-only transaction: public is the only non-system schema and contains no tables/views/sequences/foreign tables/materialized views; no non-system routines/large objects or application rows. django_migrations/auth_user are absent, so no application migrations or student/Admin accounts exist. This target is not initialized through0012. Five PostgreSQL login roles are server accounts, not application users; configured role has excessive CREATEDB/CREATEROLE for app runtime. No schema/role/data change occurred.
+
+Offline source graph has30migrations:content12(0001–0012),auth12,admin3,contenttypes2,sessions1. Future approved empty-target initialization must apply this graph with an appropriate migration role, then a guarded synthetic-only text corpus, preserving all original SQLite/demo archives. No remote seed command currently exists; local tools must not be bypassed. See DEPLOYMENT for exact proposed counts, guard design and approval steps.
+
+---
+
 # Current database schema — student platform
 
 Current source ends at content **0012**. Migrations 0001–0008 are byte-identical. Original backend/db.sqlite3 remains at 0004; all existing demo databases/media remain unchanged. Only new isolated review/test targets were migrated. Normal PostgreSQL configuration and historical foundation evidence follow below; historical counts describe those earlier schemas, not the current release.

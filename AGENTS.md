@@ -1,3 +1,15 @@
+## Current authority — approved security patch and initializer publication
+
+25 October2026: owner explicitly approves pypdf6.21.1→6.21.2 in backend/requirements.in and both hash locks, relevant security/PDF/regression verification and the previously approved PostgreSQL17 initializer publication to main using a normal fast-forward push. No other dependency upgrades or unrelated work. Stop on new secrets, divergence or critical CI failure; never force-push. Existing25-file candidate plus these3 files are the reviewed28-file boundary. No live initialization/seed, Render credential/environment/network edits, deployment, paid requests/services or purchases. Production gates stay unchanged; original/demo data and existing migrations preserved. Read newest handoff/TESTING/DEPLOYMENT. After successful publication/CI, next task remains explicit live initialization approval with durable recovery recipient/key custody; no automatic deployment.
+
+---
+
+## Current authority — authenticated read-only Render audit
+
+24 October2026: owner authorizes existing-resource/account inspection and authenticated read-only PostgreSQL connectivity/schema/role/count checks only. No migrations/schema/seed/delete, live settings/credential/role/network changes, deployment, purchases/upgrades or Git publication in this audit. main remains ff4acdc442cb971bd1e609433bd7de28488ddab1. Current Render profile/host/start were changed by the owner since the preceding handoff; this audit only observed them. Read newest DEPLOYMENT/handoff. Database is empty but the configured role has CREATEDB/CREATEROLE; prepare an approved limited runtime role before deployment. It is safe to acknowledge the audited empty target for synthetic-only demonstration, but this audit does not set flags or initialize anything. Never bypass existing SQLite/local seed/transfer guards for a remote target.
+
+---
+
 ## Current authority — approved free-demo publication to main
 
 24 October2026: owner authorizes committing the verified free-demo candidate and a normal fast-forward push to main in KartikyaSokhal/RSPC-RAS-. Remote main038a4b2ff8a40b84b6d2c272b3c5835a1d793c5d contains approved deployment1e685ee2a7b408fe6936dd0245fa776630d3286e with identical tree. GitHub is now Public; owner explicitly approved publication after being told of this visibility change and the retired historical key. Never reuse that key or rewrite history. Existing Render auto-deploy was changed from On Commit to Off before publication; keep it off. No manual redeploy, live SQL writes/migrations/schema creation, secret changes, paid resources or production cutover. Start-command switch is conditional on verified free-demo prerequisites: current staging/internal-host settings and missing demo acknowledgements do not pass. Leave the existing start command until those gates are resolved; see newest handoff. Historical authority sections below do not supersede this authorization.

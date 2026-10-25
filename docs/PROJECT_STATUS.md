@@ -1,3 +1,22 @@
+# Current status — security patch verified for initializer publication
+
+25 October2026. main publication base ff4acdc442cb971bd1e609433bd7de28488ddab1; owner approves normal commit/push after exact28-file/security verification (previous25 plus3 dependency files). Resolve release SHA from git log -1 --format=%H -- backend/requirements.in and verify origin/main/Actions. No predeclared remote CI success.
+
+Approved pypdf6.21.2 patch and two regenerated hash locks change no other package pins. Runtime/development audits zero; pip check clean.31focused PDF/content/Admin regressions,224 PostgreSQL17 backend,219 SQLite passes/five PG skips,90frontend/lint/build,11 initializer/recovery assertions, transfer/concurrency checks pass. Final Chromium/clean-export/security evidence is recorded in TESTING. Original data/migrations/production policy preserved. No hosted changes or deployment; Auto-Deploy Off. Next gate: matching release CI, durable recovery recipient/key custody, explicit guarded live initialization approval, later separate Render configuration/manual-deploy approval.
+
+
+25October patched-source final rerun: all33 Chromium journeys pass (15public/9integration/4sample/5student). Clean private export installs the regenerated hash locks with pypdf6.21.2, builds React and collects159 static files/459 post-processed. Npm runtime audit zero, full runtime/development pip-audit zero;19 canonical docs/271 release inputs validate. PostgreSQL17 guarded initializer and authenticated encrypted independent restore passed again with the patched environment. No original data, migrations, hosted credentials or deployment changes. The approved publication SHA and its matching CI outcome must be checked after the push; no earlier CI result substitutes for it.
+
+---
+
+# Current status — authenticated free-demo database audit
+
+24 October2026. main/local/remote ff4acdc442cb971bd1e609433bd7de28488ddab1; no new commit/push. Current Render environment/host/start now match free-demo/external verify-full/render-free-demo-start.sh; build unchanged, auto-deploy Off. Both demo acknowledgements are absent. Four historical failed/canceled deploys still reference038a4b2; current release is not deployed.
+
+Authenticated read-only PostgreSQL17.11/TLS1.3 verify-full checks passed: zero application tables/rows/users/content, no migrations applied. Empty target is suitable for synthetic-only demo acknowledgements, but schema/content must be initialized under separate approval. Configured role has CREATEDB/CREATEROLE; limited runtime role and network restrictions remain blockers. Existing seed tools are local/SQLite-only; guarded remote initialization is not implemented. No live data/settings or private files were changed. See DEPLOYMENT, SECURITY, TESTING and newest handoff. Current edits are documentation only.
+
+---
+
 # Current status — approved free-demo publication on main
 
 24 October2026. main was fast-forwarded to remote merge038a4b2 (identical tree to verified1e685ee); all264 approved release inputs matched before publication-only documentation edits. Owner explicitly approved the now-Public GitHub destination, including disclosure of the known retired key's historical presence. Release SHA/remote equality and CI must be verified after the approved normal push; this document does not predeclare CI success.

@@ -1,3 +1,9 @@
+## Free-demo operator readiness
+
+Prepared explicit guarded PostgreSQL initialization, repeat verification, role separation and encrypted manual snapshots; exact synthetic text sample and restricted runtime verified locally. Existing Render roles/network are prepared, but application database remains empty and no deployment occurred. Free demo excludes learner/AI/Google/uploads/editorial writes. Actual local PostgreSQL17.11 initialization/encrypted recovery now pass; hosted application acceptance remains gated. Approved pypdf6.21.2 remediation now passes runtime/development audits; publication is authorized after final checks and matching CI.
+
+---
+
 ## Free Render demo candidate — local only
 
 Prepared password-protected React/API/Admin/static demo with forced-off student accounts, progress/planner/attempt saving and AI/Google/email. Reader content/discovery and stateless reviewed practice reuse existing code. Admin content mutations and every upload are disabled; no valuable data/media is accepted. Strict external PostgreSQL TLS is retained; only TLS negotiation is verified live, not SQL/schema/content. No new deployment was made. Free database expires23November2026 and is not production storage.

@@ -7,7 +7,7 @@ google-genai==2.10.0
 
 # Approved local MVP sanitization, PDF extraction and safe image validation.
 nh3==0.3.2
-pypdf==6.21.1
+pypdf==6.21.2
 Pillow==13.0.0
 
 # WSGI runtime for the reviewed single-host deployment configuration.

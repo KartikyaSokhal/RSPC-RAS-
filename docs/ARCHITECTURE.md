@@ -1,3 +1,9 @@
+## Explicit free-demo database operations
+
+scripts/free_demo_database.py selects only protected operator files and delegates schema/corpus initialization to initialize_free_demo; ordinary build/start remain non-migrating. The dedicated operator settings require exact remote identity/TLS/free-demo acknowledgements or an explicit bounded loopback test target; no SQLite fallback. A separate minimal migration role owns app objects; runtime reads content and writes only session/auth bookkeeping. Canonical sample_install is shared after each caller's original safety guards; production publication/retrieval behavior is unchanged. PostgreSQL advisory locking, atomic DDL/data/marker and strict verify-only repeats prevent resets/adoption of unknown data. One operator-owned completion table is outside Django models/migrations.
+
+---
+
 ## Restricted Render Free demonstration
 
 core.free_demo_settings is an explicit alternative, separate from existing production/staging profiles. It imports normal strong production settings, then requires free-demo identity/two synthetic acknowledgements, full external-host TLS with a trusted CA, exact HTTPS origin and the existing independent staging password barrier. It reuses reviewed Render SPA routes/static serving; free_demo_urls adds a minimal database-readiness503 boundary. No source schema or production policy changed.
