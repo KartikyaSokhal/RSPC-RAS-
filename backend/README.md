@@ -1,6 +1,18 @@
-## Restricted free Render demo (not deployed)
+## Hosted controlled-login demo candidate
 
-Use core.free_demo_settings via bash deploy/render-free-demo-start.sh only after separate live configuration/release approval. Set DJANGO_ENV=production, PREPAL_ENVIRONMENT=free-demo, PREPAL_FREE_DEMO=1 and PREPAL_FREE_DEMO_SYNTHETIC_DATA=1; retain existing signing/access/database credentials. Use external Render PostgreSQL hostname, verify-full and valid CA (pinned certifi default). Normal render-start/production/staging settings remain unchanged. No build/start migration or seeding; no upload directory or SQLite fallback. See [deployment](../docs/DEPLOYMENT.md) and [testing](../docs/TESTING.md) for exact observed service state, limitations and pending authenticated DB audit.
+`core.render_public_demo_settings` is separate from the local-only review and private staging profiles. It requires the exact existing hosted synthetic database/runtime role, HTTPS origin, verify-full and explicit demo confirmations; public registration and external services stay off. `deploy/render-public-demo-start.sh` performs bounded read-only corpus/account/schema/runtime readiness checks, then starts Gunicorn. It never migrates, seeds, grants or creates accounts. The known-nonempty DB requires the separately approved additive `student-login` operator transition, not initialization. See [the commands and approval gate](../docs/DEPLOYMENT.md#hosted-public-homepage-demo-approval-packet).
+
+---
+
+## Local public-preview authentication
+
+Use `core.public_demo_settings` only with a fresh marked local PostgreSQL fixture; it explicitly refuses Render and the hosted free database. Existing session login/CSRF/throttling/password hashing and owned learner handlers are reused. Registration/recovery/Google/AI stay disabled; Admin authenticates staff separately and permits read-only inspection. Normal production/private staging settings are unchanged. Follow [the local-only commands and runtime grants](../docs/DEPLOYMENT.md#local-student-gated-public-preview); never run the new preparer on an existing valuable database.
+
+---
+
+## Restricted Render Free demo — deployed
+
+The existing synthetic-only demo is live at https://rspc-ras.onrender.com using core.free_demo_settings and bash deploy/render-free-demo-start.sh. Approved guarded initialization applied30existing migrations only to the verified-empty prepal_staging_db, with142topics/15lessons/15quizzes/75questions/300choices/one view-only synthetic staff and zero students/uploads. Distinct restricted runtime credentials and external verify-full/trusted-CA TLS are verified. Build/start do not migrate or seed; production/staging profiles and original SQLite/media are unchanged. Student/AI/Google/uploads/editorial writes stay disabled and staging access remains private. See [deployment](../docs/DEPLOYMENT.md), [testing](../docs/TESTING.md) and [handoff](../docs/AGENT_HANDOFF.md) for current state and future approval gates.
 
 ---
 
@@ -46,7 +58,7 @@ uv pip compile requirements.in --python .venv/bin/python --generate-hashes -o re
 uv pip compile requirements-dev.in --python .venv/bin/python --generate-hashes -o requirements-dev.txt
 ```
 
-The driver supplies no database server. Gunicorn/proxy examples are not deployed services. PDF extraction can take 60 seconds, exceeding current proxy/worker examples (40/45); production timeout alignment remains required.
+The driver supplies no database server. The production systemd/proxy examples are not the deployed Render service. Render uses deploy/render-gunicorn.conf.py with a90-second timeout; standalone production examples (40/45seconds) still require alignment before use with60-second PDF extraction. Free-demo uploads/PDF processing are disabled.
 
 ## Restore local student navigation
 
@@ -81,4 +93,4 @@ Learners default off. Only after separate local target acceptance, set STUDENT_F
 
 From the repository root, `bash deploy/render-build.sh` installs locked dependencies/builds React/collects static files without migrations or real DB access. `bash deploy/render-start.sh` selects guarded core.render_settings with HTTPS, staging access credentials and an external persistent private-media path. The process refuses incomplete configuration. Follow [deployment](../docs/DEPLOYMENT.md); do not use production credentials for local tests or relax PostgreSQL verify-full.
 
-Guarded free-demo PostgreSQL operations are prepared in scripts/free_demo_database.py (from application root). Existing Render security roles/network are prepared, but live application schema/content remain empty. See [approval-gated commands](../docs/DEPLOYMENT.md) and [verification](../docs/TESTING.md). Never run ordinary startup migrations or weaken existing sample guards. PostgreSQL17.11 initializer/encrypted recovery tests pass locally; the approved pypdf6.21.2 security patch passes dependency/PDF regressions. Deployment still requires separate approval, detailed in verification.
+The guarded scripts/free_demo_database.py workflow completed approved synthetic initialization, runtime grants and read-only verification on25October2026. The deployed target is now nonempty/known-marked; do not reset it or rerun ordinary migrations/seed tools. Runtime verification is the maintenance path. See [deployment](../docs/DEPLOYMENT.md) and [verification](../docs/TESTING.md). No valuable-data cutover, production/student/AI activation or new Git publication is authorized.

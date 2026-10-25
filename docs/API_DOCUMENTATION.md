@@ -1,3 +1,15 @@
+## Hosted synthetic-login restriction
+
+The new hosted public-demo profile reuses the existing public-preview API allowlist and 401 auth_required JSON boundary, without WWW-Authenticate. Learning, resource, search, tags and personal APIs require the designated active nonstaff synthetic identity; a different valid Django student or staff session is insufficient. Session login/logout retain CSRF and throttling. Register remains503 registration_disabled and recovery/Google503 demo_service_disabled; no public enrollment or outbound provider work. Public config exposes aggregate counts/policy/CSRF, never credentials or protected lesson details. The same-origin HTTPS profile uses secure host-only one-hour sessions. This policy is a prepared candidate; it is not live until separately approved activation/deployment.
+
+---
+
+## Local public-preview access policy
+
+Only `core.public_demo_settings` enables this additional policy. `/api/config/` exposes learning_auth_required, registration_enabled, password_reset_enabled and public_summary (subject/topic counts only; no titles, slugs or notes), alongside existing CSRF/feature metadata. `/api/health/`, `/api/auth/login/`, `/api/auth/logout/`, `/api/auth/status/` remain intentionally public session endpoints. POST login/logout retain CSRF. Register returns 503 registration_disabled before body parsing; other auth integrations/recovery return 503 demo_service_disabled. Every other `/api/` route, including future/unknown routes, requires an active nonstaff StudentIdentity session and otherwise returns JSON 401 auth_required without WWW-Authenticate. POST content/learner permissions, reviewed publication filters and per-user ownership checks remain in place. Responses are private/no-store. Existing private staging/free-demo policy is unchanged.
+
+---
+
 # HTTP API
 
 All paths below are under `/api/`. Normal operation is same-origin Django session authentication, HTTP-only cookies and CSRF-protected writes. Errors use `error.code` / `error.message`. Student/private responses are `Cache-Control: no-store`. Never accept a client user ID as ownership.

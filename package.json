@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev:student": "backend/.venv/bin/python scripts/run_student_dev.py",
     "build": "vite build",
-    "lint": "eslint src *.config.js e2e e2e-integration e2e-sample e2e-student scripts/*.mjs",
+    "lint": "eslint src *.config.js e2e e2e-integration e2e-sample e2e-student e2e-public-demo scripts/*.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -16,7 +16,8 @@
     "test:sample": "playwright test --config=playwright.sample.config.js",
     "test:backend": "cd backend && python run_tests.py",
     "check": "npm run lint && npm run test && npm run build",
-    "test:student": "playwright test --config=playwright.student.config.js"
+    "test:student": "playwright test --config=playwright.student.config.js",
+    "test:public-demo": "playwright test --config=playwright.public-demo.config.js"
   },
   "dependencies": {
     "axios": "1.20.0",

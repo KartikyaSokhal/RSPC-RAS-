@@ -1,6 +1,6 @@
 # Documentation index
 
-Start with [AGENTS](../AGENTS.md), [handoff](AGENT_HANDOFF.md), [status](PROJECT_STATUS.md) and [roadmap/checklist](IMPLEMENTATION_PLAN.md). Current committed HEAD is 8ef43c7; the student platform is implemented locally as uncommitted work. No new commit/push/deployment/real cutover or paid provider request is authorized.
+Start with [AGENTS](../AGENTS.md), [handoff](AGENT_HANDOFF.md), [status](PROJECT_STATUS.md) and [roadmap/checklist](IMPLEMENTATION_PLAN.md). Reviewed baseline is main d2f014c186acba1360e9438a2382d13b85e74c6a; resolve the published candidate with git log -1 --format=%H -- deploy/render-public-demo-start.sh. The student-gated public-homepage candidate is authorized for reviewed Git publication; a separate hosted synthetic profile and additive login workflow are prepared, while the earlier restricted Render demo remains deployed. See the newest handoff/publication receipt for the release SHA/CI. Live writes/configuration/deployment still require approval. Start with the newest handoff and local-preview deployment section. No commit/push/deployment, real registration, valuable-data cutover or paid provider request is authorized in this batch.
 
 | Need | Canonical document |
 |---|---|

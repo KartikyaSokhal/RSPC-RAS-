@@ -31,7 +31,13 @@ def health(request):
 @api_view(['GET'])
 @ensure_csrf_cookie
 def configuration(request):
+    from .models import Topic
+    protected = getattr(settings, 'LEARNING_AUTH_REQUIRED', False)
     response = public_json({'demo': settings.DEMO_MODE, 'ai_enabled': settings.AI_ENABLED and (settings.AI_GUEST_ENABLED or request.user.is_authenticated),
+                            'learning_auth_required': protected,
+                            'registration_enabled': getattr(settings, 'STUDENT_REGISTRATION_ENABLED', True) and settings.STUDENT_FEATURES_ENABLED,
+                            'password_reset_enabled': getattr(settings, 'PASSWORD_RESET_ENABLED', True) and settings.STUDENT_FEATURES_ENABLED,
+                            'public_summary': {'subjects': Topic.objects.filter(parent__isnull=True).count(), 'topics': Topic.objects.count()} if protected else None,
                             'support_email': settings.SUPPORT_EMAIL, 'student_features_enabled': settings.STUDENT_FEATURES_ENABLED, 'google_signin_enabled': bool(settings.STUDENT_FEATURES_ENABLED and settings.GOOGLE_CLIENT_ID and settings.GOOGLE_CLIENT_SECRET and settings.GOOGLE_REDIRECT_URI), 'csrf_token': get_token(request)})
     try: request.get_signed_cookie('prepal_visitor', salt='visitor', max_age=86400)
     except (KeyError, signing.BadSignature):

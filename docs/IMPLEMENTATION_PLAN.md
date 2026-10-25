@@ -1,6 +1,35 @@
-## Current batch — guarded free-demo preparation complete locally
+## Current batch — publish public-homepage candidate; stop before live activation
 
-Implement/test guarded PostgreSQL bootstrap and encrypted manual snapshot, shared canonical sample builder with preserved SQLite guards, private role files, restricted runtime grants and disposable rehearsal. Credential permission0600 and existing hosted DB role/network security preparation completed; target still has zero application objects. No live migrate/seed/Render env/deploy; normal main Git publication is now separately approved after verification. Actual PostgreSQL17.11 local initializer/encrypted restore and full224-test backend suite pass; native17 tools authenticate read-only to hosted17. Approved pypdf6.21.2 patch now clears runtime/development audits; only that dependency pin/hashes change. Publish the reviewed candidate with a normal push and verify its own CI. Exact commands and next approvals are in DEPLOYMENT/latest handoff. Stop before guarded live initialization; no automatic next phase or production launch.
+1. Review/preserve the42 existing changes; privately archive the280-input entry state.
+2. Prepare separate hosted exact-target secure public-demo settings/start checks and an additive one-account operator workflow; no new migrations.
+3. Verify PostgreSQL17/backend/React/Chromium, schema, secret/dependency/release checks and remote ancestry; stage only the reviewed release inputs.
+4. Commit and normally push main, verify exact remote SHA and fully green matching CI. Record publication receipt privately and report the actual identifiers.
+5. STOP: request approval for the DEPLOYMENT packet (fresh read-only snapshot/preflight, additive synthetic account/marker/runtime grants and specified Save-only Render settings).
+6. After those actions are separately approved and verified, obtain manual deployment authority, deploy the reviewed commit, then execute the actual hosted acceptance checklist. Do not predeclare hosted success or enable real registration.
+
+---
+
+## Current local batch — student-gated public preview
+
+Implemented separate core.public_demo_settings and fail-closed API boundary, public count metadata, conditional React learning guards, safe original-route login return, session expiry/race handling, closed registration/recovery UI, synthetic PostgreSQL fixture tooling and regression/browser coverage. No schema change or deployment. Exact verification is in TESTING; current continuation is AGENT_HANDOFF.
+
+Next task: owner reviews this local diff and synthetic browser results. Before any hosted student activation, approve durable PostgreSQL/backup custody and restore operations, enrollment/abuse/retention policy and same-origin HTTPS/security acceptance. Only then prepare a hosted successor profile and seek separate Git/deployment approval. Do not change the currently deployed free-demo flags or access barrier.
+
+---
+
+## Current batch — free-demo initialization and hosted acceptance complete
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+- Completed: exact empty-target/TLS/limited-role preflight; guarded30-migration synthetic install; reviewed runtime grants; before/after-browser runtime integrity/permission verification.
+- Completed: owner selected restricted runtime credentials and rotated the accidentally exposed staging barrier; saved two demo flags and manually deployed exact d2f014c, with Auto-Deploy Off.
+- Completed: hosted142-topic/five-subject homepage,15lessons,75/75stateless practice scoring, tags/search/popups/themes, view-only Admin/static/session/logout, disabled guest/staff learner and Tutor boundaries, HTTPS/health/access/security-header checks.
+- Completed: encrypted local manual snapshot; owner accepts disposable-only loss risk while independent recovery custody remains unconfirmed.
+- Pending: owner demo review and separately approved presentation corrections; no new source work/Phase5/production release is authorized.
+
+Exact next task: owner reviews the restricted live demo. Before any new implementation, obtain separate scope approval. Known presentation limitation: existing homepage/banner/reader copy still mentions AI capability or “Verified study notes” although this demo forces AI off and notes explicitly require human review; do not interpret generic UI labels as academic approval. A separately approved demo-copy follow-up would touch src/components/layout/AppShell.jsx, src/pages/home.jsx, src/pages/topicPage.jsx and src/components/ai/TutorPanel.jsx. Do not start Phase5, enable learners/AI, change production secrets, introduce uploads, buy services or transfer valuable data automatically.
+
+Earlier preparation/audit/publication batches below are historical records, not outstanding permissions or instructions to initialize again.
 
 ---
 

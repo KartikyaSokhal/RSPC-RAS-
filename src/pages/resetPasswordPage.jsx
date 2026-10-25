@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { PlatformContext } from '../components/layout/platformContext.js'
 import { Link, useNavigate } from 'react-router-dom'
 import { post, errorMessage } from '../api/client.js'
 import useAuth from '../hooks/useAuth.js'
 export default function ResetPasswordPage() {
+  const config = useContext(PlatformContext)
   const { refreshStatus } = useAuth()
   const navigate = useNavigate()
   const [credentials] = useState(() => Object.fromEntries(new URLSearchParams(window.location.hash.slice(1))))
@@ -13,6 +15,7 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const confirming = Boolean(credentials.uid && credentials.token)
+  if (config.password_reset_enabled === false) return <div className="page auth-page"><section className="auth-card"><h1>Password recovery is unavailable</h1><p>This synthetic preview does not collect email addresses or send recovery messages. Ask the local operator for your assigned demo account.</p><Link to="/login">Back to sign in</Link></section></div>
   return <div className="page auth-page"><section className="auth-card"><h1>{confirming ? 'Choose a new password' : 'Reset your password'}</h1><p>Recovery is available for accounts with an email address and password.</p><form className="auth-form" onSubmit={async event => {
     event.preventDefault(); setBusy(true); setError(''); setMessage('')
     try {

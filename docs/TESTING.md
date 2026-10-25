@@ -1,3 +1,97 @@
+## Public-homepage publication verification — 25 October 2026
+
+Reviewed baseline main d2f014c186acba1360e9438a2382d13b85e74c6a; existing42 changed/added files were archived (280 inputs) before edits. Hosted publication candidate adds the separate secure Render synthetic profile/operator transition; no models/migrations/dependency upgrades. Publication is authorized only after final staged/secret/ancestry gates. Actual published SHA is resolvable with `git log -1 --format=%H -- deploy/render-public-demo-start.sh`; verify its own GitHub Actions run, not the baseline run. Publication receipt/logs are private in parent `.recovery/prepal-public-publication-b5yplbn3/`.
+
+| Verification | Actual local/read-only result |
+|---|---|
+| Frontend tests/lint/build |111 tests /14 files passed; ESLint and build passed |
+| Full PostgreSQL17.11 backend |240 passed, including six hosted configuration/HTTPS policy regressions |
+| Full isolated SQLite backend |235 passed +5 PostgreSQL-only skips; required macOS PDF process-monitor access enabled |
+| Chromium |36 passed:15 public,9 integration,4 sample,5 student,3 PostgreSQL public-preview; fresh synthetic fixtures |
+| Native17 operator/recovery rehearsal |16 assertions passed: original initializer safeguards, encrypted independent restore/tamper/wrong-key checks, additive controlled account/grants rollback/repeats/refusals and restricted runtime session/owned writes/logout/post-use verification |
+| Native17 restore |40 tables/1237 rows/37 sequences recovered to a new disposable local target; no live restore |
+| Bounded readiness/privilege checks |Real restricted local runtime passed shared schema, marker, migration, count, account/ownership and batched privilege/sequence checks |
+| Authenticated hosted read-only audit |Verified=true/changed=false;142 topics/15 lessons/15 quizzes/75 questions/300 choices/30 migrations/one staff/zero students/uploads; verify-full retained |
+| Render browser inspection |Designated account credential binding, existing Free service/main/build/start/deployed d2 SHA and Auto-Deploy visually Off; no editing/reveal controls used |
+| Private credential preparation |New random student password written outside Git to0600 file only; zero live account writes or secret output |
+| Schema/configuration |No new model/migration; old private/production profiles unchanged; new start passes bash syntax validation and contains no migration/seed/account hooks |
+
+Six new tests verify exact target/role/port/TLS/profile guards, absent Basic middleware, production cookies/HTTPS, public SPA shells without content, protected API denial, controlled-identity login/logout, other student/staff denial, closed signup/providers and cross-origin CSRF rejection. The operator rehearsal was extended in existing CI. Default sample/initializer verification still requires zero learners; only the explicit marked public-demo verifier accepts records owned by the single synthetic identity. Initial rehearsal caught that the old verifier rejected legitimate owned bookmarks/attempts; the new explicit owner-validated mode fixes this while retaining all canonical/review checks. HTTPS test fixtures initially omitted Origin and correctly failed CSRF; fixtures now send same-origin requests, with no auth/CSRF weakening. Full boot corpus traversal was replaced by bounded read-only startup checks to avoid unnecessary free-service cold-start delays; exhaustive operator verification remains mandatory. No live public-profile/browser acceptance is claimed.
+
+Final release manifest/documentation/secret/dependency/staged checks are recorded in the handoff/private release evidence. CI is not predeclared green before publication: poll the exact pushed SHA to full completion and stop on critical failure. Once green, the next action is the separate live DB/configuration approval packet in DEPLOYMENT, then a separate manual deployment gate. The old deployed Basic-protected demonstration was not changed.
+
+Final local release checks:286 release inputs/19 canonical documents validate; protected17 file hashes and original migrations/private production profiles unchanged; npm/pip runtime advisories0, pip check clean, budget concurrency ceiling check passed. Hosted login identifier/password are both privately generated in0600 JSON outside Git and are absent from source; no live account exists yet. Source/staged secret scans, export checks and exact publication/CI receipt are required gates; publication receipt is written only after actual remote verification.
+
+---
+
+## Local student-gated public-preview verification — 25 October 2026
+
+Environment: main d2f014c186acba1360e9438a2382d13b85e74c6a plus uncommitted local changes; pinned Node24.22.0/Python3.14.6/Django6.0.9 and native local PostgreSQL17.11. No hosted browser/deployment validation was performed in this task; previous hosted evidence below does not validate this new profile.
+
+| Check | Actual result |
+|---|---|
+| `npm run check` |111 React tests /14 files passed; ESLint and production build passed |
+| `backend/.venv/bin/python backend/run_tests.py` |234 discovered:229 passed,5 PostgreSQL-only skips; full run with required macOS PDF process-monitor access |
+| Same backend suite with `--postgres` and guarded local test configuration |234 passed /0 skipped, real existing migrations on a new disposable PostgreSQL17.11 test DB |
+| New public-preview browser suite |3 passed: mobile390/desktop1280 owned journeys plus independently authenticated read-only Admin/static checks |
+| Existing browser suites |15 public +9 integration +4 sample +5 student =33 passed, all on fresh synthetic fixtures |
+| Local new profile Django system / read-only `migrate --check` |Passed;30 migrations applied only to the NEW local fixture |
+| `makemigrations --check --dry-run --settings=core.test_settings` |No changes detected |
+| New preparer repeat on populated local fixture |Refused before directory creation or writes; hashes of every table unchanged |
+| Restricted local runtime |No schema/database CREATE/TEMP, ownership, memberships/admin flags; canonical text INSERT/UPDATE/DELETE denied; grading row locks work via documented UPDATE(id) grants |
+| Runtime dependency advisories |Npm0; pip-audit0 known vulnerabilities |
+| Release/security checks |280 release inputs/19 canonical docs valid; gitleaks0; generated private credentials absent; no staged/private tracked files; git diff --check/pip check pass |
+| Clean private source export |Offline npm ci,111 React tests, lint and build pass from exported inputs |
+| Data preservation |17 protected database/environment/media file hashes unchanged; all14 pre-existing document edits retained;21 original profile/start/migration files unchanged |
+
+New backend tests enumerate every nonpublic API route for guest GET/HEAD/POST/DELETE denial, unknown-route fail-closed behavior, Basic-header rejection/no challenge, safe public counts, closed registration, CSRF/session/logout, staff/unbound/inactive exclusion, throttling, ownership and disabled external services. React tests check every protected route, no guest hierarchy requests, closed signup, validated original path/query/hash, expired-session invalidation and a late-status/logout race. Browser journeys cover actual PG runtime grants, login persistence, lessons, quizzes/history isolation, planner, logout, mobile/desktop overflow, both themes and axe WCAG checks on public surfaces. Existing suites retain safe HTML, dynamic linking/popups/tags/search and responsive coverage. Automated axe checks are not full assistive-technology certification.
+
+Initial failures and resolution: a new React assertion ran before session loading finished (changed to findByRole); local preview4175 was missing from the new profile's CSRF trusted origins (added only that loopback origin); the newly provisioned local runtime lacked owned M2M grants and canonical row-lock privileges (narrowed documented grants; no application scoring/auth weakening); new Admin assertion used Django's default title rather than the existing custom title (corrected selector). All final suites above pass. A sandboxed SQLite PDF regression reproducibly failed because /bin/ps was denied; the same test and full suite pass with macOS process monitoring permitted. No PDF implementation or security limit was changed.
+
+To reproduce the new browser suite, prepare a NEW empty loopback PG fixture with `scripts/prepare_public_demo.py`, apply the documented local runtime grants, load only its private runtime environment and run `npm run test:public-demo`. Never reuse existing demo paths, hosted credentials or valuable databases. The new GitHub Actions step wires this fixture into CI; **no new CI run has occurred because nothing was committed/pushed**. Logs/archives/manifests remain private under `.recovery/prepal-public-demo-_3up9ot_` in the parent workspace. Final release/secret validation is recorded in the newest handoff.
+
+---
+
+# Hosted free-demo verification — 25 October 2026
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+| Environment/check | Actual result |
+|---|---|
+| Existing Render PostgreSQL17.11 preflight | Exact database/host, empty schema, both restricted roles, verify-full/trusted CA/TLS1.3 pass |
+| Reviewed initialization |30migrations, exact142/15/15/75/300 corpus, one view-only staff; zero students/uploads/learner/AI records |
+| Runtime integrity | Full verifier passes before and after browser checks, changed=false;30reviewed publications and links,19tags, five15-question pools |
+| Runtime permissions | DDL/content UPDATE/sequence SELECT denied42501; probes rolled back; no ownership/schema CREATE/DB CREATE/TEMP/admin membership |
+| Manual encrypted hosted snapshot | Native pg_dump17.11, CMS AES256GCM,40tables/1237rows/zero uploads; private local receipt, not new live restore/off-device custody |
+| Matching remote CI |40171764725 success for exact d2f014c, including PostgreSQL17; no new source/CI run in this task |
+| New local focused guards |15passed, system check0issues |
+| Same-source prior-turn frontend |90tests, lint/build pass; not redundantly rerun in this hosting-only continuation |
+| Actual Render deploy | dep-dbevgpfavr4c73c9m9i0 succeeded/Live for d2f014c at18:11 IST; build/start unchanged, Auto-Deploy Off |
+| Actual hosted HTTPS/access | Health200/status ok; unauthenticated homepage/API/Admin401 with Basic/private-no-store/noindex; HSTS/nosniff/frame DENY |
+| Actual hosted Chrome |15lessons; all75practice answers correct across five pools with no saved attempts; popup keyboard/focus/new-tab attributes; three tag pages; search; tree142-link expansion/five-root collapse; light/dark; Admin login/session/read-only/logout/static CSS |
+| Actual disabled features | Config demo=true/student=false/AI=false/Google=false; five learner endpoints refuse for guests and staff; Tutor displays unavailable; post-browser AI/learner/upload counts zero |
+| Accessibility scope | Desktop1512px: skip-to-main focus, popup Escape/focus restore, one main/one h1/no unnamed buttons/no overflow. No fresh hosted mobile/axe/manual screen-reader/load suite |
+
+Security incident and resolution: Render Copy value unexpectedly populated the staging password in browser accessibility output. It was not copied into source, documentation or evidence files. Owner confirmed replacing ONLY STAGING_ACCESS_PASSWORD with a new strong value using Save only; that replacement was not retrieved or displayed. Owner then completed native Chrome Basic sign-in and actual hosted tests succeeded. Do not reuse the exposed barrier value. Never use Render Copy/reveal controls for credentials in future automation; preserve passwords/signing keys, suppress secret-bearing AX field values and prefer owner native sign-in. No DB credential, recovery key/passphrase or Django signing key was exposed in this incident; the separately known historical Django key remains retired.
+
+Private evidence: ../.recovery/prepal-live-deploy-xjhhgl_i/. Source archive verified271inputs before edits; protected data check covers17original/demo/media/environment hashes. Final docs/release/known-value/Gitleaks/diff checks are recorded in final-integrity.json. No application code/model/migration/dependency change, new commit/push, purchases or production cutover.
+
+Known presentation limits: generic AI/verified-note wording remains in existing components despite demo-disabled Tutor and explicit human-review-pending sample notice. This is recorded, not silently claimed as a production feature. Tests of unknown targets/idempotent apply/rollback/native independent restore remain matching-source LOCAL/CI evidence; no second hosted apply, live restore, upload write or production acceptance is claimed.
+
+Historical verification below remains labelled by its original environment/date.
+
+---
+
+# Recovery-key custody setup verification — 25October2026
+
+Authenticated hosted preflight was READ ONLY: exact database/host, PostgreSQL17.11, trusted verify-full/TLS1.3, empty application schema, both restricted roles and native17 clients passed. No live migrations/data/ACL changes. Source graph30migrations verified offline;17 protected original/demo/media/environment hashes remain unchanged.
+
+New dedicated owner encrypted-key transfer kit was extracted into a NEW local private directory. Certificate/public-key match, encrypted PKCS8 PBES2/AES256CBC/PBKDF2-HMAC-SHA256600000 metadata, strong private passphrase handling,0700/0600permissions and exclusion of unlock/database credentials from the kit verified. Real approved CMS AES256GCM backup decrypted through the existing archive validator with an OpenSSL passphrase-file adapter; NEW local PostgreSQL17.11 restore matched40tables/1237rows/37sequences and142topics/15lessons/15quizzes/75questions/300choices/30migrations/one staff/zero students/uploads. Wrong passphrase and tampered CMS refused before extraction. No plaintext private-key file or application-code change. This is same-machine validation, not off-device custody acceptance; owner confirmation is still absent.
+
+Private metadata-only results: ../.recovery/prepal-live-init-preflight-gkz5o6ky/owner-key-verification.json and custody-status.json. Earlier local/CI suites remain historical; no full suite rerun for these documentation/private-operations changes. Documentation/release/secret/integrity checks are run before handoff. No hosted initialization, environment change, deployment, Git publication or paid operation.
+
+---
+
 # Recovery navigation race verification — 25October2026
 
 The formerly failing assertion is deterministically reproduced as a permitted intermediate state: hold refreshStatus unresolved, observe exact reset-page status and no login heading; resolve that same promise in act, await the final login heading, then assert the original complete success text and refresh call. This proves correct navigation without altering application code. Twenty separate Vitest processes pass; no retries, timeouts added, sleeps, assertion removal or weakened checks.

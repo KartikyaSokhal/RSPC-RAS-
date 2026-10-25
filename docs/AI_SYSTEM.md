@@ -1,3 +1,15 @@
+## Hosted public-homepage candidate
+
+The hosted synthetic-login profile forces Gemini, AI budgets, Google and recovery email off even if inherited environment flags differ. Student login never activates a provider. Existing mock-only retrieval/sanitization regression tests remain; no live AI acceptance, credentials or paid requests belong to this release.
+
+---
+
+## Local student-gated preview boundary
+
+The new local-only public-demo profile forces Gemini, guest AI and Google credentials off. Public copy follows ai_enabled=false. Student sign-in never enables the Tutor provider or paid requests. Retrieval, sanitization and provider implementation are unchanged; this batch does not establish live AI readiness.
+
+---
+
 # Current-lesson Tutor
 
 The existing Django Gemini adapter and quota/cost architecture are retained. `DatabaseRetrievalProvider.retrieve` now accepts evidence **only from note blocks in the currently open published lesson**. It never retrieves other topics, related/prerequisite documents, PDF pages, general website material or internet results. `allow_related=true` is rejected, and the provider itself enforces scope even if directly called with that argument. Reader hyperlinks do not expand Tutor evidence.

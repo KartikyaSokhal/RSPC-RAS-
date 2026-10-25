@@ -1,3 +1,25 @@
+## Unreleased hosted public-homepage candidate — approved Git publication
+
+Includes the prior local student-gated React/Django changes and adds exact-target Render synthetic-login settings, a non-migrating read-only-guarded start script, fixed-account authorization, private credential preparation, atomic additive account/marker/runtime-grant workflow, bounded boot checks and PostgreSQL17 regressions. Default original initializer remains zero-student/refuses extended state; original profiles/migrations/data and all entry work are preserved. No dependency upgrades. No live database writes, configuration change or deployment; real registration/external providers/uploads remain closed.
+
+---
+
+## Unreleased — local student-gated public preview, 25 October 2026
+
+Added a guarded local PostgreSQL synthetic public-preview profile and server-side student library access. Reused session authentication and owned learner APIs; added public aggregate homepage metadata, login return-route preservation, expiry/stale-response protection and closed registration/recovery pages. Added local synthetic preparation and backend/React/Chromium coverage, with CI wiring. Preserved production/staging/free-demo settings, existing migrations/data and pre-existing documentation changes. No commit, push, hosted migration or deployment.
+
+---
+
+## 25 October 2026 — restricted free synthetic demo deployed
+
+- Initialized only the approved empty Render PostgreSQL17.11 target using the reviewed guarded30-migration workflow; installed exact142-topic/15-lesson/75-question synthetic corpus and one view-only staff. No original/valuable data transfer or source-schema change.
+- Applied narrow runtime grants, verified TLS/permission denials and full corpus before/after hosted tests; encrypted a native17manual snapshot. Custody waiver is strictly disposable-demo-only.
+- Owner selected existing runtime credentials and retired the staging barrier accidentally exposed by Render Copy in browser output. New barrier value remained private; native owner sign-in preceded hosted checks.
+- Saved two approved demo flags and manually deployed d2f014c as dep-dbevgpfavr4c73c9m9i0. Existing Free resources, build/start, verified TLS, access protection and Auto-Deploy Off preserved. No paid service, commit/push or production release.
+- Hosted acceptance:15lessons, five subject pools/75correct stateless scores, search/tags/popups/themes/hierarchy, view-only Admin login/static/session/logout, disabled learner/AI/Google and HTTPS/access/health/security headers. Documents updated; existing generic AI/verified-note presentation limitations recorded for separate review.
+
+---
+
 ## 24 October2026 — guarded free-demo database preparation
 
 - Preserved prior audit work and secret values; restricted existing credential file to0600.

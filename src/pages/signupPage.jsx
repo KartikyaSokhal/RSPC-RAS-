@@ -1,11 +1,15 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { PlatformContext } from '../components/layout/platformContext.js'
+import { returnLocation } from '../components/auth/returnLocation.js'
 import GoogleSignIn from '../components/auth/GoogleSignIn.jsx'
 import useAuth from '../hooks/useAuth.js'
 
 export default function SignupPage() {
   const { register } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const config = useContext(PlatformContext)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -23,13 +27,15 @@ export default function SignupPage() {
     setLoading(true)
     try {
       await register({ username, password, email, name })
-      navigate('/dashboard', { replace: true })
+      navigate(returnLocation(location.state?.from), { replace: true })
     } catch (err) {
       setError(err.message || 'Registration failed. Please check your information.')
     } finally {
       setLoading(false)
     }
   }
+
+  if (config.registration_enabled === false) return <div className="page auth-page"><div className="auth-card"><h1>Student registration is not available</h1><p>This synthetic demonstration does not collect real student data. Use an assigned demo account to sign in. Public registration requires approved persistent storage and recovery safeguards.</p><Link className="button primary" to="/login" state={{ from: location.state?.from }}>Sign In</Link> <Link to="/">Return to homepage</Link></div></div>
 
   return (
     <div className="page auth-page">
@@ -109,7 +115,7 @@ export default function SignupPage() {
         <div className="auth-footer">
           <p>
             Already have an account?{' '}
-            <Link to="/login" className="auth-switch-link">
+            <Link to="/login" state={{ from: location.state?.from }} className="auth-switch-link">
               Sign in
             </Link>
           </p>

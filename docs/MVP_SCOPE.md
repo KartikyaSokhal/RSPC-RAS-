@@ -1,12 +1,28 @@
-## Guarded free-demo security and initialization preparation
+## Current hosted-demo scope
 
-Only existing Render Free resources/account/main are in scope. Owner approved credential0600, separate restricted DB roles and scoped DB networking; these security preparations are complete. No live app schema/migrations/corpus/Render env/redeploy or paid service is authorized. A guarded operator-only initializer and encrypted manual recovery workflow are prepared/tested locally; actual local17.11/native recovery checks pass; live initialization approval, durable recovery key custody and new CI remain. Approved pypdf6.21.2 input/hash-lock patch passes audits and PDF regressions; normal publication is authorized after checks, no unrelated upgrades. One view-only synthetic staff, no learner functionality or uploads, and engineering-only sample review labels are mandatory. See current DEPLOYMENT/handoff; older local-only authority below is historical.
+Publish the reviewed candidate to main after release/secret checks and require matching fully green GitHub CI. Prepare only an existing-resource public-homepage profile with one private synthetic test identity; no real enrollment, new paid resource or production launch. Live account/marker/grant writes, Render configuration changes and manual deployment remain separate approval gates. Existing private staging and local-only review profiles remain supported. Nonexpiring data storage, independent recovery/retention and public-auth/security/privacy operations are still prerequisites for real students.
 
 ---
 
-## Current free-demo scope
+## Current local-only expansion
 
-Owner selected existing Free Render web/PostgreSQL17 resources only. Prepare changes locally; no purchases/upgrades, Git release, live configuration/redeploy, DB initialization/write/cutover. New profile must preserve production-strength settings, existing barrier/secrets, strict TLS and synthetic-only content while disabling student/AI features and uploads. No durable private media or production user data on free resources. External verified TLS is available; no require-mode exception is approved or implemented. Previous paid architecture remains a future production option, not current authority.
+The student-gated visitor experience is authorized for isolated synthetic review, not live registration. Homepage/auth entry pages are public; learning library and owned records require a student session. Sign Up remains accessible with registration closed. Existing content-first and private staging/free-demo profiles remain supported and unchanged. Real students require persistent nonexpiring PostgreSQL, independent backup/recovery custody and rehearsal, operational/security acceptance and separate deployment approval. No external service or hosted profile activation belongs to this batch.
+
+---
+
+## Current scope — deployed disposable synthetic demo
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+PREPAL_ENVIRONMENT=free-demo, PREPAL_FREE_DEMO=1 and PREPAL_FREE_DEMO_SYNTHETIC_DATA=1; external PostgreSQL host dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com with POSTGRES_SSLMODE=verify-full and trusted CA. Build bash deploy/render-build.sh; start bash deploy/render-free-demo-start.sh; health /api/health/; Auto-Deploy Off. Production security profiles are unchanged. Student authentication/progress/planner/attempt saving, Google, Gemini/email, uploads and Admin content mutations remain disabled; the private staging barrier remains required.
+
+Exactly30 migrations applied (content0001–0012 plus18 framework migrations),142 original syllabus topics/five subjects,15 sample note lessons,15 quizzes,75 questions,300 choices,19 tags,15 aliases,30 publications including ancestors,30 curated relationships and30 approved links. Exactly one synthetic view-only staff sample-editor, zero students/uploads/bookmarks/progress/saved attempts/AI requests. Engineering sample notices and quiz review reasons are not human academic approval.
+
+Owner approved initialization of the exact empty demo DB and manual deployment after restricted runtime selection. Both completed and hosted acceptance passed; no valuable-data cutover, paid service or automatic Phase5. Owner explicitly waived permanent independent/off-device recovery-key custody ONLY for this disposable synthetic database; durable custody remains unconfirmed and production safeguards are not waived. A real read-only native pg_dump17.11 CMS AES256GCM snapshot now contains40tables/1237rows/zero uploads, encrypted to the dedicated owner certificate. Private snapshot/receipt are in ../.recovery/prepal-live-deploy-xjhhgl_i/hosted-encrypted-backup/. The dedicated key/restore tooling passed the earlier independent LOCAL PostgreSQL17 restore; this hosted snapshot was not restored live. No daily scheduler, off-host retention or production30-day guarantee is configured. Free cold starts/expiring DB remain unsuitable for valuable data.
+
+Exact next task: owner reviews the restricted live demo. Before any new implementation, obtain separate scope approval. Known presentation limitation: existing homepage/banner/reader copy still mentions AI capability or “Verified study notes” although this demo forces AI off and notes explicitly require human review; do not interpret generic UI labels as academic approval. A separately approved demo-copy follow-up would touch src/components/layout/AppShell.jsx, src/pages/home.jsx, src/pages/topicPage.jsx and src/components/ai/TutorPanel.jsx. Do not start Phase5, enable learners/AI, change production secrets, introduce uploads, buy services or transfer valuable data automatically.
+
+Older authorization sections below are historical; they never activate production/student/AI functionality.
 
 ---
 

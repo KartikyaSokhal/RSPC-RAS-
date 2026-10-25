@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { AuthContext } from './authContextDef.js'
 
 function getCookie(name) {
@@ -10,6 +10,7 @@ export function AuthProvider({ children, enabled = false }) {
   const [user, setUser] = useState(null)
   const [authenticated, setAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const sessionVersion = useRef(0)
 
   const fetchCsrfToken = useCallback(async () => {
     let token = getCookie('csrftoken')
@@ -26,27 +27,45 @@ export function AuthProvider({ children, enabled = false }) {
   }, [])
 
   const refreshStatus = useCallback(async () => {
+    const version = ++sessionVersion.current
     try {
       const res = await fetch('/api/auth/status/', { credentials: 'same-origin' })
       if (res.ok) {
         const data = await res.json()
+        if (version !== sessionVersion.current) return
         setAuthenticated(Boolean(data.authenticated))
         setUser(data.user || null)
       } else {
+        if (version !== sessionVersion.current) return
         setAuthenticated(false)
         setUser(null)
       }
     } catch {
+      if (version !== sessionVersion.current) return
       setAuthenticated(false)
       setUser(null)
     } finally {
-      setLoading(false)
+      if (version === sessionVersion.current) setLoading(false)
     }
   }, [])
 
   useEffect(() => {
     if (enabled) { refreshStatus() }
-    else { setAuthenticated(false); setUser(null); setLoading(enabled === null) }
+    else { sessionVersion.current++; setAuthenticated(false); setUser(null); setLoading(enabled === null) }
+  }, [enabled, refreshStatus])
+
+  useEffect(() => {
+    if (!enabled) return undefined
+    const expired = () => { sessionVersion.current++; setAuthenticated(false); setUser(null); setLoading(false) }
+    const refresh = () => { refreshStatus() }
+    window.addEventListener('prepal:session-expired', expired)
+    window.addEventListener('focus', refresh)
+    window.addEventListener('pageshow', refresh)
+    return () => {
+      window.removeEventListener('prepal:session-expired', expired)
+      window.removeEventListener('focus', refresh)
+      window.removeEventListener('pageshow', refresh)
+    }
   }, [enabled, refreshStatus])
 
   const login = async ({ username, password }) => {
@@ -64,6 +83,8 @@ export function AuthProvider({ children, enabled = false }) {
     if (!res.ok) {
       throw new Error(data?.error?.message || data?.detail || 'Invalid username or password.')
     }
+    sessionVersion.current++
+    setLoading(false)
     setAuthenticated(true)
     setUser(data.user)
     return data.user
@@ -84,6 +105,8 @@ export function AuthProvider({ children, enabled = false }) {
     if (!res.ok) {
       throw new Error(data?.error?.message || data?.detail || 'Registration failed.')
     }
+    sessionVersion.current++
+    setLoading(false)
     setAuthenticated(true)
     setUser(data.user)
     return data.user
@@ -99,6 +122,8 @@ export function AuthProvider({ children, enabled = false }) {
         credentials: 'same-origin',
       })
       if (!response.ok) throw new Error('Sign out failed. Please try again.')
+      sessionVersion.current++
+      setLoading(false)
       setAuthenticated(false)
       setUser(null)
   }

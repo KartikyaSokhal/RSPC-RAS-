@@ -1,3 +1,19 @@
+## Hosted public-homepage synthetic-demo candidate
+
+A new core.render_public_demo_settings composes production-strength settings, same-origin SPA/API/Admin/WhiteNoise delivery and the shared student-session middleware without StagingAccessMiddleware. It accepts only the existing external Render host/database/runtime role and exact HTTPS origin, preserves verify-full and uses one-hour HttpOnly/Secure/Lax host-only sessions. Only the privately designated synthetic identity is eligible; arbitrary StudentIdentity users and staff sessions are denied learning APIs. Signup/reset/Google/AI/uploads/Admin mutations remain closed. Original production, staging, free-demo and local-only profiles are unchanged.
+
+The existing operator CLI gains private-password preparation and a guarded student-login transition on the initialized corpus. The migration owner verifies the original known state, creates one synthetic User/StudentIdentity, extends the existing initialization marker and grants fixed owned-record/row-lock privileges atomically. Unknown data/accounts are preserved and refused; repeated use verifies the same password without reset. The default original initializer remains zero-student and refuses the extended state. Public-state verification explicitly validates the marked user and owned rows while retaining exact canonical corpus/review checks. Boot uses shared strict schema checks, batched counts/privileges and migration/account/marker checks; exhaustive corpus revalidation belongs to operator preflight. No new schema or migrations.
+
+---
+
+## Local student-gated preview — current addition
+
+`core.public_demo_settings` extends the guarded local PostgreSQL candidate, verifies a ready synthetic marker bound to the database name, and adds StudentLearningAccessMiddleware after Django authentication. The exact public API allowlist is health/config/session login/logout/status/closed register. All other API paths fail closed for guests, inactive, staff or unbound Django users; session authentication never emits a Basic challenge. Admin retains Django staff authorization and synthetic read-only restrictions. No models, migrations or existing deployment profiles changed.
+
+React LearningRoute wraps syllabus/topic/quiz/practice/tags/search/resources/dashboard/planner/attempt routes only when config.learning_auth_required is true. AppShell defers hierarchy requests until session verification succeeds and uses intentionally public aggregate counts for guests. Login preserves a validated local pathname/query/hash, including across the Sign Up link. AuthProvider refreshes on focus/pageshow, invalidates on auth_required responses and discards stale status replies after login/logout. Account changes still remount page state. SafeHtml, Phase 3 discovery and existing content-first routes retain their original behavior outside this new profile.
+
+---
+
 ## Explicit free-demo database operations
 
 scripts/free_demo_database.py selects only protected operator files and delegates schema/corpus initialization to initialize_free_demo; ordinary build/start remain non-migrating. The dedicated operator settings require exact remote identity/TLS/free-demo acknowledgements or an explicit bounded loopback test target; no SQLite fallback. A separate minimal migration role owns app objects; runtime reads content and writes only session/auth bookkeeping. Canonical sample_install is shared after each caller's original safety guards; production publication/retrieval behavior is unchanged. PostgreSQL advisory locking, atomic DDL/data/marker and strict verify-only repeats prevent resets/adoption of unknown data. One operator-owned completion table is outside Django models/migrations.

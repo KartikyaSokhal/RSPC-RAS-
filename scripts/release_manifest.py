@@ -11,16 +11,23 @@ TOP = {
     '.env.example', '.gitignore', '.nvmrc', '.python-version', 'AGENTS.md', 'README.md',
     'index.html', 'package.json', 'package-lock.json', 'eslint.config.js',
     'vite.config.js', 'vitest.config.js', 'playwright.config.js',
-    'playwright.integration.config.js', 'playwright.sample.config.js', 'playwright.student.config.js', 'prepal.code-workspace',
+    'playwright.integration.config.js', 'playwright.sample.config.js', 'playwright.student.config.js', 'playwright.public-demo.config.js', 'prepal.code-workspace',
 }
 BACKEND = {
     '.env.example', '.gitignore', 'README.md', 'manage.py', 'run_tests.py', 'gunicorn.conf.py',
     'requirements.in', 'requirements.txt', 'requirements-dev.in', 'requirements-dev.txt',
 }
-TREES = ('src', 'public', 'e2e', 'e2e-integration', 'e2e-sample', 'e2e-student', 'scripts', 'deploy',
+TREES = ('src', 'public', 'e2e', 'e2e-integration', 'e2e-sample', 'e2e-student', 'e2e-public-demo', 'scripts', 'deploy',
          '.github', 'backend/content', 'backend/core')
 SKIP = {'__pycache__', 'node_modules', '.venv', 'env', '.local', '.git', '.pytest_cache'}
 REQUIRED = {
+    'backend/core/render_public_demo_settings.py', 'deploy/render-public-demo-start.sh',
+    'backend/content/test_render_public_demo.py', 'backend/content/services/public_demo_database.py',
+    'backend/content/management/commands/prepare_public_demo_login.py',
+    'backend/content/management/commands/check_public_demo.py',
+    'backend/core/public_demo_settings.py', 'backend/core/public_demo_support.py',
+    'backend/content/test_public_demo.py', 'scripts/prepare_public_demo.py',
+    'src/components/auth/LearningRoute.jsx', 'e2e-public-demo/access.spec.js',
     'backend/content/student_auth.py', 'backend/content/student_views.py',
     'backend/core/render_settings.py', 'backend/core/render_support.py',
     'backend/core/render_urls.py', 'backend/core/static_build_settings.py',

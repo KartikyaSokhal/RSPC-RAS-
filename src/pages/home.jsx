@@ -1,4 +1,7 @@
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { PlatformContext } from '../components/layout/platformContext.js'
+import useAuth from '../hooks/useAuth.js'
 import useSyllabus from '../hooks/useSyllabus.js'
 import { indexSyllabus } from '../components/study/syllabusUtils.js'
 import SyllabusTree from '../components/study/SyllabusTree.jsx'
@@ -7,10 +10,13 @@ import StatusPanel from '../components/ui/StatusPanel.jsx'
 import RajasthanMap from '../components/ui/RajasthanMap.jsx'
 
 export default function Home() {
+  const config = useContext(PlatformContext)
+  const { authenticated } = useAuth()
+  const restricted = config.learning_auth_required && !authenticated
   const { data, loading, error, retry } = useSyllabus()
   const topics = useMemo(() => data || [], [data])
   const totalCount = useMemo(() => indexSyllabus(topics).size, [topics])
-  const countsReady = !loading && !error && data !== null
+  const countsReady = restricted ? Boolean(config.public_summary) : !loading && !error && data !== null
 
   function jumpToSubject(id) {
     const root = document.getElementById(`home-subject-${id}`)
@@ -29,7 +35,7 @@ export default function Home() {
             <em>Administrative Services</em> Syllabus.
           </h1>
           <p className="hero-description">
-            Explore the RPSC/RAS syllabus, published study notes and reviewed practice. Ask the AI assistant for help understanding available lesson sources, and check its citations.
+            Explore the RPSC/RAS syllabus, published study notes and reviewed practice.{config.ai_enabled !== false && ' Ask the AI assistant for help understanding available lesson sources, and check its citations.'}
           </p>
           <div className="hero-cta-group">
             <a href="#syllabus-explorer" className="button primary hero-primary-btn">
@@ -44,11 +50,11 @@ export default function Home() {
       </section>
 
       <section className="syllabus-stats-summary" aria-label="Curriculum Overview Statistics" aria-busy={loading}>
-        <div className="summary-stat-pill"><span className="pill-dot blue" aria-hidden="true" /><span className="pill-label">Total Curriculum Topics:</span><strong>{countsReady ? totalCount : '—'}</strong></div>
-        <div className="summary-stat-pill"><span className="pill-dot amber" aria-hidden="true" /><span className="pill-label">Core Subjects:</span><strong>{countsReady ? topics.length : '—'}</strong></div>
+        <div className="summary-stat-pill"><span className="pill-dot blue" aria-hidden="true" /><span className="pill-label">Total Curriculum Topics:</span><strong>{countsReady ? (restricted ? config.public_summary.topics : totalCount) : '—'}</strong></div>
+        <div className="summary-stat-pill"><span className="pill-dot amber" aria-hidden="true" /><span className="pill-label">Core Subjects:</span><strong>{countsReady ? (restricted ? config.public_summary.subjects : topics.length) : '—'}</strong></div>
       </section>
       <section className="syllabus-explorer-section" id="syllabus-explorer" aria-label="Syllabus Directory Explorer">
-        {loading ? <Skeleton label="Loading syllabus topics…" /> : error ? (
+        {restricted ? <div className="status-panel"><h2>Sign in to explore the syllabus</h2><p>The learning library is available to signed-in students. This local preview uses assigned synthetic accounts only.</p><Link className="button primary" to="/login" state={{ from: { pathname: '/syllabus' } }}>Sign In to Explore</Link></div> : loading ? <Skeleton label="Loading syllabus topics…" /> : error ? (
           <StatusPanel title="Syllabus directory is temporarily unreachable" retry={retry}>Unable to load the RPSC examination hierarchy. Please refresh or try again in a moment.</StatusPanel>
         ) : topics.length ? <>
           <nav className="subject-navigation" aria-label="Jump to a subject">

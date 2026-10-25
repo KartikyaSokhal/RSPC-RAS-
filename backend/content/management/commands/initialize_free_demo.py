@@ -17,8 +17,7 @@ def relations():
         return dict(c.fetchall())
 
 
-def verify_install():
-    from content.services.sample_content import verify_sample
+def verify_schema():
     expected={m._meta.db_table for m in apps.get_models(include_auto_created=True) if m._meta.managed and not m._meta.proxy}|{'django_migrations',MARKER}
     actual=relations()
     with connection.cursor() as c:
@@ -30,6 +29,11 @@ def verify_install():
         c.execute("SELECT c.relname FROM pg_class c WHERE c.oid IN (SELECT pg_get_serial_sequence(format('%I.%I',table_schema,table_name),column_name)::regclass FROM information_schema.columns WHERE table_schema='public' AND is_identity='YES')")
         if {n for n,k in actual.items() if k=='S'}!={r[0] for r in c.fetchall()}:
             raise ValueError('Unexpected standalone sequence preserved.')
+
+
+def verify_install(*, public_demo=False):
+    from content.services.sample_content import verify_sample
+    verify_schema()
     loader=MigrationLoader(connection)
     if set(loader.applied_migrations)!=set(loader.disk_migrations) or len(loader.disk_migrations)!=30:
         raise ValueError('Migration state differs from reviewed30-migration graph.')
@@ -38,13 +42,23 @@ def verify_install():
         row=c.fetchone()
         if not row: raise ValueError('Missing initialization identity marker.')
         meta=json.loads(row[0]) if isinstance(row[0],str) else row[0]
-    if meta != {'version':1,'database':connection.settings_dict['NAME'],'corpus':corpus_digest()}:
+    expected_meta = {'version':1,'database':connection.settings_dict['NAME'],'corpus':corpus_digest()}
+    student_meta = meta.get('public_demo') if isinstance(meta, dict) else None
+    if public_demo:
+        if (type(student_meta) is not dict or set(student_meta) != {'version', 'student_id', 'username'}
+                or student_meta['version'] != 1 or type(student_meta['student_id']) is not int):
+            raise ValueError('Controlled synthetic account marker is missing or invalid.')
+        expected_meta['public_demo'] = student_meta
+    if meta != expected_meta:
         raise ValueError('Marker or corpus identity mismatch; existing data preserved.')
     User=get_user_model()
-    if User.objects.count()!=1: raise ValueError('Unknown accounts preserved.')
+    if User.objects.count() != (2 if public_demo else 1): raise ValueError('Unknown accounts preserved.')
     user=User.objects.get(username='sample-editor')
     if not user.is_staff or user.is_superuser or user.email or not user.is_active:
         raise ValueError('Synthetic staff identity mismatch.')
+    if public_demo:
+        from content.services.public_demo_database import verify_student
+        verify_student(student_meta['student_id'], student_meta['username'])
     from django.contrib.auth.models import Permission,Group
     from django.contrib.contenttypes.models import ContentType
     from django.contrib.auth.management import _get_all_permissions
@@ -59,14 +73,18 @@ def verify_install():
     # Every non-corpus module must remain empty (framework metadata and sessions excluded).
     allowed={'Topic','ContentBlock','Quiz','Question','Choice','Tag','TopicAlias','TopicRelation',
              'KeywordLinkProposal','ConnectionScan','TopicPublication','QuizReview'}
+    if public_demo:
+        from content.services.public_demo_database import verify_owned_records
+        verify_owned_records(student_meta['student_id'])
+        allowed |= {'StudentIdentity','AuthRateWindow','Bookmark','UserProgress','QuizAttempt','StudyPlan','StudyTask'}
     for model in apps.get_app_config('content').get_models():
         if model.__name__ not in allowed and model.objects.exists():
             raise ValueError('Unexpected learner/media/provider data preserved.')
-    report=verify_sample()
+    report=verify_sample(learner_user_id=student_meta['student_id'] if public_demo else None)
     from content.models import KeywordLinkProposal,ConnectionScan
     if any(report[k]!=v for k,v in {'publications':30,'tags':19,'related_edges':30,'approved_links':30,'pending_links':0}.items()) or KeywordLinkProposal.objects.count()!=30 or ConnectionScan.objects.count()!=30:
         raise ValueError('Unknown connections or controlled registry rows preserved.')
-    return report | {'migrations':30,'synthetic_staff':1,'students':0,'uploads':0}
+    return report | {'migrations':30,'synthetic_staff':1,'students':int(public_demo),'uploads':0}
 
 
 class Command(BaseCommand):

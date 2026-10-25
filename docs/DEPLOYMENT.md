@@ -1,3 +1,146 @@
+## Hosted public-homepage demo approval packet
+
+**Prepared, not activated.** Publish only the reviewed main candidate and verify its exact green GitHub CI. Existing Render account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging, service RSPC-RAS- (srv-dbe6d5vb9u1s738ikh80), Free PostgreSQL prepal-staging-db and https://rspc-ras.onrender.com only. Auto-Deploy was visually verified **Off**. Current service still runs d2f014c using the private free-demo profile; no live settings or SQL writes occurred in this preparation.
+
+Authenticated read-only preflight verified the existing external verify-full target and canonical corpus: PostgreSQL17,30 migrations,142 topics,15 lessons,15 quizzes,75 questions,300 choices, one view-only synthetic staff, zero students/uploads. It is **not empty**. Never rerun initialization, migrations, seeding, reset or transfer on it. Use only the additive operator transition below after owner approval. A strong new student password is already prepared in an owner-only0600 file outside Git; no live student account has been created. Do not print it, paste it into chat, publish it or add it to Render environment variables. Only its Django password hash belongs in PostgreSQL.
+
+### Live database actions requiring approval
+
+1. Recheck exact database/roles/TLS17 and known synthetic-only state. Take a fresh read-only encrypted native17 snapshot using the existing owner public recovery certificate and approved tooling to a NEW private destination. Existing durable off-device recovery custody is not confirmed; the owner's disposable-synthetic-only loss waiver never covers real data.
+2. Run the reviewed student-login plan without --apply. It must identify the original known marker/corpus, one staff and zero students; unknown accounts, ownerless records, extra schema/routines/types/uploads/provider data or changed content cause refusal.
+3. With the limited migration owner, explicitly apply the additive transition: exactly one nonstaff User/StudentIdentity with a privately generated identifier at example.invalid, synthetic display name, no Google subject or account permissions; extend only existing manifest metadata with version/student_id; grant required owned tables/sequences and grading row locks to the existing runtime. No migration, schema creation, content rewrite, staff password/signing-key reset, new role/resource or valuable-data transfer.
+4. Verify with the runtime role. Repeats must verify the same private password/state without resetting it. Existing wrong passwords or unknown data are preserved/refused; account/marker/grants roll back together on failure (PostgreSQL sequence gaps may remain and are never reset). After first transition, the old zero-student initializer/verify path intentionally refuses this extended state; use student-login verification. App startup never performs this transition.
+
+Commands below are **approval-gated**. Run from the application root using protected original operator inputs; never bulk-source/copy them into Render. The existing operator signing/barrier values are not replacement service secrets.
+
+```sh
+P=../.recovery/prepal-demo-init-hw0bq8ne/render-roles
+# Existing public certificate and compatible native17 client; NEW output directory.
+backend/.venv/bin/python scripts/free_demo_database.py backup --config "$P/migration.env" --directory "$P" --confirm-database prepal_staging_db --output /absolute/new/private/pre-public-demo-backup --certificate /Users/kartikyasokhal/Prepal-Recovery/free-demo-2026-10-25/public/prepal-free-demo-recipient.pem --pg-bin /absolute/path/to/postgres-17.11/bin --openssl /opt/homebrew/opt/openssl@3/bin/openssl
+# Read-only plan, then separately authorized transactional account/grant write:
+backend/.venv/bin/python scripts/free_demo_database.py student-login --config "$P/migration.env" --directory "$P" --confirm-database prepal_staging_db
+backend/.venv/bin/python scripts/free_demo_database.py student-login --config "$P/migration.env" --directory "$P" --confirm-database prepal_staging_db --apply
+# Read-only post-transition verification using the runtime role:
+backend/.venv/bin/python scripts/free_demo_database.py student-login --config "$P/runtime.env" --directory "$P" --confirm-database prepal_staging_db
+```
+
+The existing runtime retains SELECT on content/framework tables and session/auth bookkeeping. Proposed additions: CRUD on AuthRateWindow/Bookmark/UserProgress/QuizAttempt/StudyPlan/StudyTask and the two owned M2M tables, USAGE on their sequences, UPDATE(id) only on Question/Choice/Quiz/QuizReview/TopicPublication for existing SELECT FOR UPDATE grading locks. No broad canonical INSERT/UPDATE/DELETE, DDL, TEMP, ownership, administrative role flags or memberships. UPDATE(id) technically permits ID edits; this synthetic demonstration does not accept that as a final production database policy. Runtime credentials themselves are retained, never rotated or printed by this workflow.
+
+### Exact Render changes requiring approval
+
+Use **Save only**, not Save/rebuild/deploy. Keep the existing service/resources and Auto-Deploy Off.
+
+| Setting | Required value/action |
+|---|---|
+| Branch | Keep main; after green CI select the reviewed published SHA for manual deployment |
+| Build | Keep bash deploy/render-build.sh |
+| Start | Change to bash deploy/render-public-demo-start.sh |
+| PREPAL_ENVIRONMENT | Change free-demo to public-demo |
+| PREPAL_PUBLIC_DEMO | Add1 |
+| PREPAL_FREE_DEMO / PREPAL_FREE_DEMO_SYNTHETIC_DATA | Keep1 /1 |
+| DJANGO_ENV / DEBUG / PYTHON_DOTENV_DISABLED | Keep production /false /1 |
+| ALLOWED_HOSTS | Confirm/set rspc-ras.onrender.com only |
+| SITE_ORIGIN | Confirm/set https://rspc-ras.onrender.com |
+| POSTGRES_HOST | Keep dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com |
+| POSTGRES_DB / POSTGRES_PORT / POSTGRES_USER | Keep prepal_staging_db /5432 /prepal_demo_runtime |
+| POSTGRES_SSLMODE / trusted CA | Keep verify-full and the existing trusted CA configuration |
+| SECRET_KEY / POSTGRES_PASSWORD | Preserve existing service secrets; never copy operator replacements |
+| STAGING_ACCESS_USERNAME / STAGING_ACCESS_PASSWORD | Preserve privately for rollback; new public profile does not use them |
+| STUDENT_FEATURES_ENABLED | Keep general environment false; only the explicitly acknowledged public-demo profile internally enables the fixed synthetic identity |
+| Google / Gemini / recovery / uploads | Keep disabled; profile forcibly closes them and signup regardless of inherited flags |
+| Health | Keep /api/health/ |
+
+New start script performs **read-only** exact-target/PG17/migration/schema/marker/count/account/runtime checks before binding Gunicorn; it fails closed on missing controlled state. These bounded checks do not perform full article/practice analysis on every cold start. Full corpus verification is required in the operator plan and post-transition checks. Static assets are built/collected by the unchanged build command. Media storage/upload handlers remain disabled; synthetic sessions/owned records live only in the existing disposable PostgreSQL database, not the ephemeral filesystem.
+
+### Manual deployment and acceptance — separate approval
+
+After database/configuration approval, apply/verify those steps and report their actual results. Then obtain explicit manual deployment approval; deploy the exact reviewed green-CI main commit, preserve Auto-Deploy Off and verify Render reports that SHA/live status. No paid resource or production cutover.
+
+Use a **fresh browser context without cached Basic credentials or Authorization headers**, plus unauthenticated HTTPS requests. Homepage/login/signup must be200 without WWW-Authenticate; signup must have no personal-data form. Guest syllabus/topic/practice/search/tag/resource/dashboard/planner routes must show friendly Sign In and preserve the original path/query/hash; direct learning APIs must return JSON401 auth_required. Sign in using the privately held synthetic credential and verify persistent secure/HttpOnly/Lax one-hour session, lesson reading, reviewed quizzes/owned history, bookmark/completion/planner writes, logout/revocation and wrong-user isolation. Test view-only synthetic Admin separately, its static CSS, health/HTTPS/CSRF/security headers, dark/light/mobile/keyboard behavior; uploads, signup, recovery/Google/Gemini and Admin content writes remain closed. Repeat runtime known-corpus/ownership/permission verification afterwards; no real students or personal inputs.
+
+Rollback requires a separate authorized Save-only configuration switch to PREPAL_ENVIRONMENT=free-demo and the old start script, then approved manual redeploy of the prior verified commit. Retain existing barrier secrets. This closes student features again; preserve the synthetic account/records/manifest extension and use the new read-only verifier for maintenance. Never delete data or rerun the original initializer to simulate rollback.
+
+Real registration remains unapproved: nonexpiring persistent PostgreSQL/capacity, least-privilege production roles/locking policy, encrypted scheduled backups/retention, independently recoverable off-host key custody and measured restore/RPO/RTO, monitoring/incident response, same-origin HTTPS/proxy/cookies/CSRF acceptance, enrollment/email verification/abuse/reset and staff/MFA controls, privacy/retention/deletion/support policy and durable private storage before uploads. The public homepage candidate is not proof of those operations.
+
+---
+
+## Local student-gated public preview
+
+This profile is a **local review artifact**, not a replacement start command for Render. `core.public_demo_settings` refuses Render, production, nonloopback databases, SQLite, missing acknowledgements and markers that do not name the selected database. It never migrates or seeds on application startup. The hosted free demo, HTTP Basic barrier, Auto-Deploy Off and POSTGRES_SSLMODE=verify-full remain unchanged.
+
+Preparation requires a NEW empty database named `prepal_local_public_demo_<suffix>` on a disposable loopback PostgreSQL17 server, with separate private migration/runtime configurations outside Git (0600). Set DATABASE_ENGINE=postgresql, DJANGO_ENV=development, PYTHON_DOTENV_DISABLED=1, PREPAL_LOCAL_POSTGRES=1, PREPAL_PUBLIC_DEMO=1, explicit POSTGRES_HOST/PORT/DB/USER/PASSWORD/SSLMODE and a fresh local SECRET_KEY. Never source the hosted Render operator configuration. Local transport policy applies only to this disposable loopback test server, not hosted TLS.
+
+```sh
+# In a private operator shell with the NEW local migration configuration loaded:
+backend/.venv/bin/python scripts/prepare_public_demo.py --directory /absolute/new/private/public-demo
+# It refuses existing directories, populated/unknown schemas and concurrent preparation.
+# It applies the existing 30 migrations once and installs only the canonical synthetic corpus.
+# It writes a ready marker and accounts.json (0600); never display/publish credentials.
+```
+
+The initial corpus is142 topics,15 published demo lessons,15 reviewed demo quizzes,75 questions,300 choices, two synthetic nonstaff students (demo-reader/demo-other, example.invalid addresses), one view-only sample-editor and zero uploads. Synthetic engineering review is not production academic approval. Failures preserve their partial destination for inspection: no reset, repair, adoption or automatic retry. Use a separately reviewed NEW empty target after failure.
+
+Before using the runtime configuration, an authorized migration owner must revoke public schema CREATE and database CREATE/TEMP, grant runtime CONNECT/schema USAGE and SELECT, and grant INSERT/UPDATE/DELETE only on django_session, content_authratewindow, content_bookmark, content_userprogress, content_studyplan, content_studytask, content_quizattempt, content_studyplan_selected_topics and content_quizattempt_incorrect_questions. Grant UPDATE(last_login) on auth_user and USAGE on necessary sequences. Existing saved-attempt grading uses SELECT FOR UPDATE: PostgreSQL additionally requires UPDATE privilege on at least one column of content_question/content_choice/content_quiz/content_quizreview/content_topicpublication. The local verification uses UPDATE(id) only, with no educational-text updates or INSERT/DELETE on these canonical tables. This privilege can technically change IDs; it is not database-enforced immutability. Application authorization and read-only Admin remain required; revisit this column/locking design before a production role policy is accepted. Never grant schema ownership, role membership, SUPERUSER/CREATEDB/CREATEROLE/BYPASSRLS to runtime. This does not alter the hosted free-demo's read-only role grants.
+
+```sh
+# In a separate private shell with the local runtime configuration loaded:
+export PREPAL_DEMO_ROOT=/absolute/path/to/prepared/public-demo
+backend/.venv/bin/python backend/manage.py check --settings=core.public_demo_settings
+backend/.venv/bin/python backend/manage.py runserver 127.0.0.1:8003 --settings=core.public_demo_settings --noreload --insecure
+# Another terminal, with the pinned Node runtime available:
+PREPAL_API_ORIGIN=http://127.0.0.1:8003 npm run build
+PREPAL_API_ORIGIN=http://127.0.0.1:8003 npm run preview -- --host 127.0.0.1 --port 4175 --strictPort
+```
+
+Open http://127.0.0.1:4175. `--insecure` serves Django Admin static assets **only in this loopback development server**; never use runserver/this option as a hosted start command. Preview proxies /api to Django; Admin is at http://127.0.0.1:8003/admin/. No Basic credentials are needed. Use the privately generated synthetic accounts. The test configuration uses backend8001/frontend4175 and requires those ports to be free. `npm run test:public-demo` consumes only the marked local PG fixture; private credentials are never command arguments. To stop/revert locally, stop these listeners and select the original profile; no original database or Render setting was changed.
+
+Before **any real registration or public hosted student activation**, obtain owner approval for: nonexpiring durable PostgreSQL and capacity/connection policy; separate least-privilege migration/runtime/backup roles; verify-full CA/hostname TLS; fresh private signing/service credentials; encrypted daily backups with agreed30-day retention, independent off-host key custody and a measured restore/RPO/RTO rehearsal; monitoring/alerting and incident response; verified same-origin HTTPS/secure host-only session and CSRF cookies/proxy/origin/CSP policy; approved registration/email verification, abuse/enumeration/password-recovery and staff/MFA/rate-limit controls; retention/deletion/privacy/support policy; reviewed content rights and durable private object storage before uploads. The synthetic database-loss waiver does not cover students. Prepare a separately reviewed hosted profile; do not bypass this local-only guard or repurpose the expiring free database. Git publication, configuration activation and deployment require separate approvals.
+
+---
+
+# Current deployment — existing Free synthetic demo
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+PREPAL_ENVIRONMENT=free-demo, PREPAL_FREE_DEMO=1 and PREPAL_FREE_DEMO_SYNTHETIC_DATA=1; external PostgreSQL host dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com with POSTGRES_SSLMODE=verify-full and trusted CA. Build bash deploy/render-build.sh; start bash deploy/render-free-demo-start.sh; health /api/health/; Auto-Deploy Off. Production security profiles are unchanged. Student authentication/progress/planner/attempt saving, Google, Gemini/email, uploads and Admin content mutations remain disabled; the private staging barrier remains required.
+
+Exactly30 migrations applied (content0001–0012 plus18 framework migrations),142 original syllabus topics/five subjects,15 sample note lessons,15 quizzes,75 questions,300 choices,19 tags,15 aliases,30 publications including ancestors,30 curated relationships and30 approved links. Exactly one synthetic view-only staff sample-editor, zero students/uploads/bookmarks/progress/saved attempts/AI requests. Engineering sample notices and quiz review reasons are not human academic approval.
+
+The guarded initializer rechecked empty public/auxiliary schema and authenticated exact database prepal_staging_db using prepal_demo_migration. It committed migrations/corpus/marker atomically. Reviewed grants then enabled prepal_demo_runtime; runtime and post-browser verify passed with no content changes. No ordinary build/start migration, SQLite fallback or original-data transfer. Existing provider administrator is not the deployed runtime; runtime has no schema/DB CREATE/TEMP/ownership/admin memberships.
+
+Executed from application root, using the existing protected role directory:
+
+```sh
+export PREPAL_DEMO_OPS=/absolute/private/render-roles
+backend/.venv/bin/python scripts/free_demo_database.py initialize --config "$PREPAL_DEMO_OPS/migration.env" --directory "$PREPAL_DEMO_OPS" --confirm-database prepal_staging_db --apply
+backend/.venv/bin/python scripts/free_demo_database.py grant-runtime --config "$PREPAL_DEMO_OPS/migration.env" --directory "$PREPAL_DEMO_OPS" --confirm-database prepal_staging_db --apply
+backend/.venv/bin/python scripts/free_demo_database.py verify --config "$PREPAL_DEMO_OPS/runtime.env" --directory "$PREPAL_DEMO_OPS" --confirm-database prepal_staging_db
+```
+
+These are the recorded completed operations, not permission to reset/initialize any other target. Current DB is nonempty/known-marked; normal maintenance is read-only verify. Initializer repeats and unknown/nonempty refusal were tested in the matching-source local/CI rehearsal; hosted verify reported changed=false, and no second hosted --apply was run.
+
+Secret variable names only: POSTGRES_PASSWORD, SECRET_KEY, STAGING_ACCESS_PASSWORD; preserve current private values. POSTGRES_USER selects the existing restricted runtime identity. Owner selected its existing user/password before initialization and later rotated the staging barrier after the incident recorded in SECURITY. No values belong in logs, source or chat. Saved only the two demo acknowledgements, then selected exact d2f014c in Manual Deploy.
+
+Actual hosted Chrome checks passed: homepage142/five counts,142-link full expansion/five-root collapse, light/dark toggle, all15 sample lessons and their approved links/tags/related content, popup focus/new-tab attributes/Escape/focus restoration, three tag pages with exact counts, Monsoon search, all five subject practice pools and75/75 correct stateless scores, synthetic Admin login/session persistence/view-only detail/logout and five loaded Admin stylesheets. Config reports demo=true and student/AI/Google=false. Learner API error codes verified for guests and logged-in staff; Tutor request rejected as unavailable before provider work. HTTPS health200/status ok; unauthenticated homepage/config/Admin401 with Basic challenge, private/no-store/noindex; HSTS/nosniff/frame DENY verified. Keyboard skip-to-main, one main/one h1, no unnamed buttons and no horizontal overflow passed at1512px. This is a desktop browser smoke check, not a fresh mobile/axe/screen-reader/load audit.
+
+Owner explicitly waived permanent independent/off-device recovery-key custody ONLY for this disposable synthetic database; durable custody remains unconfirmed and production safeguards are not waived. A real read-only native pg_dump17.11 CMS AES256GCM snapshot now contains40tables/1237rows/zero uploads, encrypted to the dedicated owner certificate. Private snapshot/receipt are in ../.recovery/prepal-live-deploy-xjhhgl_i/hosted-encrypted-backup/. The dedicated key/restore tooling passed the earlier independent LOCAL PostgreSQL17 restore; this hosted snapshot was not restored live. No daily scheduler, off-host retention or production30-day guarantee is configured. Free cold starts/expiring DB remain unsuitable for valuable data.
+
+No production release, student/AI activation or durable media is approved. See [current handoff](AGENT_HANDOFF.md), [testing](TESTING.md) and [security](SECURITY.md). Older preparation/gate sections below are historical.
+
+---
+
+# Current initialization gate — owner off-device custody confirmation pending
+
+25October2026: live initialization was stopped before writes because recovery custody was not established. Read-only exact-target preflight passed server17.11/external verify-full/TLS1.3, empty schema, restricted roles, private inputs and native17 clients. No migrations/seed/grants/Render edits occurred. Owner then authorized a dedicated long-lived encrypted key and local recovery test, explicitly forbidding live initialization for this setup.
+
+Public backup recipient: /Users/kartikyasokhal/Prepal-Recovery/free-demo-2026-10-25/public/prepal-free-demo-recipient.pem
+
+SHA256 fingerprint: F8:FE:A1:03:BA:79:1E:72:A0:A7:5F:71:08:9E:01:4F:1C:2D:02:78:3E:EC:0B:DF:D1:32:68:8F:01:0F:E5:D4
+
+Local encryption/decryption/independent PostgreSQL17 restore passed with the encrypted key recovered from its transfer kit. Owner must now copy that encrypted-key kit off-device, store the passphrase separately, verify read-back checksum and confirm custody. The TAR is a container for an encrypted PKCS8 key plus public metadata; it is not whole-archive encryption. Do not initialize or claim durable/off-host backup merely because files exist locally. Use this recipient for future separately approved backups; encrypted-key restores require the tested private OpenSSL passphrase-file adapter or direct OpenSSL -passin file, never plaintext key files or inline secret values. Existing guarded commands below remain the reviewed sequence, not authorization to execute them now.
+
+---
+
 # Guarded free-demo database preparation — live initialization NOT executed
 
 25 October2026. Existing designated account, RSPC-RAS- web and prepal-staging-db PostgreSQL only. Publication base ff4acdc; reviewed initializer plus security patch contains exactly28 changed paths. Owner-approved pypdf6.21.2 input/hash-lock patch clears runtime/development audits and PDF regressions; main publication is authorized after exact28-file checks and matching CI. Resolve release SHA with git log -1 --format=%H -- backend/requirements.in; no live operation is approved. Existing administrator/Render secrets retained. Credential file0600, private candidate migration/runtime/staff files0600 in0700directory. Limited roles were created and authenticated over strict external verify-full/TLS1.3. Both have no administrative attributes/parent memberships/database CREATE/TEMP; only migration can CREATE within public. Runtime table grants await schema initialization. Provider role separation succeeded; privileged role is not the intended app runtime.

@@ -80,6 +80,28 @@ jobs:
         run: |
           backend/.venv/bin/python scripts/prepare_student_demo.py --directory "$PREPAL_DEMO_ROOT"
           npm run test:student
+      - name: Local public-demo PostgreSQL student-session boundary
+        env:
+          POSTGRES_HOST: '127.0.0.1'
+          POSTGRES_PORT: '5432'
+          POSTGRES_DB: prepal_test_ci
+          POSTGRES_USER: prepal_ci
+          POSTGRES_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+          POSTGRES_SSLMODE: disable
+          DATABASE_ENGINE: postgresql
+          DJANGO_ENV: development
+          PREPAL_LOCAL_POSTGRES: '1'
+          PREPAL_PUBLIC_DEMO: '1'
+          PREPAL_DEMO_ROOT: ${{ runner.temp }}/prepal-public-demo
+        run: |
+          backend/.venv/bin/python - <<'PY'
+          import os, psycopg
+          with psycopg.connect(host=os.environ['POSTGRES_HOST'], port=os.environ['POSTGRES_PORT'], dbname=os.environ['POSTGRES_DB'], user=os.environ['POSTGRES_USER'], password=os.environ['POSTGRES_PASSWORD'], sslmode='disable', autocommit=True) as connection:
+              connection.execute('CREATE DATABASE prepal_local_public_demo_ci')
+          PY
+          export POSTGRES_DB=prepal_local_public_demo_ci
+          backend/.venv/bin/python scripts/prepare_public_demo.py --directory "$PREPAL_DEMO_ROOT"
+          npm run test:public-demo
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

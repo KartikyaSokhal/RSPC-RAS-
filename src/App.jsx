@@ -4,6 +4,7 @@ import AppShell from './components/layout/AppShell.jsx'
 import Skeleton from './components/ui/Skeleton.jsx'
 import './App.css'
 import useAuth from './hooks/useAuth.js'
+import LearningRoute from './components/auth/LearningRoute.jsx'
 
 const Home = lazy(() => import('./pages/home.jsx'))
 const Syllabus = lazy(() => import('./pages/syllabusPage.jsx'))
@@ -56,21 +57,21 @@ export default function App() {
             <Routes>
               <Route element={<AppShell />}>
                 <Route index element={<Home />} />
-                <Route path="syllabus" element={<Syllabus />} />
-                <Route path="topic/:slug" element={<Topic />} />
-                <Route path="quiz/:slug" element={<Quiz />} />
-                <Route path="practice/:slug" element={<Quiz collection />} />
-                <Route path="tags/:slug" element={<Tag />} />
-                <Route path="search" element={<Search />} />
-                <Route path="resources/:id" element={<Resource />} />
+                <Route path="syllabus" element={<LearningRoute><Syllabus /></LearningRoute>} />
+                <Route path="topic/:slug" element={<LearningRoute><Topic /></LearningRoute>} />
+                <Route path="quiz/:slug" element={<LearningRoute><Quiz /></LearningRoute>} />
+                <Route path="practice/:slug" element={<LearningRoute><Quiz collection /></LearningRoute>} />
+                <Route path="tags/:slug" element={<LearningRoute><Tag /></LearningRoute>} />
+                <Route path="search" element={<LearningRoute><Search /></LearningRoute>} />
+                <Route path="resources/:id" element={<LearningRoute><Resource /></LearningRoute>} />
                 <Route path="about" element={<Info />} />
                 <Route path="help" element={<Info />} />
                 <Route path="login" element={<StudentRoute><Login /></StudentRoute>} />
                 <Route path="signup" element={<StudentRoute><Signup /></StudentRoute>} />
-                <Route path="attempts/:id" element={<StudentRoute><Attempt /></StudentRoute>} />
-                <Route path="planner" element={<StudentRoute><Planner /></StudentRoute>} />
+                <Route path="attempts/:id" element={<StudentRoute><LearningRoute><Attempt /></LearningRoute></StudentRoute>} />
+                <Route path="planner" element={<StudentRoute><LearningRoute><Planner /></LearningRoute></StudentRoute>} />
                 <Route path="reset-password" element={<StudentRoute><ResetPassword /></StudentRoute>} />
-                <Route path="dashboard" element={<StudentRoute><Dashboard /></StudentRoute>} />
+                <Route path="dashboard" element={<StudentRoute><LearningRoute><Dashboard /></LearningRoute></StudentRoute>} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

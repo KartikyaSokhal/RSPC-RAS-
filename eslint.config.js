@@ -16,7 +16,7 @@ export default defineConfig([
     rules: { 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }] },
   },
   {
-    files: ['*.config.js', 'e2e/**/*.js', 'e2e-integration/**/*.js', 'e2e-sample/**/*.js', 'scripts/*.mjs'],
+    files: ['*.config.js', 'e2e/**/*.js', 'e2e-integration/**/*.js', 'e2e-sample/**/*.js', 'e2e-student/**/*.js', 'e2e-public-demo/**/*.js', 'scripts/*.mjs'],
     extends: [js.configs.recommended],
     languageOptions: { ecmaVersion: 'latest', globals: { ...globals.node, ...globals.browser } },
   },

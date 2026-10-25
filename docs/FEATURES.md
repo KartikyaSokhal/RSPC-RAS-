@@ -1,18 +1,30 @@
-## Free-demo operator readiness
+## Hosted synthetic-login candidate, publication batch
 
-Prepared explicit guarded PostgreSQL initialization, repeat verification, role separation and encrypted manual snapshots; exact synthetic text sample and restricted runtime verified locally. Existing Render roles/network are prepared, but application database remains empty and no deployment occurred. Free demo excludes learner/AI/Google/uploads/editorial writes. Actual local PostgreSQL17.11 initialization/encrypted recovery now pass; hosted application acceptance remains gated. Approved pypdf6.21.2 remediation now passes runtime/development audits; publication is authorized after final checks and matching CI.
+Prepared: public homepage/auth entry, student-gated library/APIs, original-route login return, controlled synthetic account workflow, one-hour secure sessions and read-only boot checks for the existing Render service. The prior local UI/session/ownership functionality is included. Registration, password recovery delivery, Google, Gemini, uploads and Admin content writes remain disabled. Not activated: no live account insertion, privilege/configuration change or deployment in this batch. Public real-user enrollment remains blocked by durable-data and operational acceptance.
 
 ---
 
-## Free Render demo candidate — local only
+## Local-only student access preview
 
-Prepared password-protected React/API/Admin/static demo with forced-off student accounts, progress/planner/attempt saving and AI/Google/email. Reader content/discovery and stateless reviewed practice reuse existing code. Admin content mutations and every upload are disabled; no valuable data/media is accepted. Strict external PostgreSQL TLS is retained; only TLS negotiation is verified live, not SQL/schema/content. No new deployment was made. Free database expires23November2026 and is not production storage.
+Implemented in a separate synthetic PostgreSQL profile: public homepage and auth pages; guarded learning routes and API access; original-route login return; persistent session/logout/expiry handling; owned bookmarks/completion/planner/saved practice using existing services; independently authorized read-only Admin. Sign Up displays a closed-registration explanation without input fields. Public registration, hosted student data, email recovery, uploads, Google and Gemini are not enabled. The deployed restricted free demo remains unchanged.
+
+---
+
+## Live restricted demonstration
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+Exactly30 migrations applied (content0001–0012 plus18 framework migrations),142 original syllabus topics/five subjects,15 sample note lessons,15 quizzes,75 questions,300 choices,19 tags,15 aliases,30 publications including ancestors,30 curated relationships and30 approved links. Exactly one synthetic view-only staff sample-editor, zero students/uploads/bookmarks/progress/saved attempts/AI requests. Engineering sample notices and quiz review reasons are not human academic approval.
+
+Actual hosted Chrome checks passed: homepage142/five counts,142-link full expansion/five-root collapse, light/dark toggle, all15 sample lessons and their approved links/tags/related content, popup focus/new-tab attributes/Escape/focus restoration, three tag pages with exact counts, Monsoon search, all five subject practice pools and75/75 correct stateless scores, synthetic Admin login/session persistence/view-only detail/logout and five loaded Admin stylesheets. Config reports demo=true and student/AI/Google=false. Learner API error codes verified for guests and logged-in staff; Tutor request rejected as unavailable before provider work. HTTPS health200/status ok; unauthenticated homepage/config/Admin401 with Basic challenge, private/no-store/noindex; HSTS/nosniff/frame DENY verified. Keyboard skip-to-main, one main/one h1, no unnamed buttons and no horizontal overflow passed at1512px. This is a desktop browser smoke check, not a fresh mobile/axe/screen-reader/load audit.
+
+Learner/AI/Google/email/uploads and Admin content edits remain disabled; no real student collection or production approval. Existing generic AI/verified-note copy is a presentation limitation, not an enabled or academically approved capability. Owner explicitly waived permanent independent/off-device recovery-key custody ONLY for this disposable synthetic database; durable custody remains unconfirmed and production safeguards are not waived. A real read-only native pg_dump17.11 CMS AES256GCM snapshot now contains40tables/1237rows/zero uploads, encrypted to the dedicated owner certificate. Private snapshot/receipt are in ../.recovery/prepal-live-deploy-xjhhgl_i/hosted-encrypted-backup/. The dedicated key/restore tooling passed the earlier independent LOCAL PostgreSQL17 restore; this hosted snapshot was not restored live. No daily scheduler, off-host retention or production30-day guarantee is configured. Free cold starts/expiring DB remain unsuitable for valuable data.
 
 ---
 
 # Feature inventory
 
-Current implementation is uncommitted work over 8ef43c7 on codex/prepal-1-0. Verification is local, with isolated databases and mocked external providers; it is not production acceptance.
+Published runtime source is main/d2f014c. The feature matrix includes locally verified student functionality, which is deliberately disabled in the hosted free demo. Hosted synthetic acceptance is recorded above; production acceptance is separate.
 
 | Feature | Implemented behavior | Limits |
 |---|---|---|
@@ -44,6 +56,6 @@ Readiness-only account/deletion endpoint protects authentication/CSRF/password/o
 
 ## Staging preparation
 
-Locally implemented Render same-origin SPA/Admin/API serving, restricted staging access, explicit secure configuration and non-migrating build/start commands. Hosted deployment, PostgreSQL17 TLS, durable media, off-host backups and live external-service acceptance are still pending. Tutor conversation now supports keyboard focus for its scrollable region. Learner/AI/Google access remains closed in staging/production profiles.
+Locally implemented Render same-origin SPA/Admin/API serving, restricted staging access, explicit secure configuration and non-migrating build/start commands. The restricted synthetic free demo and PostgreSQL17 verified TLS are now hosted/accepted as recorded above. Durable production media, off-host recovery and live external-service acceptance remain pending. Tutor conversation now supports keyboard focus for its scrollable region. Learner/AI/Google access remains closed in staging/production profiles.
 
-Render-only synthetic student acceptance has a separate explicit two-flag/database-name/private-access guard; normal staging and production remain closed. No hosted flags were enabled.
+Render-only synthetic student acceptance has a separate explicit two-flag/database-name/private-access guard; normal staging and production remain closed. Only the hosted free-demo acknowledgements are enabled; synthetic student-acceptance flags and normal production/student/AI gates remain closed.

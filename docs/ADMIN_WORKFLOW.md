@@ -1,3 +1,15 @@
+## Hosted public-demo staff boundary
+
+The prepared hosted profile keeps Django Admin staff authentication, the existing view-only synthetic staff permissions and denial of content mutation/uploads. Its public homepage and student sign-in do not issue Basic challenges. Staff sessions do not grant student-library access. Retain the old private profile/barrier configuration for rollback; do not copy operator signing/barrier credentials into Render. No live staff, permission or content change is authorized by this Git publication batch.
+
+---
+
+## Local synthetic public-preview staff access
+
+The separate local public-preview profile keeps `/admin/login/` and Django staff permissions. The seeded sample-editor has view permissions only; all Admin mutation POSTs except login/logout are additionally denied by middleware. Students cannot enter Admin, and a staff session does not grant student library access. The same Django session framework is reused: signing into Admin in the same browser changes that browser identity, so use separate browser profiles for simultaneous roles. No uploads, human academic approval or real-user onboarding is authorized by this synthetic preview.
+
+---
+
 # Local academic sample content — 21 October 2026
 
 The new `.local/sample-content-v1` demo uses the existing syllabus IDs, titles, slugs and parents exactly. It contains no invented syllabus nodes. Its canonical input is `backend/content/fixtures/sample_lessons_v1.json`; preparation and startup are documented in [README](../README.md#isolated-student-review-demo).

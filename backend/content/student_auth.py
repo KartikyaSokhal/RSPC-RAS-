@@ -32,6 +32,10 @@ def reply(data, status=200):
 
 
 def require_student(request):
+    if getattr(settings, 'LEARNING_AUTH_REQUIRED', False):
+        from core.public_demo_support import is_student
+        if not is_student(request.user):
+            raise ServiceError('auth_required', 'Sign in with a student account.', 401)
     if not request.user.is_authenticated or not request.user.is_active:
         raise ServiceError('auth_required', 'Sign in to access your learning records.', 401)
     return request.user
@@ -96,6 +100,8 @@ def login_response(request, user):
 
 @student_endpoint(['POST'])
 def auth_register(request):
+    if not getattr(settings, 'STUDENT_REGISTRATION_ENABLED', True):
+        raise ServiceError('registration_disabled', 'Registration is unavailable in this synthetic demonstration. Use an assigned demo account; do not enter personal information.', 503)
     data = body(request, ['username', 'password', 'email', 'name'])
     username = unicodedata.normalize('NFKC', text(data, 'username', 150)).casefold()
     if not re.fullmatch(r'[a-z0-9_.-]{3,150}', username):
@@ -129,7 +135,8 @@ def auth_login(request):
     names = list(matches.values_list('username', flat=True)[:2])
     # authenticate even on a miss so Django performs its password-hasher timing work.
     user = auth.authenticate(request, username=names[0] if len(names) == 1 else identifier, password=password)
-    if user is None or len(names) != 1:
+    from core.public_demo_support import is_student
+    if user is None or len(names) != 1 or (getattr(settings, 'LEARNING_AUTH_REQUIRED', False) and not is_student(user)):
         raise ServiceError('invalid_credentials', 'Invalid sign-in details.', 401)
     return login_response(request, user)
 
@@ -142,8 +149,10 @@ def auth_logout(request):
 
 @student_endpoint(['GET'])
 def auth_status(request):
-    return reply({'authenticated': bool(request.user.is_authenticated),
-                  'user': user_data(request.user) if request.user.is_authenticated else None})
+    from core.public_demo_support import is_student
+    authenticated = request.user.is_authenticated and (not getattr(settings, 'LEARNING_AUTH_REQUIRED', False) or is_student(request.user))
+    return reply({'authenticated': bool(authenticated),
+                  'user': user_data(request.user) if authenticated else None})
 
 
 @student_endpoint(['POST'])

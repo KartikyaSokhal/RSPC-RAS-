@@ -88,7 +88,7 @@ def article_html(lesson, corpus):
     return ''.join(html)
 
 
-def verify_sample(corpus=None, hierarchy=None):
+def verify_sample(corpus=None, hierarchy=None, *, learner_user_id=None):
     """No writes, republishing, analysis, provider calls or auto-repair."""
     from content.models import (Topic, ContentBlock, Quiz, Question, Choice, Tag, TopicAlias,
                                 TopicRelation, KeywordLinkProposal, TopicPublication, QuizReview,
@@ -106,6 +106,10 @@ def verify_sample(corpus=None, hierarchy=None):
               'note_words': {str(row['topic_id']): note_words(row) for row in corpus['lessons']}}
     expected = {ContentBlock: 15, Quiz: 15, Question: 75, Choice: 300, QuizReview: 15,
                 TopicAlias: 15, Bookmark: 0, UserProgress: 0, QuizAttempt: 0, AiRequest: 0}
+    if learner_user_id is not None:
+        for model in (Bookmark, UserProgress, QuizAttempt):
+            require(not model.objects.exclude(user_id=learner_user_id).exists(), 'Unknown learner records preserved.')
+            expected[model] = model.objects.count()
     for model, count in expected.items():
         require(model.objects.count() == count, f'Unexpected {model.__name__} count.')
         report[model.__name__] = count
@@ -148,7 +152,7 @@ def verify_sample(corpus=None, hierarchy=None):
         first = check(root.slug, payload)
         require(first == check(root.slug, payload) and first['score'] == 15, 'Stateless scoring is not deterministic.')
         pools[root.slug] = len(ids)
-    require(len(all_ids) == 75 and QuizAttempt.objects.count() == 0, 'Unexpected saved attempt or missing question.')
+    require(len(all_ids) == 75 and QuizAttempt.objects.count() == expected[QuizAttempt], 'Unexpected saved attempt or missing question.')
     for tag in Tag.objects.all():
         data = tag_page(tag.slug, pubs)
         expected_ids = {row['topic_id'] for row in corpus['lessons'] if tag.name in row['tags']}

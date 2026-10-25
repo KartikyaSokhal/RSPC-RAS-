@@ -9,7 +9,10 @@ function getCookie(name) {
 }
 
 export async function get(path, signal) {
-  const { data } = await axios.get(`/api${path}`, { signal, withCredentials: true })
+  let response
+  try { response = await axios.get(`/api${path}`, { signal, withCredentials: true }) }
+  catch (error) { expireSession(error); throw error }
+  const { data } = response
   if (path === '/config/' && data.csrf_token) csrfToken = data.csrf_token
   return data
 }
@@ -20,12 +23,20 @@ export async function post(path, body, signal) {
     await get('/config/', signal)
     token = getCookie('csrftoken') || csrfToken
   }
-  const { data } = await axios.post(`/api${path}`, body, {
+  let response
+  try { response = await axios.post(`/api${path}`, body, {
     signal,
     headers: { 'X-CSRFToken': token || '' },
     withCredentials: true,
-  })
+  }) } catch (error) { expireSession(error); throw error }
+  const { data } = response
   return data
+}
+
+function expireSession(error) {
+  if (error?.response?.status === 401 && error?.response?.data?.error?.code === 'auth_required') {
+    window.dispatchEvent(new Event('prepal:session-expired'))
+  }
 }
 
 export function errorMessage(error, fallback = 'We could not load this page. Please try again.') {

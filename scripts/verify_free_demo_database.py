@@ -25,6 +25,64 @@ def worker(kind,config,directory):
     os.environ.update(cfg,PYTHON_DOTENV_DISABLED='1',DJANGO_SETTINGS_MODULE='core.free_demo_ops_settings')
     import django
     django.setup()
+    if kind in ('public-fault','public-http','public-refusals'):
+        from django.test import Client, override_settings
+        from django.db import transaction
+        from django.contrib.auth import get_user_model
+        from unittest.mock import patch
+        from content.services.public_demo_database import transition,verify_runtime,verify_readiness
+        from content.management.commands.initialize_free_demo import verify_install
+        from content.models import StudentIdentity,Bookmark,Topic
+        credentials=json.loads((directory/'student-credentials.json').read_text());username=credentials['username'];password=credentials['password']
+        if kind=='public-fault':
+            runtime=load_environment(directory/'runtime.env')['POSTGRES_USER']
+            with patch('content.services.public_demo_database.verify_runtime',side_effect=ValueError('Synthetic injected failure')):
+                try:transition(username,password,apply=True,runtime_role=runtime)
+                except ValueError:pass
+                else:raise AssertionError('Expected rollback failure.')
+            assert get_user_model().objects.count()==1 and not StudentIdentity.objects.exists()
+            verify_install()
+            return {'controlled_account_and_grants_transactional_rollback':True}
+        if kind=='public-refusals':
+            try:transition(username,'wrong-synthetic-password-that-is-never-a-credential',apply=True)
+            except ValueError:pass
+            else:raise AssertionError('Existing password was reset.')
+            with transaction.atomic():
+                row=Bookmark.objects.create(topic=Topic.objects.first())
+                try:transition(username,password,apply=True)
+                except ValueError:pass
+                else:raise AssertionError('Unknown ownerless data accepted.')
+                assert Bookmark.objects.filter(pk=row.pk).exists()
+                transaction.set_rollback(True)
+            verify_install(public_demo=True)
+            return {'controlled_wrong_password_and_unknown_learner_data_refused':True}
+        middleware=[m for m in __import__('django.conf',fromlist=['settings']).settings.MIDDLEWARE if not m.endswith('StagingAccessMiddleware')]
+        middleware.append('core.public_demo_support.StudentLearningAccessMiddleware')
+        with override_settings(STUDENT_FEATURES_ENABLED=True,LEARNING_AUTH_REQUIRED=True,
+                CONTROLLED_DEMO_ONLY=True,STUDENT_REGISTRATION_ENABLED=False,
+                PASSWORD_RESET_ENABLED=False,MIDDLEWARE=middleware,SESSION_COOKIE_SECURE=True,CSRF_COOKIE_SECURE=True):
+            client=Client(enforce_csrf_checks=True)
+            response=client.get('/api/config/',secure=True);assert response.status_code==200 and 'WWW-Authenticate' not in response
+            assert client.get('/api/topics/',secure=True).status_code==401
+            def post(path,data):
+                token=client.get('/api/config/',secure=True).json()['csrf_token']
+                return client.post(path,data,content_type='application/json',secure=True,HTTP_X_CSRFTOKEN=token,HTTP_ORIGIN='https://testserver')
+            assert post('/api/auth/login/',{'username':username,'password':password}).status_code==200
+            assert client.cookies['sessionid']['secure'] and client.cookies['sessionid']['httponly']
+            assert client.get('/api/topic/a-temples/',secure=True).status_code==200
+            assert post('/api/topic/a-temples/bookmark/',{'is_bookmarked':True}).status_code==200
+            assert post('/api/topic/a-temples/progress/',{'is_completed':True}).status_code==200
+            preview=client.get('/api/topic/a-temples/quiz/',secure=True).json()
+            result=post('/api/topic/a-temples/quiz/submit/',{'quiz_id':preview['id'],'revision_token':preview['revision_token'],'answers':{},'submission_id':str(uuid.uuid4())})
+            assert result.status_code==200
+            assert post('/api/auth/register/',{}).status_code==503
+            assert post('/api/auth/logout/',{}).status_code==200
+            assert client.get('/api/topic/a-temples/',secure=True).status_code==401
+            with transaction.atomic():
+                from django.db import connection
+                with connection.cursor() as cursor:cursor.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY')
+                verify_install(public_demo=True);verify_runtime();verify_readiness()
+        return {'controlled_runtime_login_csrf_read_owned_writes_logout':True,'controlled_runtime_post_use_readonly_verification':True}
     if kind=='fault':
         from unittest.mock import patch
         from django.core.management import call_command,CommandError
@@ -64,7 +122,7 @@ def main():
     p.add_argument('--pg-bin',type=Path)
     p.add_argument('--expect-major',type=int,default=17)
     p.add_argument('--openssl',default='openssl')
-    p.add_argument('--worker',choices=('http','fault'))
+    p.add_argument('--worker',choices=('http','fault','public-fault','public-http','public-refusals'))
     a=p.parse_args();os.umask(0o077)
     if a.worker:
         print(json.dumps(worker(a.worker,a.admin_config,a.directory)));return
@@ -169,6 +227,26 @@ def main():
         native_run([tool(a.pg_bin,'pg_restore'),'--exit-on-error','--single-transaction','--no-owner','--no-acl','--use-list='+str(toc),'--dbname='+restored['POSTGRES_DB'],str(plain)],env=native_env(restored))
         with connect(restored,True,readonly=True) as c:report['restore']=verify_inventory(inventory(c),before)
         report['cases']['encrypted_native_independent_restore']=True
+    # Additive transition on the already verified known synthetic corpus only.
+    run('student-credentials',migration,directory,name)
+    run('student-credentials',migration,directory,name,expect=1)  # Never overwrite a prepared credential.
+    plan=run('student-login',migration,directory,name);assert plan['students']==0 and plan['changed'] is False
+    for kind,config in (('public-fault',migration),):
+        value=subprocess.run([sys.executable,__file__,'--worker',kind,'--admin-config',str(config),'--directory',str(directory)],cwd=ROOT,capture_output=True,text=True)
+        (root/(kind+'.log')).write_text(value.stdout+value.stderr);assert value.returncode==0
+        report['cases'].update(json.loads(value.stdout))
+    added=run('student-login',migration,directory,name,True);assert added['changed'] and added['counts']['students']==1
+    repeated=run('student-login',migration,directory,name,True);assert repeated['changed'] is False
+    report['cases']['controlled_account_additive_and_repeat_safe']=True
+    # The original empty-database initializer must refuse the extended state.
+    run('initialize',migration,directory,name,True,expect=1)
+    run('student-login',runtime,directory,name,True,expect=1)
+    for kind,config in (('public-refusals',migration),('public-http',runtime)):
+        value=subprocess.run([sys.executable,__file__,'--worker',kind,'--admin-config',str(config),'--directory',str(directory)],cwd=ROOT,capture_output=True,text=True)
+        (root/(kind+'.log')).write_text(value.stdout+value.stderr);assert value.returncode==0
+        report['cases'].update(json.loads(value.stdout))
+    run('student-login',runtime,directory,name)
+    report['public_demo_counts']=added['counts']
     with connect(env,True,readonly=True) as c:report['postgres_version']=c.info.server_version
     write_private(root/'result.json',json.dumps(report,indent=2));print(json.dumps(report,indent=2))
 

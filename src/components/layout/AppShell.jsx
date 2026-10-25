@@ -30,11 +30,13 @@ function SessionContent({ refreshSyllabus }) {
   return <Outlet key={identity || 'guest'} />
 }
 
-export default function AppShell() {
+function ShellContent({ config, configLoading }) {
   const { theme, toggleTheme } = useTheme()
-  const { data: config, loading: configLoading } = useResource('/config/')
-  const syllabus = useResource('/topics/?tree=1')
+  const { authenticated, loading: authLoading } = useAuth()
+  const canRead = !configLoading && (!config?.learning_auth_required || (!authLoading && authenticated))
+  const syllabus = useResource(canRead ? '/topics/?tree=1' : null)
   const totalTopics = useMemo(() => syllabus.data ? indexSyllabus(syllabus.data).size : null, [syllabus.data])
+  const footerStats = canRead ? (syllabus.data ? { subjects: syllabus.data.length, topics: totalTopics } : null) : config?.public_summary
   const location = useLocation()
   const main = useRef(null)
   const previousRoute = useRef(location.pathname)
@@ -56,7 +58,6 @@ export default function AppShell() {
   }, [location.pathname, location.hash])
 
   return (
-    <AuthProvider enabled={configLoading ? null : Boolean(config?.student_features_enabled)}>
     <PlatformContext.Provider value={config || {}}>
       <SyllabusContext.Provider value={syllabus}>
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -64,7 +65,7 @@ export default function AppShell() {
       {config?.demo && (
         <div className="demo-banner">
           <span className="live-dot" />
-          <span>RPSC / RAS Academic Edition · Synthetic demonstration content · Source-grounded AI assistant</span>
+          <span>RPSC / RAS Academic Edition · Synthetic demonstration content{config.ai_enabled ? ' · Source-grounded AI assistant' : ''}</span>
         </div>
       )}
 
@@ -130,7 +131,7 @@ export default function AppShell() {
           <p className="footer-tagline">Prepal Academic Syllabus · Rajasthan Administrative Services (RAS).</p>
         </div>
         <div className="footer-center" aria-label="Syllabus statistics" aria-busy={syllabus.loading}>
-          {syllabus.loading ? <p>Loading syllabus statistics…</p> : syllabus.error ? <p>Syllabus statistics are temporarily unavailable.</p> : <p>{syllabus.data?.length} Subjects · {totalTopics} Curriculum Topics</p>}
+          {configLoading || syllabus.loading ? <p>Loading syllabus statistics…</p> : footerStats ? <p>{footerStats.subjects} Subjects · {footerStats.topics} Curriculum Topics</p> : <p>Syllabus statistics are temporarily unavailable.</p>}
           <div className="footer-social-space" aria-hidden="true" />
         </div>
         <nav aria-label="Footer">
@@ -142,6 +143,12 @@ export default function AppShell() {
       </footer>
       </SyllabusContext.Provider>
     </PlatformContext.Provider>
-    </AuthProvider>
   )
+}
+
+export default function AppShell() {
+  const { data: config, loading: configLoading } = useResource('/config/')
+  return <AuthProvider enabled={configLoading ? null : Boolean(config?.student_features_enabled)}>
+    <ShellContent config={config} configLoading={configLoading} />
+  </AuthProvider>
 }

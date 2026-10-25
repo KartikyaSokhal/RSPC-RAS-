@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { PlatformContext } from '../components/layout/platformContext.js'
+import { returnLocation } from '../components/auth/returnLocation.js'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import GoogleSignIn from '../components/auth/GoogleSignIn.jsx'
 import useAuth from '../hooks/useAuth.js'
 
 export default function LoginPage() {
   const { login } = useAuth()
+  const config = useContext(PlatformContext)
   const navigate = useNavigate()
   const location = useLocation()
   const [username, setUsername] = useState('')
@@ -12,7 +15,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const from = location.state?.from?.pathname || '/dashboard'
+  const from = returnLocation(location.state?.from)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -43,7 +46,8 @@ export default function LoginPage() {
           </div>
         )}
 
-        <GoogleSignIn />
+        {config.learning_auth_required && <p role="status">Sign in to continue to the learning library. Use an assigned synthetic demo account; do not enter real personal data.</p>}
+        {!config.learning_auth_required && <GoogleSignIn />}
         {location.state?.passwordReset && <p role="status">Password changed. Sign in with your new password.</p>}
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -77,17 +81,17 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <Link to="/reset-password" className="text-link">Forgot password?</Link>
+        {config.password_reset_enabled !== false && <Link to="/reset-password" className="text-link">Forgot password?</Link>}
         <div className="auth-footer">
           <p>
             Don’t have an account yet?{' '}
-            <Link to="/signup" className="auth-switch-link">
+            <Link to="/signup" state={{ from: location.state?.from }} className="auth-switch-link">
               Create student account
             </Link>
           </p>
           <div style={{ marginTop: '16px' }}>
-            <Link to="/syllabus" className="text-muted small">
-              ← Continue browsing as guest
+            <Link to={config.learning_auth_required ? '/' : '/syllabus'} className="text-muted small">
+              {config.learning_auth_required ? '← Return to homepage' : '← Continue browsing as guest'}
             </Link>
           </div>
         </div>

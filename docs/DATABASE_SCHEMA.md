@@ -1,8 +1,22 @@
-## Guarded initializer — schema not applied live
+## Proposed additive hosted synthetic-login state
 
-Source30Django migrations/models remain unchanged. Explicit operator initialize_free_demo applies them only on the confirmed empty PostgreSQL target inside one transaction with the canonical synthetic corpus and an operator-owned prepal_free_demo_manifest completion table. It is not a Django model/migration or startup task. A fully initialized sample has40public tables including that marker and37sequences; exact corpus and migration graph are verified, and unknown/partial targets are refused without reset. Role/session/framework metadata is distinguished from student records.
+No model or Django migration change;30 migrations remain content0001–0012 plus18 framework. Authenticated read-only hosted preflight verified the known142-topic/15-lesson/15-quiz/75-question/300-choice corpus, one synthetic staff, zero students/uploads and changed=false (no writes). The proposed transition adds exactly one User plus one StudentIdentity (example.invalid, no Google subject), and extends existing prepal_free_demo_manifest.metadata with public_demo.version/student_id/username. It does not reinitialize, reset or rewrite content/PKs. After acceptance, only this synthetic user's owned learner records and HMAC rate counters may accumulate. The single-account state and exact corpus remain verified; unknown users, ownerless learner rows, uploads/AI or auxiliary objects fail closed. Runtime gets only required owned-table CRUD/sequence usage and existing grading UPDATE(id) column grants, with no DDL/admin ownership. Live transition/grants still require explicit approval.
 
-Existing hosted target has only its pre-existing public namespace: no application tables, migration recorder, completion marker or corpus. Newly created limited migration/runtime roles and schema ACLs are security preparation only. Runtime has no schema CREATE; migration has public CREATE, neither has database CREATE/TEMP or administrative attributes/membership. Post-initialization grants are limited to SELECT plus synthetic Admin session/auth bookkeeping. See DEPLOYMENT; no live schema or corpus write in this task.
+---
+
+## Local public-preview fixture — no schema change
+
+No new models or migrations. The separate disposable PostgreSQL17 fixture applies the existing 30 framework/application migrations (content through0012), installs142 topics/15 published synthetic lessons/15 reviewed demo quizzes/75 questions/300 choices, and adds two nonstaff synthetic StudentIdentity accounts plus one view-only staff account. These are local test identities at example.invalid, not real students. Owned learner records are created only by local tests. Original SQLite, preserved demos/media and hosted free-demo database are unchanged. Private migration/runtime configurations and generated passwords live outside application Git. Runtime has no schema/database CREATE, TEMP, ownership, role membership or administrative flags; see DEPLOYMENT for required row-lock column grants.
+
+---
+
+## Guarded initializer — synthetic Render schema applied, 25 October 2026
+
+Exactly30 migrations applied (content0001–0012 plus18 framework migrations),142 original syllabus topics/five subjects,15 sample note lessons,15 quizzes,75 questions,300 choices,19 tags,15 aliases,30 publications including ancestors,30 curated relationships and30 approved links. Exactly one synthetic view-only staff sample-editor, zero students/uploads/bookmarks/progress/saved attempts/AI requests. Engineering sample notices and quiz review reasons are not human academic approval.
+
+Database prepal_staging_db on the existing approved external Render endpoint was verified empty before guarded atomic initialization. Exactly30existing Django migrations are now applied, through content0012; no new models/migration files or original-data migration. Public schema contains40tables including operator-only prepal_free_demo_manifest and37identity sequences. Existing transactional marker/strict verification prevents unknown-data adoption/reset.
+
+prepal_demo_migration owns app objects; prepal_demo_runtime owns none and has no schema CREATE/database CREATE/TEMP/admin role attributes or memberships. Runtime SELECT and limited session/auth bookkeeping grants support view-only synthetic Admin, while content UPDATE and sequence reads are denied42501. Before/after-hosted-test verifier passes; students, learner activity, AI and uploads remain zero. Original SQLite and other local DB/media archives are preserved. See [deployment](DEPLOYMENT.md), [testing](TESTING.md) and [handoff](AGENT_HANDOFF.md). Earlier empty-target audits below are historical.
 
 ---
 

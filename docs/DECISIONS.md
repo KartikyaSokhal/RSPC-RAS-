@@ -1,3 +1,25 @@
+## 25 October 2026 — hosted demo is controlled synthetic access, not enrollment
+
+Keep the local profile's Render refusal. Prepare a separate exact-target hosted public-demo profile without Basic middleware and retain private staging/free-demo profiles for rollback. Enable only the marked synthetic identity with one-hour sessions; keep registration/recovery/Google/Gemini/uploads/Admin edits closed. The populated known demo database receives an additive transactional account/marker/grant transition after separate approval, never a reset/reseed or startup migration. Runtime column UPDATE(id) grants are required by existing grading locks and technically permit ID edits; production locking/role policy remains a separate review. Public-free-demo loss risk acceptance never covers valuable data. Git publication is now authorized; live writes/settings/deployment are not.
+
+---
+
+## 25 October 2026 — separate local student-gated profile
+
+Reuse Django sessions, StudentIdentity and existing owned learner services. Introduce a strictly local, marked PostgreSQL public-preview profile rather than removing the deployed staging barrier or enabling accounts on the expiring free database. Public metadata is limited to counts/feature policy/CSRF/health; all learning APIs fail closed by default. Keep Sign Up informational and backend registration denied until durable-data operations are approved. Maintain staff/student authorization separation without inventing another identity backend. Local HTTP cookie/CSRF origins are bounded to loopback; future hosted HTTPS/TLS/security policy needs a separate reviewed profile. Preserve all previous uncommitted deployment evidence and historical decisions.
+
+---
+
+## 25 October 2026 — narrowly scoped synthetic-demo custody waiver and release
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+Owner accepts loss of the disposable synthetic demo DB and explicitly waives only permanent independent recovery-key custody for that target. This does not weaken verified TLS, role isolation, staging authentication or production recovery requirements. Existing owner certificate encrypted a native17manual snapshot; durable off-device custody/retention remains unconfirmed. Rechecked an empty exact target before the reviewed guarded initializer; no valuable database, SQLite archive or production secret was changed.
+
+Use existing Free single-origin React/Django/API/Admin hosting and existing PostgreSQL only; no paid resource, Vercel deployment or media upload support. Preserve learner/AI/Google closure and Auto-Deploy Off. Owner selected existing restricted runtime credentials. After Render Copy value unexpectedly exposed the old staging barrier in tool output, stop deployment, retire that value through owner rotation, then authenticate natively without retrieving the replacement. Hosted acceptance succeeded after these gates. No new commit/push or production release.
+
+---
+
 ## Free-demo initialization decision — 24 October2026
 
 Use a dedicated operator-only PostgreSQL workflow rather than weakening existing SQLite/local tools or adding startup migrations. Preserve existing30migrations and canonical sample services. Install engineering-labeled synthetic notes/MCQs with one view-only staff under a limited migration role; normal runtime has content SELECT and session/auth bookkeeping only. Use a transactional completion marker plus verification instead of reset/update seeding. Existing free resources remain; no paid storage/IP or production cutover. Actual local17.11 initialization/native encrypted restore now pass; hosted17 role/TLS checks are still read-only and not hosted application acceptance. Owner-approved pypdf6.21.2 security patch clears audits/PDF regressions; normal main publication authorized after final checks and matching CI. Stop for live initialization approval.

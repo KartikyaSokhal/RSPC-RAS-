@@ -1,3 +1,184 @@
+## Current handoff — public-homepage Git publication, live activation gated
+
+**Authority:** Owner approves verified normal commit/push of this reviewed candidate to main and exact matching fully green CI. No live DB writes/grants/account insertion, Render configuration changes, manual deployment, paid resources, real registration, OAuth/Gemini activation or valuable-data cutover in this batch. Preserve Auto-Deploy Off. Earlier authority/status entries below are history.
+
+**Repository/release identity:** Baseline main/remote d2f014c186acba1360e9438a2382d13b85e74c6a, zero divergence at initial fetch. All42 existing changes (including19 canonical docs and the local student UI) were preserved in a verified280-input private archive. This release includes that work plus the hosted synthetic-only profile/operator/test additions. Resolve its actual code commit with `git log -1 --format=%H -- deploy/render-public-demo-start.sh`; confirm `git ls-remote origin refs/heads/main` and matching Actions. Exact SHA/run/result and remote equality are recorded after publication in parent `.recovery/prepal-public-publication-b5yplbn3/publication.json` and the final task report; do not assume prior baseline CI accepts new source. This handoff does not predeclare publication/CI success before the checks.
+
+**Files in the reviewed candidate:**
+
+- `.github/workflows/checks.yml`
+- `AGENTS.md`
+- `README.md`
+- `backend/.env.example`
+- `backend/README.md`
+- `backend/content/management/commands/check_public_demo.py`
+- `backend/content/management/commands/initialize_free_demo.py`
+- `backend/content/management/commands/prepare_public_demo_login.py`
+- `backend/content/services/public_demo_database.py`
+- `backend/content/services/sample_content.py`
+- `backend/content/student_auth.py`
+- `backend/content/test_public_demo.py`
+- `backend/content/test_render_public_demo.py`
+- `backend/content/views.py`
+- `backend/core/public_demo_settings.py`
+- `backend/core/public_demo_support.py`
+- `backend/core/render_public_demo_settings.py`
+- `deploy/render-public-demo-start.sh`
+- `docs/ADMIN_WORKFLOW.md`
+- `docs/AGENT_HANDOFF.md`
+- `docs/AI_SYSTEM.md`
+- `docs/API_DOCUMENTATION.md`
+- `docs/ARCHITECTURE.md`
+- `docs/CHANGELOG.md`
+- `docs/DATABASE_SCHEMA.md`
+- `docs/DECISIONS.md`
+- `docs/DEPLOYMENT.md`
+- `docs/FEATURES.md`
+- `docs/IMPLEMENTATION_PLAN.md`
+- `docs/MVP_SCOPE.md`
+- `docs/PROJECT_STATUS.md`
+- `docs/README.md`
+- `docs/SECURITY.md`
+- `docs/TESTING.md`
+- `e2e-public-demo/access.spec.js`
+- `eslint.config.js`
+- `package.json`
+- `playwright.public-demo.config.js`
+- `scripts/free_demo_database.py`
+- `scripts/prepare_public_demo.py`
+- `scripts/release_manifest.py`
+- `scripts/verify_free_demo_database.py`
+- `src/App.jsx`
+- `src/api/client.js`
+- `src/components/auth/LearningRoute.jsx`
+- `src/components/auth/returnLocation.js`
+- `src/components/layout/AppShell.jsx`
+- `src/context/AuthContext.jsx`
+- `src/pages/home.jsx`
+- `src/pages/loginPage.jsx`
+- `src/pages/resetPasswordPage.jsx`
+- `src/pages/signupPage.jsx`
+- `src/test/public-demo.test.jsx`
+
+**Architecture/control:** Existing React/Django/PostgreSQL/session/StudentIdentity stack. Local core.public_demo_settings still refuses Render and is synthetic-loopback only. New core.render_public_demo_settings selects only exact existing hosted external DB/runtime role/5432, verify-full/trusted CA and exact HTTPS origin. No Basic middleware. Public homepage/login/signup shells and aggregate config/session endpoints; other APIs/React learning routes require student session. Hosted eligibility is the single active nonstaff privately generated example.invalid identity, not arbitrary student accounts. One-hour secure HttpOnly/Lax host-only cookies, CSRF/throttling/password hashing; original-route return and expiry/stale-status protections retained. Registration/recovery/Google/Gemini/uploads/Admin mutations stay closed; staff Admin authorization remains independent. Old private/production/staging/free-demo profiles and secrets are preserved.
+
+**Known database and proposed transition:** Read-only authenticated hosted check verified the known corpus (142 topics/15 lessons/15 quizzes/75 questions/300 choices/30 migrations/one view-only staff/zero students/uploads), changed=false. New private random login identifier/password JSON is prepared0600 beside existing protected operator files, never displayed or inserted live. Do not publish credentials, copy operator env to Render, reset/reseed the nonempty DB or run migrations. The approval-gated student-login operator transaction creates exactly one synthetic User/StudentIdentity, extends the existing marker JSON with public_demo.version/student_id/username and grants fixed owned-table/sequence/UPDATE(id) row-lock privileges. It refuses unknown/valuable/ownerless data, unsafe roles and password mismatch; repeats verify without reset. Existing initializer default remains zero-student and refuses the extended state. No new schema/migration. Runtime has no DDL/admin/ownership/membership; UPDATE(id) technically permits ID edits and is not a final production role policy. Failed transactions may leave harmless sequence gaps, never resets. Bounded read-only startup checks refuse unexpected marker/schema/migrations/counts/identities/privileges before Gunicorn binds; full corpus checks remain operator-only.
+
+**Tests/evidence:**111 frontend tests/lint/build;240 PG17.11 backend passes;235 SQLite passes+5 PG-only skips;36 Chromium passes on fresh fixtures;16 native17 initializer/controlled-login/recovery assertions, including40-table/1237-row/37-sequence independent encrypted restore; real restricted runtime post-use corpus/ownership/privilege checks; bash/pip/schema checks. TESTING records initial resolved fixture/verifier issues and limits. No real provider requests or hosted acceptance/deployment of this candidate. Entry archive, current release/staged/secret logs, protected hashes, local test fixtures/operator plans and actual publication receipt are private at parent `.recovery/prepal-public-publication-b5yplbn3/`. Protected original databases/media/environment files remain unchanged. Final security/source/export checks must be complete before commit, and GitHub CI must be fully green for its exact SHA before reporting release success.
+
+**Existing Render state:** Designated account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging, existing Free RSPC-RAS- service srv-dbe6d5vb9u1s738ikh80 and prepal-staging-db only. UI shows main, deployed d2f014c, build bash deploy/render-build.sh, start bash deploy/render-free-demo-start.sh, health/api/health/ and Auto-Deploy visually Off. No Edit/Save/Manual Deploy or secret reveal/copy action was performed. Current private barrier, actual runtime/service secrets and TLS remain in place; the previously retired Django key stays retired. Original operator barrier/signing values are not replacement Render secrets.
+
+**Exact next task:** After verified Git publication/green CI, owner reviews/approves [the live packet](DEPLOYMENT.md#hosted-public-homepage-demo-approval-packet): fresh read-only native encrypted snapshot and exact synthetic/role/TLS preflight, additive student-login --apply/limited grants, runtime verification, then Save-only specified Render profile/start variables. Do not execute them based on Git approval. Afterwards request explicit manual deployment authority and select the exact green-CI SHA. Hosted acceptance must use a fresh browser without cached Basic credentials; verify public home/auth pages, protected APIs/routes/original redirect, private synthetic login/owned writes/logout, Admin/static/health/HTTPS/CSRF/mobile/a11y and closed providers/signup/uploads. No real student data. Durable nonexpiring PostgreSQL, independent off-device recovery custody/scheduled backups/retention/restore/RPO-RTO, operations, public-auth/staff/abuse/privacy/deletion/media and production role-policy acceptance remain real-registration blockers. The existing disposable-only recovery waiver never covers real students.
+
+Final local release checks:286 release inputs/19 canonical documents validate; protected17 file hashes and original migrations/private production profiles unchanged; npm/pip runtime advisories0, pip check clean, budget concurrency ceiling check passed. Hosted login identifier/password are both privately generated in0600 JSON outside Git and are absent from source; no live account exists yet. Source/staged secret scans, export checks and exact publication/CI receipt are required gates; publication receipt is written only after actual remote verification.
+
+---
+
+## Current handoff — LOCAL student-gated public preview, 25 October 2026
+
+**Authority/state:** Main/HEAD remains `d2f014c186acba1360e9438a2382d13b85e74c6a`. No commit, staging, push, Render change, hosted migration or deployment in this task. The earlier14 modified documentation files were present at entry, privately archived with all271 then-current release inputs and preserved verbatim beneath current additions. This local student preview supersedes old task instructions only for its approved scope. Existing deployed restricted free-demo remains unchanged, with Basic protection, Auto-Deploy Off, verify-full and closed student/AI services. Do not mistake previous hosted acceptance for this new profile's deployment.
+
+**Implementation:** New core.public_demo_settings is explicitly local/marked/PostgreSQL-only and refuses Render/production/hosted/SQLite targets. It reuses existing Django sessions, StudentIdentity and owned services. Public homepage and login/signup pages issue no Basic challenge; signup is informational and registration/recovery remain server-disabled. Only counts/feature policy/CSRF/health/session endpoints are public; all other APIs fail closed for active nonstaff student identity, with no Basic credentials accepted. LearningRoute guards existing learning pages; AppShell does not fetch hierarchy for guests; login returns to validated local path/query/hash. Expiry clears private UI, and versioned status refresh prevents a stale response undoing logout. Django Admin remains staff-authorized/read-only; uploads, Google and Gemini are disabled. No new authentication backend or schema.
+
+**Source/test/config files changed or added in this task:**
+
+- `.github/workflows/checks.yml`
+- `backend/content/student_auth.py`
+- `backend/content/test_public_demo.py`
+- `backend/content/views.py`
+- `backend/core/public_demo_settings.py`
+- `backend/core/public_demo_support.py`
+- `e2e-public-demo/access.spec.js`
+- `eslint.config.js`
+- `package.json`
+- `playwright.public-demo.config.js`
+- `scripts/prepare_public_demo.py`
+- `scripts/release_manifest.py`
+- `src/App.jsx`
+- `src/api/client.js`
+- `src/components/auth/LearningRoute.jsx`
+- `src/components/auth/returnLocation.js`
+- `src/components/layout/AppShell.jsx`
+- `src/context/AuthContext.jsx`
+- `src/pages/home.jsx`
+- `src/pages/loginPage.jsx`
+- `src/pages/resetPasswordPage.jsx`
+- `src/pages/signupPage.jsx`
+- `src/test/public-demo.test.jsx`
+
+**Documentation:** All19 existing canonical documents now describe this profile or its relevant state/API/Admin/security/test/continuation consequences. No duplicate handoff/report was created. The complete old deployment evidence and significant decisions remain in place below. Review the exact worktree diff; do not discard prior documentation edits.
+
+**Database/migrations:** No new migrations/models. Existing30 migrations (content0001–0012 plus18 framework) applied to NEW disposable local PG17.11 `prepal_local_public_demo_auth_20261025` on loopback61348. Corpus:142 topics,15 published synthetic lessons,15 demo-reviewed quizzes,75 questions,300 choices, one view-only staff and two synthetic StudentIdentity accounts, zero real students/uploads. Browser tests added only synthetic owned records. Original SQLite, existing demos/media and hosted database untouched;17 protected hashes verified unchanged. Native17 test cluster is private, separate from hosted Render. Migration/runtime secrets and generated account passwords are outside application Git at parent `.recovery/prepal-public-demo-_3up9ot_/{migration.env,runtime.env,demo/accounts.json}`, permissions0600; never print/publish them.
+
+**Runtime policy/limitation:** No DDL/database CREATE/TEMP/ownership/admin flags/membership. Session/auth bookkeeping plus owned learner tables/association tables are writable. Canonical educational fields are read-only. Existing SELECT FOR UPDATE grading requires UPDATE privilege; local role has UPDATE(id) only on Question/Choice/Quiz/QuizReview/TopicPublication. This technically permits ID mutation, so do not claim SQL-level immutability; review locking/role design before production. The hosted read-only role was never changed. The new preparer refused its populated target before writes, verified by all-table hashes. No reset/adoption behavior.
+
+**Verified:**111 frontend tests, ESLint/build;234 PG17 backend passes;229 SQLite passes +5 PG-only skips;36 Chromium passes (15 public/9 integration/4 sample/5 student/3 new PG public-preview); local Django/system/migration consistency; no new migration files; npm/pip runtime advisories0. Details and initial resolved test/config/grant issues are in TESTING. Mac sandbox /bin/ps denial causes the existing bounded PDF regression to fail; full tests passed with required process-monitor access, without changing parser limits. Public browser tests use loopback HTTP; no hosted HTTPS/cookies/public enrollment acceptance is claimed. New CI wiring is unpushed/unexecuted on GitHub.
+
+**Final release verification:**280 release inputs/19 canonical docs validated; gitleaks0; fresh generated runtime/signing/account values absent from source; no staged files or tracked private environment/database/key artifacts; git diff --check and pip check passed. Clean private source export installed with offline npm ci and passed111 tests/lint/build. Source recovery archive and final release export are under parent `.recovery/prepal-public-demo-_3up9ot_`. PostgreSQL test cluster was stopped after verification; databases/roles/configs/corpus are preserved. For another local review, start the existing private cluster at `.recovery/prepal-pg17-publication-tz8_ejzs/cluster17` using its native17 pg_ctl, then load only the new local runtime.env and follow DEPLOYMENT. No hosted target was contacted. Working changes total42 files (19 canonical docs +23 source/config/test files); all14 prior modified docs remain intact. This has not been published or accepted as production authentication.
+
+**Remaining blockers / exact next task:** Owner reviews this local diff, documented runtime column-grant limitation and synthetic results. Do not deploy this local-only settings module or remove the live barrier. Before a hosted student profile is designed/activated, obtain approval for a nonexpiring persistent database, separated roles/TLS, encrypted scheduled backups/retention and independent off-host recovery-key custody + tested restore/RPO/RTO, same-origin HTTPS/secure cookies/CSRF/proxy/static/private-storage controls, staff security, registration/email verification/abuse/reset/enumeration/retention/deletion/privacy operations, content rights and monitoring. The disposable-demo loss waiver never covers students. Git publication, environment activation and deployment each need separate authority. Keep Google/Gemini and uploads off. See [DEPLOYMENT](DEPLOYMENT.md#local-student-gated-public-preview), [SECURITY](SECURITY.md) and [TESTING](TESTING.md).
+
+---
+
+# Current handoff — live restricted synthetic demo
+
+25 October 2026: the existing restricted demo is LIVE at https://rspc-ras.onrender.com. Render deployment dep-dbevgpfavr4c73c9m9i0 succeeded for main commit d2f014c186acba1360e9438a2382d13b85e74c6a at 18:11 IST. Matching GitHub Actions40171764725 is green. Account kartikyasokhal28@gmail.com / My Workspace / Prepal / Staging; existing Free web srv-dbe6d5vb9u1s738ikh80 and existing PostgreSQL dpg-dbe7a1oae00c73c5g090-a only. No new resource, purchase, upgrade, production release or valuable-data cutover.
+
+Branch main/HEAD remains d2f014c186acba1360e9438a2382d13b85e74c6a. Only the following documentation files changed locally; no code/model/migration/dependency edits, staging/commit/push or new GitHub CI run. The six pre-existing documentation changes were preserved in a hash-verified271-input private pre-edit archive.
+
+- AGENTS.md
+- README.md
+- backend/README.md
+- docs/AGENT_HANDOFF.md
+- docs/DEPLOYMENT.md
+- docs/PROJECT_STATUS.md
+- docs/SECURITY.md
+- docs/TESTING.md
+- docs/FEATURES.md
+- docs/CHANGELOG.md
+- docs/MVP_SCOPE.md
+- docs/IMPLEMENTATION_PLAN.md
+- docs/DECISIONS.md
+- docs/DATABASE_SCHEMA.md
+
+PREPAL_ENVIRONMENT=free-demo, PREPAL_FREE_DEMO=1 and PREPAL_FREE_DEMO_SYNTHETIC_DATA=1; external PostgreSQL host dpg-dbe7a1oae00c73c5g090-a.singapore-postgres.render.com with POSTGRES_SSLMODE=verify-full and trusted CA. Build bash deploy/render-build.sh; start bash deploy/render-free-demo-start.sh; health /api/health/; Auto-Deploy Off. Production security profiles are unchanged. Student authentication/progress/planner/attempt saving, Google, Gemini/email, uploads and Admin content mutations remain disabled; the private staging barrier remains required.
+
+Exactly30 migrations applied (content0001–0012 plus18 framework migrations),142 original syllabus topics/five subjects,15 sample note lessons,15 quizzes,75 questions,300 choices,19 tags,15 aliases,30 publications including ancestors,30 curated relationships and30 approved links. Exactly one synthetic view-only staff sample-editor, zero students/uploads/bookmarks/progress/saved attempts/AI requests. Engineering sample notices and quiz review reasons are not human academic approval.
+
+Guarded initialize, reviewed grant-runtime and runtime verify succeeded. Post-browser read-only runtime verify passed again with changed=false and all counts unchanged. Actual runtime probes reject DDL, content UPDATE and sequence SELECT with42501; all probes rolled back. Runtime has content/framework SELECT, session CRUD and auth_user last_login/password bookkeeping only; no schema/database CREATE/TEMP, object ownership, privileged role flags or memberships. Server/native client17.11; TLS1.3/AES256GCM with verify-full. Existing SQLite/media/environment hashes are checked separately; no valuable source was transferred.
+
+Actual hosted Chrome checks passed: homepage142/five counts,142-link full expansion/five-root collapse, light/dark toggle, all15 sample lessons and their approved links/tags/related content, popup focus/new-tab attributes/Escape/focus restoration, three tag pages with exact counts, Monsoon search, all five subject practice pools and75/75 correct stateless scores, synthetic Admin login/session persistence/view-only detail/logout and five loaded Admin stylesheets. Config reports demo=true and student/AI/Google=false. Learner API error codes verified for guests and logged-in staff; Tutor request rejected as unavailable before provider work. HTTPS health200/status ok; unauthenticated homepage/config/Admin401 with Basic challenge, private/no-store/noindex; HSTS/nosniff/frame DENY verified. Keyboard skip-to-main, one main/one h1, no unnamed buttons and no horizontal overflow passed at1512px. This is a desktop browser smoke check, not a fresh mobile/axe/screen-reader/load audit.
+
+Fresh local security/initializer guards:15passed, system check0issues. Previous-turn same-source frontend90tests/lint/build pass; matching-source remote CI includes PostgreSQL17/backend/browser checks. No new full local backend/mobile/axe suite was claimed for documentation/hosting-only work. Docs/release/secret/protected-hash final results are in ../.recovery/prepal-live-deploy-xjhhgl_i/final-integrity.json.
+
+Security incident and resolution: Render Copy value unexpectedly populated the staging password in browser accessibility output. It was not copied into source, documentation or evidence files. Owner confirmed replacing ONLY STAGING_ACCESS_PASSWORD with a new strong value using Save only; that replacement was not retrieved or displayed. Owner then completed native Chrome Basic sign-in and actual hosted tests succeeded. Do not reuse the exposed barrier value. Never use Render Copy/reveal controls for credentials in future automation; preserve passwords/signing keys, suppress secret-bearing AX field values and prefer owner native sign-in. No DB credential, recovery key/passphrase or Django signing key was exposed in this incident; the separately known historical Django key remains retired.
+
+Owner explicitly waived permanent independent/off-device recovery-key custody ONLY for this disposable synthetic database; durable custody remains unconfirmed and production safeguards are not waived. A real read-only native pg_dump17.11 CMS AES256GCM snapshot now contains40tables/1237rows/zero uploads, encrypted to the dedicated owner certificate. Private snapshot/receipt are in ../.recovery/prepal-live-deploy-xjhhgl_i/hosted-encrypted-backup/. The dedicated key/restore tooling passed the earlier independent LOCAL PostgreSQL17 restore; this hosted snapshot was not restored live. No daily scheduler, off-host retention or production30-day guarantee is configured. Free cold starts/expiring DB remain unsuitable for valuable data.
+
+Private current evidence: ../.recovery/prepal-live-deploy-xjhhgl_i/; initializer/runtime/post-browser logs, runtime-permissions.json, hosted-browser-checks.json, hosted-unauthenticated.json, hosted-security-headers.json, render-final-settings.json and real hosted screenshots. Staff password/operator role configs remain0600 in ../.recovery/prepal-demo-init-hw0bq8ne/render-roles/; do not bulk-copy operator SECRET_KEY/STAGING_ACCESS_* to Render or print credentials.
+
+Exact next task: owner reviews the restricted live demo. Before any new implementation, obtain separate scope approval. Known presentation limitation: existing homepage/banner/reader copy still mentions AI capability or “Verified study notes” although this demo forces AI off and notes explicitly require human review; do not interpret generic UI labels as academic approval. A separately approved demo-copy follow-up would touch src/components/layout/AppShell.jsx, src/pages/home.jsx, src/pages/topicPage.jsx and src/components/ai/TutorPanel.jsx. Do not start Phase5, enable learners/AI, change production secrets, introduce uploads, buy services or transfer valuable data automatically.
+
+Historical sections below document prior gates/results; they do not override this completed scoped deployment or production restrictions.
+
+---
+
+# Current handoff — owner recovery key verified locally; off-device custody pending
+
+25October2026. Branch main/HEAD d2f014c186acba1360e9438a2382d13b85e74c6a unchanged; its CI40171764725 is green. This setup changes six existing documentation files only, uncommitted. No application/model/migration/dependency changes, Git publication, live initialization or Render mutation. Initial authenticated READ ONLY preflight verified exact prepal_staging_db/external host, server17.11, verify-full/TLS1.3, empty application schema and both restricted roles; native17 clients and operator0600/0700 permissions passed. No live migrations/rows/grants were applied. Offline graph remains30migrations through content0012.
+
+Owner explicitly rejected one-day rehearsal recipients and authorized a new dedicated owner key. Public certificate: /Users/kartikyasokhal/Prepal-Recovery/free-demo-2026-10-25/public/prepal-free-demo-recipient.pem
+
+SHA256 fingerprint: F8:FE:A1:03:BA:79:1E:72:A0:A7:5F:71:08:9E:01:4F:1C:2D:02:78:3E:EC:0B:DF:D1:32:68:8F:01:0F:E5:D4
+
+Certificate valid25October2026–22October2036. RSA4096 private key is passphrase-encrypted PKCS8 PBES2/AES256CBC with PBKDF2-HMAC-SHA256600000 iterations, outside Git/Render/database server; no plaintext private-key file created. Owner-only directories0700/files0600 verified. The transfer TAR contains an already encrypted private-key copy and public certificate/recovery instructions; the TAR container itself is not encrypted. Passphrase/database credentials are excluded and the passphrase must be stored separately.
+
+Real same-machine recovery test used the encrypted key extracted from the transfer kit, not the original key file: approved CMS AES256GCM backup decrypted and restored into a NEW local PostgreSQL17.11 database;40tables/1237rows/37sequences,142topics/15lessons/15quizzes/75questions/300choices/30migrations/one synthetic staff/zero students/uploads verified. Wrong passphrase and tampered CMS rejected; existing project archive/hash validation retained. Stock restore tooling lacks passphrase-file injection, so a private thin OpenSSL adapter supplies -passin file for CMS decrypt only; no application crypto code/TLS policy changed. Private local evidence remains in ../.recovery/prepal-live-init-preflight-gkz5o6ky/.
+
+DURABLE CUSTODY IS NOT COMPLETE. Exact next manual task: owner stores the encrypted-key transfer kit off this Mac in an encrypted password manager or encrypted external drive, stores the passphrase separately in independently recoverable protected custody, retrieves/verifies the package checksum, and confirms both exist. Never request/paste private key or passphrase into chat/docs. After owner confirmation, reverify the recipient/custody and all target prerequisites before any resumed, specifically approved guarded initialize/grant-runtime/verify operation. The owner's latest instruction is no live initialization yet. Later Render credentials/demo flags/manual deployment require separate approval.
+
+---
+
 # Current handoff — approved recovery-test synchronization
 
 25October2026. Branch main, base commit6b29e39fc94d982309f307d64e7a6518d96b39e1. Exactly five changed files: src/test/student-platform.test.jsx, AGENTS.md, docs/AGENT_HANDOFF.md, docs/PROJECT_STATUS.md and docs/TESTING.md. Four pre-existing failed-CI documentation updates are included and retained below. Private verified271-input pre-edit archive/evidence: ../.recovery/prepal-ci-navigation-4azshwe2/. Resolve this follow-up commit with git log -1 --format=%H -- src/test/student-platform.test.jsx; verify origin/main equality and the matching Actions run. Its actual SHA/run/outcome are recorded after push in that private directory's publication.json and the task report; no predeclared CI success.
