@@ -1,5 +1,5 @@
 import { beforeEach, expect, it, vi } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import axios from 'axios'
@@ -79,7 +79,9 @@ it('keeps planner inputs intact when scheduling validation fails', async () => {
 
 it('clears the recovery fragment and refreshes session state before returning to sign in', async () => {
   window.history.replaceState({}, '', '/reset-password#uid=synthetic&token=synthetic-token')
-  const refreshStatus = vi.fn().mockResolvedValue(undefined)
+  let finishRefresh
+  const refreshed = new Promise(resolve => { finishRefresh = resolve })
+  const refreshStatus = vi.fn().mockReturnValue(refreshed)
   axios.post.mockResolvedValue({data: {message: 'Password changed.'}})
   render(<MemoryRouter initialEntries={['/reset-password']}><AuthContext.Provider value={{...account, refreshStatus}}><Routes>
     <Route path="/reset-password" element={<ResetPasswordPage />} /><Route path="/login" element={<LoginPage />} />
@@ -88,6 +90,13 @@ it('clears the recovery fragment and refreshes session state before returning to
   const user = userEvent.setup()
   await user.type(screen.getByLabelText('New password'), 'New-Synthetic-Password-423!')
   await user.click(screen.getByRole('button', {name: 'Change password'}))
+  // The reset page publishes its own status before session refresh completes.
+  expect(await screen.findByRole('status')).toHaveTextContent(/^Password changed\.$/)
+  expect(refreshStatus).toHaveBeenCalledOnce()
+  expect(screen.queryByRole('heading', {name: 'Welcome back'})).not.toBeInTheDocument()
+  await act(async () => { finishRefresh() })
+  // Wait for completed navigation, not the reset page's intermediate status.
+  expect(await screen.findByRole('heading', {name: 'Welcome back'})).toBeVisible()
   expect(await screen.findByRole('status')).toHaveTextContent('Password changed. Sign in with your new password.')
   expect(refreshStatus).toHaveBeenCalledOnce()
   window.history.replaceState({}, '', '/')

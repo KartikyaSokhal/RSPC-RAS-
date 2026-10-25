@@ -1,3 +1,24 @@
+# Recovery navigation race verification — 25October2026
+
+The formerly failing assertion is deterministically reproduced as a permitted intermediate state: hold refreshStatus unresolved, observe exact reset-page status and no login heading; resolve that same promise in act, await the final login heading, then assert the original complete success text and refresh call. This proves correct navigation without altering application code. Twenty separate Vitest processes pass; no retries, timeouts added, sleeps, assertion removal or weakened checks.
+
+Reproduce from application root under pinned Node24.22.0: node node_modules/vitest/vitest.mjs run src/test/student-platform.test.jsx -t 'clears the recovery fragment'. Twenty individual logs and repeated-test.json are private at ../.recovery/prepal-ci-navigation-4azshwe2/. Full npm run check passes90tests/13files, ESLint and production build. Both full backend suites rerun:224 PostgreSQL17 passes;219 SQLite passes/five PostgreSQL-only skips. Guarded PostgreSQL17.11 initializer/native encrypted independent recovery passes11 assertions and verifies40tables/1237rows/37sequences. Migration consistency no changes; Django system0issues. Runtime/development pip-audit zero, npm runtime audit zero and pip check clean. Protected17 hashes unchanged; no runtime/authentication, dependency, model, migration or hosted-data changes. Previous parent CI failure is retained below; new matching remote CI must be inspected after normal publication before acceptance.
+
+
+Final local result: all33 Chromium journeys pass (15public,9integration,4sample,5student), plus20independent recovery-test runs and90frontend tests/lint/build.19 canonical documentation files/271 release inputs validate; exact five-file scope and preservation of all four pre-existing documentation updates verified. No source/history scanner findings; independent staged private-value checks are mandatory before commit. All17 protected hashes and other tracked runtime/config/model/migration/dependency files are unchanged. Publish normally only after staged checks and verify the exact new CI run; live initialization/deployment remain separate approval gates.
+
+---
+
+# Actual post-push CI failure — 25 October2026
+
+25October2026 post-push result: commit6b29e39fc94d982309f307d64e7a6518d96b39e1 is normally pushed to main; remote SHA matches. [CI40169515420](https://github.com/KartikyaSokhal/RSPC-RAS-/actions/runs/40169515420), job121097333587, FAILED at npm run check:89frontend passed/one failed. Backend, PostgreSQL17 initializer and browser CI steps were skipped. Do not call this release CI-accepted or use prior CI as acceptance. No CI retry or follow-up code change was made after failure; owner stop gate applies.
+
+Failure: src/test/student-platform.test.jsx:91, recovery-fragment/session-refresh test expected "Password changed. Sign in with your new password." but received intermediate "Password changed." ResetPasswordPage sets its status before awaiting refreshStatus and navigating; findByRole('status') can resolve against that intermediate element. Timing-race diagnosis is inferred from the exact log/code, not a proven product failure. These frontend files are byte-identical to the parent commit and were outside this28-file release; local90tests and33Chromium passed. Do not weaken assertions, blindly retry CI or change product authentication behavior.
+
+Exact next task needs approval: narrowly update src/test/student-platform.test.jsx to await completed login navigation/final status before asserting the unchanged full success message and session-refresh call, run focused/full frontend checks and regressions, review the extra test-file diff, then commit/normal push and verify its own CI including PostgreSQL17. Until then stop publication/deployment/live initialization. The following pre-push local verification remains valid for its stated environment only.
+
+---
+
 # Patched PostgreSQL17 publication verification — 25 October2026
 
 Exact28-file boundary: previously reviewed25 plus approved3 dependency files;271 pre-patch source inputs hash-archived outside checkout;17 protected database/media/environment hashes unchanged. PostgreSQL17.11 source SHA256 dd27f2b3c59e73ed14aa3324901242bf69a032a6347805f274e6260322d42979 verified against official ftp.postgresql.org. Built native server/pg_dump/pg_restore/psql17.11 with OpenSSL; private loopback SCRAM cluster only. No global install or hosted writes.

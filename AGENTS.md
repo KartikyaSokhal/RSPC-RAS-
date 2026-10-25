@@ -1,3 +1,19 @@
+## Current authority — approved navigation-test reliability fix
+
+25October2026: owner authorizes src/test/student-platform.test.jsx plus the four pending AGENTS/handoff/status/testing documentation updates, verification, normal commit/push to main and matching green GitHub CI. Controlled unresolved refresh reproduces the intermediate reset status; resolving it navigates correctly, confirming a test assertion race rather than a working-authentication bug. No runtime code, assertion removal, arbitrary waits, dependencies, migrations or other scope changes. Test now waits for the final login heading and retains the full success-message/session-refresh assertions while explicitly testing no premature navigation. Stop if a real navigation bug, new secret/divergence or critical CI failure appears. No live initialization/credentials/demo flags/Render settings/deploy/purchases. After successful matching CI, stop at guarded live-initialization/key-custody approval. Earlier failed-run gates below are historical and superseded only for this approved test patch.
+
+---
+
+## Current gate — published commit failed CI; stop
+
+25October2026 post-push result: commit6b29e39fc94d982309f307d64e7a6518d96b39e1 is normally pushed to main; remote SHA matches. [CI40169515420](https://github.com/KartikyaSokhal/RSPC-RAS-/actions/runs/40169515420), job121097333587, FAILED at npm run check:89frontend passed/one failed. Backend, PostgreSQL17 initializer and browser CI steps were skipped. Do not call this release CI-accepted or use prior CI as acceptance. No CI retry or follow-up code change was made after failure; owner stop gate applies.
+
+Failure: src/test/student-platform.test.jsx:91, recovery-fragment/session-refresh test expected "Password changed. Sign in with your new password." but received intermediate "Password changed." ResetPasswordPage sets its status before awaiting refreshStatus and navigating; findByRole('status') can resolve against that intermediate element. Timing-race diagnosis is inferred from the exact log/code, not a proven product failure. These frontend files are byte-identical to the parent commit and were outside this28-file release; local90tests and33Chromium passed. Do not weaken assertions, blindly retry CI or change product authentication behavior.
+
+Exact next task needs approval: narrowly update src/test/student-platform.test.jsx to await completed login navigation/final status before asserting the unchanged full success message and session-refresh call, run focused/full frontend checks and regressions, review the extra test-file diff, then commit/normal push and verify its own CI including PostgreSQL17. Until then stop publication/deployment/live initialization. The following pre-push local verification remains valid for its stated environment only.
+
+---
+
 ## Current authority — approved security patch and initializer publication
 
 25 October2026: owner explicitly approves pypdf6.21.1→6.21.2 in backend/requirements.in and both hash locks, relevant security/PDF/regression verification and the previously approved PostgreSQL17 initializer publication to main using a normal fast-forward push. No other dependency upgrades or unrelated work. Stop on new secrets, divergence or critical CI failure; never force-push. Existing25-file candidate plus these3 files are the reviewed28-file boundary. No live initialization/seed, Render credential/environment/network edits, deployment, paid requests/services or purchases. Production gates stay unchanged; original/demo data and existing migrations preserved. Read newest handoff/TESTING/DEPLOYMENT. After successful publication/CI, next task remains explicit live initialization approval with durable recovery recipient/key custody; no automatic deployment.

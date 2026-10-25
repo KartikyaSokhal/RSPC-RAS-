@@ -1,3 +1,22 @@
+# Current status — approved recovery-test reliability follow-up
+
+25October2026. main base6b29e39fc94d982309f307d64e7a6518d96b39e1. Five-file follow-up preserves four pending failure documents and changes only the recovery regression test. Controlled refresh confirms an assertion race; application navigation/authentication is unchanged. Twenty independent runs passed, as did90frontend/lint/build,224 PostgreSQL17 backend,219 SQLite/five PG-only skips, guarded initializer/encrypted restore, migration/system and zero-finding runtime/development security checks. See TESTING for final browser/release evidence. Normal publication is approved after checks; verify the exact new SHA/CI rather than reuse the parent failure or earlier success. Next gate remains live initialization plus durable key custody approval, then separately approved Render configuration/manual deployment. No live mutation, feature activation or purchase.
+
+
+Final local result: all33 Chromium journeys pass (15public,9integration,4sample,5student), plus20independent recovery-test runs and90frontend tests/lint/build.19 canonical documentation files/271 release inputs validate; exact five-file scope and preservation of all four pre-existing documentation updates verified. No source/history scanner findings; independent staged private-value checks are mandatory before commit. All17 protected hashes and other tracked runtime/config/model/migration/dependency files are unchanged. Publish normally only after staged checks and verify the exact new CI run; live initialization/deployment remain separate approval gates.
+
+---
+
+# Current status — published; CI acceptance blocked
+
+25October2026 post-push result: commit6b29e39fc94d982309f307d64e7a6518d96b39e1 is normally pushed to main; remote SHA matches. [CI40169515420](https://github.com/KartikyaSokhal/RSPC-RAS-/actions/runs/40169515420), job121097333587, FAILED at npm run check:89frontend passed/one failed. Backend, PostgreSQL17 initializer and browser CI steps were skipped. Do not call this release CI-accepted or use prior CI as acceptance. No CI retry or follow-up code change was made after failure; owner stop gate applies.
+
+Failure: src/test/student-platform.test.jsx:91, recovery-fragment/session-refresh test expected "Password changed. Sign in with your new password." but received intermediate "Password changed." ResetPasswordPage sets its status before awaiting refreshStatus and navigating; findByRole('status') can resolve against that intermediate element. Timing-race diagnosis is inferred from the exact log/code, not a proven product failure. These frontend files are byte-identical to the parent commit and were outside this28-file release; local90tests and33Chromium passed. Do not weaken assertions, blindly retry CI or change product authentication behavior.
+
+Exact next task needs approval: narrowly update src/test/student-platform.test.jsx to await completed login navigation/final status before asserting the unchanged full success message and session-refresh call, run focused/full frontend checks and regressions, review the extra test-file diff, then commit/normal push and verify its own CI including PostgreSQL17. Until then stop publication/deployment/live initialization. The following pre-push local verification remains valid for its stated environment only.
+
+---
+
 # Current status — security patch verified for initializer publication
 
 25 October2026. main publication base ff4acdc442cb971bd1e609433bd7de28488ddab1; owner approves normal commit/push after exact28-file/security verification (previous25 plus3 dependency files). Resolve release SHA from git log -1 --format=%H -- backend/requirements.in and verify origin/main/Actions. No predeclared remote CI success.
